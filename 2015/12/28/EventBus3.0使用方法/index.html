@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>EventBus3.0使用方法 | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的
+
+EventBus所有版本的Marven仓库http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22EventBus2.x使用教程http://blog.csdn.net/harvic88">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventBus3.0使用方法">
+<meta property="og:url" content="http://yoursite.com/2015/12/28/EventBus3.0使用方法/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的
+
+EventBus所有版本的Marven仓库http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22EventBus2.x使用教程http://blog.csdn.net/harvic88">
+<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EventBus3.0使用方法">
+<meta name="twitter:description" content="EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的
+
+EventBus所有版本的Marven仓库http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22EventBus2.x使用教程http://blog.csdn.net/harvic88">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-EventBus3.0使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/28/EventBus3.0使用方法/" class="article-date">
+  	<time datetime="2015-12-28T10:41:34.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EventBus3.0使用方法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的</p>
+<blockquote>
+<p>EventBus所有版本的Marven仓库<a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22" title="EventBus所有版本的Marven仓库" target="_blank" rel="external">http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22</a><br><br>EventBus2.x使用教程<a href="http://blog.csdn.net/harvic880925/article/details/40787203" title="EventBus2.x使用教程" target="_blank" rel="external">http://blog.csdn.net/harvic880925/article/details/40787203</a><br><a href="http://www.cnblogs.com/angeldevil/p/3715934.html" target="_blank" rel="external">http://www.cnblogs.com/angeldevil/p/3715934.html</a></p>
+</blockquote>
+<p>今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。</p>
+<a id="more"></a>
+<h2 id="3-0与2-x的区别"><a href="#3-0与2-x的区别" class="headerlink" title="3.0与2.x的区别"></a>3.0与2.x的区别</h2><p>主要区别在订阅函数的不同</p>
+<p>EventBus2.x中只暴露了四个方法供用户调用，分别是</p>
+<ul>
+<li>onEvent：该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件线程在同一个线程。使用这个方法时，在onEvent方法中不能执行耗时操作，如果执行耗时操作容易导致事件分发延迟。</li>
+<li>onEventMainThread：不论事件是在哪个线程中发布出来的，onEventMainThread都会在UI线程中执行，接收事件就会在UI线程中运行，这个在Android中是非常有用的，因为在Android中只能在UI线程中跟新UI，所以在onEvnetMainThread方法中是不能执行耗时操作的。</li>
+<li>onEventBackgroundThread：如果事件是在UI线程中发布出来的，那么onEventBackground就会在子线程中运行，如果事件本来就是子线程中发布出来的，那么onEventBackground函数直接在该子线程中执行。</li>
+<li>onEventAsync：无论事件在哪个线程发布，都会创建新的子线程在执行onEventAsync.</li>
+</ul>
+<p>EventBus3.0中必须使用注解，例如：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+public void firstEvent(FirstEvent event) {
+    Log.e(&quot;TAG&quot;, &quot;Async&quot; + Thread.currentThread().getName());
+}
+</code></pre><p>好处在于订阅函数可以随便起名字，其他与2.x没什么不同。<br>这里Subscribe中的key需要解释一下含义，Subscribe中可以传三种值：</p>
+<ul>
+<li><p>ThreadMode：这是个枚举，有四个值，决定订阅函数在哪个线程执行</p>
+<ul>
+<li>PostThread：事件发送者在哪个线程就执行在哪个线程。同2.x中的onEvent方法，默认值就是这个</li>
+<li>MainThread：订阅函数一定执行在主线程。同onEventMainThread方法</li>
+<li>BackgroundThread：如果是事件从子线程发出，订阅函数就执行在那个子线程，不会创建新的子线程；如果主线程发出事件，则创建子线程。同onEventBackgroundThread方法</li>
+<li>Async：一定创建子线程。同onEventAsync方法。</li>
+</ul>
+</li>
+<li><p>sticky：默认为false，如果为true，当通过<code>postSticky</code>发送一个事件时，这个类型的事件的最后一次事件会被缓存起来，当有订阅者注册时，会把之前缓存起来的这个事件直接发送给它。使用在比如事件发送者先启动了，订阅者还没启动的情况。</p>
+</li>
+<li>priority：默认值为0。订阅了同一个事件的订阅函数，在ThreadMode值相同的前提下，收到事件的优先级。</li>
+</ul>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><p>创建事件：</p>
+<pre><code>public class FirstEvent {
+    private String msg;
+    public FirstEvent(String msg){
+        this.msg = msg;
+    }
+    public String getMsg(){
+        return msg;
+    }
+}
+</code></pre><p>在MainActivity的onCreate方法中注册，onDestroy方法中反注册</p>
+<pre><code>EventBus.getDefault().register(this);
+EventBus.getDefault().unregister(this);
+</code></pre><p>订阅函数，此处用来查看执行在哪个线程（注意，这里的函数名可以任取）：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+public void onAsync(FirstEvent event) {
+    Log.e(&quot;TAG&quot;, &quot;Async: &quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.BackgroundThread)
+public void onBackgroundThread(FirstEvent event) {
+    Log.e(&quot;TAG&quot;, &quot;BackgroundThread: &quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.MainThread)
+public void onMainThread(FirstEvent event) {
+    Log.e(&quot;TAG&quot;, &quot;MainThread: &quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.PostThread)
+public void onPostThread(FirstEvent event) {
+    Log.e(&quot;TAG&quot;, &quot;PostThread: &quot; + Thread.currentThread().getName());
+}
+</code></pre><p>在SecondActivity发送事件（主线程中发送）：</p>
+<pre><code>EventBus.getDefault().post(new FirstEvent(&quot;啦啦啦&quot;));
+</code></pre><p>执行结果如下：</p>
+<pre><code>Async: pool-1-thread-1
+MainThread: main
+PostThread: main
+BackgroundThread: pool-1-thread-2
+</code></pre><p>如果是在子线程中发送：</p>
+<pre><code>new Thread(new Runnable() {
+
+    @Override
+    public void run() {
+        EventBus.getDefault().post(new FirstEvent(&quot;啦啦啦&quot;));
+    }
+}).start();
+</code></pre><p>执行结果如下：</p>
+<pre><code>BackgroundThread: Thread-450
+PostThread: Thread-450
+Async: pool-1-thread-1
+MainThread: main
+</code></pre><p>如果先启动SecondActivity，后启动MainActivity：</p>
+<pre><code>@Override
+public void onClick(View v) {
+    EventBus.getDefault().postSticky(new FirstEvent(&quot;啦啦啦&quot;));
+    startActivity(new Intent(SecondActivity.this,MainActivity.class));
+}
+</code></pre><p>确实只有onAsync方法收到了消息。</p>
+<p>至此对EventBus的试验基本就结束了，各位可以自行选择不同的ThreadMode值，让订阅函数执行在不同的线程。根据需要选择是否需要sticky=true。</p>
+<p>完整的MainActivity和SecondActivity代码如下（xml文件就不贴了，就一个Button）：</p>
+<pre><code>public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        SecondActivity.class));
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+    public void onAsync(FirstEvent event) {
+        Log.e(&quot;TAG&quot;, &quot;Async: &quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.BackgroundThread)
+    public void onBackgroundThread(FirstEvent event) {
+        Log.e(&quot;TAG&quot;, &quot;BackgroundThread: &quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onMainThread(FirstEvent event) {
+        Log.e(&quot;TAG&quot;, &quot;MainThread: &quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.PostThread)
+    public void onPostThread(FirstEvent event) {
+        Log.e(&quot;TAG&quot;, &quot;PostThread: &quot; + Thread.currentThread().getName());
+    }
+
+}
+
+
+public class SecondActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        findViewById(R.id.second).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new FirstEvent(&quot;Lai自星星的我&quot;));
+                startActivity(new Intent(SecondActivity.this,MainActivity.class));
+            }
+        });
+    }
+
+}
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          在Android5.x上运行ARM架构程序
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="EventBus3.0使用方法" data-title="EventBus3.0使用方法" data-url="http://yoursite.com/2015/12/28/EventBus3.0使用方法/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>多渠道打包总结 | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用gradle进行多渠道打包使用Android studio
+基本多渠道打包以友盟的为例
+渠道信息一般在 AndroidManifest.xml中修改以下值：
+&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
+首先你必须在AndroidManifest.xm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多渠道打包总结">
+<meta property="og:url" content="http://yoursite.com/2016/01/11/多渠道打包总结/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="使用gradle进行多渠道打包使用Android studio
+基本多渠道打包以友盟的为例
+渠道信息一般在 AndroidManifest.xml中修改以下值：
+&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
+首先你必须在AndroidManifest.xm">
+<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多渠道打包总结">
+<meta name="twitter:description" content="使用gradle进行多渠道打包使用Android studio
+基本多渠道打包以友盟的为例
+渠道信息一般在 AndroidManifest.xml中修改以下值：
+&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
+首先你必须在AndroidManifest.xm">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-多渠道打包总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/11/多渠道打包总结/" class="article-date">
+  	<time datetime="2016-01-11T07:15:30.000Z" itemprop="datePublished">2016-01-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多渠道打包总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多渠道打包/">多渠道打包</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用gradle进行多渠道打包"><a href="#使用gradle进行多渠道打包" class="headerlink" title="使用gradle进行多渠道打包"></a>使用gradle进行多渠道打包</h2><p>使用Android studio</p>
+<h3 id="基本多渠道打包"><a href="#基本多渠道打包" class="headerlink" title="基本多渠道打包"></a>基本多渠道打包</h3><p>以友盟的为例</p>
+<p>渠道信息一般在 <code>AndroidManifest.xml</code>中修改以下值：</p>
+<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;wandoujia&quot; /&gt;
+</code></pre><p>首先你必须在<code>AndroidManifest.xml</code>中的meta-data修改以下的样子：</p>
+<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;${UMENG_CHANNEL_VALUE}&quot; /&gt;
+</code></pre><p>其中<code>${UMENG_CHANNEL_VALUE}</code>中的值就是你在gradle中自定义配置的值。</p>
+<p><code>build.gradle</code>文件就利用<code>productFlavors</code>这样写：</p>
+<pre><code>productFlavors {
+    wandoujia {}
+    baidu {}
+    c360 {}
+    uc {}
+
+    productFlavors.all { flavor -&gt;
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+}
+</code></pre><p>其中name的值对相对应各个<code>productFlavors</code>的选项值，这样就达到自动替换渠道值的目的了。</p>
+<a id="more"></a>
+<p>这样生成apk时，选择相应的Flavors来生成指定渠道的包就可以了，而且生成的apk会自动帮你加上相应渠道的后缀，非常方便和直观。大家可以自己反编译验证。</p>
+<p>还可以一次生成所有渠道包.</p>
+<p>在as底栏中有个命令行工具Terminal,打开后就就在当前项目的目录下。</p>
+<p>输入这个命令：</p>
+<pre><code>gradlew assembleRelease
+</code></pre><p>就可以一次性生成所有的渠道包了</p>
+<p>所有生成的apk在项目的<code>build\outputs\apk</code>下</p>
+<p>第一次使用命令可能需要下载gradle，请自备梯子。</p>
+<h3 id="进阶：适配渠道包"><a href="#进阶：适配渠道包" class="headerlink" title="进阶：适配渠道包"></a>进阶：适配渠道包</h3><p>主要是使用productFlavors这个DSL容器进行渠道包的适配，如果对gradle不够了解，可以看看这个系列的教程<a href="http://blog.csdn.net/qinxiandiqi/article/category/2394347" target="_blank" rel="external">http://blog.csdn.net/qinxiandiqi/article/category/2394347</a></p>
+<p>看下面这部分代码：</p>
+<pre><code>android {
+    ....
+
+    productFlavors {
+        flavor1 {
+            minSdkVersion 14
+        }
+    }
+}
+</code></pre><p>上例定义了一个flavor：flavor1，并指定了应用的minSdkVersion为14（当然还可以配置更多的属性，具体可参考相关文档）。与此同时，Gradle还会为该flavor关联对应的sourceSet，默认位置为src/<flavorname>目录，对应到本例就是src/flavor1。</flavorname></p>
+<p>接下来，要做的就是根据具体的需求在build.gradle文件中配置flavor，并添加必要的代码和资源文件。以flavor1为例，运行gradle assembleFlavor1命令既可生成所需的适配包。</p>
+<ol>
+<li><p>使用不同的包名<br>示例如下：</p>
+<pre><code>productFlavors {
+    test1 {
+        applicationId &quot;com.app.test1&quot;
+    }
+}
+</code></pre><p>上面的代码添加了一个名为test1的flavor，并指定了应用的包名为com.app.test1，运行gradle assembleTest1命令即可生成test1适配包。<br></p>
+</li>
+<li><p>使用不同的应用名<br>Gradle在构建应用时，会优先使用flavor所属dataSet中的同名资源。所以，解决思路就是在flavor的dataSet中添加同名的字符串资源，以覆盖默认的资源。下面以适配wandoujia渠道的应用名为美团团购为例进行介绍。<br>首先，在build.gradle配置文件中添加如下flavor：</p>
+<pre><code>android {
+    productFlavors {
+        wandoujia { 
+        }
+    }
+}
+</code></pre><p>上面的配置会默认<code>src/wandoujia</code>目录为<code>wandoujia flavor</code>的<code>dataSet</code>。<br><br>接下来，在src目录内创建wandoujia目录，并添加如下应用名字符串资源（<code>src/wandoujia/res/values/appname.xml</code>）：</p>
+<pre><code>&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;美团团购&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre><p>默认的应用名字符串资源如下（<code>src/main/res/values/strings.xml</code>）:</p>
+<pre><code>&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;美团&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre><p>最后，运行gradle assembleWandoujia命令即可生成应用名为美团团购的应用了。<br></p>
+</li>
+<li><p>使用第三方SDK<br>某些渠道会要求客户端嵌入第三方SDK来满足特定的适配需求。比如360应用市场要求美团团购Android客户端的精品应用模块使用他们提供的SDK。问题的难点在于如何只为特定的渠道添加SDK，其他渠道不引入该SDK。使用flavor可以很好的解决这个问题，下面以为<code>qihu360 flavor</code>引入<code>com.qihoo360.union.sdk:union:1.0</code> SDK为例进行说明：</p>
+<pre><code>android {
+    productFlavors {
+        qihu360 {
+        }
+    }
+}
+...
+dependencies {
+    provided &apos;com.qihoo360.union.sdk:union:1.0&apos;
+    qihu360Compile &apos;com.qihoo360.union.sdk:union:1.0&apos;
+}
+</code></pre><p>上例添加了名为qihu360的flavor，并且指定编译和运行时都依赖<code>com.qihoo360.union.sdk:union:1.0</code>。而其他渠道只是在构建的时候依赖该SDK，打包的时候并不会添加它。<br><br>接下来，需要在代码中使用反射技术判断应用程序是否添加了该SDK，从而决定是否要显示360 SDK提供的精品应用。部分代码如下：</p>
+<pre><code>class MyActivity extends Activity {
+    private boolean useQihuSdk;
+
+    @override
+    public void onCreate(Bundle savedInstanceState) {
+        try {
+            Class.forName(&quot;com.qihoo360.union.sdk.UnionManager&quot;);
+            useQihuSdk = true;
+        } catch (ClassNotFoundException ignored) {
+
+        }
+    }
+}
+</code></pre><p>最后，运行<code>gradle assembleQihu360</code>命令即可生成包含360精品应用模块的渠道包了。</p>
+</li>
+</ol>
+<h2 id="使用Ant多渠道打包"><a href="#使用Ant多渠道打包" class="headerlink" title="使用Ant多渠道打包"></a>使用Ant多渠道打包</h2><p>针对使用Eclipse的用户</p>
+<p>跟着这个链接做（图文教程）<a href="http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747" target="_blank" rel="external">http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747</a></p>
+<p>因为我的需求是多渠道，多项目打包，所以略微修改了以下，如果是单个项目，完全使用上面链接中的方式即可</p>
+<pre><code>import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.apache.tools.ant.DefaultLogger;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectHelper;
+
+public class AntTest {
+    private Project project;
+
+    private static String sourceProjectPath;// 要打包的项目根目录
+    private static String targetApkPath;// 保存打包之后的apk的根目录
+    private static String signApk;// 这里的文件名必须是准确的项目名！就是Project工程的bin目录下面的apk安装包的名字
+    private static String signedApkPrex;// 重命名之后的apk名称前缀(地图项目不用改)
+    private static String placeHolder = &quot;@market@&quot;;// 需要修改manifest文件的地方(占位符)
+
+    public static void main(String args[]) {
+        // 工程目录File对象
+        File file = new File(&quot;..//&quot;);
+        // 获得本工作空间中所有完美攻略工程
+        String[] projects = file.list(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith(&quot;PerfectTools&quot;)
+                        &amp;&amp; new File(dir, name).isDirectory();
+            }
+        });
+        for (String project : projects) {
+            sourceProjectPath = new File(file, project).getAbsolutePath();
+            targetApkPath = &quot;E:\\apk_release&quot; + File.separator + project;
+            File targetApkDir = new File(targetApkPath);
+            if (!targetApkDir.exists()) {
+                targetApkDir.mkdirs();
+            }
+            signApk = project + &quot;-release.apk&quot;;
+            signedApkPrex = project + &quot;_&quot;;
+            //开始打包
+            startPacking();
+        }
+    }
+
+    @SuppressWarnings(&quot;resource&quot;)
+    protected static void startPacking() {
+        long startTime = 0L;
+        long endTime = 0L;
+        long totalTime = 0L;
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd:HH:mm:ss&quot;);
+        try {
+            System.out.println(&quot;---------ant批量自动化打包开始----------&quot;);
+            startTime = System.currentTimeMillis();
+            date.setTimeInMillis(startTime);
+            System.out.println(&quot;开始时间为:&quot; + sdf.format(date.getTime()));
+            BufferedReader br = new BufferedReader(new FileReader(&quot;market.txt&quot;));
+            String flag = null;
+            while ((flag = br.readLine()) != null) {
+                // 先修改manifest文件:读取临时文件中的@market@修改为市场标识,然后写入manifest.xml中
+                String tempFilePath = sourceProjectPath + File.separator
+                        + &quot;AndroidManifest.xml.temp&quot;;
+                String filePath = sourceProjectPath + File.separator
+                        + &quot;AndroidManifest.xml&quot;;
+                write(filePath, read(tempFilePath, flag.trim()));
+                // 执行打包命令
+                AntTest mytest = new AntTest();
+                mytest.init(sourceProjectPath + File.separator + &quot;build.xml&quot;,
+                        sourceProjectPath);
+                mytest.runTarget(&quot;clean&quot;);
+                mytest.runTarget(&quot;release&quot;);
+                // 打完包后执行重命名加拷贝操作
+                File file = new File(sourceProjectPath + File.separator + &quot;bin&quot;
+                        + File.separator + signApk);// bin目录下签名的apk文件
+
+                File renameFile = new File(targetApkPath + File.separator
+                        + signedApkPrex + flag + &quot;.apk&quot;);
+                // 将打包好的apk重命名后移动到copyApkPath位置
+                boolean renametag = file.renameTo(renameFile);
+                System.out.println(&quot;rename------&gt;&quot; + renametag);
+                System.out.println(&quot;file ------&gt;&quot; + file.getAbsolutePath());
+                System.out.println(&quot;rename------&gt;&quot;
+                        + renameFile.getAbsolutePath());
+            }
+            System.out.println(&quot;---------ant批量自动化打包结束----------&quot;);
+            endTime = System.currentTimeMillis();
+            date.setTimeInMillis(endTime);
+            System.out.println(&quot;结束时间为:&quot; + sdf.format(date.getTime()));
+            totalTime = endTime - startTime;
+            System.out.println(&quot;耗费时间为:&quot; + getBeapartDate(totalTime));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(&quot;---------ant批量自动化打包中发生异常----------&quot;);
+            endTime = System.currentTimeMillis();
+            date.setTimeInMillis(endTime);
+            System.out.println(&quot;发生异常时间为:&quot; + sdf.format(date.getTime()));
+            totalTime = endTime - startTime;
+            System.out.println(&quot;耗费时间为:&quot; + getBeapartDate(totalTime));
+        }
+    }
+
+    public void init(String _buildFile, String _baseDir) throws Exception {
+        project = new Project();
+        project.init();
+        DefaultLogger consoleLogger = new DefaultLogger();
+        consoleLogger.setErrorPrintStream(System.err);
+        consoleLogger.setOutputPrintStream(System.out);
+        consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
+        project.addBuildListener(consoleLogger);
+        if (_baseDir == null)
+            _baseDir = new String(&quot;.&quot;);
+        project.setBasedir(_baseDir);
+        if (_buildFile == null)
+            _buildFile = new String(sourceProjectPath + File.separator
+                    + &quot;build.xml&quot;);
+        ProjectHelper.configureProject(project, new File(_buildFile));
+    }
+
+    public void runTarget(String _target) throws Exception {
+        if (project == null)
+            throw new Exception(
+                    &quot;No target can be launched because the project has not been initialized. Please call the &apos;init&apos; method first !&quot;);
+        if (_target == null)
+            _target = project.getDefaultTarget();
+        project.executeTarget(_target);
+    }
+
+    /**
+     * 根据所秒数,计算相差的时间并以**时**分**秒返回
+     * 
+     * @param d1
+     * @param d2
+     * @return
+     */
+    public static String getBeapartDate(long m) {
+        m = m / 1000;
+        String beapartdate = &quot;&quot;;
+        int nDay = (int) m / (24 * 60 * 60);
+        int nHour = (int) (m - nDay * 24 * 60 * 60) / (60 * 60);
+        int nMinute = (int) (m - nDay * 24 * 60 * 60 - nHour * 60 * 60) / 60;
+        int nSecond = (int) m - nDay * 24 * 60 * 60 - nHour * 60 * 60 - nMinute
+                * 60;
+        beapartdate = nDay + &quot;天&quot; + nHour + &quot;小时&quot; + nMinute + &quot;分&quot; + nSecond + &quot;秒&quot;;
+
+        return beapartdate;
+    }
+
+    public static String read(String filePath, String replaceStr) {
+        BufferedReader br = null;
+        String line = null;
+        StringBuffer buf = new StringBuffer();
+
+        try {
+            // 根据文件路径创建缓冲输入流
+            br = new BufferedReader(new FileReader(filePath));
+            // 循环读取文件的每一行, 对需要修改的行进行修改, 放入缓冲对象中
+            while ((line = br.readLine()) != null) {
+                // 此处根据实际需要修改某些行的内容
+                if (line.contains(placeHolder)) {
+                    line = line.replace(placeHolder, replaceStr);
+                    buf.append(line);
+                } else {
+                    buf.append(line);
+                }
+                buf.append(System.getProperty(&quot;line.separator&quot;));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    br = null;
+                }
+            }
+        }
+
+        return buf.toString();
+    }
+
+    /**
+     * 将内容回写到文件中
+     * 
+     * @param filePath
+     * @param content
+     */
+    public static void write(String filePath, String content) {
+        BufferedWriter bw = null;
+
+        try {
+            // 根据文件路径创建缓冲输出流
+            bw = new BufferedWriter(new FileWriter(filePath));
+            // 将内容写入文件中
+            bw.write(content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭流
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    bw = null;
+                }
+            }
+        }
+    }
+}
+</code></pre><p>渠道信息market.txt放在java项目的根目录中，我的渠道列表如下：</p>
+<pre><code>zhanwai
+xiaomi
+oppo
+lenovo
+wandoujia
+meizu
+huawei
+hisense
+tencent
+liqucn
+wo
+eoemarket
+sogou
+yybei
+letv
+yyjia
+mm
+anzhi
+</code></pre><p>以下三个文件拷入要打包的项目中：</p>
+<ul>
+<li><p>ant.properties</p>
+<pre><code>key.store=D:\\kding.keystore //签名路径
+key.store.password=525b2102
+key.alias=kding.keystore
+key.alias.password=525b2102
+</code></pre></li>
+<li><p>build.xml(ant自动生成的文件，只需要修改project name=你的项目名)</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project name=&quot;PerfectToolsOfZhslm&quot; default=&quot;help&quot;&gt;
+    &lt;property file=&quot;local.properties&quot; /&gt;
+    &lt;property file=&quot;ant.properties&quot; /&gt;
+    &lt;property environment=&quot;env&quot; /&gt;
+    &lt;condition property=&quot;sdk.dir&quot; value=&quot;${env.ANDROID_HOME}&quot;&gt;
+        &lt;isset property=&quot;env.ANDROID_HOME&quot; /&gt;
+    &lt;/condition&gt;
+    &lt;loadproperties srcFile=&quot;project.properties&quot; /&gt;
+    &lt;fail
+            message=&quot;sdk.dir is missing. Make sure to generate local.properties using &apos;android update project&apos; or to inject it through the ANDROID_HOME environment variable.&quot;
+            unless=&quot;sdk.dir&quot;
+    /&gt;
+    &lt;import file=&quot;custom_rules.xml&quot; optional=&quot;true&quot; /&gt;
+    &lt;import file=&quot;${sdk.dir}/tools/ant/build.xml&quot; /&gt;
+&lt;/project&gt;
+</code></pre></li>
+<li><p>local.properties(sdk所在目录)</p>
+<pre><code>sdk.dir=D:\\adt-bundle-windows-x86_64-20140702\\sdk
+</code></pre></li>
+</ul>
+<h2 id="使用python脚本进行多渠道打包"><a href="#使用python脚本进行多渠道打包" class="headerlink" title="使用python脚本进行多渠道打包"></a>使用python脚本进行多渠道打包</h2><p>使用脚本的打包方式速度很慢，每次打包都需要重新编译，如果需要打包的渠道很多，建议采用以下</p>
+<ol>
+<li>下载安装python环境</li>
+<li>下载python脚本 <code>AndroidMultiChannelBuildTool</code><a href="https://github.com/GavinCT/AndroidMultiChannelBuildTool" target="_blank" rel="external">https://github.com/GavinCT/AndroidMultiChannelBuildTool</a></li>
+<li>将<code>ChannelUtil.java</code>代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：<code>AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；</code></li>
+<li>在<code>PythonTool/Info/channel.txt</code>中编辑渠道列表，以换行隔开，工程中有示例</li>
+<li>打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 <code>python MultiChannelBuildTool.py</code>）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）</li>
+</ol>
+<p>参考链接</p>
+<blockquote>
+<p>Android studio 多渠道打包(超简洁版)<a href="http://xuyazhou.com/archives/461" target="_blank" rel="external">http://xuyazhou.com/archives/461</a><br>美团Android自动化之旅—适配渠道包<a href="http://tech.meituan.com/mt-apk-adaptation.html" title="美团Android自动化之旅—适配渠道包" target="_blank" rel="external">http://tech.meituan.com/mt-apk-adaptation.html</a><br><br>Android Gradle Plugin指南（五）——Build Variants（构建变种版本）<a href="http://blog.csdn.net/qinxiandiqi/article/details/37906449" target="_blank" rel="external">http://blog.csdn.net/qinxiandiqi/article/details/37906449</a><br>美团Android自动化之旅—生成渠道包<a href="http://tech.meituan.com/mt-apk-packaging.html" title="美团Android自动化之旅—生成渠道包" target="_blank" rel="external">http://tech.meituan.com/mt-apk-packaging.html</a><br><br>Android批量打包提速 - 1分钟900个市场不是梦<a href="http://www.cnblogs.com/ct2011/p/4152323.html" title="Android批量打包提速 - 1分钟900个市场不是梦" target="_blank" rel="external">http://www.cnblogs.com/ct2011/p/4152323.html</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/03/算法系列-1-简单排序/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          算法系列(1)--简单排序算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Android5.x上运行ARM架构程序</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="多渠道打包总结" data-title="多渠道打包总结" data-url="http://yoursite.com/2016/01/11/多渠道打包总结/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

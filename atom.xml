@@ -1,0 +1,1714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Smarx&#39;s Blog</title>
+  <subtitle>一只程序猿的进化之路</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-04-14T14:53:28.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>聪明叉</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法系列(2)--不那么简单的排序之希尔、归并、快速排序</title>
+    <link href="http://yoursite.com/2016/04/14/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-2-%E4%B8%8D%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F/"/>
+    <id>http://yoursite.com/2016/04/14/算法系列-2-不那么简单的排序/</id>
+    <published>2016-04-14T14:48:23.000Z</published>
+    <updated>2016-04-14T14:53:28.000Z</updated>
+    
+    <content type="html">&lt;p&gt;也不知道与简单排序对应的应该叫什么, 就叫不那么简单的排序好了.&lt;/p&gt;
+&lt;p&gt;本篇博客主要学习了希尔排序、归并排序and快速排序。&lt;/p&gt;
+&lt;p&gt;注: 这一篇和上一篇&lt;a href=&quot;http://smarxpan.github.io/2016/04/03/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-1-%E7%AE%80%E5%8D%95%E6%8E%92%E5%BA%8F/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简单排序&lt;/a&gt;都算是学习&lt;a href=&quot;http://blog.csdn.net/column/details/algorithm-easyword.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;白话算法系列&lt;/a&gt;的学习笔记吧&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;希尔排序&quot;&gt;&lt;a href=&quot;#希尔排序&quot; class=&quot;headerlink&quot; title=&quot;希尔排序&quot;&gt;&lt;/a&gt;希尔排序&lt;/h2&gt;&lt;p&gt;希尔排序是基于插入排序而来, 插入排序的最好时间复杂度是O(n), 当数组基本有序时, 效率是很高的. 而希尔排序, 设定一个增量, 按增量将数组分组.&lt;/p&gt;
+&lt;p&gt;例如数组{1,2,3,4}, 增量是2, 那么数组就可以分为{1,3}, {2,4}两组, 增量是1那就是1,2,3,4四组.&lt;/p&gt;
+&lt;p&gt;分组之后在组内进行插入排序, 再缩小增量重新分组再次排序, 直到增量是1(等同于正常的插入排序), 再插入排序一次, 排序完成. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void shellSort(int arr[], int n){
+
+    for (int gap = n/2; gap&amp;gt;0; gap/=2) {
+        for (int i = gap; i&amp;lt;n; i++) {
+            if (arr[i] &amp;lt; arr[i - gap]) {
+                int temp = arr[i];
+                int j;
+                // 思路与插入排序相同, 用临时变量保存要插入的数, 向数组前面查找插入的位置, 一边查找, 一边将前面较大的数字后移
+                // 临时变量不小于前面的某数时, 说明找到了正确的位置, 只要放在那个数后面就可以了
+                for (j = i-gap; j&amp;gt;=0 &amp;amp;&amp;amp; temp&amp;lt;arr[j]; j-=gap) {
+                    arr[j+gap] = arr[j];
+                }
+                arr[j+gap] = temp;
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;归并排序&quot;&gt;&lt;a href=&quot;#归并排序&quot; class=&quot;headerlink&quot; title=&quot;归并排序&quot;&gt;&lt;/a&gt;归并排序&lt;/h2&gt;&lt;p&gt;归并二字就是递归&amp;amp;合并&lt;/p&gt;
+&lt;p&gt;归并排序的关键在于合并有序数组, 合并两个有序数组的方式是先比较两数组的第一个元素, 更小的取出放入新数组, 再依次向后比较, 直到某个数组的元素取光, 把另一个数组的元素依次放入新数组既可.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//先来演示合并数组
+void mergeArray(int a[], int m, int b[], int n){
+    int c[m+n];
+
+    int i, j, k;
+    //必须初始化, 否则会有残值
+    i = j = k = 0;
+
+    // 此处不能用for循环, 除非只写第二个表达式, 否则ijk哪个做自增都不合适
+    // 其中k看似合适, 但for循环最后会执行一次第三个表达式, k会+1
+    while (i &amp;lt; m &amp;amp;&amp;amp; j &amp;lt; n) {
+        if (a[i] &amp;lt; b[j]) {
+            c[k++] = a[i++];
+        }else{
+            c[k++] = b[j++];
+        }
+    }
+
+    while (i &amp;lt; m) {
+        c[k++] = a[i++];
+    }
+
+    while (j &amp;lt; n) {
+        c[k++] = b[j++];
+    }
+
+    printfArray(c, m+n);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下面开始撸正式的归并排序&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 合并有序序列
+void mergearray(int arr[], int first, int last, int mid, int temp[]){
+    int tempIndex = 0;
+
+    int firstSequenceIndex = first;
+    int secondSequeceIndex = mid + 1;
+
+    // 因为这里用的是数组角标, 而不是长度, 所以用&amp;lt;= 而不是&amp;lt;
+    while (firstSequenceIndex &amp;lt;= mid &amp;amp;&amp;amp; secondSequeceIndex &amp;lt;= last) {
+        // 取较小值放入临时数组
+        if (arr[firstSequenceIndex] &amp;lt; arr[secondSequeceIndex] ) {
+            temp[tempIndex++] = arr[firstSequenceIndex++];
+        }else{
+            temp[tempIndex++] = arr[secondSequeceIndex++];
+        }
+    }
+    // 如果前一个序列还有值, 依次放入临时数组
+    while (firstSequenceIndex &amp;lt;= mid) {
+        temp[tempIndex++] = arr[firstSequenceIndex++];
+    }
+    // 如果后一个序列还有值, 依次放入临时数组
+    while (secondSequeceIndex &amp;lt;= last) {
+        temp[tempIndex++] = arr[secondSequeceIndex++];
+    }
+    // 将排好序的部分赋值给原数组
+    for (int i = 0; i &amp;lt; tempIndex; i++) {
+        arr[first++] = temp[i];
+    }
+
+}
+
+// 搞清归并排序, 主要搞清以下两点
+// 1. 递归到只有一个数时, 递归函数开始出栈, 一个数肯定是有序序列
+// 2. 合并两个有序序列, 可以形成新的有序序列
+void mergeSort(int arr[], int first, int last, int temp[]){
+    if(first &amp;lt; last){
+        // 将数组分成两部分
+        int mid = (first + last)/2;
+        // 前一半排序
+        mergeSort(arr, first, mid, temp);
+        // 后一半排序
+        mergeSort(arr, mid+1, last, temp);
+        // 合并有序序列
+        mergearray(arr, first, last, mid, temp);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;快速排序&quot;&gt;&lt;a href=&quot;#快速排序&quot; class=&quot;headerlink&quot; title=&quot;快速排序&quot;&gt;&lt;/a&gt;快速排序&lt;/h2&gt;&lt;p&gt;快速排序是时间复杂度O(logN*N)的排序算法中比较出名的, 面试算法常常会问, 而手写出来是很有难度的事情. 这里非常感谢&lt;a href=&quot;http://blog.csdn.net/morewindows/article/details/6684558&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;白话经典算法系列&lt;/a&gt;的作者, 讲解通俗易懂.&lt;/p&gt;
+&lt;p&gt;快速排序的基本思想一句话概括就是&lt;font color=&quot;red&quot;&gt;&lt;strong&gt;挖坑填数+分治法&lt;/strong&gt;&lt;/font&gt;, 下面详细描述:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先取左边第一个数作为基准数&lt;/li&gt;
+&lt;li&gt;与基准数比较, 比基准数大的换到右边, 小的换到左边&lt;/li&gt;
+&lt;li&gt;左右两边分成两个部分, 再进行一次前两步的操作. 重复对左右两边拆分, 进行前两步操作, 直到只剩一个数.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这样说还是太抽象, 举个栗子吧&lt;/p&gt;
+&lt;p&gt;数组a = {3, 1, 4, 2, 0}&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;取a[0]作为基准数, 使用新变量baseNumber存储&lt;/li&gt;
+&lt;li&gt;从右向左比较, 比基准数小的放在基准数的位置上, 数组变成{&lt;font color=&quot;red&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/font&gt;, 1, 4, 2, &lt;font color=&quot;red&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/font&gt;}, 此时出现一个坑a[4] &lt;/li&gt;
+&lt;li&gt;从左往右比较, 比基准数大的填入上一个坑a[4], 数组变成{0, 1, &lt;font color=&quot;red&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/font&gt;, 2, &lt;font color=&quot;red&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/font&gt;}, 此时的新坑是a[2]&lt;/li&gt;
+&lt;li&gt;再从右向左比较, 比基准数小的填入上一个坑a[2], 数组变成{0, 1, &lt;font color=&quot;red&quot;&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;/font&gt;, &lt;font color=&quot;red&quot;&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;/font&gt;, 4}, 此时的坑是a[3]&lt;/li&gt;
+&lt;li&gt;再从左向右比较时, 发现左右相遇了, 将baseNumber赋值给a[3], 数组变成{0, 1, 2, 3, 4}&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为数组元素较少, 这样就排序完成了, 但足够大家了解挖坑填数的思路了. &lt;/p&gt;
+&lt;p&gt;有一点需要说明, 为什么左右相遇了就可以把baseNumber赋值给那个元素? 因为左右两边相遇时, 所有数字都已经比较了一遍, 已经做到”比基准数大的都在右边, 比基准数小的都在左边”.&lt;/p&gt;
+&lt;p&gt;根据上面的分析, 可以很容易写出挖坑填数的代码:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void changeArray(int arr[], int left, int right){
+    int i = left;
+    int j = right;
+
+    // 使用变量存储最左边的数做基准数
+    // 基准数也可不使用最左边的, 中间和最后一个当然都可以
+    int baseNumber = arr[left];
+
+    // 当i=j时意味着数列中所有数都与基准数比较过了, 故结束比较
+    while (i &amp;lt; j) {
+
+        // 从右往左比较, 找到比基准数小的数的下标
+        while (arr[j] &amp;gt; baseNumber &amp;amp;&amp;amp; i &amp;lt; j) {
+            j--;
+        }
+        arr[i] = arr[j];
+
+        // 从左往右比较, 找到比基准数大的数的下标
+        while (arr[i] &amp;lt; baseNumber &amp;amp;&amp;amp; i &amp;lt; j) {
+            i++;
+        }
+        arr[j] = arr[i];
+    }
+    // 将基准数赋值给a[i](也可以是a[j], 此时i=j)
+    arr[i] = baseNumber;
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后baseNumber赋值,&lt;code&gt;arr[i] = baseNumber&lt;/code&gt;,可能会有人对这句疑惑, 为何可以直接赋值, 不会少一个数吗? &lt;/p&gt;
+&lt;p&gt;答案是不会, 从上面的代码看出, 即便&lt;code&gt;while (arr[i] &amp;lt; baseNumber &amp;amp;&amp;amp; i &amp;lt; j)&lt;/code&gt;这个循环没有走, &lt;code&gt;arr[i]&lt;/code&gt;的值也会赋值给&lt;code&gt;arr[j]&lt;/code&gt;, 这样&lt;code&gt;arr[i]&lt;/code&gt;的值必定有两个, 当然可以直接赋值. &lt;/p&gt;
+&lt;p&gt;接下来彻底完成递归调用:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void quickSort(int arr[], int left, int right){
+    // 递归的结束条件, left=right, 也就是只剩一个数的时候
+    if (left &amp;lt; right) {
+
+        int i = left;
+        int j = right;
+        int baseNumber = arr[left];
+
+        while (i &amp;lt; j) {  
+            while (arr[j] &amp;gt; baseNumber &amp;amp;&amp;amp; i &amp;lt; j) {
+                j--;
+            }
+            arr[i] = arr[j];
+
+            while (arr[i] &amp;lt; baseNumber &amp;amp;&amp;amp; i &amp;lt; j) {
+                i++;
+            }
+            arr[j] = arr[i];
+        }
+
+        arr[i] = baseNumber;
+
+        // 递归调用
+        quickSort(arr, left, i - 1);
+        quickSort(arr, i + 1, right);
+    } 
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;也不知道与简单排序对应的应该叫什么, 就叫不那么简单的排序好了.&lt;/p&gt;
+&lt;p&gt;本篇博客主要学习了希尔排序、归并排序and快速排序。&lt;/p&gt;
+&lt;p&gt;注: 这一篇和上一篇&lt;a href=&quot;http://smarxpan.github.io/2016/04/03/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-1-%E7%AE%80%E5%8D%95%E6%8E%92%E5%BA%8F/&quot;&gt;简单排序&lt;/a&gt;都算是学习&lt;a href=&quot;http://blog.csdn.net/column/details/algorithm-easyword.html&quot;&gt;白话算法系列&lt;/a&gt;的学习笔记吧&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dagger2探索之Hello Dagger</title>
+    <link href="http://yoursite.com/2016/04/12/Dagger2%E6%8E%A2%E7%B4%A2%E4%B9%8BHello-Dagger/"/>
+    <id>http://yoursite.com/2016/04/12/Dagger2探索之Hello-Dagger/</id>
+    <published>2016-04-12T03:47:53.000Z</published>
+    <updated>2016-04-14T14:56:09.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. &lt;/p&gt;
+&lt;p&gt;新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.&lt;/p&gt;
+&lt;h2 id=&quot;gradle配置&quot;&gt;&lt;a href=&quot;#gradle配置&quot; class=&quot;headerlink&quot; title=&quot;gradle配置&quot;&gt;&lt;/a&gt;gradle配置&lt;/h2&gt;&lt;p&gt;先上使用方式, gradle文件配置相关&lt;/p&gt;
+&lt;p&gt;项目根目录gradle中&lt;code&gt;buildscript&lt;/code&gt;的&lt;code&gt;dependencies&lt;/code&gt;添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;classpath &amp;apos;com.neenbedankt.gradle.plugins:android-apt:1.8&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;module目录的gradle中, 添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apply plugin: &amp;apos;android-apt&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;添加这个东西的作用是让AS能够识别Dagger2自动生成的代码并且能够跳转跟踪等.&lt;/p&gt;
+&lt;p&gt;添加依赖&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;compile &amp;apos;com.google.dagger:dagger:2.0.2&amp;apos;
+provided &amp;apos;com.google.dagger:dagger-compiler:2.0.2&amp;apos;
+provided &amp;apos;javax.annotation:jsr250-api:1.0&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;font color=&quot;gray&quot; size=&quot;2&quot;&gt;注1: 此时(16年4月11日)最新的dagger版本是2.0.3, 但请不要升级, 其引用的Guava版本有问题&lt;br&gt;注2: &lt;code&gt;javax.annotation:jsr250-api:1.0&lt;/code&gt;, Android Api中没有这个包, 而Dagger中用到了&lt;code&gt;@Generated&lt;/code&gt;注解, 不引入会报错&lt;/font&gt;
+
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;gradle配置至此完成&lt;/p&gt;
+&lt;h2 id=&quot;Hello-Dagger2&quot;&gt;&lt;a href=&quot;#Hello-Dagger2&quot; class=&quot;headerlink&quot; title=&quot;Hello Dagger2&quot;&gt;&lt;/a&gt;Hello Dagger2&lt;/h2&gt;&lt;p&gt;依赖注入的各种原理各种导图看着就晕, 实实在在的先来个Hello World, 哦不, Hello Dagger吧&lt;/p&gt;
+&lt;p&gt;第一步, 创建一个很简单的JavaBean, 没什么好说的&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class HelloDagger {
+
+    private String hello;
+
+    public HelloDagger(String hello) {
+        this.hello = hello;
+    }
+
+    public String getHello() {
+        return hello;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第二步, 创建Module, &lt;code&gt;@Module&lt;/code&gt;注解, 在Dagger2中表示提供依赖的模块&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Module
+public class ActivityModule {
+
+    // 提供依赖的方法, 使用Provides注解, 告诉Dagger2到这里来找对象
+    @Provides
+    static HelloDagger provideHelloDagger(){
+        return new HelloDagger(&amp;quot;Hello Dagger!&amp;quot;);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第三步, 创建Component. 你应该注意到了, Component是个接口, 等于是Module与被注入的类(本例中是MainActivity)之间的桥梁. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 这个注解表示Component要到ActivityModule中寻找依赖
+@Component(modules = ActivityModule.class)
+public interface ActivityComponent {
+
+    // 注入具体的类中(方法名可随意取, 重要的是参数)
+    void inject(MainActivity activity);
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;font color=&quot;gray&quot; size=&quot;2&quot;&gt;注: &lt;code&gt;inject(MainActivity activity)&lt;/code&gt;中的参数必须是你要注入的那个类的对象, Dagger2生成的代码会调用该对象注入其中, 使用其父类(如Activity), 则毫无卵用&lt;/font&gt;
+
+&lt;p&gt;好了, 上面的都做完了, 需要运行一发让Dagger2生成代码, 以下三种方式:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. 点击运行小按钮
+2. 使用快捷键: mac使用Ctrl+R, win/linux使用Ctrl+Shift+F10
+3. 在项目根目录使用命令行 ./gradlew build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后, 注入到MainActivity&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MainActivity extends AppCompatActivity {
+
+    // Inject注解对应Module中的Provides注解
+    // 声明依赖要注入给这个变量
+    @Inject
+    HelloDagger helloDagger;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // DaggerActivityComponent是Dagger2自动生成的, 此处使用create静态方法创建对象
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        // 注入
+        activityComponent.inject(this);
+
+        TextView saySomethingTV = (TextView) findViewById(R.id.tv_say_something);
+        saySomethingTV.setText(helloDagger.getHello());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行结果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xqnsv.com1.z0.glb.clouddn.com/jietu.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;结语&quot;&gt;&lt;a href=&quot;#结语&quot; class=&quot;headerlink&quot; title=&quot;结语&quot;&gt;&lt;/a&gt;结语&lt;/h2&gt;&lt;p&gt;至此, 我想这个Hello Dagger应该算是结束了. 如果你做了一遍, 应该对这个框架有了感性的认识. 接下来可以看看&lt;a href=&quot;https://google.github.io/dagger/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;dagger2官网&lt;/a&gt;, 或者看看其他博客自己进行学习. 接下来我的博客也会继续更新这个系列, 尝试在项目中实际应用.&lt;/p&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://google.github.io/dagger/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;dagger2官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.liuhaihua.cn/archives/70662.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;详解Dagger2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.fidroid.com/post/android/dagger-on-android-dagger2xiang-jie&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;dagger on Android&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. &lt;/p&gt;
+&lt;p&gt;新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.&lt;/p&gt;
+&lt;h2 id=&quot;gradle配置&quot;&gt;&lt;a href=&quot;#gradle配置&quot; class=&quot;headerlink&quot; title=&quot;gradle配置&quot;&gt;&lt;/a&gt;gradle配置&lt;/h2&gt;&lt;p&gt;先上使用方式, gradle文件配置相关&lt;/p&gt;
+&lt;p&gt;项目根目录gradle中&lt;code&gt;buildscript&lt;/code&gt;的&lt;code&gt;dependencies&lt;/code&gt;添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;classpath &amp;apos;com.neenbedankt.gradle.plugins:android-apt:1.8&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;module目录的gradle中, 添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apply plugin: &amp;apos;android-apt&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;添加这个东西的作用是让AS能够识别Dagger2自动生成的代码并且能够跳转跟踪等.&lt;/p&gt;
+&lt;p&gt;添加依赖&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;compile &amp;apos;com.google.dagger:dagger:2.0.2&amp;apos;
+provided &amp;apos;com.google.dagger:dagger-compiler:2.0.2&amp;apos;
+provided &amp;apos;javax.annotation:jsr250-api:1.0&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;font color=&#39;gray&#39; size=&#39;2&#39;&gt;注1: 此时(16年4月11日)最新的dagger版本是2.0.3, 但请不要升级, 其引用的Guava版本有问题&lt;br&gt;注2: &lt;code&gt;javax.annotation:jsr250-api:1.0&lt;/code&gt;, Android Api中没有这个包, 而Dagger中用到了&lt;code&gt;@Generated&lt;/code&gt;注解, 不引入会报错&lt;/font&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一个可应用的动态加载dex实践</title>
+    <link href="http://yoursite.com/2016/04/07/%E4%B8%80%E4%B8%AA%E5%8F%AF%E5%BA%94%E7%94%A8%E7%9A%84%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BDdex%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2016/04/07/一个可应用的动态加载dex实践/</id>
+    <published>2016-04-07T10:05:54.000Z</published>
+    <updated>2016-04-08T13:49:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。&lt;br&gt;这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。&lt;/p&gt;
+&lt;p&gt;这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)&lt;/p&gt;
+&lt;p&gt;本文参考链接先行放出：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://my.oschina.net/853294317/blog/308583&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android dex分包方案&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dodola/HotFix&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;HoxFix项目&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/49883661&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android 热补丁动态修复框架小结&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;简述原理&quot;&gt;&lt;a href=&quot;#简述原理&quot; class=&quot;headerlink&quot; title=&quot;简述原理&quot;&gt;&lt;/a&gt;简述原理&lt;/h2&gt;&lt;p&gt;理解如何动态加载dex包，先要理解正常启动过程dex是如何加载的。&lt;/p&gt;
+&lt;p&gt;Android是通过ClassLoader类加载应用的, 如下图，ClassLoader类的体系：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们能使用到的是DexClassLoader和PathClassLoader，这两个类的用途分别是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;关于PathClassLoader，文档中写到： &lt;code&gt;Android uses this class for its system class loader and for its application class loader(s)&lt;/code&gt;,&lt;br&gt;由此可知，PathClassLoader只能加载已安装到系统中（即/data/app目录下）的apk文件，Android应用就是用它来加载;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DexClassLoader可以加载apk,jar,及dex文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;那么我们要使用的就是DexClassLoader。&lt;/p&gt;
+&lt;p&gt;DexClassLoader和PathClassLoader都继承了BaseClassLoader，具体加载的逻辑也在BaseClassLoader中：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Override  
+protected Class&amp;lt;?&amp;gt; findClass(String name) throws ClassNotFoundException {  
+
+    List&amp;lt;Throwable&amp;gt; suppressedExceptions = new ArrayList&amp;lt;Throwable&amp;gt;();  
+    Class c = pathList.findClass(name, suppressedExceptions);  
+    if (c == null) {  
+        ClassNotFoundException cnfe = new ClassNotFoundException(&amp;quot;Didn&amp;apos;t find class \&amp;quot;&amp;quot; + name + &amp;quot;\&amp;quot; on path: &amp;quot; + pathList);  
+        for (Throwable t : suppressedExceptions) {  
+            cnfe.addSuppressed(t);  
+       }  
+
+        throw cnfe;  
+    }  
+     return c;  
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;从上面的函数可知，当我们需要加载一个class时，实际是从pathList中去需要的，查阅源码，发现pathList是DexPathList类的一个实例。我们接着去看DexPathList类中的findClass函数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public Class findClass(String name, List&amp;lt;Throwable&amp;gt; suppressed) {  
+
+    for (Element element : dexElements) {  
+        DexFile dex = element.dexFile;  
+        if (dex != null) {  
+            Class clazz = dex.loadClassBinaryName(name, definingContext, suppressed);  
+            if (clazz != null) {  
+                return clazz;  
+            }  
+        }  
+   }  
+    if (dexElementsSuppressedExceptions != null) {  
+        suppressed.addAll(Arrays.asList(dexElementsSuppressedExceptions));  
+    }  
+    return null;  
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述函数的大致逻辑为：遍历一个装在dex文件（每个dex文件实际上是一个DexFile对象）的数组（Element数组，Element是一个内部类），然后依次去加载所需要的class文件，直到找到为止。&lt;/p&gt;
+&lt;p&gt;看到这里，注入的解决方案也就浮出水面，假如我们将第二个dex文件放入Element数组中，那么在加载第二个dex包中的类时，应该可以直接找到。&lt;/p&gt;
+&lt;p&gt;至于注入的具体方式，让我们下面一步步实现。&lt;/p&gt;
+&lt;h2 id=&quot;实现动态加载的流程&quot;&gt;&lt;a href=&quot;#实现动态加载的流程&quot; class=&quot;headerlink&quot; title=&quot;实现动态加载的流程&quot;&gt;&lt;/a&gt;实现动态加载的流程&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;制作插件dex包（实际上是dx处理后的jar包）&lt;ul&gt;
+&lt;li&gt;将代码部分打包成jar，没错，只需要代码部分&lt;/li&gt;
+&lt;li&gt;使用Android sdk中的dx工具处理jar&lt;/li&gt;
+&lt;li&gt;把jar包放在asset目录或者服务器上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;app启动时动态注入&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;制作Dex包&quot;&gt;&lt;a href=&quot;#制作Dex包&quot; class=&quot;headerlink&quot; title=&quot;制作Dex包&quot;&gt;&lt;/a&gt;制作Dex包&lt;/h3&gt;&lt;p&gt;我这里的插件项目只是单纯的一个Activity，插件项目和一般项目的不同在于，不能直接使用R文件调用资源文件，需要反射调用。因为插件需要运行在宿主项目中，宿主项目的R文件和你的R文件并不相同。&lt;/p&gt;
+&lt;p&gt;反射调用R文件中的内容也是开发sdk的基础，反射调用的工具类会在本文结尾的代码清单中放出&lt;/p&gt;
+&lt;p&gt;对于Eclipse，新建工程，做些你想要的操作，右键工程到处jar包&lt;br&gt;注意，此处只需要选择src目录，也就是只需要代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xqnsv.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160219181614.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对于Android Studio，只能手动打jar包。&lt;br&gt;新建Module，写好代码&lt;/p&gt;
+&lt;p&gt;进入&lt;font color=&quot;red&quot;&gt;项目根目录&lt;/font&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gradlew clean
+gradlew build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第一次执行gradlew命令可能需要下载gradle，注意科学上网&lt;/p&gt;
+&lt;p&gt;去&lt;font color=&quot;red&quot;&gt;Module的目录&lt;/font&gt;下，执行下面的命令将字节码打成jar包&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;jar cvf dexdemo.jar -C  build/intermediates/classes/debug .
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样打出来的jar包只是一个普通的jar包，需要使用sdk\build-tools\中的dx工具进行处理（build-tools有很多版本，选用你Target的那个版本吧）,把这个目录配进环境变量，执行命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dx --dex --output dexdemo_dex.jar dexdemo.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样你就得到了看似是jar，其实是dex的包&lt;/p&gt;
+&lt;h3 id=&quot;动态注入&quot;&gt;&lt;a href=&quot;#动态注入&quot; class=&quot;headerlink&quot; title=&quot;动态注入&quot;&gt;&lt;/a&gt;动态注入&lt;/h3&gt;&lt;p&gt;从网上或者assets目录复制jar包到内置储存，这一步比较简单，不给出代码了&lt;/p&gt;
+&lt;p&gt;重头戏来了，开始注入&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private static void injectAboveEqualApiLevel14(Context context, String dexFilePath)
+        throws ClassNotFoundException, NoSuchFieldException,
+        IllegalAccessException {
+    // 获取当前Context的PathClassLoader
+    PathClassLoader pathClassLoader = (PathClassLoader) context
+            .getClassLoader();
+    // 通过ClassLoader拿到PathList
+    Object pathList = getPathList(pathClassLoader);
+    // 通过PahList拿到Elements数组
+    Object contextElements = getDexElements(pathList);
+
+    // 创建DexClassLoader对象，加载内部存储中的dex文件
+    DexClassLoader dexClassLoader = new DexClassLoader(dexFilePath, context
+            .getDir(&amp;quot;dex&amp;quot;, 0).getAbsolutePath(), dexFilePath, context
+            .getClassLoader());
+    Object dexPathList = getPathList(dexClassLoader);
+    // 获取加载了dex文件的Elements数组
+    Object dexElements = getDexElements(dexPathList);
+
+    // 合并数组
+    Object newElements = combineArray(contextElements,dexElements);
+    // 将数组设置回去
+    setField(pathList, pathList.getClass(), &amp;quot;dexElements&amp;quot;, newElements);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;因为设计到耗时操作，所以我在Service中完成注入操作. 具体实现附在最后的代码清单中&lt;/p&gt;
+&lt;h2 id=&quot;代码清单：&quot;&gt;&lt;a href=&quot;#代码清单：&quot; class=&quot;headerlink&quot; title=&quot;代码清单：&quot;&gt;&lt;/a&gt;代码清单：&lt;/h2&gt;&lt;h3 id=&quot;工具类&quot;&gt;&lt;a href=&quot;#工具类&quot; class=&quot;headerlink&quot; title=&quot;工具类&quot;&gt;&lt;/a&gt;工具类&lt;/h3&gt;&lt;h4 id=&quot;反射资源文件工具类&quot;&gt;&lt;a href=&quot;#反射资源文件工具类&quot; class=&quot;headerlink&quot; title=&quot;反射资源文件工具类&quot;&gt;&lt;/a&gt;反射资源文件工具类&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;public class ResourceUtils {
+
+    public static int getLayoutId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;layout&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getStringId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;string&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getDrawableId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString,
+                &amp;quot;drawable&amp;quot;, paramContext.getPackageName());
+    }
+
+    public static int getStyleId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;style&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;id&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getColorId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;color&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getDimenId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &amp;quot;dimen&amp;quot;,
+                paramContext.getPackageName());
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;注入工具类InjectDexUtils-java&quot;&gt;&lt;a href=&quot;#注入工具类InjectDexUtils-java&quot; class=&quot;headerlink&quot; title=&quot;注入工具类InjectDexUtils.java&quot;&gt;&lt;/a&gt;注入工具类InjectDexUtils.java&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;import java.io.File;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Context;
+import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
+
+@SuppressLint(&amp;quot;NewApi&amp;quot;)
+public class InjectDexUtils {
+    public static void inject(Context context, String dexFilePath) {
+        if (dexFilePath != null &amp;amp;&amp;amp; new File(dexFilePath).exists()) {
+            try {
+                // 兼容阿里云os
+                if (hasLexClassLoader())
+                    injectInAliyunOs(context, dexFilePath);
+                else if (hasDexClassLoader())
+                    // API14以上的反射注入dex逻辑
+                    injectAboveEqualApiLevel14(context, dexFilePath);
+                else
+                    // API14以下的
+                    injectBelowApiLevel14(context, dexFilePath);
+
+            } catch (Throwable th) {
+
+            }
+        }
+    }
+
+    private static boolean hasLexClassLoader() {
+        try {
+            Class.forName(&amp;quot;dalvik.system.LexClassLoader&amp;quot;);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static boolean hasDexClassLoader() {
+        try {
+            Class.forName(&amp;quot;dalvik.system.BaseDexClassLoader&amp;quot;);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static void injectInAliyunOs(Context context, String dexFilePath)
+            throws ClassNotFoundException, NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException,
+            InstantiationException, NoSuchFieldException {
+        PathClassLoader obj = (PathClassLoader) context.getClassLoader();
+        String replaceAll = new File(dexFilePath).getName().replaceAll(
+                &amp;quot;\\.[a-zA-Z0-9]+&amp;quot;, &amp;quot;.lex&amp;quot;);
+        Class cls = Class.forName(&amp;quot;dalvik.system.LexClassLoader&amp;quot;);
+        Object newInstance = cls.getConstructor(
+                new Class[] { String.class, String.class, String.class,
+                        ClassLoader.class }).newInstance(
+                new Object[] {
+                        context.getDir(&amp;quot;dex&amp;quot;, 0).getAbsolutePath()
+                                + File.separator + replaceAll,
+                        context.getDir(&amp;quot;dex&amp;quot;, 0).getAbsolutePath(),
+                        dexFilePath, obj });
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mPaths&amp;quot;,
+                appendArray(getField(obj, PathClassLoader.class, &amp;quot;mPaths&amp;quot;),
+                        getField(newInstance, cls, &amp;quot;mRawDexPath&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mFiles&amp;quot;,
+                combineArray(getField(obj, PathClassLoader.class, &amp;quot;mFiles&amp;quot;),
+                        getField(newInstance, cls, &amp;quot;mFiles&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mZips&amp;quot;,
+                combineArray(getField(obj, PathClassLoader.class, &amp;quot;mZips&amp;quot;),
+                        getField(newInstance, cls, &amp;quot;mZips&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mLexs&amp;quot;,
+                combineArray(getField(obj, PathClassLoader.class, &amp;quot;mLexs&amp;quot;),
+                        getField(newInstance, cls, &amp;quot;mDexs&amp;quot;)));
+    }
+
+    @TargetApi(14)
+    private static void injectBelowApiLevel14(Context context, String str)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        PathClassLoader obj = (PathClassLoader) context.getClassLoader();
+        DexClassLoader dexClassLoader = new DexClassLoader(str, context.getDir(
+                &amp;quot;dex&amp;quot;, 0).getAbsolutePath(), str, context.getClassLoader());
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mPaths&amp;quot;,
+                appendArray(
+                        getField(obj, PathClassLoader.class, &amp;quot;mPaths&amp;quot;),
+                        getField(dexClassLoader, DexClassLoader.class,
+                                &amp;quot;mRawDexPath&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mFiles&amp;quot;,
+                combineArray(
+                        getField(obj, PathClassLoader.class, &amp;quot;mFiles&amp;quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &amp;quot;mFiles&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mZips&amp;quot;,
+                combineArray(getField(obj, PathClassLoader.class, &amp;quot;mZips&amp;quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &amp;quot;mZips&amp;quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &amp;quot;mDexs&amp;quot;,
+                combineArray(getField(obj, PathClassLoader.class, &amp;quot;mDexs&amp;quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &amp;quot;mDexs&amp;quot;)));
+    }
+
+    private static void injectAboveEqualApiLevel14(Context context, String str)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        PathClassLoader pathClassLoader = (PathClassLoader) context
+                .getClassLoader();
+        // 合并dexElements数组，并把补丁的dex放在前面
+        Object a = combineArray(
+                getDexElements(getPathList(pathClassLoader)),
+                getDexElements(getPathList(new DexClassLoader(str, context
+                        .getDir(&amp;quot;dex&amp;quot;, 0).getAbsolutePath(), str, context
+                        .getClassLoader()))));
+        Object a2 = getPathList(pathClassLoader);
+
+        setField(a2, a2.getClass(), &amp;quot;dexElements&amp;quot;, a);
+    }
+
+    private static Object getPathList(Object obj)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        return getField(obj, Class.forName(&amp;quot;dalvik.system.BaseDexClassLoader&amp;quot;),
+                &amp;quot;pathList&amp;quot;);
+    }
+
+    private static Object getDexElements(Object obj)
+            throws NoSuchFieldException, IllegalAccessException {
+        return getField(obj, obj.getClass(), &amp;quot;dexElements&amp;quot;);
+    }
+
+    private static Object getField(Object obj, Class cls, String str)
+            throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = cls.getDeclaredField(str);
+        declaredField.setAccessible(true);
+        return declaredField.get(obj);
+    }
+
+    private static void setField(Object obj, Class cls, String str, Object obj2)
+            throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = cls.getDeclaredField(str);
+        declaredField.setAccessible(true);
+        declaredField.set(obj, obj2);
+    }
+
+    private static Object combineArray(Object obj, Object obj2) {
+        Class componentType = obj2.getClass().getComponentType();
+        int length = Array.getLength(obj2);
+        int length2 = Array.getLength(obj) + length;
+        Object newInstance = Array.newInstance(componentType, length2);
+        for (int i = 0; i &amp;lt; length2; i++) {
+            if (i &amp;lt; length) {
+                Array.set(newInstance, i, Array.get(obj2, i));
+            } else {
+                Array.set(newInstance, i, Array.get(obj, i - length));
+            }
+        }
+        return newInstance;
+    }
+
+    private static Object appendArray(Object obj, Object obj2) {
+        Class componentType = obj.getClass().getComponentType();
+        int length = Array.getLength(obj);
+        Object newInstance = Array.newInstance(componentType, length + 1);
+        Array.set(newInstance, 0, obj2);
+        for (int i = 1; i &amp;lt; length + 1; i++) {
+            Array.set(newInstance, i, Array.get(obj, i - 1));
+        }
+        return newInstance;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;复制dex到内部存储工具类&quot;&gt;&lt;a href=&quot;#复制dex到内部存储工具类&quot; class=&quot;headerlink&quot; title=&quot;复制dex到内部存储工具类&quot;&gt;&lt;/a&gt;复制dex到内部存储工具类&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import android.content.Context;
+
+public class PrepareDexUtils {
+    private static final int BUF_SIZE = 2048;
+
+    /**
+     * 从assets目录拷贝jar包到其他目录
+     * @param context
+     * @param dexInternalStoragePath
+     * @param dex_file
+     * @return
+     */
+    public static boolean prepareDex(Context context, File dexInternalStoragePath, String dex_file) {
+        BufferedInputStream bis = null;
+        OutputStream dexWriter = null;
+
+        try {
+            bis = new BufferedInputStream(context.getAssets().open(dex_file));
+            dexWriter = new BufferedOutputStream(new FileOutputStream(dexInternalStoragePath));
+            byte[] buf = new byte[BUF_SIZE];
+            int len;
+            while ((len = bis.read(buf, 0, BUF_SIZE)) &amp;gt; 0) {
+                dexWriter.write(buf, 0, len);
+            }
+            dexWriter.close();
+            bis.close();
+            return true;
+        } catch (IOException e) {
+            if (dexWriter != null) {
+                try {
+                    dexWriter.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            return false;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;调用注入的服务&quot;&gt;&lt;a href=&quot;#调用注入的服务&quot; class=&quot;headerlink&quot; title=&quot;调用注入的服务&quot;&gt;&lt;/a&gt;调用注入的服务&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;public class ProxyService extends Service {
+    @SuppressLint(&amp;quot;HandlerLeak&amp;quot;)
+    Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            try {
+                // 反射调用初始化广告sdk
+                Class&amp;lt;?&amp;gt; adAgent = Class.forName(&amp;quot;com.kding.adpack.AdAgent&amp;quot;);
+                Method method = adAgent.getMethod(&amp;quot;init&amp;quot;, Context.class);
+                method.invoke(adAgent, getApplicationContext());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    // 用来防止第二次启动服务二次调用注入
+    // 已经注入的情况下再次注入会crash
+    int injectFlag = 0;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        injectDex();
+        return START_STICKY;
+    }
+
+    protected void injectDex() {
+        // 防止二次注入
+        if (injectFlag != 0) {
+            return;
+        }
+        final File dexFile = new File(getDir(&amp;quot;dex&amp;quot;, Context.MODE_PRIVATE),
+                &amp;quot;adsdk_dex.jar&amp;quot;);
+        // dex.jar存在就直接注入
+        if (dexFile.exists()) {
+            InjectDexUtils.inject(getApplicationContext(),
+                    dexFile.getAbsolutePath());
+            mHandler.sendEmptyMessage(1);
+        } else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 文件不存在复制后注入
+                    PrepareDexUtils.prepareDex(getApplicationContext(),
+                            dexFile, &amp;quot;adsdk_dex.jar&amp;quot;);
+                    InjectDexUtils.inject(getApplicationContext(),
+                            dexFile.getAbsolutePath());
+                    mHandler.sendEmptyMessage(1);
+                    injectFlag ++;
+                }
+            }).start();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。&lt;br/&gt;这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。&lt;/p&gt;
+&lt;p&gt;这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)&lt;/p&gt;
+&lt;p&gt;本文参考链接先行放出：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://my.oschina.net/853294317/blog/308583&quot;&gt;Android dex分包方案&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dodola/HotFix&quot;&gt;HoxFix项目&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/49883661&quot;&gt;Android 热补丁动态修复框架小结&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>搭建Hexo最佳实践</title>
+    <link href="http://yoursite.com/2016/04/07/%E6%90%AD%E5%BB%BAHexo%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2016/04/07/搭建Hexo最佳实践/</id>
+    <published>2016-04-07T09:07:34.000Z</published>
+    <updated>2016-04-08T13:49:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装npm(可自行下载安装包)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;安装git&lt;ul&gt;
+&lt;li&gt;window自行下载安装&lt;/li&gt;
+&lt;li&gt;mac使用homebrew &lt;code&gt;brew install git&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;linux &lt;code&gt;sudo apt-get install git-core&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装hexo&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo npm install hexo-cli -g
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;hexo初始化    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo init blog
+cd blog
+npm install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;hexo init blog&lt;/code&gt;中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装插件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-deployer-git --save
+npm install hexo-generator-sitemap --save
+npm install hexo-generator-feed --save
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;至此, 安装完成. &lt;/p&gt;
+&lt;h2 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h2&gt;&lt;h3 id=&quot;新建GitPage&quot;&gt;&lt;a href=&quot;#新建GitPage&quot; class=&quot;headerlink&quot; title=&quot;新建GitPage&quot;&gt;&lt;/a&gt;新建GitPage&lt;/h3&gt;&lt;p&gt;此处使用github提供的gitpage作为博客空间&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;申请github帐号&lt;/li&gt;
+&lt;li&gt;创建与你username相同的repo, 需等待10分钟左右&lt;/li&gt;
+&lt;li&gt;成功后&lt;code&gt;http://yourusername.github.io&lt;/code&gt;就是你的gitpage地址&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;hexo基本配置&quot;&gt;&lt;a href=&quot;#hexo基本配置&quot; class=&quot;headerlink&quot; title=&quot;hexo基本配置&quot;&gt;&lt;/a&gt;hexo基本配置&lt;/h3&gt;&lt;p&gt;配置文件是&lt;code&gt;_config.yml&lt;/code&gt;,基本配置如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;title: Smarx&amp;apos;s Blog
+subtitle: 一只程序猿的进化之路
+description: 分享更能体现技术价值
+author: 聪明叉
+language: zh-Hans
+...
+deploy:
+  type: git
+  repository: https://github.com/smarxpan/smarxpan.github.io.git
+  branch: master
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中deploy下面三行的格式不能错, tpye前面两个空格, 冒号后面一个空格. 错了就无法发布成功&lt;/p&gt;
+&lt;p&gt;插件的配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Extensions
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+#sitemap
+sitemap:
+  path: sitemap.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h2&gt;&lt;h3 id=&quot;常用命令&quot;&gt;&lt;a href=&quot;#常用命令&quot; class=&quot;headerlink&quot; title=&quot;常用命令&quot;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;hexo new &amp;quot;文章名&amp;quot; #新建文章
+hexo new page &amp;quot;pageName&amp;quot; #新建页面
+hexo generate #生成静态页面至public目录
+hexo server #开启预览访问端口（默认端口4000，&amp;apos;ctrl + c&amp;apos;关闭server）
+hexo deploy #将.deploy目录部署到GitHub
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;简写&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo n == hexo new
+hexo g == hexo generate
+hexo s == hexo server
+hexo d == hexo deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;常用组合命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo d -g #生成加部署
+hexo s -g #预览加部署
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;显示’更多’&quot;&gt;&lt;a href=&quot;#显示’更多’&quot; class=&quot;headerlink&quot; title=&quot;显示’更多’&quot;&gt;&lt;/a&gt;显示’更多’&lt;/h3&gt;&lt;p&gt;一篇文章不显示全部内容, 显示”more”, 只需要在你觉得合适的位置添加html注释&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!--more--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;即可&lt;/p&gt;
+&lt;h3 id=&quot;三方主题&quot;&gt;&lt;a href=&quot;#三方主题&quot; class=&quot;headerlink&quot; title=&quot;三方主题&quot;&gt;&lt;/a&gt;三方主题&lt;/h3&gt;&lt;p&gt;默认主题是&lt;code&gt;landscape&lt;/code&gt;, 个人不是很喜欢, 我选用了&lt;a href=&quot;https://github.com/litten/hexo-theme-yilia&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yilia主题&lt;/a&gt;, 你可以根据个人喜好添加.&lt;/p&gt;
+&lt;p&gt;其中yilia主题有一点需要记录一下, 设置自己的多说(评论模块)–修改配置文件&lt;code&gt;themes/yilia/_config.yml&lt;/code&gt;中&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;duoshuo: true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;为你自己的多说短域名&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;duoshuo: your-duoshuo-shortname
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;比如我的是&lt;code&gt;duoshuo: smarx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;官方的主题地址&lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://hexo.io/themes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果想了解更多hexo的内容, 可以去官方地址查看&lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://hexo.io/&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装npm(可自行下载安装包)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;安装git&lt;ul&gt;
+&lt;li&gt;window自行下载安装&lt;/li&gt;
+&lt;li&gt;mac使用homebrew &lt;code&gt;brew install git&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;linux &lt;code&gt;sudo apt-get install git-core&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装hexo&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo npm install hexo-cli -g
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;hexo初始化    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hexo init blog
+cd blog
+npm install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;hexo init blog&lt;/code&gt;中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装插件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-deployer-git --save
+npm install hexo-generator-sitemap --save
+npm install hexo-generator-feed --save
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>算法系列(1)--简单排序算法</title>
+    <link href="http://yoursite.com/2016/04/03/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-1-%E7%AE%80%E5%8D%95%E6%8E%92%E5%BA%8F/"/>
+    <id>http://yoursite.com/2016/04/03/算法系列-1-简单排序/</id>
+    <published>2016-04-02T16:01:56.000Z</published>
+    <updated>2016-04-14T14:49:29.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;简单排序&quot;&gt;&lt;a href=&quot;#简单排序&quot; class=&quot;headerlink&quot; title=&quot;简单排序&quot;&gt;&lt;/a&gt;简单排序&lt;/h2&gt;&lt;p&gt;简单排序有三种, 冒泡排序,选择排序,插入排序&lt;/p&gt;
+&lt;h3 id=&quot;冒泡排序&quot;&gt;&lt;a href=&quot;#冒泡排序&quot; class=&quot;headerlink&quot; title=&quot;冒泡排序&quot;&gt;&lt;/a&gt;冒泡排序&lt;/h3&gt;&lt;p&gt;冒泡排序是一种易于实现的排序算法, 以升序为例:&lt;/p&gt;
+&lt;p&gt;有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. &lt;/p&gt;
+&lt;p&gt;第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;//冒泡排序
+void bubbleSort(int arr[], int n){
+    for (int i = 0; i &amp;lt; n-1 ; i++ ) {
+        for (int j = 1; j &amp;lt; n - i; j++) {
+            if (arr[j - 1] &amp;gt; arr[j]) {
+                swap(&amp;amp;arr[j-1], &amp;amp;arr[j]);
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;因为用的是C语言, 遇到了java中完全遇不到的两个bug. &lt;/p&gt;
+&lt;p&gt;第一点是交换值, 必须要传地址才有卵用, 否则毫无卵用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 交换函数, 必须传递引用才能交换成功
+// 传值只是将实参复制给了形参一份, 在函数内如何改变形参与实参无关
+// 传递引用, &amp;amp;arr[i], 取地址, a = &amp;amp;arr[i], *a = *(&amp;amp;arr[i]) = arr[i]
+// 因此改变的就是实参的值
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;另一点是获取数组长度.&lt;/p&gt;
+&lt;p&gt;按照道理, 用运算符sizeof可以计算出数组的容量（字节数）,在除以单个元素的容量就能得到数组的长度了. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(sizeof(array) / sizeof(array[0]));
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;结果我真的是naive. 当我想打印数组时, 搞了个函数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void printfArray(int arr[]){
+    int len = sizeof(arr) / sizeof(arr[0]);
+    for (int i = 0; i &amp;lt; len; i++) {
+        printf(&amp;quot;%d, &amp;quot;, arr[i]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;怎么打都只能打出两个数字, 百思不得其解啊尼玛&lt;/p&gt;
+&lt;p&gt;在C/C++中, 数组在作为参数传递时, 会退化为同类型的指针, 并没有办法知道指针所指的内存容量，除非在申请内存时记住它。&lt;/p&gt;
+&lt;p&gt;无论数组长度为多少, 以int数组为例, sizeof(a)始终等于sizeof(int *), 所以函数中传递只能把传数组个数传过去&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void printfArray(int arr[], int len){
+    for (int i = 0; i &amp;lt; len; i++) {
+        printf(&amp;quot;%d, &amp;quot;, arr[i]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;选择排序&quot;&gt;&lt;a href=&quot;#选择排序&quot; class=&quot;headerlink&quot; title=&quot;选择排序&quot;&gt;&lt;/a&gt;选择排序&lt;/h3&gt;&lt;p&gt;选择排序, 以升序为例:&lt;/p&gt;
+&lt;p&gt;第一轮比较, 从arr[0]开始依次比较, 找出最小的数的下标, 记录下来, 将arr[0]与最小值交换.&lt;/p&gt;
+&lt;p&gt;第二轮从arr[1]开始依次比较, 找出最小的数的下标, 记录下来, 将arr[1]与最小值交换.&lt;/p&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;p&gt;直到交换完成&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void selectSort(int arr[], int n){
+    for (int i = 0; i &amp;lt; n; i++) {
+        int min = i;
+        for (int j = i + 1; j &amp;lt; n; j++) {
+            if (arr[j] &amp;lt; arr[min]) {
+                min = j;
+            }
+        }
+        swap(&amp;amp;arr[i], &amp;amp;arr[min]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;插入排序&quot;&gt;&lt;a href=&quot;#插入排序&quot; class=&quot;headerlink&quot; title=&quot;插入排序&quot;&gt;&lt;/a&gt;插入排序&lt;/h3&gt;&lt;p&gt;插入排序的思路是，将单个数字插入有序集合. 大致思想是, 先将第一个数看做有序区, 后面的数依次插入, 形成新的有序区, 直到排序完成.&lt;/p&gt;
+&lt;p&gt;以升序为例, 比如这样一个数组 &lt;code&gt;{4, 2, 7, 3}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第一轮, 第一个数字4看做有序区, 后面的数字插入. 开始比较2和4，发现2更小，继续向前查找，没有数字，因此将2插入4的位置，4向后移。这时数组变成了&lt;code&gt;{2, 4, 7, 3}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第二次，遍历到7，向前比较, 有序&lt;/p&gt;
+&lt;p&gt;第三次，3和7比较，7更大，3应该插入前面。继续向前比较，比较到2才找到了合适的位置。将3插入4的位置，4、7向后移动一位。&lt;/p&gt;
+&lt;p&gt;下面开始撸代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 直接插入排序
+void insertSort(int arr[], int n){
+    for (int i = 0; i &amp;lt; n; i++) {
+        // 后面的数比前面的数大时, 准备插入
+        if (arr[i] &amp;gt; arr[i+1]) {
+            // 存储待插入的数
+            int temp = arr[i+1];
+            int j;
+            // 向前查找合适的插入位置
+            for (j = i; j&amp;gt;=0 &amp;amp;&amp;amp; temp &amp;lt; arr[j]; j--) {
+                // 逐步后移数组
+                arr[j+1] = arr[j];
+            }
+            // 交换
+            arr[j+1] = temp;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;简单排序&quot;&gt;&lt;a href=&quot;#简单排序&quot; class=&quot;headerlink&quot; title=&quot;简单排序&quot;&gt;&lt;/a&gt;简单排序&lt;/h2&gt;&lt;p&gt;简单排序有三种, 冒泡排序,选择排序,插入排序&lt;/p&gt;
+&lt;h3 id=&quot;冒泡排序&quot;&gt;&lt;a href=&quot;#冒泡排序&quot; class=&quot;headerlink&quot; title=&quot;冒泡排序&quot;&gt;&lt;/a&gt;冒泡排序&lt;/h3&gt;&lt;p&gt;冒泡排序是一种易于实现的排序算法, 以升序为例:&lt;/p&gt;
+&lt;p&gt;有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. &lt;/p&gt;
+&lt;p&gt;第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多渠道打包总结</title>
+    <link href="http://yoursite.com/2016/01/11/%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2016/01/11/多渠道打包总结/</id>
+    <published>2016-01-11T07:15:30.000Z</published>
+    <updated>2016-04-08T13:49:35.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用gradle进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;/a&gt;使用gradle进行多渠道打包&lt;/h2&gt;&lt;p&gt;使用Android studio&lt;/p&gt;
+&lt;h3 id=&quot;基本多渠道打包&quot;&gt;&lt;a href=&quot;#基本多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;基本多渠道打包&quot;&gt;&lt;/a&gt;基本多渠道打包&lt;/h3&gt;&lt;p&gt;以友盟的为例&lt;/p&gt;
+&lt;p&gt;渠道信息一般在 &lt;code&gt;AndroidManifest.xml&lt;/code&gt;中修改以下值：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;首先你必须在&lt;code&gt;AndroidManifest.xml&lt;/code&gt;中的meta-data修改以下的样子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;${UMENG_CHANNEL_VALUE}&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;${UMENG_CHANNEL_VALUE}&lt;/code&gt;中的值就是你在gradle中自定义配置的值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;build.gradle&lt;/code&gt;文件就利用&lt;code&gt;productFlavors&lt;/code&gt;这样写：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;productFlavors {
+    wandoujia {}
+    baidu {}
+    c360 {}
+    uc {}
+
+    productFlavors.all { flavor -&amp;gt;
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中name的值对相对应各个&lt;code&gt;productFlavors&lt;/code&gt;的选项值，这样就达到自动替换渠道值的目的了。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;这样生成apk时，选择相应的Flavors来生成指定渠道的包就可以了，而且生成的apk会自动帮你加上相应渠道的后缀，非常方便和直观。大家可以自己反编译验证。&lt;/p&gt;
+&lt;p&gt;还可以一次生成所有渠道包.&lt;/p&gt;
+&lt;p&gt;在as底栏中有个命令行工具Terminal,打开后就就在当前项目的目录下。&lt;/p&gt;
+&lt;p&gt;输入这个命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gradlew assembleRelease
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;就可以一次性生成所有的渠道包了&lt;/p&gt;
+&lt;p&gt;所有生成的apk在项目的&lt;code&gt;build\outputs\apk&lt;/code&gt;下&lt;/p&gt;
+&lt;p&gt;第一次使用命令可能需要下载gradle，请自备梯子。&lt;/p&gt;
+&lt;h3 id=&quot;进阶：适配渠道包&quot;&gt;&lt;a href=&quot;#进阶：适配渠道包&quot; class=&quot;headerlink&quot; title=&quot;进阶：适配渠道包&quot;&gt;&lt;/a&gt;进阶：适配渠道包&lt;/h3&gt;&lt;p&gt;主要是使用productFlavors这个DSL容器进行渠道包的适配，如果对gradle不够了解，可以看看这个系列的教程&lt;a href=&quot;http://blog.csdn.net/qinxiandiqi/article/category/2394347&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qinxiandiqi/article/category/2394347&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看下面这部分代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;android {
+    ....
+
+    productFlavors {
+        flavor1 {
+            minSdkVersion 14
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上例定义了一个flavor：flavor1，并指定了应用的minSdkVersion为14（当然还可以配置更多的属性，具体可参考相关文档）。与此同时，Gradle还会为该flavor关联对应的sourceSet，默认位置为src/&lt;flavorname&gt;目录，对应到本例就是src/flavor1。&lt;/flavorname&gt;&lt;/p&gt;
+&lt;p&gt;接下来，要做的就是根据具体的需求在build.gradle文件中配置flavor，并添加必要的代码和资源文件。以flavor1为例，运行gradle assembleFlavor1命令既可生成所需的适配包。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;使用不同的包名&lt;br&gt;示例如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;productFlavors {
+    test1 {
+        applicationId &amp;quot;com.app.test1&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的代码添加了一个名为test1的flavor，并指定了应用的包名为com.app.test1，运行gradle assembleTest1命令即可生成test1适配包。&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用不同的应用名&lt;br&gt;Gradle在构建应用时，会优先使用flavor所属dataSet中的同名资源。所以，解决思路就是在flavor的dataSet中添加同名的字符串资源，以覆盖默认的资源。下面以适配wandoujia渠道的应用名为美团团购为例进行介绍。&lt;br&gt;首先，在build.gradle配置文件中添加如下flavor：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;android {
+    productFlavors {
+        wandoujia { 
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的配置会默认&lt;code&gt;src/wandoujia&lt;/code&gt;目录为&lt;code&gt;wandoujia flavor&lt;/code&gt;的&lt;code&gt;dataSet&lt;/code&gt;。&lt;br&gt;&lt;br&gt;接下来，在src目录内创建wandoujia目录，并添加如下应用名字符串资源（&lt;code&gt;src/wandoujia/res/values/appname.xml&lt;/code&gt;）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;resources&amp;gt;
+    &amp;lt;string name=&amp;quot;app_name&amp;quot;&amp;gt;美团团购&amp;lt;/string&amp;gt;
+&amp;lt;/resources&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;默认的应用名字符串资源如下（&lt;code&gt;src/main/res/values/strings.xml&lt;/code&gt;）:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;resources&amp;gt;
+    &amp;lt;string name=&amp;quot;app_name&amp;quot;&amp;gt;美团&amp;lt;/string&amp;gt;
+&amp;lt;/resources&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，运行gradle assembleWandoujia命令即可生成应用名为美团团购的应用了。&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用第三方SDK&lt;br&gt;某些渠道会要求客户端嵌入第三方SDK来满足特定的适配需求。比如360应用市场要求美团团购Android客户端的精品应用模块使用他们提供的SDK。问题的难点在于如何只为特定的渠道添加SDK，其他渠道不引入该SDK。使用flavor可以很好的解决这个问题，下面以为&lt;code&gt;qihu360 flavor&lt;/code&gt;引入&lt;code&gt;com.qihoo360.union.sdk:union:1.0&lt;/code&gt; SDK为例进行说明：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;android {
+    productFlavors {
+        qihu360 {
+        }
+    }
+}
+...
+dependencies {
+    provided &amp;apos;com.qihoo360.union.sdk:union:1.0&amp;apos;
+    qihu360Compile &amp;apos;com.qihoo360.union.sdk:union:1.0&amp;apos;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上例添加了名为qihu360的flavor，并且指定编译和运行时都依赖&lt;code&gt;com.qihoo360.union.sdk:union:1.0&lt;/code&gt;。而其他渠道只是在构建的时候依赖该SDK，打包的时候并不会添加它。&lt;br&gt;&lt;br&gt;接下来，需要在代码中使用反射技术判断应用程序是否添加了该SDK，从而决定是否要显示360 SDK提供的精品应用。部分代码如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class MyActivity extends Activity {
+    private boolean useQihuSdk;
+
+    @override
+    public void onCreate(Bundle savedInstanceState) {
+        try {
+            Class.forName(&amp;quot;com.qihoo360.union.sdk.UnionManager&amp;quot;);
+            useQihuSdk = true;
+        } catch (ClassNotFoundException ignored) {
+
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，运行&lt;code&gt;gradle assembleQihu360&lt;/code&gt;命令即可生成包含360精品应用模块的渠道包了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;使用Ant多渠道打包&quot;&gt;&lt;a href=&quot;#使用Ant多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用Ant多渠道打包&quot;&gt;&lt;/a&gt;使用Ant多渠道打包&lt;/h2&gt;&lt;p&gt;针对使用Eclipse的用户&lt;/p&gt;
+&lt;p&gt;跟着这个链接做（图文教程）&lt;a href=&quot;http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;因为我的需求是多渠道，多项目打包，所以略微修改了以下，如果是单个项目，完全使用上面链接中的方式即可&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.apache.tools.ant.DefaultLogger;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectHelper;
+
+public class AntTest {
+    private Project project;
+
+    private static String sourceProjectPath;// 要打包的项目根目录
+    private static String targetApkPath;// 保存打包之后的apk的根目录
+    private static String signApk;// 这里的文件名必须是准确的项目名！就是Project工程的bin目录下面的apk安装包的名字
+    private static String signedApkPrex;// 重命名之后的apk名称前缀(地图项目不用改)
+    private static String placeHolder = &amp;quot;@market@&amp;quot;;// 需要修改manifest文件的地方(占位符)
+
+    public static void main(String args[]) {
+        // 工程目录File对象
+        File file = new File(&amp;quot;..//&amp;quot;);
+        // 获得本工作空间中所有完美攻略工程
+        String[] projects = file.list(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith(&amp;quot;PerfectTools&amp;quot;)
+                        &amp;amp;&amp;amp; new File(dir, name).isDirectory();
+            }
+        });
+        for (String project : projects) {
+            sourceProjectPath = new File(file, project).getAbsolutePath();
+            targetApkPath = &amp;quot;E:\\apk_release&amp;quot; + File.separator + project;
+            File targetApkDir = new File(targetApkPath);
+            if (!targetApkDir.exists()) {
+                targetApkDir.mkdirs();
+            }
+            signApk = project + &amp;quot;-release.apk&amp;quot;;
+            signedApkPrex = project + &amp;quot;_&amp;quot;;
+            //开始打包
+            startPacking();
+        }
+    }
+
+    @SuppressWarnings(&amp;quot;resource&amp;quot;)
+    protected static void startPacking() {
+        long startTime = 0L;
+        long endTime = 0L;
+        long totalTime = 0L;
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(&amp;quot;yyyy-MM-dd:HH:mm:ss&amp;quot;);
+        try {
+            System.out.println(&amp;quot;---------ant批量自动化打包开始----------&amp;quot;);
+            startTime = System.currentTimeMillis();
+            date.setTimeInMillis(startTime);
+            System.out.println(&amp;quot;开始时间为:&amp;quot; + sdf.format(date.getTime()));
+            BufferedReader br = new BufferedReader(new FileReader(&amp;quot;market.txt&amp;quot;));
+            String flag = null;
+            while ((flag = br.readLine()) != null) {
+                // 先修改manifest文件:读取临时文件中的@market@修改为市场标识,然后写入manifest.xml中
+                String tempFilePath = sourceProjectPath + File.separator
+                        + &amp;quot;AndroidManifest.xml.temp&amp;quot;;
+                String filePath = sourceProjectPath + File.separator
+                        + &amp;quot;AndroidManifest.xml&amp;quot;;
+                write(filePath, read(tempFilePath, flag.trim()));
+                // 执行打包命令
+                AntTest mytest = new AntTest();
+                mytest.init(sourceProjectPath + File.separator + &amp;quot;build.xml&amp;quot;,
+                        sourceProjectPath);
+                mytest.runTarget(&amp;quot;clean&amp;quot;);
+                mytest.runTarget(&amp;quot;release&amp;quot;);
+                // 打完包后执行重命名加拷贝操作
+                File file = new File(sourceProjectPath + File.separator + &amp;quot;bin&amp;quot;
+                        + File.separator + signApk);// bin目录下签名的apk文件
+
+                File renameFile = new File(targetApkPath + File.separator
+                        + signedApkPrex + flag + &amp;quot;.apk&amp;quot;);
+                // 将打包好的apk重命名后移动到copyApkPath位置
+                boolean renametag = file.renameTo(renameFile);
+                System.out.println(&amp;quot;rename------&amp;gt;&amp;quot; + renametag);
+                System.out.println(&amp;quot;file ------&amp;gt;&amp;quot; + file.getAbsolutePath());
+                System.out.println(&amp;quot;rename------&amp;gt;&amp;quot;
+                        + renameFile.getAbsolutePath());
+            }
+            System.out.println(&amp;quot;---------ant批量自动化打包结束----------&amp;quot;);
+            endTime = System.currentTimeMillis();
+            date.setTimeInMillis(endTime);
+            System.out.println(&amp;quot;结束时间为:&amp;quot; + sdf.format(date.getTime()));
+            totalTime = endTime - startTime;
+            System.out.println(&amp;quot;耗费时间为:&amp;quot; + getBeapartDate(totalTime));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(&amp;quot;---------ant批量自动化打包中发生异常----------&amp;quot;);
+            endTime = System.currentTimeMillis();
+            date.setTimeInMillis(endTime);
+            System.out.println(&amp;quot;发生异常时间为:&amp;quot; + sdf.format(date.getTime()));
+            totalTime = endTime - startTime;
+            System.out.println(&amp;quot;耗费时间为:&amp;quot; + getBeapartDate(totalTime));
+        }
+    }
+
+    public void init(String _buildFile, String _baseDir) throws Exception {
+        project = new Project();
+        project.init();
+        DefaultLogger consoleLogger = new DefaultLogger();
+        consoleLogger.setErrorPrintStream(System.err);
+        consoleLogger.setOutputPrintStream(System.out);
+        consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
+        project.addBuildListener(consoleLogger);
+        if (_baseDir == null)
+            _baseDir = new String(&amp;quot;.&amp;quot;);
+        project.setBasedir(_baseDir);
+        if (_buildFile == null)
+            _buildFile = new String(sourceProjectPath + File.separator
+                    + &amp;quot;build.xml&amp;quot;);
+        ProjectHelper.configureProject(project, new File(_buildFile));
+    }
+
+    public void runTarget(String _target) throws Exception {
+        if (project == null)
+            throw new Exception(
+                    &amp;quot;No target can be launched because the project has not been initialized. Please call the &amp;apos;init&amp;apos; method first !&amp;quot;);
+        if (_target == null)
+            _target = project.getDefaultTarget();
+        project.executeTarget(_target);
+    }
+
+    /**
+     * 根据所秒数,计算相差的时间并以**时**分**秒返回
+     * 
+     * @param d1
+     * @param d2
+     * @return
+     */
+    public static String getBeapartDate(long m) {
+        m = m / 1000;
+        String beapartdate = &amp;quot;&amp;quot;;
+        int nDay = (int) m / (24 * 60 * 60);
+        int nHour = (int) (m - nDay * 24 * 60 * 60) / (60 * 60);
+        int nMinute = (int) (m - nDay * 24 * 60 * 60 - nHour * 60 * 60) / 60;
+        int nSecond = (int) m - nDay * 24 * 60 * 60 - nHour * 60 * 60 - nMinute
+                * 60;
+        beapartdate = nDay + &amp;quot;天&amp;quot; + nHour + &amp;quot;小时&amp;quot; + nMinute + &amp;quot;分&amp;quot; + nSecond + &amp;quot;秒&amp;quot;;
+
+        return beapartdate;
+    }
+
+    public static String read(String filePath, String replaceStr) {
+        BufferedReader br = null;
+        String line = null;
+        StringBuffer buf = new StringBuffer();
+
+        try {
+            // 根据文件路径创建缓冲输入流
+            br = new BufferedReader(new FileReader(filePath));
+            // 循环读取文件的每一行, 对需要修改的行进行修改, 放入缓冲对象中
+            while ((line = br.readLine()) != null) {
+                // 此处根据实际需要修改某些行的内容
+                if (line.contains(placeHolder)) {
+                    line = line.replace(placeHolder, replaceStr);
+                    buf.append(line);
+                } else {
+                    buf.append(line);
+                }
+                buf.append(System.getProperty(&amp;quot;line.separator&amp;quot;));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    br = null;
+                }
+            }
+        }
+
+        return buf.toString();
+    }
+
+    /**
+     * 将内容回写到文件中
+     * 
+     * @param filePath
+     * @param content
+     */
+    public static void write(String filePath, String content) {
+        BufferedWriter bw = null;
+
+        try {
+            // 根据文件路径创建缓冲输出流
+            bw = new BufferedWriter(new FileWriter(filePath));
+            // 将内容写入文件中
+            bw.write(content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭流
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    bw = null;
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;渠道信息market.txt放在java项目的根目录中，我的渠道列表如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;zhanwai
+xiaomi
+oppo
+lenovo
+wandoujia
+meizu
+huawei
+hisense
+tencent
+liqucn
+wo
+eoemarket
+sogou
+yybei
+letv
+yyjia
+mm
+anzhi
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以下三个文件拷入要打包的项目中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ant.properties&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;key.store=D:\\kding.keystore //签名路径
+key.store.password=525b2102
+key.alias=kding.keystore
+key.alias.password=525b2102
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;build.xml(ant自动生成的文件，只需要修改project name=你的项目名)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;project name=&amp;quot;PerfectToolsOfZhslm&amp;quot; default=&amp;quot;help&amp;quot;&amp;gt;
+    &amp;lt;property file=&amp;quot;local.properties&amp;quot; /&amp;gt;
+    &amp;lt;property file=&amp;quot;ant.properties&amp;quot; /&amp;gt;
+    &amp;lt;property environment=&amp;quot;env&amp;quot; /&amp;gt;
+    &amp;lt;condition property=&amp;quot;sdk.dir&amp;quot; value=&amp;quot;${env.ANDROID_HOME}&amp;quot;&amp;gt;
+        &amp;lt;isset property=&amp;quot;env.ANDROID_HOME&amp;quot; /&amp;gt;
+    &amp;lt;/condition&amp;gt;
+    &amp;lt;loadproperties srcFile=&amp;quot;project.properties&amp;quot; /&amp;gt;
+    &amp;lt;fail
+            message=&amp;quot;sdk.dir is missing. Make sure to generate local.properties using &amp;apos;android update project&amp;apos; or to inject it through the ANDROID_HOME environment variable.&amp;quot;
+            unless=&amp;quot;sdk.dir&amp;quot;
+    /&amp;gt;
+    &amp;lt;import file=&amp;quot;custom_rules.xml&amp;quot; optional=&amp;quot;true&amp;quot; /&amp;gt;
+    &amp;lt;import file=&amp;quot;${sdk.dir}/tools/ant/build.xml&amp;quot; /&amp;gt;
+&amp;lt;/project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;local.properties(sdk所在目录)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sdk.dir=D:\\adt-bundle-windows-x86_64-20140702\\sdk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用python脚本进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;/a&gt;使用python脚本进行多渠道打包&lt;/h2&gt;&lt;p&gt;使用脚本的打包方式速度很慢，每次打包都需要重新编译，如果需要打包的渠道很多，建议采用以下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下载安装python环境&lt;/li&gt;
+&lt;li&gt;下载python脚本 &lt;code&gt;AndroidMultiChannelBuildTool&lt;/code&gt;&lt;a href=&quot;https://github.com/GavinCT/AndroidMultiChannelBuildTool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/GavinCT/AndroidMultiChannelBuildTool&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;将&lt;code&gt;ChannelUtil.java&lt;/code&gt;代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：&lt;code&gt;AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在&lt;code&gt;PythonTool/Info/channel.txt&lt;/code&gt;中编辑渠道列表，以换行隔开，工程中有示例&lt;/li&gt;
+&lt;li&gt;打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 &lt;code&gt;python MultiChannelBuildTool.py&lt;/code&gt;）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;参考链接&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Android studio 多渠道打包(超简洁版)&lt;a href=&quot;http://xuyazhou.com/archives/461&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://xuyazhou.com/archives/461&lt;/a&gt;&lt;br&gt;美团Android自动化之旅—适配渠道包&lt;a href=&quot;http://tech.meituan.com/mt-apk-adaptation.html&quot; title=&quot;美团Android自动化之旅—适配渠道包&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://tech.meituan.com/mt-apk-adaptation.html&lt;/a&gt;&lt;br&gt;&lt;br&gt;Android Gradle Plugin指南（五）——Build Variants（构建变种版本）&lt;a href=&quot;http://blog.csdn.net/qinxiandiqi/article/details/37906449&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qinxiandiqi/article/details/37906449&lt;/a&gt;&lt;br&gt;美团Android自动化之旅—生成渠道包&lt;a href=&quot;http://tech.meituan.com/mt-apk-packaging.html&quot; title=&quot;美团Android自动化之旅—生成渠道包&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://tech.meituan.com/mt-apk-packaging.html&lt;/a&gt;&lt;br&gt;&lt;br&gt;Android批量打包提速 - 1分钟900个市场不是梦&lt;a href=&quot;http://www.cnblogs.com/ct2011/p/4152323.html&quot; title=&quot;Android批量打包提速 - 1分钟900个市场不是梦&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/ct2011/p/4152323.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用gradle进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;/a&gt;使用gradle进行多渠道打包&lt;/h2&gt;&lt;p&gt;使用Android studio&lt;/p&gt;
+&lt;h3 id=&quot;基本多渠道打包&quot;&gt;&lt;a href=&quot;#基本多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;基本多渠道打包&quot;&gt;&lt;/a&gt;基本多渠道打包&lt;/h3&gt;&lt;p&gt;以友盟的为例&lt;/p&gt;
+&lt;p&gt;渠道信息一般在 &lt;code&gt;AndroidManifest.xml&lt;/code&gt;中修改以下值：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;首先你必须在&lt;code&gt;AndroidManifest.xml&lt;/code&gt;中的meta-data修改以下的样子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;${UMENG_CHANNEL_VALUE}&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;${UMENG_CHANNEL_VALUE}&lt;/code&gt;中的值就是你在gradle中自定义配置的值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;build.gradle&lt;/code&gt;文件就利用&lt;code&gt;productFlavors&lt;/code&gt;这样写：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;productFlavors {
+    wandoujia {}
+    baidu {}
+    c360 {}
+    uc {}
+
+    productFlavors.all { flavor -&amp;gt;
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中name的值对相对应各个&lt;code&gt;productFlavors&lt;/code&gt;的选项值，这样就达到自动替换渠道值的目的了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="多渠道打包" scheme="http://yoursite.com/tags/%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Android5.x上运行ARM架构程序</title>
+    <link href="http://yoursite.com/2015/12/29/Genymotion%20%E5%9C%A8Android5.x%E4%B8%8A%E8%BF%90%E8%A1%8CARM%E6%9E%B6%E6%9E%84%E7%A8%8B%E5%BA%8F/"/>
+    <id>http://yoursite.com/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/</id>
+    <published>2015-12-29T02:04:53.000Z</published>
+    <updated>2016-04-08T13:49:35.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Genymotion-在Android5-x上运行ARM架构程序&quot;&gt;&lt;a href=&quot;#Genymotion-在Android5-x上运行ARM架构程序&quot; class=&quot;headerlink&quot; title=&quot;Genymotion 在Android5.x上运行ARM架构程序&quot;&gt;&lt;/a&gt;Genymotion 在Android5.x上运行ARM架构程序&lt;/h1&gt;&lt;p&gt;原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。&lt;/p&gt;
+&lt;p&gt;本文提供&lt;code&gt;Genymotion-ARM-Translation&lt;/code&gt;、&lt;code&gt;Genymotion-ARM-Translation_v1.1&lt;/code&gt;、&lt;code&gt;ARM_Translation_Lollipop&lt;/code&gt;的三个版本。其中&lt;code&gt;Genymotion-ARM-Translation&lt;/code&gt;、&lt;code&gt;Genymotion-ARM-Translation_v1.1&lt;/code&gt;对应Android 5.x以下，个人发现4.4安装v1.1没卵用，安装前者反而有效，读者自行试验。&lt;code&gt;ARM_Translation_Lollipop&lt;/code&gt;毫无疑问对应5.x系统。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下载地址：&lt;a href=&quot;http://pan.baidu.com/s/1pJ5YZl5&quot; title=&quot;http://pan.baidu.com/s/1pJ5YZl5&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://pan.baidu.com/s/1pJ5YZl5&lt;/a&gt; 密码：w3ol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;5-x的使用方法&quot;&gt;&lt;a href=&quot;#5-x的使用方法&quot; class=&quot;headerlink&quot; title=&quot;5.x的使用方法&quot;&gt;&lt;/a&gt;5.x的使用方法&lt;/h2&gt;&lt;p&gt;使用方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 Genymotion 里面建立 5.0 or 5.1 的模拟器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;开机后把 &lt;code&gt;ARM_Translation_Lollipop.zip&lt;/code&gt;（请勿解压）拖到模拟器中，自动安装。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;先不要重启模拟器，打开CMD命令行，输入&lt;code&gt;adb shell /system/etc/houdini_patcher.sh&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;完成后重启模拟器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;方法及安装包来自二三接脚大神：&lt;a href=&quot;http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;5-0以下的使用方法&quot;&gt;&lt;a href=&quot;#5-0以下的使用方法&quot; class=&quot;headerlink&quot; title=&quot;5.0以下的使用方法&quot;&gt;&lt;/a&gt;5.0以下的使用方法&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 Genymotion 里面建立4.x的模拟器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;开机后把&lt;code&gt;Genymotion-ARM-Translation&lt;/code&gt;或者&lt;code&gt;Genymotion-ARM-Translation_v1.1&lt;/code&gt;（请勿解压）拖到模拟器中，自动安装。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;完成后重启模拟器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Genymotion-在Android5-x上运行ARM架构程序&quot;&gt;&lt;a href=&quot;#Genymotion-在Android5-x上运行ARM架构程序&quot; class=&quot;headerlink&quot; title=&quot;Genymotion 在Android5.x上运行ARM
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+      <category term="Genymotion" scheme="http://yoursite.com/tags/Genymotion/"/>
+    
+      <category term="ARM-Translation" scheme="http://yoursite.com/tags/ARM-Translation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EventBus3.0使用方法</title>
+    <link href="http://yoursite.com/2015/12/28/EventBus3.0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2015/12/28/EventBus3.0使用方法/</id>
+    <published>2015-12-28T10:41:34.000Z</published>
+    <updated>2016-04-08T13:49:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;EventBus所有版本的Marven仓库&lt;a href=&quot;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&quot; title=&quot;EventBus所有版本的Marven仓库&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&lt;/a&gt;&lt;br&gt;&lt;br&gt;EventBus2.x使用教程&lt;a href=&quot;http://blog.csdn.net/harvic880925/article/details/40787203&quot; title=&quot;EventBus2.x使用教程&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/harvic880925/article/details/40787203&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;3-0与2-x的区别&quot;&gt;&lt;a href=&quot;#3-0与2-x的区别&quot; class=&quot;headerlink&quot; title=&quot;3.0与2.x的区别&quot;&gt;&lt;/a&gt;3.0与2.x的区别&lt;/h2&gt;&lt;p&gt;主要区别在订阅函数的不同&lt;/p&gt;
+&lt;p&gt;EventBus2.x中只暴露了四个方法供用户调用，分别是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;onEvent：该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件线程在同一个线程。使用这个方法时，在onEvent方法中不能执行耗时操作，如果执行耗时操作容易导致事件分发延迟。&lt;/li&gt;
+&lt;li&gt;onEventMainThread：不论事件是在哪个线程中发布出来的，onEventMainThread都会在UI线程中执行，接收事件就会在UI线程中运行，这个在Android中是非常有用的，因为在Android中只能在UI线程中跟新UI，所以在onEvnetMainThread方法中是不能执行耗时操作的。&lt;/li&gt;
+&lt;li&gt;onEventBackgroundThread：如果事件是在UI线程中发布出来的，那么onEventBackground就会在子线程中运行，如果事件本来就是子线程中发布出来的，那么onEventBackground函数直接在该子线程中执行。&lt;/li&gt;
+&lt;li&gt;onEventAsync：无论事件在哪个线程发布，都会创建新的子线程在执行onEventAsync.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;EventBus3.0中必须使用注解，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+public void firstEvent(FirstEvent event) {
+    Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;Async&amp;quot; + Thread.currentThread().getName());
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;好处在于订阅函数可以随便起名字，其他与2.x没什么不同。&lt;br&gt;这里Subscribe中的key需要解释一下含义，Subscribe中可以传三种值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ThreadMode：这是个枚举，有四个值，决定订阅函数在哪个线程执行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PostThread：事件发送者在哪个线程就执行在哪个线程。同2.x中的onEvent方法，默认值就是这个&lt;/li&gt;
+&lt;li&gt;MainThread：订阅函数一定执行在主线程。同onEventMainThread方法&lt;/li&gt;
+&lt;li&gt;BackgroundThread：如果是事件从子线程发出，订阅函数就执行在那个子线程，不会创建新的子线程；如果主线程发出事件，则创建子线程。同onEventBackgroundThread方法&lt;/li&gt;
+&lt;li&gt;Async：一定创建子线程。同onEventAsync方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sticky：默认为false，如果为true，当通过&lt;code&gt;postSticky&lt;/code&gt;发送一个事件时，这个类型的事件的最后一次事件会被缓存起来，当有订阅者注册时，会把之前缓存起来的这个事件直接发送给它。使用在比如事件发送者先启动了，订阅者还没启动的情况。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;priority：默认值为0。订阅了同一个事件的订阅函数，在ThreadMode值相同的前提下，收到事件的优先级。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;具体使用&quot;&gt;&lt;a href=&quot;#具体使用&quot; class=&quot;headerlink&quot; title=&quot;具体使用&quot;&gt;&lt;/a&gt;具体使用&lt;/h2&gt;&lt;p&gt;创建事件：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class FirstEvent {
+    private String msg;
+    public FirstEvent(String msg){
+        this.msg = msg;
+    }
+    public String getMsg(){
+        return msg;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在MainActivity的onCreate方法中注册，onDestroy方法中反注册&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;EventBus.getDefault().register(this);
+EventBus.getDefault().unregister(this);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;订阅函数，此处用来查看执行在哪个线程（注意，这里的函数名可以任取）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+public void onAsync(FirstEvent event) {
+    Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;Async: &amp;quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.BackgroundThread)
+public void onBackgroundThread(FirstEvent event) {
+    Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;BackgroundThread: &amp;quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.MainThread)
+public void onMainThread(FirstEvent event) {
+    Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;MainThread: &amp;quot; + Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.PostThread)
+public void onPostThread(FirstEvent event) {
+    Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;PostThread: &amp;quot; + Thread.currentThread().getName());
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在SecondActivity发送事件（主线程中发送）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;EventBus.getDefault().post(new FirstEvent(&amp;quot;啦啦啦&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行结果如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Async: pool-1-thread-1
+MainThread: main
+PostThread: main
+BackgroundThread: pool-1-thread-2
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果是在子线程中发送：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;new Thread(new Runnable() {
+
+    @Override
+    public void run() {
+        EventBus.getDefault().post(new FirstEvent(&amp;quot;啦啦啦&amp;quot;));
+    }
+}).start();
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行结果如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;BackgroundThread: Thread-450
+PostThread: Thread-450
+Async: pool-1-thread-1
+MainThread: main
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果先启动SecondActivity，后启动MainActivity：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Override
+public void onClick(View v) {
+    EventBus.getDefault().postSticky(new FirstEvent(&amp;quot;啦啦啦&amp;quot;));
+    startActivity(new Intent(SecondActivity.this,MainActivity.class));
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;确实只有onAsync方法收到了消息。&lt;/p&gt;
+&lt;p&gt;至此对EventBus的试验基本就结束了，各位可以自行选择不同的ThreadMode值，让订阅函数执行在不同的线程。根据需要选择是否需要sticky=true。&lt;/p&gt;
+&lt;p&gt;完整的MainActivity和SecondActivity代码如下（xml文件就不贴了，就一个Button）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,
+                        SecondActivity.class));
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.Async, sticky = true, priority = 1)
+    public void onAsync(FirstEvent event) {
+        Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;Async: &amp;quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.BackgroundThread)
+    public void onBackgroundThread(FirstEvent event) {
+        Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;BackgroundThread: &amp;quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onMainThread(FirstEvent event) {
+        Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;MainThread: &amp;quot; + Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.PostThread)
+    public void onPostThread(FirstEvent event) {
+        Log.e(&amp;quot;TAG&amp;quot;, &amp;quot;PostThread: &amp;quot; + Thread.currentThread().getName());
+    }
+
+}
+
+
+public class SecondActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        findViewById(R.id.second).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new FirstEvent(&amp;quot;Lai自星星的我&amp;quot;));
+                startActivity(new Intent(SecondActivity.this,MainActivity.class));
+            }
+        });
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;EventBus所有版本的Marven仓库&lt;a href=&quot;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&quot; title=&quot;EventBus所有版本的Marven仓库&quot;&gt;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&lt;/a&gt;&lt;br/&gt;&lt;br&gt;EventBus2.x使用教程&lt;a href=&quot;http://blog.csdn.net/harvic880925/article/details/40787203&quot; title=&quot;EventBus2.x使用教程&quot;&gt;http://blog.csdn.net/harvic880925/article/details/40787203&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="EventBus" scheme="http://yoursite.com/tags/EventBus/"/>
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+</feed>

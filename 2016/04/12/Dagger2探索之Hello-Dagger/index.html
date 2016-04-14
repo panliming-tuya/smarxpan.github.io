@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Dagger2探索之Hello Dagger | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. 
+新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.
+gradle配置先上使用方式, gra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dagger2探索之Hello Dagger">
+<meta property="og:url" content="http://yoursite.com/2016/04/12/Dagger2探索之Hello-Dagger/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. 
+新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.
+gradle配置先上使用方式, gra">
+<meta property="og:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/jietu.png">
+<meta property="og:updated_time" content="2016-04-14T14:56:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dagger2探索之Hello Dagger">
+<meta name="twitter:description" content="Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. 
+新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.
+gradle配置先上使用方式, gra">
+<meta name="twitter:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/jietu.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Dagger2探索之Hello-Dagger" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/12/Dagger2探索之Hello-Dagger/" class="article-date">
+  	<time datetime="2016-04-12T03:47:53.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dagger2探索之Hello Dagger
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. </p>
+<p>新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.</p>
+<h2 id="gradle配置"><a href="#gradle配置" class="headerlink" title="gradle配置"></a>gradle配置</h2><p>先上使用方式, gradle文件配置相关</p>
+<p>项目根目录gradle中<code>buildscript</code>的<code>dependencies</code>添加</p>
+<pre><code>classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;
+</code></pre><p>module目录的gradle中, 添加</p>
+<pre><code>apply plugin: &apos;android-apt&apos;
+</code></pre><p>添加这个东西的作用是让AS能够识别Dagger2自动生成的代码并且能够跳转跟踪等.</p>
+<p>添加依赖</p>
+<pre><code>compile &apos;com.google.dagger:dagger:2.0.2&apos;
+provided &apos;com.google.dagger:dagger-compiler:2.0.2&apos;
+provided &apos;javax.annotation:jsr250-api:1.0&apos;
+</code></pre><font color="gray" size="2">注1: 此时(16年4月11日)最新的dagger版本是2.0.3, 但请不要升级, 其引用的Guava版本有问题<br>注2: <code>javax.annotation:jsr250-api:1.0</code>, Android Api中没有这个包, 而Dagger中用到了<code>@Generated</code>注解, 不引入会报错</font>
+
+<a id="more"></a>
+<p>gradle配置至此完成</p>
+<h2 id="Hello-Dagger2"><a href="#Hello-Dagger2" class="headerlink" title="Hello Dagger2"></a>Hello Dagger2</h2><p>依赖注入的各种原理各种导图看着就晕, 实实在在的先来个Hello World, 哦不, Hello Dagger吧</p>
+<p>第一步, 创建一个很简单的JavaBean, 没什么好说的</p>
+<pre><code>public class HelloDagger {
+
+    private String hello;
+
+    public HelloDagger(String hello) {
+        this.hello = hello;
+    }
+
+    public String getHello() {
+        return hello;
+    }
+}
+</code></pre><p>第二步, 创建Module, <code>@Module</code>注解, 在Dagger2中表示提供依赖的模块</p>
+<pre><code>@Module
+public class ActivityModule {
+
+    // 提供依赖的方法, 使用Provides注解, 告诉Dagger2到这里来找对象
+    @Provides
+    static HelloDagger provideHelloDagger(){
+        return new HelloDagger(&quot;Hello Dagger!&quot;);
+    }
+
+}
+</code></pre><p>第三步, 创建Component. 你应该注意到了, Component是个接口, 等于是Module与被注入的类(本例中是MainActivity)之间的桥梁. </p>
+<pre><code>// 这个注解表示Component要到ActivityModule中寻找依赖
+@Component(modules = ActivityModule.class)
+public interface ActivityComponent {
+
+    // 注入具体的类中(方法名可随意取, 重要的是参数)
+    void inject(MainActivity activity);
+
+}
+</code></pre><font color="gray" size="2">注: <code>inject(MainActivity activity)</code>中的参数必须是你要注入的那个类的对象, Dagger2生成的代码会调用该对象注入其中, 使用其父类(如Activity), 则毫无卵用</font>
+
+<p>好了, 上面的都做完了, 需要运行一发让Dagger2生成代码, 以下三种方式:</p>
+<pre><code>1. 点击运行小按钮
+2. 使用快捷键: mac使用Ctrl+R, win/linux使用Ctrl+Shift+F10
+3. 在项目根目录使用命令行 ./gradlew build
+</code></pre><p>最后, 注入到MainActivity</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+    // Inject注解对应Module中的Provides注解
+    // 声明依赖要注入给这个变量
+    @Inject
+    HelloDagger helloDagger;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // DaggerActivityComponent是Dagger2自动生成的, 此处使用create静态方法创建对象
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        // 注入
+        activityComponent.inject(this);
+
+        TextView saySomethingTV = (TextView) findViewById(R.id.tv_say_something);
+        saySomethingTV.setText(helloDagger.getHello());
+    }
+}
+</code></pre><p>运行结果</p>
+<p><img src="http://7xqnsv.com1.z0.glb.clouddn.com/jietu.png" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>至此, 我想这个Hello Dagger应该算是结束了. 如果你做了一遍, 应该对这个框架有了感性的认识. 接下来可以看看<a href="https://google.github.io/dagger/" target="_blank" rel="external">dagger2官网</a>, 或者看看其他博客自己进行学习. 接下来我的博客也会继续更新这个系列, 尝试在项目中实际应用.</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="https://google.github.io/dagger/" target="_blank" rel="external">dagger2官网</a></p>
+<p><a href="http://www.liuhaihua.cn/archives/70662.html" target="_blank" rel="external">详解Dagger2</a></p>
+<p><a href="http://blog.fidroid.com/post/android/dagger-on-android-dagger2xiang-jie" target="_blank" rel="external">dagger on Android</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/14/算法系列-2-不那么简单的排序/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          算法系列(2)--不那么简单的排序之希尔、归并、快速排序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/07/一个可应用的动态加载dex实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一个可应用的动态加载dex实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Dagger2探索之Hello-Dagger" data-title="Dagger2探索之Hello Dagger" data-url="http://yoursite.com/2016/04/12/Dagger2探索之Hello-Dagger/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

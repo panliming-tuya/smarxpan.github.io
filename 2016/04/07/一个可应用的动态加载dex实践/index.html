@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>一个可应用的动态加载dex实践 | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
+这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
+本文参考链接先行放出：
+
+Android de">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个可应用的动态加载dex实践">
+<meta property="og:url" content="http://yoursite.com/2016/04/07/一个可应用的动态加载dex实践/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
+这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
+本文参考链接先行放出：
+
+Android de">
+<meta property="og:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg">
+<meta property="og:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160219181614.png">
+<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个可应用的动态加载dex实践">
+<meta name="twitter:description" content="动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
+这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
+本文参考链接先行放出：
+
+Android de">
+<meta name="twitter:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-一个可应用的动态加载dex实践" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/07/一个可应用的动态加载dex实践/" class="article-date">
+  	<time datetime="2016-04-07T10:05:54.000Z" itemprop="datePublished">2016-04-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一个可应用的动态加载dex实践
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。<br>这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。</p>
+<p>这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)</p>
+<p>本文参考链接先行放出：</p>
+<blockquote>
+<p><a href="http://my.oschina.net/853294317/blog/308583" target="_blank" rel="external">Android dex分包方案</a></p>
+<p><a href="https://github.com/dodola/HotFix" target="_blank" rel="external">HoxFix项目</a></p>
+<p><a href="http://blog.csdn.net/lmj623565791/article/details/49883661" target="_blank" rel="external">Android 热补丁动态修复框架小结</a></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="简述原理"><a href="#简述原理" class="headerlink" title="简述原理"></a>简述原理</h2><p>理解如何动态加载dex包，先要理解正常启动过程dex是如何加载的。</p>
+<p>Android是通过ClassLoader类加载应用的, 如下图，ClassLoader类的体系：</p>
+<p><img src="http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg" alt=""></p>
+<p>我们能使用到的是DexClassLoader和PathClassLoader，这两个类的用途分别是：</p>
+<ol>
+<li><p>关于PathClassLoader，文档中写到： <code>Android uses this class for its system class loader and for its application class loader(s)</code>,<br>由此可知，PathClassLoader只能加载已安装到系统中（即/data/app目录下）的apk文件，Android应用就是用它来加载;</p>
+</li>
+<li><p>DexClassLoader可以加载apk,jar,及dex文件。</p>
+</li>
+</ol>
+<p>那么我们要使用的就是DexClassLoader。</p>
+<p>DexClassLoader和PathClassLoader都继承了BaseClassLoader，具体加载的逻辑也在BaseClassLoader中：</p>
+<pre><code>@Override  
+protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException {  
+
+    List&lt;Throwable&gt; suppressedExceptions = new ArrayList&lt;Throwable&gt;();  
+    Class c = pathList.findClass(name, suppressedExceptions);  
+    if (c == null) {  
+        ClassNotFoundException cnfe = new ClassNotFoundException(&quot;Didn&apos;t find class \&quot;&quot; + name + &quot;\&quot; on path: &quot; + pathList);  
+        for (Throwable t : suppressedExceptions) {  
+            cnfe.addSuppressed(t);  
+       }  
+
+        throw cnfe;  
+    }  
+     return c;  
+} 
+</code></pre><p>从上面的函数可知，当我们需要加载一个class时，实际是从pathList中去需要的，查阅源码，发现pathList是DexPathList类的一个实例。我们接着去看DexPathList类中的findClass函数</p>
+<pre><code>public Class findClass(String name, List&lt;Throwable&gt; suppressed) {  
+
+    for (Element element : dexElements) {  
+        DexFile dex = element.dexFile;  
+        if (dex != null) {  
+            Class clazz = dex.loadClassBinaryName(name, definingContext, suppressed);  
+            if (clazz != null) {  
+                return clazz;  
+            }  
+        }  
+   }  
+    if (dexElementsSuppressedExceptions != null) {  
+        suppressed.addAll(Arrays.asList(dexElementsSuppressedExceptions));  
+    }  
+    return null;  
+}  
+</code></pre><p>上述函数的大致逻辑为：遍历一个装在dex文件（每个dex文件实际上是一个DexFile对象）的数组（Element数组，Element是一个内部类），然后依次去加载所需要的class文件，直到找到为止。</p>
+<p>看到这里，注入的解决方案也就浮出水面，假如我们将第二个dex文件放入Element数组中，那么在加载第二个dex包中的类时，应该可以直接找到。</p>
+<p>至于注入的具体方式，让我们下面一步步实现。</p>
+<h2 id="实现动态加载的流程"><a href="#实现动态加载的流程" class="headerlink" title="实现动态加载的流程"></a>实现动态加载的流程</h2><ol>
+<li>制作插件dex包（实际上是dx处理后的jar包）<ul>
+<li>将代码部分打包成jar，没错，只需要代码部分</li>
+<li>使用Android sdk中的dx工具处理jar</li>
+<li>把jar包放在asset目录或者服务器上</li>
+</ul>
+</li>
+<li>app启动时动态注入</li>
+</ol>
+<h3 id="制作Dex包"><a href="#制作Dex包" class="headerlink" title="制作Dex包"></a>制作Dex包</h3><p>我这里的插件项目只是单纯的一个Activity，插件项目和一般项目的不同在于，不能直接使用R文件调用资源文件，需要反射调用。因为插件需要运行在宿主项目中，宿主项目的R文件和你的R文件并不相同。</p>
+<p>反射调用R文件中的内容也是开发sdk的基础，反射调用的工具类会在本文结尾的代码清单中放出</p>
+<p>对于Eclipse，新建工程，做些你想要的操作，右键工程到处jar包<br>注意，此处只需要选择src目录，也就是只需要代码</p>
+<p><img src="http://7xqnsv.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160219181614.png" alt=""></p>
+<p>对于Android Studio，只能手动打jar包。<br>新建Module，写好代码</p>
+<p>进入<font color="red">项目根目录</font></p>
+<pre><code>gradlew clean
+gradlew build
+</code></pre><p>第一次执行gradlew命令可能需要下载gradle，注意科学上网</p>
+<p>去<font color="red">Module的目录</font>下，执行下面的命令将字节码打成jar包</p>
+<pre><code>jar cvf dexdemo.jar -C  build/intermediates/classes/debug .
+</code></pre><p>这样打出来的jar包只是一个普通的jar包，需要使用sdk\build-tools\中的dx工具进行处理（build-tools有很多版本，选用你Target的那个版本吧）,把这个目录配进环境变量，执行命令</p>
+<pre><code>dx --dex --output dexdemo_dex.jar dexdemo.jar
+</code></pre><p>这样你就得到了看似是jar，其实是dex的包</p>
+<h3 id="动态注入"><a href="#动态注入" class="headerlink" title="动态注入"></a>动态注入</h3><p>从网上或者assets目录复制jar包到内置储存，这一步比较简单，不给出代码了</p>
+<p>重头戏来了，开始注入</p>
+<pre><code>private static void injectAboveEqualApiLevel14(Context context, String dexFilePath)
+        throws ClassNotFoundException, NoSuchFieldException,
+        IllegalAccessException {
+    // 获取当前Context的PathClassLoader
+    PathClassLoader pathClassLoader = (PathClassLoader) context
+            .getClassLoader();
+    // 通过ClassLoader拿到PathList
+    Object pathList = getPathList(pathClassLoader);
+    // 通过PahList拿到Elements数组
+    Object contextElements = getDexElements(pathList);
+
+    // 创建DexClassLoader对象，加载内部存储中的dex文件
+    DexClassLoader dexClassLoader = new DexClassLoader(dexFilePath, context
+            .getDir(&quot;dex&quot;, 0).getAbsolutePath(), dexFilePath, context
+            .getClassLoader());
+    Object dexPathList = getPathList(dexClassLoader);
+    // 获取加载了dex文件的Elements数组
+    Object dexElements = getDexElements(dexPathList);
+
+    // 合并数组
+    Object newElements = combineArray(contextElements,dexElements);
+    // 将数组设置回去
+    setField(pathList, pathList.getClass(), &quot;dexElements&quot;, newElements);
+}
+</code></pre><p>因为设计到耗时操作，所以我在Service中完成注入操作. 具体实现附在最后的代码清单中</p>
+<h2 id="代码清单："><a href="#代码清单：" class="headerlink" title="代码清单："></a>代码清单：</h2><h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><h4 id="反射资源文件工具类"><a href="#反射资源文件工具类" class="headerlink" title="反射资源文件工具类"></a>反射资源文件工具类</h4><pre><code>public class ResourceUtils {
+
+    public static int getLayoutId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;layout&quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getStringId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;string&quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getDrawableId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString,
+                &quot;drawable&quot;, paramContext.getPackageName());
+    }
+
+    public static int getStyleId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;style&quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;id&quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getColorId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;color&quot;,
+                paramContext.getPackageName());
+    }
+
+    public static int getDimenId(Context paramContext, String paramString)
+            throws IllegalArgumentException {
+        return paramContext.getResources().getIdentifier(paramString, &quot;dimen&quot;,
+                paramContext.getPackageName());
+    }
+
+}
+</code></pre><h4 id="注入工具类InjectDexUtils-java"><a href="#注入工具类InjectDexUtils-java" class="headerlink" title="注入工具类InjectDexUtils.java"></a>注入工具类InjectDexUtils.java</h4><pre><code>import java.io.File;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Context;
+import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
+
+@SuppressLint(&quot;NewApi&quot;)
+public class InjectDexUtils {
+    public static void inject(Context context, String dexFilePath) {
+        if (dexFilePath != null &amp;&amp; new File(dexFilePath).exists()) {
+            try {
+                // 兼容阿里云os
+                if (hasLexClassLoader())
+                    injectInAliyunOs(context, dexFilePath);
+                else if (hasDexClassLoader())
+                    // API14以上的反射注入dex逻辑
+                    injectAboveEqualApiLevel14(context, dexFilePath);
+                else
+                    // API14以下的
+                    injectBelowApiLevel14(context, dexFilePath);
+
+            } catch (Throwable th) {
+
+            }
+        }
+    }
+
+    private static boolean hasLexClassLoader() {
+        try {
+            Class.forName(&quot;dalvik.system.LexClassLoader&quot;);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static boolean hasDexClassLoader() {
+        try {
+            Class.forName(&quot;dalvik.system.BaseDexClassLoader&quot;);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static void injectInAliyunOs(Context context, String dexFilePath)
+            throws ClassNotFoundException, NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException,
+            InstantiationException, NoSuchFieldException {
+        PathClassLoader obj = (PathClassLoader) context.getClassLoader();
+        String replaceAll = new File(dexFilePath).getName().replaceAll(
+                &quot;\\.[a-zA-Z0-9]+&quot;, &quot;.lex&quot;);
+        Class cls = Class.forName(&quot;dalvik.system.LexClassLoader&quot;);
+        Object newInstance = cls.getConstructor(
+                new Class[] { String.class, String.class, String.class,
+                        ClassLoader.class }).newInstance(
+                new Object[] {
+                        context.getDir(&quot;dex&quot;, 0).getAbsolutePath()
+                                + File.separator + replaceAll,
+                        context.getDir(&quot;dex&quot;, 0).getAbsolutePath(),
+                        dexFilePath, obj });
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mPaths&quot;,
+                appendArray(getField(obj, PathClassLoader.class, &quot;mPaths&quot;),
+                        getField(newInstance, cls, &quot;mRawDexPath&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mFiles&quot;,
+                combineArray(getField(obj, PathClassLoader.class, &quot;mFiles&quot;),
+                        getField(newInstance, cls, &quot;mFiles&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mZips&quot;,
+                combineArray(getField(obj, PathClassLoader.class, &quot;mZips&quot;),
+                        getField(newInstance, cls, &quot;mZips&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mLexs&quot;,
+                combineArray(getField(obj, PathClassLoader.class, &quot;mLexs&quot;),
+                        getField(newInstance, cls, &quot;mDexs&quot;)));
+    }
+
+    @TargetApi(14)
+    private static void injectBelowApiLevel14(Context context, String str)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        PathClassLoader obj = (PathClassLoader) context.getClassLoader();
+        DexClassLoader dexClassLoader = new DexClassLoader(str, context.getDir(
+                &quot;dex&quot;, 0).getAbsolutePath(), str, context.getClassLoader());
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mPaths&quot;,
+                appendArray(
+                        getField(obj, PathClassLoader.class, &quot;mPaths&quot;),
+                        getField(dexClassLoader, DexClassLoader.class,
+                                &quot;mRawDexPath&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mFiles&quot;,
+                combineArray(
+                        getField(obj, PathClassLoader.class, &quot;mFiles&quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &quot;mFiles&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mZips&quot;,
+                combineArray(getField(obj, PathClassLoader.class, &quot;mZips&quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &quot;mZips&quot;)));
+        setField(
+                obj,
+                PathClassLoader.class,
+                &quot;mDexs&quot;,
+                combineArray(getField(obj, PathClassLoader.class, &quot;mDexs&quot;),
+                        getField(dexClassLoader, DexClassLoader.class, &quot;mDexs&quot;)));
+    }
+
+    private static void injectAboveEqualApiLevel14(Context context, String str)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        PathClassLoader pathClassLoader = (PathClassLoader) context
+                .getClassLoader();
+        // 合并dexElements数组，并把补丁的dex放在前面
+        Object a = combineArray(
+                getDexElements(getPathList(pathClassLoader)),
+                getDexElements(getPathList(new DexClassLoader(str, context
+                        .getDir(&quot;dex&quot;, 0).getAbsolutePath(), str, context
+                        .getClassLoader()))));
+        Object a2 = getPathList(pathClassLoader);
+
+        setField(a2, a2.getClass(), &quot;dexElements&quot;, a);
+    }
+
+    private static Object getPathList(Object obj)
+            throws ClassNotFoundException, NoSuchFieldException,
+            IllegalAccessException {
+        return getField(obj, Class.forName(&quot;dalvik.system.BaseDexClassLoader&quot;),
+                &quot;pathList&quot;);
+    }
+
+    private static Object getDexElements(Object obj)
+            throws NoSuchFieldException, IllegalAccessException {
+        return getField(obj, obj.getClass(), &quot;dexElements&quot;);
+    }
+
+    private static Object getField(Object obj, Class cls, String str)
+            throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = cls.getDeclaredField(str);
+        declaredField.setAccessible(true);
+        return declaredField.get(obj);
+    }
+
+    private static void setField(Object obj, Class cls, String str, Object obj2)
+            throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = cls.getDeclaredField(str);
+        declaredField.setAccessible(true);
+        declaredField.set(obj, obj2);
+    }
+
+    private static Object combineArray(Object obj, Object obj2) {
+        Class componentType = obj2.getClass().getComponentType();
+        int length = Array.getLength(obj2);
+        int length2 = Array.getLength(obj) + length;
+        Object newInstance = Array.newInstance(componentType, length2);
+        for (int i = 0; i &lt; length2; i++) {
+            if (i &lt; length) {
+                Array.set(newInstance, i, Array.get(obj2, i));
+            } else {
+                Array.set(newInstance, i, Array.get(obj, i - length));
+            }
+        }
+        return newInstance;
+    }
+
+    private static Object appendArray(Object obj, Object obj2) {
+        Class componentType = obj.getClass().getComponentType();
+        int length = Array.getLength(obj);
+        Object newInstance = Array.newInstance(componentType, length + 1);
+        Array.set(newInstance, 0, obj2);
+        for (int i = 1; i &lt; length + 1; i++) {
+            Array.set(newInstance, i, Array.get(obj, i - 1));
+        }
+        return newInstance;
+    }
+}
+</code></pre><h4 id="复制dex到内部存储工具类"><a href="#复制dex到内部存储工具类" class="headerlink" title="复制dex到内部存储工具类"></a>复制dex到内部存储工具类</h4><pre><code>import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import android.content.Context;
+
+public class PrepareDexUtils {
+    private static final int BUF_SIZE = 2048;
+
+    /**
+     * 从assets目录拷贝jar包到其他目录
+     * @param context
+     * @param dexInternalStoragePath
+     * @param dex_file
+     * @return
+     */
+    public static boolean prepareDex(Context context, File dexInternalStoragePath, String dex_file) {
+        BufferedInputStream bis = null;
+        OutputStream dexWriter = null;
+
+        try {
+            bis = new BufferedInputStream(context.getAssets().open(dex_file));
+            dexWriter = new BufferedOutputStream(new FileOutputStream(dexInternalStoragePath));
+            byte[] buf = new byte[BUF_SIZE];
+            int len;
+            while ((len = bis.read(buf, 0, BUF_SIZE)) &gt; 0) {
+                dexWriter.write(buf, 0, len);
+            }
+            dexWriter.close();
+            bis.close();
+            return true;
+        } catch (IOException e) {
+            if (dexWriter != null) {
+                try {
+                    dexWriter.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            return false;
+        }
+    }
+}
+</code></pre><h3 id="调用注入的服务"><a href="#调用注入的服务" class="headerlink" title="调用注入的服务"></a>调用注入的服务</h3><pre><code>public class ProxyService extends Service {
+    @SuppressLint(&quot;HandlerLeak&quot;)
+    Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            try {
+                // 反射调用初始化广告sdk
+                Class&lt;?&gt; adAgent = Class.forName(&quot;com.kding.adpack.AdAgent&quot;);
+                Method method = adAgent.getMethod(&quot;init&quot;, Context.class);
+                method.invoke(adAgent, getApplicationContext());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    // 用来防止第二次启动服务二次调用注入
+    // 已经注入的情况下再次注入会crash
+    int injectFlag = 0;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        injectDex();
+        return START_STICKY;
+    }
+
+    protected void injectDex() {
+        // 防止二次注入
+        if (injectFlag != 0) {
+            return;
+        }
+        final File dexFile = new File(getDir(&quot;dex&quot;, Context.MODE_PRIVATE),
+                &quot;adsdk_dex.jar&quot;);
+        // dex.jar存在就直接注入
+        if (dexFile.exists()) {
+            InjectDexUtils.inject(getApplicationContext(),
+                    dexFile.getAbsolutePath());
+            mHandler.sendEmptyMessage(1);
+        } else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 文件不存在复制后注入
+                    PrepareDexUtils.prepareDex(getApplicationContext(),
+                            dexFile, &quot;adsdk_dex.jar&quot;);
+                    InjectDexUtils.inject(getApplicationContext(),
+                            dexFile.getAbsolutePath());
+                    mHandler.sendEmptyMessage(1);
+                    injectFlag ++;
+                }
+            }).start();
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/12/Dagger2探索之Hello-Dagger/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Dagger2探索之Hello Dagger
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/07/搭建Hexo最佳实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">搭建Hexo最佳实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="一个可应用的动态加载dex实践" data-title="一个可应用的动态加载dex实践" data-url="http://yoursite.com/2016/04/07/一个可应用的动态加载dex实践/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

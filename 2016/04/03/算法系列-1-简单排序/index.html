@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>算法系列(1)--简单排序算法 | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
+冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
+有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
+第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法系列(1)--简单排序算法">
+<meta property="og:url" content="http://yoursite.com/2016/04/03/算法系列-1-简单排序/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
+冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
+有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
+第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.">
+<meta property="og:updated_time" content="2016-04-14T14:49:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法系列(1)--简单排序算法">
+<meta name="twitter:description" content="简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
+冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
+有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
+第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-算法系列-1-简单排序" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/03/算法系列-1-简单排序/" class="article-date">
+  	<time datetime="2016-04-02T16:01:56.000Z" itemprop="datePublished">2016-04-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法系列(1)--简单排序算法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h2><p>简单排序有三种, 冒泡排序,选择排序,插入排序</p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序是一种易于实现的排序算法, 以升序为例:</p>
+<p>有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. </p>
+<p>第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.</p>
+<a id="more"></a>
+<pre><code>//冒泡排序
+void bubbleSort(int arr[], int n){
+    for (int i = 0; i &lt; n-1 ; i++ ) {
+        for (int j = 1; j &lt; n - i; j++) {
+            if (arr[j - 1] &gt; arr[j]) {
+                swap(&amp;arr[j-1], &amp;arr[j]);
+            }
+        }
+    }
+}
+</code></pre><p>因为用的是C语言, 遇到了java中完全遇不到的两个bug. </p>
+<p>第一点是交换值, 必须要传地址才有卵用, 否则毫无卵用</p>
+<pre><code>// 交换函数, 必须传递引用才能交换成功
+// 传值只是将实参复制给了形参一份, 在函数内如何改变形参与实参无关
+// 传递引用, &amp;arr[i], 取地址, a = &amp;arr[i], *a = *(&amp;arr[i]) = arr[i]
+// 因此改变的就是实参的值
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+</code></pre><p>另一点是获取数组长度.</p>
+<p>按照道理, 用运算符sizeof可以计算出数组的容量（字节数）,在除以单个元素的容量就能得到数组的长度了. </p>
+<pre><code>(sizeof(array) / sizeof(array[0]));
+</code></pre><p>结果我真的是naive. 当我想打印数组时, 搞了个函数</p>
+<pre><code>void printfArray(int arr[]){
+    int len = sizeof(arr) / sizeof(arr[0]);
+    for (int i = 0; i &lt; len; i++) {
+        printf(&quot;%d, &quot;, arr[i]);
+    }
+}
+</code></pre><p>怎么打都只能打出两个数字, 百思不得其解啊尼玛</p>
+<p>在C/C++中, 数组在作为参数传递时, 会退化为同类型的指针, 并没有办法知道指针所指的内存容量，除非在申请内存时记住它。</p>
+<p>无论数组长度为多少, 以int数组为例, sizeof(a)始终等于sizeof(int *), 所以函数中传递只能把传数组个数传过去</p>
+<pre><code>void printfArray(int arr[], int len){
+    for (int i = 0; i &lt; len; i++) {
+        printf(&quot;%d, &quot;, arr[i]);
+    }
+}
+</code></pre><h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>选择排序, 以升序为例:</p>
+<p>第一轮比较, 从arr[0]开始依次比较, 找出最小的数的下标, 记录下来, 将arr[0]与最小值交换.</p>
+<p>第二轮从arr[1]开始依次比较, 找出最小的数的下标, 记录下来, 将arr[1]与最小值交换.</p>
+<p>…</p>
+<p>直到交换完成</p>
+<pre><code>void selectSort(int arr[], int n){
+    for (int i = 0; i &lt; n; i++) {
+        int min = i;
+        for (int j = i + 1; j &lt; n; j++) {
+            if (arr[j] &lt; arr[min]) {
+                min = j;
+            }
+        }
+        swap(&amp;arr[i], &amp;arr[min]);
+    }
+}
+</code></pre><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>插入排序的思路是，将单个数字插入有序集合. 大致思想是, 先将第一个数看做有序区, 后面的数依次插入, 形成新的有序区, 直到排序完成.</p>
+<p>以升序为例, 比如这样一个数组 <code>{4, 2, 7, 3}</code></p>
+<p>第一轮, 第一个数字4看做有序区, 后面的数字插入. 开始比较2和4，发现2更小，继续向前查找，没有数字，因此将2插入4的位置，4向后移。这时数组变成了<code>{2, 4, 7, 3}</code></p>
+<p>第二次，遍历到7，向前比较, 有序</p>
+<p>第三次，3和7比较，7更大，3应该插入前面。继续向前比较，比较到2才找到了合适的位置。将3插入4的位置，4、7向后移动一位。</p>
+<p>下面开始撸代码</p>
+<pre><code>// 直接插入排序
+void insertSort(int arr[], int n){
+    for (int i = 0; i &lt; n; i++) {
+        // 后面的数比前面的数大时, 准备插入
+        if (arr[i] &gt; arr[i+1]) {
+            // 存储待插入的数
+            int temp = arr[i+1];
+            int j;
+            // 向前查找合适的插入位置
+            for (j = i; j&gt;=0 &amp;&amp; temp &lt; arr[j]; j--) {
+                // 逐步后移数组
+                arr[j+1] = arr[j];
+            }
+            // 交换
+            arr[j+1] = temp;
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/07/搭建Hexo最佳实践/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          搭建Hexo最佳实践
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/11/多渠道打包总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">多渠道打包总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="算法系列-1-简单排序" data-title="算法系列(1)--简单排序算法" data-url="http://yoursite.com/2016/04/03/算法系列-1-简单排序/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
