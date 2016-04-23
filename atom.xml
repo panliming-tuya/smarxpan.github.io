@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-14T14:59:21.000Z</updated>
+  <updated>2016-04-23T11:08:35.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,249 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>是时候学习一波Lambda表达式了</title>
+    <link href="http://yoursite.com/2016/04/23/Lamada%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/2016/04/23/Lamada表达式/</id>
+    <published>2016-04-22T16:01:56.000Z</published>
+    <updated>2016-04-23T11:08:35.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;是时候学习一波Lambda表达式了&quot;&gt;&lt;a href=&quot;#是时候学习一波Lambda表达式了&quot; class=&quot;headerlink&quot; title=&quot;是时候学习一波Lambda表达式了&quot;&gt;&lt;/a&gt;是时候学习一波Lambda表达式了&lt;/h1&gt;&lt;p&gt;Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步&lt;/p&gt;
+&lt;h2 id=&quot;什么是Lambda&quot;&gt;&lt;a href=&quot;#什么是Lambda&quot; class=&quot;headerlink&quot; title=&quot;什么是Lambda&quot;&gt;&lt;/a&gt;什么是Lambda&lt;/h2&gt;&lt;p&gt;首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.&lt;/p&gt;
+&lt;p&gt;要明白什么是Lambda, 先要知道什么是&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;闭包&lt;/a&gt;)(Closure).&lt;/p&gt;
+&lt;p&gt;闭包来源于&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;函数式编程&lt;/a&gt;, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁&lt;br&gt;&lt;br&gt;–来自阮一峰技术博客&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;而Lambda表达式是java对闭包这一特性的实现方式.&lt;/p&gt;
+&lt;p&gt;在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.&lt;/p&gt;
+&lt;p&gt;等等, 这个某类匿名内部类是神马意思?&lt;/p&gt;
+&lt;p&gt;这类能用Lambda表达式替代的匿名内部类有两个条件: &lt;strong&gt;必须是接口类型; 只有一个抽象方法&lt;/strong&gt;.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;Lambda的使用&quot;&gt;&lt;a href=&quot;#Lambda的使用&quot; class=&quot;headerlink&quot; title=&quot;Lambda的使用&quot;&gt;&lt;/a&gt;Lambda的使用&lt;/h2&gt;&lt;h3 id=&quot;语法&quot;&gt;&lt;a href=&quot;#语法&quot; class=&quot;headerlink&quot; title=&quot;语法&quot;&gt;&lt;/a&gt;语法&lt;/h3&gt;&lt;p&gt;基本语法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(parameters) -&amp;gt; { expression or statements }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下面是一些例子: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 无参数, 返回1+2的结果 
+() -&amp;gt; 1+2  
+
+// 接收一个参数(数字类型),返回其2倍的值  
+x -&amp;gt; 2 * x
+
+// 接收2个参数(数字),返回表达式运算的结果 
+(x, y) -&amp;gt; x + y
+
+// 多个语句要用大括号包裹, 并且返回值要用return指明
+(x, y) -&amp;gt; {
+    int result = x + y;
+    System.out.print(result);
+    return result;
+}
+
+// 接收string 对象, 并在控制台打印 
+s -&amp;gt; System.out.print(s)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中参数的类型可以不声明, 编译器会结合上下文智能推断, 比如这句&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;s -&amp;gt; System.out.print(s)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;等价于 &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(String s) -&amp;gt; System.out.print(s)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意: 无参数时&lt;code&gt;()&lt;/code&gt;不能省略    &lt;/p&gt;
+&lt;p&gt;语法非常简单, 就是因为简单, 反而更让人摸不着头脑, 接下来开始介绍具体使用&lt;/p&gt;
+&lt;h3 id=&quot;java中使用Lambda&quot;&gt;&lt;a href=&quot;#java中使用Lambda&quot; class=&quot;headerlink&quot; title=&quot;java中使用Lambda&quot;&gt;&lt;/a&gt;java中使用Lambda&lt;/h3&gt;&lt;p&gt;先看看我们常写的Runnable接口如何改写成Lambda形式&lt;/p&gt;
+&lt;p&gt;使用匿名内部类的写法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;new Thread(new Runnable() {  
+    @Override  
+    public void run() {  
+        System.out.println(&amp;quot;Hello Lambda!&amp;quot;);  
+    }  
+}).start();  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用Lambda表达式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;new Thread(() -&amp;gt; System.out.println(&amp;quot;Hello Lambda!&amp;quot;)).start(); 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;改写过程一目了然, 就是原本写匿名内部类的地方, 改写成了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;参数 -&amp;gt; 表达式或者代码库块
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;再来总结一下Lambda表达式的使用条件:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;函数(可以是构造函数)的参数是接口&lt;/li&gt;
+&lt;li&gt;这个接口只包含一个抽象方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这样就可以使用酷炫拽的Lambda表达式了&lt;/p&gt;
+&lt;h3 id=&quot;自定义接口使用Lambda&quot;&gt;&lt;a href=&quot;#自定义接口使用Lambda&quot; class=&quot;headerlink&quot; title=&quot;自定义接口使用Lambda&quot;&gt;&lt;/a&gt;自定义接口使用Lambda&lt;/h3&gt;&lt;p&gt;下面尝试自定义接口使用Lambda, 对使用方式理解更清晰&lt;/p&gt;
+&lt;p&gt;第一步, 创建一个Person类&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Person {
+    public String name;
+    public int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &amp;quot;Person{&amp;quot; +
+                &amp;quot;age=&amp;quot; + age +
+                &amp;quot;, name=&amp;apos;&amp;quot; + name + &amp;apos;\&amp;apos;&amp;apos; +
+                &amp;apos;}&amp;apos;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第二步, 创建一个接口, 用来打印Person&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public interface IPersonPrinter {
+    void printPerson(Person p);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第三步, 创建方法打印Person&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private static void printPerson(Person p, IPersonPrinter personPrinter){
+    personPrinter.printPerson(p);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;接下来要在main函数中调用第三步的方法, 先来看不使用Lambda表达式的代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Person person = new Person(&amp;quot;Smarx&amp;quot;, 23);
+printPerson(person, new IPersonPrinter() {
+    @Override
+    public void printPerson(Person p) {
+        System.out.println(p.toString());
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 很简单的操作却要使用这么多行代码, 只有一行代码是有效的. 而使用Lambda表达式后, 只需要一行代码:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;printPerson(person, p -&amp;gt; System.out.println(p.toString()));
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;完整的调用代码如下: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class LambdaDemo {
+    public static void main(String[] args) {
+        Person person = new Person(&amp;quot;Smarx&amp;quot;, 23);
+        printPerson(person, p -&amp;gt; System.out.println(p.toString()));
+    }
+
+    private static void printPerson(Person p, IPersonPrinter personPrinter){
+        personPrinter.printPerson(p);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;如何使Android-Studio支持Lambda&quot;&gt;&lt;a href=&quot;#如何使Android-Studio支持Lambda&quot; class=&quot;headerlink&quot; title=&quot;如何使Android Studio支持Lambda&quot;&gt;&lt;/a&gt;如何使Android Studio支持Lambda&lt;/h2&gt;&lt;p&gt;在Android N出现之前, 大家都是使用&lt;a href=&quot;https://github.com/evant/gradle-retrolambda&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gradle-retrolambda&lt;/a&gt;插件支持的. 网上相关的文章很多, 如果需要可自行学习这个库的配置及使用.&lt;/p&gt;
+&lt;p&gt;下面介绍使用Android N支持Lambda表达式&lt;/p&gt;
+&lt;p&gt;首先确保你的jdk已经升级到了1.8, 然后在将&lt;strong&gt;工程根目录&lt;/strong&gt;的build.gradle中的gradle版本改成最新版本, 目前最新的版本是&lt;code&gt;2.1.0-alpha4&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dependencies {
+    classpath &amp;apos;com.android.tools.build:gradle:2.1.0-alpha4&amp;apos;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;module目录&lt;/strong&gt;的build.gradle配置如下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;android {
+    compileSdkVersion &amp;apos;android-N&amp;apos;
+    // buildTools必须用24以上
+    buildToolsVersion &amp;quot;24.0.0 rc3&amp;quot;
+
+    defaultConfig {
+        applicationId &amp;quot;com.github.smarxpan&amp;quot;
+        minSdkVersion &amp;apos;N&amp;apos;  //使用Android N最小版本也要是Android N
+        targetSdkVersion &amp;apos;N&amp;apos;
+        versionCode 1
+        versionName &amp;quot;1.0&amp;quot;
+
+        // 使用jack(Java Android Compiler Kit)工具链
+        jackOptions{
+            enabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&amp;apos;proguard-android.txt&amp;apos;), &amp;apos;proguard-rules.pro&amp;apos;
+        }
+    }
+    // 配置JDK为1.8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就能愉快的将我们常写的某些匿名内部类写成Lambda表达式了, such as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;findViewById(R.id.btn).setOnClickListener( view -&amp;gt; {
+    Toast.makeText(MainActivity.this, &amp;quot;Hello Lambda&amp;quot;, Toast.LENGTH_SHORT).show();
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;Lambda和匿名内部类的区别&quot;&gt;&lt;a href=&quot;#Lambda和匿名内部类的区别&quot; class=&quot;headerlink&quot; title=&quot;Lambda和匿名内部类的区别&quot;&gt;&lt;/a&gt;Lambda和匿名内部类的区别&lt;/h2&gt;&lt;p&gt;看起来Lambda表达式只是简化了匿名内部类的书写, 事实上Lambda并非匿名内部类的&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E8%AF%AD%E6%B3%95%E7%B3%96&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语法糖&lt;/a&gt;, Lambda的效率比匿名内部类要高.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;以下内容主要学习自&lt;a href=&quot;http://www.infoq.com/cn/articles/Java-8-Lambdas-A-Peek-Under-the-Hood&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入探索Java 8 Lambda表达式
+&lt;/a&gt;, 我不过拾人牙慧, 不值一哂&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;匿名内部类形式&quot;&gt;&lt;a href=&quot;#匿名内部类形式&quot; class=&quot;headerlink&quot; title=&quot;匿名内部类形式&quot;&gt;&lt;/a&gt;匿名内部类形式&lt;/h3&gt;&lt;p&gt;我们依旧使用前面自定义Lambda表达式的例子研究, 先来看匿名内部类的代码:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class LambdaDemo {
+    public static void main(String[] args) {
+        Person person = new Person(&amp;quot;Smarx&amp;quot;, 23);
+        printPerson(person, new IPersonPrinter() {
+            public void printPerson(Person p) {
+                System.out.println(p.toString());
+            }
+        });
+    }
+
+    private static void printPerson(Person p, IPersonPrinter personPrinter){
+        personPrinter.printPerson(p);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;进入这个文件所在的目录, 使用命令行编译&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;javac LambdaDemo.java
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;再使用javap命令查看字节码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;javap -c -v LambdaDemo
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到匿名内部类生成的字节码如下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;12: aload_1
+13: new           #5                  // class LambdaDemo$1
+16: dup
+17: invokespecial #6                  // Method LambdaDemo$1.&amp;quot;&amp;lt;init&amp;gt;&amp;quot;:()V
+20: invokestatic  #7                  // Method printPerson:(LPerson;LIPersonPrinter;)V
+23: return
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述字节码的含义如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第13行，使用字节码操作new创建了类型LambdaDemo$1的一个对象，同时将新创建的对象的的引用压入栈中。&lt;/li&gt;
+&lt;li&gt;第16行，使用dup操作复制栈上的引用。&lt;/li&gt;
+&lt;li&gt;第17行，上面的复制的引用被指令invokespecial消耗使用，用来初始化匿名内部类实例。&lt;/li&gt;
+&lt;li&gt;第20行，调用本类的静态方法printPerson&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;Lambdas表达式和invokedynamic&quot;&gt;&lt;a href=&quot;#Lambdas表达式和invokedynamic&quot; class=&quot;headerlink&quot; title=&quot;Lambdas表达式和invokedynamic&quot;&gt;&lt;/a&gt;Lambdas表达式和invokedynamic&lt;/h3&gt;&lt;p&gt;将匿名内部类改写成Lambda&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;printPerson(person, p -&amp;gt; System.out.println(p.toString()));
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重新编译后再查看字节码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;12: aload_1
+13: invokedynamic #5,  0              // InvokeDynamic #0:printPerson:()LIPersonPrinter;
+18: invokestatic  #6                  // Method printPerson:(LPerson;LIPersonPrinter;)V
+21: return
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到字节码与匿名内部类的版本并不相同, Lambda表达式转化成字节码实际上做了如下两步: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生成一个invokedynamic调用点，也叫做Lambda工厂。当调用时返回一个Lambda表达式转化成的函数式接口实例。&lt;/li&gt;
+&lt;li&gt;将Lambda表达式的方法体转换成方法供invokedynamic指令调用。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;也就是说, Lambda表达式其实被翻译成了本类的一个静态方法, 比如我们上面的代码, 会被翻译成类似这样的方法:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;static void lambda$1(String s){
+    System.out.println(p.toString());
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;需要注意的是，这里的$1并不是代表内部类，这里仅仅是为了展示编译后的代码而已。&lt;/p&gt;
+&lt;p&gt;需要注意的是编译器对于Lambda表达式的翻译策略并非固定的，因为这样invokedynamic可以使编译器在后期使用不同的翻译实现策略。比如，被捕获的变量可以放入数组中。如果Lambda表达式用到了类的实例的属性，其对应生成的方法可以是实例方法，而不是静态方法，这样可以避免传入多余的参数。&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;经过上述的学习, 相信大家对Lambda表达式的使用已经有了清晰了了解. 目前Lambda的支持还未能向下兼容, 还处于预览版的状态, 相信Google很快会推出支持方案.&lt;/p&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://zh.lucida.me/blog/java-8-lambdas-insideout-language-features/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入理解Java 8 Lambda（语言篇——lambda，方法引用，目标类型和默认方法）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/Java-8-Lambdas-A-Peek-Under-the-Hood&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入探索Java 8 Lambda表达式
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Lambda Expressions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://developer.android.com/preview/j8-jack.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Java 8 Language Features&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.zhaiyifan.cn/2016/04/20/trans-java-8-in-android-n-preview/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;在 Android N 预览版中使用 Java 8 的新特性&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;是时候学习一波Lambda表达式了&quot;&gt;&lt;a href=&quot;#是时候学习一波Lambda表达式了&quot; class=&quot;headerlink&quot; title=&quot;是时候学习一波Lambda表达式了&quot;&gt;&lt;/a&gt;是时候学习一波Lambda表达式了&lt;/h1&gt;&lt;p&gt;Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步&lt;/p&gt;
+&lt;h2 id=&quot;什么是Lambda&quot;&gt;&lt;a href=&quot;#什么是Lambda&quot; class=&quot;headerlink&quot; title=&quot;什么是Lambda&quot;&gt;&lt;/a&gt;什么是Lambda&lt;/h2&gt;&lt;p&gt;首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.&lt;/p&gt;
+&lt;p&gt;要明白什么是Lambda, 先要知道什么是&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6&quot;&gt;闭包&lt;/a&gt;)(Closure).&lt;/p&gt;
+&lt;p&gt;闭包来源于&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80&quot;&gt;函数式编程&lt;/a&gt;, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁&lt;br&gt;&lt;br&gt;–来自阮一峰技术博客&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;而Lambda表达式是java对闭包这一特性的实现方式.&lt;/p&gt;
+&lt;p&gt;在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.&lt;/p&gt;
+&lt;p&gt;等等, 这个某类匿名内部类是神马意思?&lt;/p&gt;
+&lt;p&gt;这类能用Lambda表达式替代的匿名内部类有两个条件: &lt;strong&gt;必须是接口类型; 只有一个抽象方法&lt;/strong&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>算法系列(2)--不那么简单的排序之希尔、归并、快速排序</title>
     <link href="http://yoursite.com/2016/04/14/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-2-%E4%B8%8D%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F/"/>
     <id>http://yoursite.com/2016/04/14/算法系列-2-不那么简单的排序/</id>
     <published>2016-04-14T14:48:23.000Z</published>
-    <updated>2016-04-14T14:59:21.000Z</updated>
+    <updated>2016-04-22T14:41:23.000Z</updated>
     
     <content type="html">&lt;p&gt;也不知道与简单排序对应的应该叫什么, 就叫不那么简单的排序好了.&lt;/p&gt;
 &lt;p&gt;本篇博客主要学习了希尔排序、归并排序and快速排序。&lt;/p&gt;
@@ -238,11 +476,11 @@ void mergeSort(int arr[], int first, int last, int temp[]){
   </entry>
   
   <entry>
-    <title>Dagger2探索之Hello Dagger</title>
+    <title>Dagger2学习之Hello Dagger</title>
     <link href="http://yoursite.com/2016/04/12/Dagger2%E6%8E%A2%E7%B4%A2%E4%B9%8BHello-Dagger/"/>
     <id>http://yoursite.com/2016/04/12/Dagger2探索之Hello-Dagger/</id>
     <published>2016-04-12T03:47:53.000Z</published>
-    <updated>2016-04-14T14:56:09.000Z</updated>
+    <updated>2016-04-23T10:45:11.000Z</updated>
     
     <content type="html">&lt;p&gt;Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. &lt;/p&gt;
 &lt;p&gt;新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.&lt;/p&gt;
@@ -1552,12 +1790,9 @@ key.alias.password=525b2102
     <link href="http://yoursite.com/2015/12/28/EventBus3.0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2015/12/28/EventBus3.0使用方法/</id>
     <published>2015-12-28T10:41:34.000Z</published>
-    <updated>2016-04-08T13:49:35.000Z</updated>
+    <updated>2016-04-23T11:02:33.000Z</updated>
     
     <content type="html">&lt;p&gt;EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;EventBus所有版本的Marven仓库&lt;a href=&quot;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&quot; title=&quot;EventBus所有版本的Marven仓库&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&lt;/a&gt;&lt;br&gt;&lt;br&gt;EventBus2.x使用教程&lt;a href=&quot;http://blog.csdn.net/harvic880925/article/details/40787203&quot; title=&quot;EventBus2.x使用教程&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/harvic880925/article/details/40787203&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;p&gt;今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h2 id=&quot;3-0与2-x的区别&quot;&gt;&lt;a href=&quot;#3-0与2-x的区别&quot; class=&quot;headerlink&quot; title=&quot;3.0与2.x的区别&quot;&gt;&lt;/a&gt;3.0与2.x的区别&lt;/h2&gt;&lt;p&gt;主要区别在订阅函数的不同&lt;/p&gt;
@@ -1713,14 +1948,14 @@ public class SecondActivity extends Activity {
     }
 
 }
-&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;EventBus所有版本的Marven仓库&lt;a href=&quot;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&quot; title=&quot;EventBus所有版本的Marven仓库&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&lt;/a&gt;&lt;br&gt;&lt;br&gt;EventBus2.x使用教程&lt;a href=&quot;http://blog.csdn.net/harvic880925/article/details/40787203&quot; title=&quot;EventBus2.x使用教程&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/harvic880925/article/details/40787203&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
     
     <summary type="html">
     
       &lt;p&gt;EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;EventBus所有版本的Marven仓库&lt;a href=&quot;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&quot; title=&quot;EventBus所有版本的Marven仓库&quot;&gt;http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22&lt;/a&gt;&lt;br/&gt;&lt;br&gt;EventBus2.x使用教程&lt;a href=&quot;http://blog.csdn.net/harvic880925/article/details/40787203&quot; title=&quot;EventBus2.x使用教程&quot;&gt;http://blog.csdn.net/harvic880925/article/details/40787203&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;p&gt;今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。&lt;/p&gt;
     
     </summary>

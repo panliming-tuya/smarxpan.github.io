@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>是时候学习一波Lambda表达式了 | Smarx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="是时候学习一波Lambda表达式了Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步
+什么是Lambda首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lamb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="是时候学习一波Lambda表达式了">
+<meta property="og:url" content="http://yoursite.com/2016/04/23/Lamada表达式/index.html">
+<meta property="og:site_name" content="Smarx's Blog">
+<meta property="og:description" content="是时候学习一波Lambda表达式了Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步
+什么是Lambda首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lamb">
+<meta property="og:updated_time" content="2016-04-23T11:08:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="是时候学习一波Lambda表达式了">
+<meta name="twitter:description" content="是时候学习一波Lambda表达式了Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步
+什么是Lambda首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lamb">
+  
+    <link rel="alternative" href="/atom.xml" title="Smarx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Lamada表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/23/Lamada表达式/" class="article-date">
+  	<time datetime="2016-04-22T16:01:56.000Z" itemprop="datePublished">2016-04-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      是时候学习一波Lambda表达式了
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="是时候学习一波Lambda表达式了"><a href="#是时候学习一波Lambda表达式了" class="headerlink" title="是时候学习一波Lambda表达式了"></a>是时候学习一波Lambda表达式了</h1><p>Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步</p>
+<h2 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h2><p>首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.</p>
+<p>要明白什么是Lambda, 先要知道什么是<a href="https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6" target="_blank" rel="external">闭包</a>)(Closure).</p>
+<p>闭包来源于<a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80" target="_blank" rel="external">函数式编程</a>, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:</p>
+<blockquote>
+<p>“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁<br><br>–来自阮一峰技术博客</p>
+</blockquote>
+<p>而Lambda表达式是java对闭包这一特性的实现方式.</p>
+<p>在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.</p>
+<p>等等, 这个某类匿名内部类是神马意思?</p>
+<p>这类能用Lambda表达式替代的匿名内部类有两个条件: <strong>必须是接口类型; 只有一个抽象方法</strong>.</p>
+<a id="more"></a>
+<h2 id="Lambda的使用"><a href="#Lambda的使用" class="headerlink" title="Lambda的使用"></a>Lambda的使用</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>基本语法</p>
+<pre><code>(parameters) -&gt; { expression or statements }
+</code></pre><p>下面是一些例子: </p>
+<pre><code>// 无参数, 返回1+2的结果 
+() -&gt; 1+2  
+
+// 接收一个参数(数字类型),返回其2倍的值  
+x -&gt; 2 * x
+
+// 接收2个参数(数字),返回表达式运算的结果 
+(x, y) -&gt; x + y
+
+// 多个语句要用大括号包裹, 并且返回值要用return指明
+(x, y) -&gt; {
+    int result = x + y;
+    System.out.print(result);
+    return result;
+}
+
+// 接收string 对象, 并在控制台打印 
+s -&gt; System.out.print(s)
+</code></pre><p>其中参数的类型可以不声明, 编译器会结合上下文智能推断, 比如这句</p>
+<pre><code>s -&gt; System.out.print(s)
+</code></pre><p>等价于 </p>
+<pre><code>(String s) -&gt; System.out.print(s)
+</code></pre><p>注意: 无参数时<code>()</code>不能省略    </p>
+<p>语法非常简单, 就是因为简单, 反而更让人摸不着头脑, 接下来开始介绍具体使用</p>
+<h3 id="java中使用Lambda"><a href="#java中使用Lambda" class="headerlink" title="java中使用Lambda"></a>java中使用Lambda</h3><p>先看看我们常写的Runnable接口如何改写成Lambda形式</p>
+<p>使用匿名内部类的写法</p>
+<pre><code>new Thread(new Runnable() {  
+    @Override  
+    public void run() {  
+        System.out.println(&quot;Hello Lambda!&quot;);  
+    }  
+}).start();  
+</code></pre><p>使用Lambda表达式</p>
+<pre><code>new Thread(() -&gt; System.out.println(&quot;Hello Lambda!&quot;)).start(); 
+</code></pre><p>改写过程一目了然, 就是原本写匿名内部类的地方, 改写成了</p>
+<pre><code>参数 -&gt; 表达式或者代码库块
+</code></pre><p>再来总结一下Lambda表达式的使用条件:</p>
+<ol>
+<li>函数(可以是构造函数)的参数是接口</li>
+<li>这个接口只包含一个抽象方法</li>
+</ol>
+<p>这样就可以使用酷炫拽的Lambda表达式了</p>
+<h3 id="自定义接口使用Lambda"><a href="#自定义接口使用Lambda" class="headerlink" title="自定义接口使用Lambda"></a>自定义接口使用Lambda</h3><p>下面尝试自定义接口使用Lambda, 对使用方式理解更清晰</p>
+<p>第一步, 创建一个Person类</p>
+<pre><code>public class Person {
+    public String name;
+    public int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Person{&quot; +
+                &quot;age=&quot; + age +
+                &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +
+                &apos;}&apos;;
+    }
+}
+</code></pre><p>第二步, 创建一个接口, 用来打印Person</p>
+<pre><code>public interface IPersonPrinter {
+    void printPerson(Person p);
+}
+</code></pre><p>第三步, 创建方法打印Person</p>
+<pre><code>private static void printPerson(Person p, IPersonPrinter personPrinter){
+    personPrinter.printPerson(p);
+}
+</code></pre><p>接下来要在main函数中调用第三步的方法, 先来看不使用Lambda表达式的代码</p>
+<pre><code>Person person = new Person(&quot;Smarx&quot;, 23);
+printPerson(person, new IPersonPrinter() {
+    @Override
+    public void printPerson(Person p) {
+        System.out.println(p.toString());
+    }
+});
+</code></pre><p> 很简单的操作却要使用这么多行代码, 只有一行代码是有效的. 而使用Lambda表达式后, 只需要一行代码:</p>
+<pre><code>printPerson(person, p -&gt; System.out.println(p.toString()));
+</code></pre><p>完整的调用代码如下: </p>
+<pre><code>public class LambdaDemo {
+    public static void main(String[] args) {
+        Person person = new Person(&quot;Smarx&quot;, 23);
+        printPerson(person, p -&gt; System.out.println(p.toString()));
+    }
+
+    private static void printPerson(Person p, IPersonPrinter personPrinter){
+        personPrinter.printPerson(p);
+    }
+}
+</code></pre><h2 id="如何使Android-Studio支持Lambda"><a href="#如何使Android-Studio支持Lambda" class="headerlink" title="如何使Android Studio支持Lambda"></a>如何使Android Studio支持Lambda</h2><p>在Android N出现之前, 大家都是使用<a href="https://github.com/evant/gradle-retrolambda" target="_blank" rel="external">gradle-retrolambda</a>插件支持的. 网上相关的文章很多, 如果需要可自行学习这个库的配置及使用.</p>
+<p>下面介绍使用Android N支持Lambda表达式</p>
+<p>首先确保你的jdk已经升级到了1.8, 然后在将<strong>工程根目录</strong>的build.gradle中的gradle版本改成最新版本, 目前最新的版本是<code>2.1.0-alpha4</code></p>
+<pre><code>dependencies {
+    classpath &apos;com.android.tools.build:gradle:2.1.0-alpha4&apos;
+}
+</code></pre><p><strong>module目录</strong>的build.gradle配置如下:</p>
+<pre><code>android {
+    compileSdkVersion &apos;android-N&apos;
+    // buildTools必须用24以上
+    buildToolsVersion &quot;24.0.0 rc3&quot;
+
+    defaultConfig {
+        applicationId &quot;com.github.smarxpan&quot;
+        minSdkVersion &apos;N&apos;  //使用Android N最小版本也要是Android N
+        targetSdkVersion &apos;N&apos;
+        versionCode 1
+        versionName &quot;1.0&quot;
+
+        // 使用jack(Java Android Compiler Kit)工具链
+        jackOptions{
+            enabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+    // 配置JDK为1.8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+</code></pre><p>这样就能愉快的将我们常写的某些匿名内部类写成Lambda表达式了, such as:</p>
+<pre><code>findViewById(R.id.btn).setOnClickListener( view -&gt; {
+    Toast.makeText(MainActivity.this, &quot;Hello Lambda&quot;, Toast.LENGTH_SHORT).show();
+});
+</code></pre><h2 id="Lambda和匿名内部类的区别"><a href="#Lambda和匿名内部类的区别" class="headerlink" title="Lambda和匿名内部类的区别"></a>Lambda和匿名内部类的区别</h2><p>看起来Lambda表达式只是简化了匿名内部类的书写, 事实上Lambda并非匿名内部类的<a href="https://zh.wikipedia.org/wiki/%E8%AF%AD%E6%B3%95%E7%B3%96" target="_blank" rel="external">语法糖</a>, Lambda的效率比匿名内部类要高.</p>
+<p><em>以下内容主要学习自<a href="http://www.infoq.com/cn/articles/Java-8-Lambdas-A-Peek-Under-the-Hood" target="_blank" rel="external">深入探索Java 8 Lambda表达式
+</a>, 我不过拾人牙慧, 不值一哂</em></p>
+<h3 id="匿名内部类形式"><a href="#匿名内部类形式" class="headerlink" title="匿名内部类形式"></a>匿名内部类形式</h3><p>我们依旧使用前面自定义Lambda表达式的例子研究, 先来看匿名内部类的代码:</p>
+<pre><code>public class LambdaDemo {
+    public static void main(String[] args) {
+        Person person = new Person(&quot;Smarx&quot;, 23);
+        printPerson(person, new IPersonPrinter() {
+            public void printPerson(Person p) {
+                System.out.println(p.toString());
+            }
+        });
+    }
+
+    private static void printPerson(Person p, IPersonPrinter personPrinter){
+        personPrinter.printPerson(p);
+    }
+}
+</code></pre><p>进入这个文件所在的目录, 使用命令行编译</p>
+<pre><code>javac LambdaDemo.java
+</code></pre><p>再使用javap命令查看字节码</p>
+<pre><code>javap -c -v LambdaDemo
+</code></pre><p>可以看到匿名内部类生成的字节码如下:</p>
+<pre><code>12: aload_1
+13: new           #5                  // class LambdaDemo$1
+16: dup
+17: invokespecial #6                  // Method LambdaDemo$1.&quot;&lt;init&gt;&quot;:()V
+20: invokestatic  #7                  // Method printPerson:(LPerson;LIPersonPrinter;)V
+23: return
+</code></pre><p>上述字节码的含义如下：</p>
+<ul>
+<li>第13行，使用字节码操作new创建了类型LambdaDemo$1的一个对象，同时将新创建的对象的的引用压入栈中。</li>
+<li>第16行，使用dup操作复制栈上的引用。</li>
+<li>第17行，上面的复制的引用被指令invokespecial消耗使用，用来初始化匿名内部类实例。</li>
+<li>第20行，调用本类的静态方法printPerson</li>
+</ul>
+<h3 id="Lambdas表达式和invokedynamic"><a href="#Lambdas表达式和invokedynamic" class="headerlink" title="Lambdas表达式和invokedynamic"></a>Lambdas表达式和invokedynamic</h3><p>将匿名内部类改写成Lambda</p>
+<pre><code>printPerson(person, p -&gt; System.out.println(p.toString()));
+</code></pre><p>重新编译后再查看字节码</p>
+<pre><code>12: aload_1
+13: invokedynamic #5,  0              // InvokeDynamic #0:printPerson:()LIPersonPrinter;
+18: invokestatic  #6                  // Method printPerson:(LPerson;LIPersonPrinter;)V
+21: return
+</code></pre><p>可以看到字节码与匿名内部类的版本并不相同, Lambda表达式转化成字节码实际上做了如下两步: </p>
+<ol>
+<li>生成一个invokedynamic调用点，也叫做Lambda工厂。当调用时返回一个Lambda表达式转化成的函数式接口实例。</li>
+<li>将Lambda表达式的方法体转换成方法供invokedynamic指令调用。</li>
+</ol>
+<p>也就是说, Lambda表达式其实被翻译成了本类的一个静态方法, 比如我们上面的代码, 会被翻译成类似这样的方法:</p>
+<pre><code>static void lambda$1(String s){
+    System.out.println(p.toString());
+} 
+</code></pre><p>需要注意的是，这里的$1并不是代表内部类，这里仅仅是为了展示编译后的代码而已。</p>
+<p>需要注意的是编译器对于Lambda表达式的翻译策略并非固定的，因为这样invokedynamic可以使编译器在后期使用不同的翻译实现策略。比如，被捕获的变量可以放入数组中。如果Lambda表达式用到了类的实例的属性，其对应生成的方法可以是实例方法，而不是静态方法，这样可以避免传入多余的参数。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过上述的学习, 相信大家对Lambda表达式的使用已经有了清晰了了解. 目前Lambda的支持还未能向下兼容, 还处于预览版的状态, 相信Google很快会推出支持方案.</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="http://zh.lucida.me/blog/java-8-lambdas-insideout-language-features/" target="_blank" rel="external">深入理解Java 8 Lambda（语言篇——lambda，方法引用，目标类型和默认方法）</a></p>
+<p><a href="http://www.infoq.com/cn/articles/Java-8-Lambdas-A-Peek-Under-the-Hood" target="_blank" rel="external">深入探索Java 8 Lambda表达式
+</a></p>
+<p><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="external">Lambda Expressions</a></p>
+<p><a href="http://developer.android.com/preview/j8-jack.html" target="_blank" rel="external">Java 8 Language Features</a></p>
+<p><a href="http://blog.zhaiyifan.cn/2016/04/20/trans-java-8-in-android-n-preview/" target="_blank" rel="external">在 Android N 预览版中使用 Java 8 的新特性</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/14/算法系列-2-不那么简单的排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法系列(2)--不那么简单的排序之希尔、归并、快速排序</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Lamada表达式" data-title="是时候学习一波Lambda表达式了" data-url="http://yoursite.com/2016/04/23/Lamada表达式/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

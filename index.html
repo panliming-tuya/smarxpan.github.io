@@ -173,6 +173,76 @@
 
       <div class="body-wrap">
   
+    <article id="post-Lamada表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/23/Lamada表达式/" class="article-date">
+  	<time datetime="2016-04-22T16:01:56.000Z" itemprop="datePublished">2016-04-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/23/Lamada表达式/">是时候学习一波Lambda表达式了</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="是时候学习一波Lambda表达式了"><a href="#是时候学习一波Lambda表达式了" class="headerlink" title="是时候学习一波Lambda表达式了"></a>是时候学习一波Lambda表达式了</h1><p>Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步</p>
+<h2 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h2><p>首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.</p>
+<p>要明白什么是Lambda, 先要知道什么是<a href="https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6">闭包</a>)(Closure).</p>
+<p>闭包来源于<a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80">函数式编程</a>, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:</p>
+<blockquote>
+<p>“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁<br><br>–来自阮一峰技术博客</p>
+</blockquote>
+<p>而Lambda表达式是java对闭包这一特性的实现方式.</p>
+<p>在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.</p>
+<p>等等, 这个某类匿名内部类是神马意思?</p>
+<p>这类能用Lambda表达式替代的匿名内部类有两个条件: <strong>必须是接口类型; 只有一个抽象方法</strong>.</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/04/23/Lamada表达式/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-算法系列-2-不那么简单的排序" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -273,7 +343,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/Dagger2探索之Hello-Dagger/">Dagger2探索之Hello Dagger</a>
+      <a class="article-title" href="/2016/04/12/Dagger2探索之Hello-Dagger/">Dagger2学习之Hello Dagger</a>
     </h1>
   
 
@@ -721,9 +791,6 @@ npm install hexo-generator-feed --save
     <div class="article-entry" itemprop="articleBody">
       
         <p>EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的</p>
-<blockquote>
-<p>EventBus所有版本的Marven仓库<a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22" title="EventBus所有版本的Marven仓库">http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22de.greenrobot%22%20AND%20a%3A%22eventbus%22</a><br/><br>EventBus2.x使用教程<a href="http://blog.csdn.net/harvic880925/article/details/40787203" title="EventBus2.x使用教程">http://blog.csdn.net/harvic880925/article/details/40787203</a><br/><a href="http://www.cnblogs.com/angeldevil/p/3715934.html">http://www.cnblogs.com/angeldevil/p/3715934.html</a></p>
-</blockquote>
 <p>今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。</p>
       
     </div>
