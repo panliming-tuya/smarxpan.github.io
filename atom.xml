@@ -1083,21 +1083,24 @@ public class PrepareDexUtils {
     <link href="http://yoursite.com/2016/04/07/%E6%90%AD%E5%BB%BAHexo%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
     <id>http://yoursite.com/2016/04/07/搭建Hexo最佳实践/</id>
     <published>2016-04-07T09:07:34.000Z</published>
-    <updated>2016-04-08T13:49:35.000Z</updated>
+    <updated>2016-05-04T17:18:08.000Z</updated>
     
     <content type="html">&lt;p&gt;网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧&lt;/p&gt;
 &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;安装npm(可自行下载安装包)&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;安装npm&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;windows请自行下载安装包&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;安装git&lt;ul&gt;
 &lt;li&gt;window自行下载安装&lt;/li&gt;
 &lt;li&gt;mac使用homebrew &lt;code&gt;brew install git&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;linux &lt;code&gt;sudo apt-get install git-core&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;安装hexo&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;安装hexo&lt;br&gt;&lt;br&gt;&lt;br&gt;mac使用命令&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;sudo npm install hexo-cli -g
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;windows使用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-cli -g
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;hexo初始化    &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;hexo init blog
@@ -1114,10 +1117,10 @@ npm install hexo-generator-feed --save
 &lt;/ol&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;至此, 安装完成. &lt;/p&gt;
-&lt;h2 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h2&gt;&lt;h3 id=&quot;新建GitPage&quot;&gt;&lt;a href=&quot;#新建GitPage&quot; class=&quot;headerlink&quot; title=&quot;新建GitPage&quot;&gt;&lt;/a&gt;新建GitPage&lt;/h3&gt;&lt;p&gt;此处使用github提供的gitpage作为博客空间&lt;/p&gt;
+&lt;h2 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h2&gt;&lt;h3 id=&quot;新建GitPage&quot;&gt;&lt;a href=&quot;#新建GitPage&quot; class=&quot;headerlink&quot; title=&quot;新建GitPage&quot;&gt;&lt;/a&gt;新建GitPage&lt;/h3&gt;&lt;p&gt;这里使用github提供的gitpage作为博客空间&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;申请github帐号&lt;/li&gt;
-&lt;li&gt;创建与你username相同的repo, 需等待10分钟左右&lt;/li&gt;
+&lt;li&gt;创建形如&lt;code&gt;yourusername.github.io&lt;/code&gt;的repo, 例如我的用户名是&lt;code&gt;smarxpan&lt;/code&gt;, 我创建的就是&lt;code&gt;smarxpan.github.io&lt;/code&gt;,&lt;br&gt;需10分钟左右通过审核. &lt;/li&gt;
 &lt;li&gt;成功后&lt;code&gt;http://yourusername.github.io&lt;/code&gt;就是你的gitpage地址&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&quot;hexo基本配置&quot;&gt;&lt;a href=&quot;#hexo基本配置&quot; class=&quot;headerlink&quot; title=&quot;hexo基本配置&quot;&gt;&lt;/a&gt;hexo基本配置&lt;/h3&gt;&lt;p&gt;配置文件是&lt;code&gt;_config.yml&lt;/code&gt;,基本配置如下&lt;/p&gt;
@@ -1177,17 +1180,20 @@ hexo s -g #预览加部署
     
       &lt;p&gt;网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧&lt;/p&gt;
 &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;安装npm(可自行下载安装包)&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;安装npm&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;windows请自行下载安装包&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;安装git&lt;ul&gt;
 &lt;li&gt;window自行下载安装&lt;/li&gt;
 &lt;li&gt;mac使用homebrew &lt;code&gt;brew install git&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;linux &lt;code&gt;sudo apt-get install git-core&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;安装hexo&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;安装hexo&lt;br&gt;&lt;br&gt;&lt;br&gt;mac使用命令&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;sudo npm install hexo-cli -g
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;windows使用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install hexo-cli -g
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;hexo初始化    &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;hexo init blog

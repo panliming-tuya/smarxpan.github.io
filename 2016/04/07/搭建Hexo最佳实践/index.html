@@ -8,35 +8,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
 安装
-安装npm(可自行下载安装包)
+安装npm
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+windows请自行下载安装包
 
 安装git
 window自行下载安装
-mac使用homebrew brew install gi">
+mac使用homebrew brew inst">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建Hexo最佳实践">
 <meta property="og:url" content="http://yoursite.com/2016/04/07/搭建Hexo最佳实践/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
 <meta property="og:description" content="网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
 安装
-安装npm(可自行下载安装包)
+安装npm
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+windows请自行下载安装包
 
 安装git
 window自行下载安装
-mac使用homebrew brew install gi">
-<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+mac使用homebrew brew inst">
+<meta property="og:updated_time" content="2016-05-04T17:18:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建Hexo最佳实践">
 <meta name="twitter:description" content="网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
 安装
-安装npm(可自行下载安装包)
+安装npm
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+windows请自行下载安装包
 
 安装git
 window自行下载安装
-mac使用homebrew brew install gi">
+mac使用homebrew brew inst">
   
     <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
   
@@ -228,17 +231,20 @@ mac使用homebrew brew install gi">
       
         <p>网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li><p>安装npm(可自行下载安装包)</p>
+<li><p>安装npm</p>
 <pre><code>curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-</code></pre></li>
+</code></pre><p>windows请自行下载安装包</p>
+</li>
 <li>安装git<ul>
 <li>window自行下载安装</li>
 <li>mac使用homebrew <code>brew install git</code></li>
 <li>linux <code>sudo apt-get install git-core</code></li>
 </ul>
 </li>
-<li><p>安装hexo</p>
+<li><p>安装hexo<br><br><br>mac使用命令</p>
 <pre><code>sudo npm install hexo-cli -g
+</code></pre><p>windows使用</p>
+<pre><code>npm install hexo-cli -g
 </code></pre></li>
 <li><p>hexo初始化    </p>
 <pre><code>hexo init blog
@@ -255,10 +261,10 @@ npm install hexo-generator-feed --save
 </ol>
 <a id="more"></a>
 <p>至此, 安装完成. </p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="新建GitPage"><a href="#新建GitPage" class="headerlink" title="新建GitPage"></a>新建GitPage</h3><p>此处使用github提供的gitpage作为博客空间</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="新建GitPage"><a href="#新建GitPage" class="headerlink" title="新建GitPage"></a>新建GitPage</h3><p>这里使用github提供的gitpage作为博客空间</p>
 <ol>
 <li>申请github帐号</li>
-<li>创建与你username相同的repo, 需等待10分钟左右</li>
+<li>创建形如<code>yourusername.github.io</code>的repo, 例如我的用户名是<code>smarxpan</code>, 我创建的就是<code>smarxpan.github.io</code>,<br>需10分钟左右通过审核. </li>
 <li>成功后<code>http://yourusername.github.io</code>就是你的gitpage地址</li>
 </ol>
 <h3 id="hexo基本配置"><a href="#hexo基本配置" class="headerlink" title="hexo基本配置"></a>hexo基本配置</h3><p>配置文件是<code>_config.yml</code>,基本配置如下</p>
