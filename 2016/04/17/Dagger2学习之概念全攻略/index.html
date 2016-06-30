@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Dagger2学习之相关概念详解 | 聪明叉的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Dagger2学习之相关概念详解// TODO 尚未完成
+经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.
+这里, 你将会学到以下知识点.
+
+什么是依赖注入
+@Module, @Component, @Provides, @Inject
+@Singleton和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dagger2学习之相关概念详解">
+<meta property="og:url" content="http://yoursite.com/2016/04/17/Dagger2学习之概念全攻略/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="Dagger2学习之相关概念详解// TODO 尚未完成
+经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.
+这里, 你将会学到以下知识点.
+
+什么是依赖注入
+@Module, @Component, @Provides, @Inject
+@Singleton和">
+<meta property="og:updated_time" content="2016-06-30T14:27:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dagger2学习之相关概念详解">
+<meta name="twitter:description" content="Dagger2学习之相关概念详解// TODO 尚未完成
+经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.
+这里, 你将会学到以下知识点.
+
+什么是依赖注入
+@Module, @Component, @Provides, @Inject
+@Singleton和">
+  
+    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Dagger2学习之概念全攻略" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/17/Dagger2学习之概念全攻略/" class="article-date">
+  	<time datetime="2016-04-17T03:47:53.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dagger2学习之相关概念详解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Dagger2学习之相关概念详解"><a href="#Dagger2学习之相关概念详解" class="headerlink" title="Dagger2学习之相关概念详解"></a>Dagger2学习之相关概念详解</h1><p>// TODO 尚未完成</p>
+<p>经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.</p>
+<p>这里, 你将会学到以下知识点.</p>
+<ol>
+<li>什么是依赖注入</li>
+<li><code>@Module</code>, <code>@Component</code>, <code>@Provides</code>, <code>@Inject</code></li>
+<li><code>@Singleton</code>和自定义Scope</li>
+<li><code>@SubComponent</code></li>
+</ol>
+<h2 id="什么是依赖注入"><a href="#什么是依赖注入" class="headerlink" title="什么是依赖注入"></a>什么是依赖注入</h2><p>依赖注入(DI), Dependency Injection, 听起来十分高大上的概念, 事实上你每天都在用. 接下来将用Dagger官方的咖啡机例子来举例说明.</p>
+<a id="more"></a>
+<h4 id="没有依赖注入之前"><a href="#没有依赖注入之前" class="headerlink" title="没有依赖注入之前"></a>没有依赖注入之前</h4><pre><code>// 咖啡机
+class CoffeeMaker {
+    // 加热器
+    private final Heater heater;
+    // 泵 
+    private final Pump pump;
+
+    CoffeeMaker() {
+        // 电加热器
+        this.heater = new ElectricHeater(); 
+        // 虹吸泵
+        this.pump = new Thermosiphon(heater);         }
+
+    // 煮
+    public void brew() { /* ... */ }
+}
+</code></pre><p>使用咖啡机</p>
+<pre><code>CoffeMaker maker = new CoffeeMaker();
+maker.brew(); // 沖泡
+maker.brew(); // 沖泡
+</code></pre><p>可以看出耦合非常严重, 加热器和泵的构造器发生改变, 都需要去修改咖啡机的代码.</p>
+<h4 id="使用依赖注入后"><a href="#使用依赖注入后" class="headerlink" title="使用依赖注入后"></a>使用依赖注入后</h4><pre><code>class CoffeeMaker {
+    private final Heater heater;
+    private final Pump pump;
+
+    CoffeeMaker(Heater heater, Pump pump) {
+        this.heater = heater;
+        this.pump = pump;
+    }
+
+    public void brew() { /* ... */ }
+}
+</code></pre><p>开始泡咖啡</p>
+<pre><code>Heater heater = new ElectricHeater();
+Pump pump = new Thermosiphon(heater);
+CoffeeMaker maker = new CoffeeMaker(heater, pump);
+CoffeeMaker maker2 = new CoffeeMaker(heater, pump);
+maker.brew();
+maker2.brew();
+</code></pre><p>这样就是向咖啡机注入了加热器和泵, 对加热器和泵的修改不需要改变咖啡机的代码.</p>
+<p>看出区别没有? 是不是发出一声”卧槽, 这就是依赖注入啊!”</p>
+<p>没错, 就是这么个我们天天写的东西. </p>
+<p>而Dagger这个框架, 可以做到自动生成依赖注入的模板代码, 让我们从重复代码中解脱出来.</p>
+<h3 id="dependense和subcomponent"><a href="#dependense和subcomponent" class="headerlink" title="dependense和subcomponent"></a>dependense和subcomponent</h3><p>给其他Component提供依赖时, 必须暴露依赖方法, 否则找不到对象</p>
+<p>而SubComponent不同, 子依赖能拿到父类所有对象, 不需要傻傻的提供.</p>
+<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><p>对于直接使用 @Inject 构造函数的依赖，如果把 scope 注解放到它的类上，而不是构造函数上，就能达到局部单例的效果了；</p>
+<p>Scope的作用是实现一定范围内的单例</p>
+<p>如何实现的?</p>
+<p>在ScopeProvider创建对象</p>
+<p>自定义Scope作用代码很简单</p>
+<pre><code>@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ActivityScope {
+}
+</code></pre><p>然后使用也很简单</p>
+<p>在Module中这样, 在Component上面也要用</p>
+<p>你会问, 这样就能保证生命周期了? 这是什么魔法? 那么, 我们就来揭示一下魔法的真相吧.</p>
+<p>事实上并不存在魔法, Scope注解只是个注解, 并不能替你管理什么生命周期, 而是最终还是你自己做的处理</p>
+<p>Singleton最好使用在Application里面</p>
+<p>使用自定义Scope注解和Singleton注解生成的代码相同</p>
+<p>事实上Singleton的含义并不明确, 应该自己去自定义一个而不是使用Singleton, 如果你很想使用Singleton</p>
+<p>自定义的Scope并不存在魔法, 之所以要自定义Scope, Component只能依赖拥有不同Scope注解的Component</p>
+<h3 id="Scope使用错误示例"><a href="#Scope使用错误示例" class="headerlink" title="Scope使用错误示例"></a>Scope使用错误示例</h3><p>以下是一个错误的Scope使用示例，稍后会解释为何这样不能实现单例</p>
+<p>Module是酱式儿的</p>
+<pre><code>@Module
+public class ActivityModule {
+
+    @Provides
+    @Singleton
+    static UserModel provideUserModel(){
+        return new UserModel();
+    }
+}
+</code></pre><p>Component是酱紫的</p>
+<pre><code>@Singleton
+@Component(modules = ActivityModule.class)
+public interface ActivityComponent {
+
+    void inject(MainActivity activity);
+    void inject(SecondActivity activity);
+
+}
+</code></pre><p>MainActivity和SecondActivity是这样的</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    UserModel userModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        activityComponent.inject(this);
+
+        TextView textview = (TextView) findViewById(R.id.tv);
+        textview.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+        Log.e(&quot;TAG&quot;, userModel + &quot;---MainActivity&quot;);
+    }
+}
+
+
+public class SecondActivity extends AppCompatActivity {
+
+    @Inject
+    UserModel userModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        activityComponent.inject(this);
+
+        Log.e(&quot;TAG&quot;, userModel + &quot;---SecondActivity&quot;);
+    }
+}
+</code></pre><p> 运行结果:</p>
+<pre><code>UserModel@52765aac---MainActivity
+UserModel@52787e5c---SecondActivity
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/23/Lamada表达式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          是时候学习一波Lambda表达式了
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/14/算法系列-2-不那么简单的排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法系列(2)--不那么简单的排序之希尔、归并、快速排序</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Dagger2学习之概念全攻略" data-title="Dagger2学习之相关概念详解" data-url="http://yoursite.com/2016/04/17/Dagger2学习之概念全攻略/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -4,21 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>在Android5.x上运行ARM架构程序 | 聪明叉的博客</title>
+  <title>Activity跳转最佳实践 | 聪明叉的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+  <meta name="description" content="Activity跳转最佳实践学习Android-CleanArchitecture时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.
+传统写法跳转不需要参数时:
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+跳">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Android5.x上运行ARM架构程序">
-<meta property="og:url" content="http://yoursite.com/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/index.html">
+<meta property="og:title" content="Activity跳转最佳实践">
+<meta property="og:url" content="http://yoursite.com/2016/06/08/android-navigator-best-practice/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
-<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta property="og:description" content="Activity跳转最佳实践学习Android-CleanArchitecture时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.
+传统写法跳转不需要参数时:
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+跳">
+<meta property="og:updated_time" content="2016-06-30T14:24:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Android5.x上运行ARM架构程序">
-<meta name="twitter:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+<meta name="twitter:title" content="Activity跳转最佳实践">
+<meta name="twitter:description" content="Activity跳转最佳实践学习Android-CleanArchitecture时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.
+传统写法跳转不需要参数时:
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+跳">
   
     <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
   
@@ -175,11 +184,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="genymotion-Genymotion 在Android5.x上运行ARM架构程序" class="article article-type-genymotion" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-android-navigator-best-practice" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" class="article-date">
-  	<time datetime="2015-12-29T02:04:53.000Z" itemprop="datePublished">2015-12-29</time>
+      <a href="/2016/06/08/android-navigator-best-practice/" class="article-date">
+  	<time datetime="2016-06-08T07:15:28.000Z" itemprop="datePublished">2016-06-08</time>
 </a>
     </div>
   
@@ -192,7 +201,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在Android5.x上运行ARM架构程序
+      Activity跳转最佳实践
     </h1>
   
 
@@ -201,7 +210,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM-Translation/">ARM-Translation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Genymotion/">Genymotion</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 	</div>
 
         
@@ -212,33 +221,62 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Genymotion-在Android5-x上运行ARM架构程序"><a href="#Genymotion-在Android5-x上运行ARM架构程序" class="headerlink" title="Genymotion 在Android5.x上运行ARM架构程序"></a>Genymotion 在Android5.x上运行ARM架构程序</h1><p>原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。</p>
-<p>本文提供<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>、<code>ARM_Translation_Lollipop</code>的三个版本。其中<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>对应Android 5.x以下，个人发现4.4安装v1.1没卵用，安装前者反而有效，读者自行试验。<code>ARM_Translation_Lollipop</code>毫无疑问对应5.x系统。</p>
-<blockquote>
-<p>下载地址：<a href="http://pan.baidu.com/s/1pJ5YZl5" title="http://pan.baidu.com/s/1pJ5YZl5" target="_blank" rel="external">http://pan.baidu.com/s/1pJ5YZl5</a> 密码：w3ol</p>
+        <h1 id="Activity跳转最佳实践"><a href="#Activity跳转最佳实践" class="headerlink" title="Activity跳转最佳实践"></a>Activity跳转最佳实践</h1><p>学习<a href="https://github.com/android10/Android-CleanArchitecture" target="_blank" rel="external">Android-CleanArchitecture</a>时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.</p>
+<h2 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h2><p>跳转不需要参数时:</p>
+<pre><code>Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+</code></pre><p>跳转需要参数那就是</p>
+<pre><code>Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&quot;key&quot;,&quot;someValue&quot;);
+startActivity(intent);
+</code></pre><p>这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.</p>
+<a id="more"></a>
+<h2 id="干净的写法"><a href="#干净的写法" class="headerlink" title="干净的写法"></a>干净的写法</h2><p>在<code>SecondActivity</code>中定义静态方法</p>
+<pre><code>public static Intent getCallingIntent(Context context){
+    Intent callingIntent = new Intent(context, SecondActivity.class);
+    return callingIntent;
+}
+</code></pre><p>创建<code>Navigator</code>类, 控制跳转</p>
+<pre><code>public enum Navigator {
+
+    INSTANCE;
+
+    public void navigateToSecond(Context context){
+        if(context != null){
+            Intent callingIntent = SecondActivity.getCallingIntent(context);
+            context.startActivity(callingIntent);
+        }
+    }
+}
+</code></pre><blockquote>
+<p>Tips: 此处使用枚举实现单例, 枚举实现单例是单例的最佳实践, 参见<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">What is an efficient way to implement a singleton pattern in Java?</a>, 或者看<a href="https://book.douban.com/subject/3360807/" target="_blank" rel="external">Effective Java</a>第三条</p>
 </blockquote>
-<h2 id="5-x的使用方法"><a href="#5-x的使用方法" class="headerlink" title="5.x的使用方法"></a>5.x的使用方法</h2><p>使用方法：</p>
-<ol>
-<li><p>在 Genymotion 里面建立 5.0 or 5.1 的模拟器。</p>
-</li>
-<li><p>开机后把 <code>ARM_Translation_Lollipop.zip</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>先不要重启模拟器，打开CMD命令行，输入<code>adb shell /system/etc/houdini_patcher.sh</code></p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
-<blockquote>
-<p>方法及安装包来自二三接脚大神：<a href="http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image" target="_blank" rel="external">http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image</a></p>
+<p>调用方式: </p>
+<pre><code>Navigator.INSTANCE.navigateToSecond(this);
+</code></pre><p>同理, 如果是需要传值, <code>SecondActivity</code>中: </p>
+<pre><code>private static String EXTRA_KEY = &quot;key&quot;;
+
+public static Intent getCallingIntent(Context context, String value){
+    Intent callingIntent = new Intent(context, SecondActivity.class);
+    callingIntent.putExtra(EXTRA_KEY, value);
+    return callingIntent;
+}
+</code></pre><p>将extra的key与需要该值的Activity写在一起, 而不是与跳转逻辑写在一起, 减少出错的可能.</p>
+<p><code>Navigator</code>改为</p>
+<pre><code>public enum Navigator {
+    INSTANCE;
+    public void navigateToSecond(Context context, String value){
+        if(context != null){
+            Intent callingIntent = SecondActivity.getCallingIntent(context, value);
+            context.startActivity(callingIntent);
+        }
+    }
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这样的写法将Activity跳转逻辑抽取了出来, 减少了人为犯错的可能, 还是值得大家在项目中实际使用的.</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="https://github.com/android10/Android-CleanArchitecture/blob/master/presentation/src/main/java/com/fernandocejas/android10/sample/presentation/navigation/Navigator.java" target="_blank" rel="external">Android-CleanArchitecture Navigator.java</a></p>
+<p><a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">What is an efficient way to implement a singleton pattern in Java?</a></p>
 </blockquote>
-<h2 id="5-0以下的使用方法"><a href="#5-0以下的使用方法" class="headerlink" title="5.0以下的使用方法"></a>5.0以下的使用方法</h2><ol>
-<li><p>在 Genymotion 里面建立4.x的模拟器。</p>
-</li>
-<li><p>开机后把<code>Genymotion-ARM-Translation</code>或者<code>Genymotion-ARM-Translation_v1.1</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
 
       
     </div>
@@ -248,18 +286,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/01/11/多渠道打包总结/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/06/20/how_to_use_annotation/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          多渠道打包总结
+          Android进阶之自定义注解
         
       </div>
     </a>
   
   
-    <a href="/2015/12/28/EventBus3.0使用方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">EventBus3.0使用方法</div>
+    <a href="/2016/04/23/Lamada表达式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">是时候学习一波Lambda表达式了</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -275,7 +313,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Genymotion 在Android5.x上运行ARM架构程序" data-title="在Android5.x上运行ARM架构程序" data-url="http://yoursite.com/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/"></div>
+	<div class="ds-thread" data-thread-key="android-navigator-best-practice" data-title="Activity跳转最佳实践" data-url="http://yoursite.com/2016/06/08/android-navigator-best-practice/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

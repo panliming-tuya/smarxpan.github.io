@@ -2,14 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2016/04/07/%E6%90%AD%E5%BB%BAHexo%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://yoursite.com/2016/06/20/how_to_use_annotation/</loc>
     
-    <lastmod>2016-05-04T17:18:08.000Z</lastmod>
+    <lastmod>2016-06-30T14:29:29.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/12/28/EventBus3.0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://yoursite.com/2016/06/29/how_to_use_singleton/</loc>
+    
+    <lastmod>2016-06-30T14:27:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/04/17/Dagger2%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A6%82%E5%BF%B5%E5%85%A8%E6%94%BB%E7%95%A5/</loc>
+    
+    <lastmod>2016-06-30T14:27:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/23/Android%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    
+    <lastmod>2016-06-30T14:26:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/06/08/android-navigator-best-practice/</loc>
+    
+    <lastmod>2016-06-30T14:24:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/01/11/%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2016-06-30T09:23:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/04/07/%E6%90%AD%E5%BB%BAHexo%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2016-05-04T17:21:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/04/23/Lamada%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     
     <lastmod>2016-04-23T11:10:06.000Z</lastmod>
     
@@ -23,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/04/23/Lamada%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <loc>http://yoursite.com/2015/12/28/EventBus3.0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2016-04-23T11:10:06.000Z</lastmod>
     
@@ -45,13 +87,6 @@
   
   <url>
     <loc>http://yoursite.com/2015/12/29/Genymotion%20%E5%9C%A8Android5.x%E4%B8%8A%E8%BF%90%E8%A1%8CARM%E6%9E%B6%E6%9E%84%E7%A8%8B%E5%BA%8F/</loc>
-    
-    <lastmod>2016-04-08T13:49:35.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/01/11/%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2016-04-08T13:49:35.000Z</lastmod>
     

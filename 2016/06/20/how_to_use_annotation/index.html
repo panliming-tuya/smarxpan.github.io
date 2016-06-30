@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android进阶之自定义注解 | 聪明叉的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android进阶之自定义注解本篇文章内容包括: 
+
+注解的概念
+元注解
+自定义注解
+Android自定义编译时注解
+
+如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. 
+什么是注解先来看看Java文档中的定义
+
+An annotation is a form of m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android进阶之自定义注解">
+<meta property="og:url" content="http://yoursite.com/2016/06/20/how_to_use_annotation/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="Android进阶之自定义注解本篇文章内容包括: 
+
+注解的概念
+元注解
+自定义注解
+Android自定义编译时注解
+
+如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. 
+什么是注解先来看看Java文档中的定义
+
+An annotation is a form of m">
+<meta property="og:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png">
+<meta property="og:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/9AF6B510-9762-4DF8-80A2-3446CBD39263.png">
+<meta property="og:updated_time" content="2016-06-30T14:29:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android进阶之自定义注解">
+<meta name="twitter:description" content="Android进阶之自定义注解本篇文章内容包括: 
+
+注解的概念
+元注解
+自定义注解
+Android自定义编译时注解
+
+如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. 
+什么是注解先来看看Java文档中的定义
+
+An annotation is a form of m">
+<meta name="twitter:image" content="http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png">
+  
+    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-how_to_use_annotation" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/20/how_to_use_annotation/" class="article-date">
+  	<time datetime="2016-06-20T07:15:30.000Z" itemprop="datePublished">2016-06-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android进阶之自定义注解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android进阶之自定义注解"><a href="#Android进阶之自定义注解" class="headerlink" title="Android进阶之自定义注解"></a>Android进阶之自定义注解</h1><p>本篇文章内容包括: </p>
+<ul>
+<li><a href="#1">注解的概念</a></li>
+<li><a href="#2">元注解</a></li>
+<li><a href="#3">自定义注解</a></li>
+<li><a href="#4">Android自定义编译时注解</a></li>
+</ul>
+<p>如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. </p>
+<h2 id="什么是注解"><a href="#什么是注解" class="headerlink" title="什么是注解"></a><span id="1">什么是注解</span></h2><p>先来看看Java文档中的定义</p>
+<blockquote>
+<p>An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.</p>
+</blockquote>
+<p>注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. </p>
+<p>首先, 明确一点: <strong>注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.</strong></p>
+<p>定义注解用的关键字是<code>@interface</code></p>
+<a id="more"></a>
+<h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a><span id="2">元注解</span></h2><p>java内置的注解有Override, Deprecated, SuppressWarnings等, 作用相信大家都知道. </p>
+<p>现在查看Override注解的源码</p>
+<pre><code>@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override {
+}
+</code></pre><p>发现Override注解上面有两个注解, 这就是元注解. 元注解就是<strong>用来定义注解的注解</strong>.其作用就是定义注解的作用范围, 使用在什么元素上等等, 下面来详细介绍. </p>
+<p>元注解共有四种<code>@Retention</code>, <code>@Target</code>, <code>@Inherited</code>, <code>@Documented</code></p>
+<ul>
+<li><p><code>@Retention</code> 保留的范围，默认值为CLASS. 可选值有三种</p>
+<ul>
+<li><code>SOURCE</code>, 只在源码中可用</li>
+<li><code>CLASS</code>, 在源码和字节码中可用</li>
+<li><code>RUNTIME</code>, 在源码,字节码,运行时均可用</li>
+</ul>
+</li>
+<li><p><code>@Target</code> 可以用来修饰哪些程序元素，如 <code>TYPE</code>, <code>METHOD</code>, <code>CONSTRUCTOR</code>, <code>FIELD</code>, <code>PARAMETER</code>等，未标注则表示可修饰所有</p>
+</li>
+<li><p><code>@Inherited</code> 是否可以被继承，默认为false</p>
+</li>
+<li><p><code>@Documented</code> 是否会保存到 Javadoc 文档中</p>
+</li>
+</ul>
+<p>其中, <code>@Retention</code>是定义保留策略, 直接决定了我们用何种方式解析. SOUCE级别的注解是用来标记的, 比如Override, SuppressWarnings. 我们真正使用的类型是CLASS(编译时)和RUNTIME(运行时)</p>
+<h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a><span id="3">自定义注解</span></h2><p>举个栗子, 结合例子讲解</p>
+<pre><code>@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface TestAnnotation {
+    String value();
+    String[] value2() default &quot;value2&quot;;
+}
+</code></pre><p>元注解的的意义参考上面的讲解, 不再重复, 这里看注解值的写法: </p>
+<pre><code>类型 参数名() default 默认值;
+</code></pre><p>其中默认值是可选的, 可以定义, 也可以不定义. </p>
+<h3 id="处理运行时注解"><a href="#处理运行时注解" class="headerlink" title="处理运行时注解"></a>处理运行时注解</h3><p>Retention的值为RUNTIME时, 注解会保留到运行时, 因此使用反射来解析注解. </p>
+<p>使用的注解就是上一步的<code>@TestAnnotation</code>, 解析示例如下: </p>
+<pre><code>public class Demo {
+
+    @TestAnnotation(&quot;Hello Annotation!&quot;)
+    private String testAnnotation;
+
+    public static void main(String[] args) {
+        try {
+            // 获取要解析的类
+            Class cls = Class.forName(&quot;myAnnotation.Demo&quot;);
+            // 拿到所有Field
+            Field[] declaredFields = cls.getDeclaredFields();
+            for(Field field : declaredFields){
+                // 获取Field上的注解
+                TestAnnotation annotation = field.getAnnotation(TestAnnotation.class);
+                if(annotation != null){
+                    // 获取注解值
+                    String value = annotation.value();
+                    System.out.println(value);
+                }
+
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>此处只演示了解析成员变量上的注解, 其他类型与此类似. </p>
+<h3 id="解析编译时注解"><a href="#解析编译时注解" class="headerlink" title="解析编译时注解"></a>解析编译时注解</h3><p>解析编译时注解需要继承AbstractProcessor类, 实现其抽象方法</p>
+<pre><code>public boolean process(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv)
+</code></pre><p>该方法返回ture表示该注解已经被处理, 后续不会再有其他处理器处理; 返回false表示仍可被其他处理器处理. </p>
+<p>处理示例: </p>
+<pre><code>// 指定要解析的注解
+@SupportedAnnotationTypes(&quot;myAnnotation.TestAnnotation&quot;)
+// 指定JDK版本
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
+public class MyAnnotationProcesser extends AbstractProcessor {
+    @Override
+    public boolean process(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv) {
+        for (TypeElement te : annotations) {
+            for (Element element : roundEnv.getElementsAnnotatedWith(te)) {
+                TestAnnotation testAnnotation = element.getAnnotation(TestAnnotation.class);
+                // do something
+            }
+        }
+        return true;
+    }
+}
+</code></pre><p>这里先大致介绍是怎么个套路, 接下来说具体实践过程.</p>
+<h2 id="Android中使用编译时注解"><a href="#Android中使用编译时注解" class="headerlink" title="Android中使用编译时注解"></a><span id="4">Android中使用编译时注解</span></h2><p>注解是个什么东西我们已经知道了, 也知道了如何解析注解. 我们下一步的目标是如ButterKnife一般自动生成代码. </p>
+<p>接下来的操作基于InteliJ IDEA(开发注解及其解析类, 打出jar包)和Android Studio(实测使用情况)</p>
+<blockquote>
+<p>note: AS的Android开发环境中没有<code>AbstractProcessor</code>类, 而我新建了Java Module后遇到了各种各样的花式错误(后面的报错之路会叙述), 无奈只能在IDEA中开发并打出jar包</p>
+</blockquote>
+<h3 id="开发注解库"><a href="#开发注解库" class="headerlink" title="开发注解库"></a>开发注解库</h3><p>在IDEA中新建java项目, 并开启maven支持. 如果新建项目的页面没有maven选项, 建好项目后右键项目目录-&gt;”Add Framwork Support…”, 选择maven. </p>
+<p><strong>自定义编译时注解</strong></p>
+<pre><code>@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
+public @interface TestAnnotation {
+    String value() default &quot;Hello Annotation&quot;;
+}
+</code></pre><p><strong>解析编译时注解</strong></p>
+<pre><code>// 支持的注解类型, 此处要填写全类名
+@SupportedAnnotationTypes(&quot;myannotation.TestAnnotation&quot;)
+// JDK版本, 我用的是java7
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
+public class MyAnnotationProcessor extends AbstractProcessor {
+    // 类名的前缀后缀
+    public static final String SUFFIX = &quot;AutoGenerate&quot;;
+    public static final String PREFIX = &quot;My_&quot;;
+    @Override
+    public boolean process(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv) {
+
+        for (TypeElement te : annotations) {
+            for (Element e : roundEnv.getElementsAnnotatedWith(te)) {
+                // 准备在gradle的控制台打印信息
+                Messager messager = processingEnv.getMessager();
+                // 打印
+                messager.printMessage(Diagnostic.Kind.NOTE, &quot;Printing: &quot; + e.toString());
+                messager.printMessage(Diagnostic.Kind.NOTE, &quot;Printing: &quot; + e.getSimpleName());
+                messager.printMessage(Diagnostic.Kind.NOTE, &quot;Printing: &quot; + e.getEnclosingElement().toString());
+
+                // 获取注解
+                TestAnnotation annotation = e.getAnnotation(TestAnnotation.class);
+
+                // 获取元素名并将其首字母大写
+                String name = e.getSimpleName().toString();
+                char c = Character.toUpperCase(name.charAt(0));
+                name = String.valueOf(c+name.substring(1));
+
+                // 包裹注解元素的元素, 也就是其父元素, 比如注解了成员变量或者成员函数, 其上层就是该类
+                Element enclosingElement = e.getEnclosingElement();
+                // 获取父元素的全类名, 用来生成包名
+                String enclosingQualifiedName;
+                if(enclosingElement instanceof PackageElement){
+                    enclosingQualifiedName = ((PackageElement)enclosingElement).getQualifiedName().toString();
+                }else {
+                    enclosingQualifiedName = ((TypeElement)enclosingElement).getQualifiedName().toString();
+                }
+                try {
+                    // 生成的包名
+                    String genaratePackageName = enclosingQualifiedName.substring(0, enclosingQualifiedName.lastIndexOf(&apos;.&apos;));
+                    // 生成的类名
+                    String genarateClassName = PREFIX + enclosingElement.getSimpleName() + SUFFIX;
+
+                    // 创建Java文件
+                    JavaFileObject f = processingEnv.getFiler().createSourceFile(genarateClassName);
+                    // 在控制台输出文件路径
+                    messager.printMessage(Diagnostic.Kind.NOTE, &quot;Printing: &quot; + f.toUri());
+                    Writer w = f.openWriter();
+                    try {
+                        PrintWriter pw = new PrintWriter(w);
+                        pw.println(&quot;package &quot; + genaratePackageName + &quot;;&quot;);
+                        pw.println(&quot;\npublic class &quot; + genarateClassName + &quot; { &quot;);
+                        pw.println(&quot;\n    /** 打印值 */&quot;);
+                        pw.println(&quot;    public static void print&quot; + name + &quot;() {&quot;);
+                        pw.println(&quot;        // 注解的父元素: &quot; + enclosingElement.toString());
+                        pw.println(&quot;        System.out.println(\&quot;代码生成的路径: &quot;+f.toUri()+&quot;\&quot;);&quot;);
+                        pw.println(&quot;        System.out.println(\&quot;注解的元素: &quot;+e.toString()+&quot;\&quot;);&quot;);
+                        pw.println(&quot;        System.out.println(\&quot;注解的值: &quot;+annotation.value()+&quot;\&quot;);&quot;);
+                        pw.println(&quot;    }&quot;);
+                        pw.println(&quot;}&quot;);
+                        pw.flush();
+                    } finally {
+                        w.close();
+                    }
+                } catch (IOException x) {
+                    processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+                            x.toString());
+                }
+            }
+        }
+        return true;
+    }
+}
+</code></pre><p>看似代码很长, 其实很好理解. 只做了两件事, 1.解析注解并获取需要的值 2.使用<code>JavaFileObject</code>类生成java代码. </p>
+<p><strong>向JVM声明解析器</strong></p>
+<p>我们的解析器虽然定义好了, 但是jvm并不知道, 也不会调用, 因此我们需要声明. </p>
+<p>如图所示<img src="http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png" alt=""></p>
+<p>在java的同级目录新建resources目录, 新建<code>META-INF/services/javax.annotation.processing.Processor</code>文件, 文件中填写你自定义的Processor全类名<br><img src="http://7xqnsv.com1.z0.glb.clouddn.com/9AF6B510-9762-4DF8-80A2-3446CBD39263.png" alt=""></p>
+<p>然后打出jar包以待使用(打包方式自行百度)</p>
+<h3 id="Android中使用"><a href="#Android中使用" class="headerlink" title="Android中使用"></a>Android中使用</h3><p><strong>使用apt插件</strong></p>
+<p>项目根目录gradle中<code>buildscript</code>的<code>dependencies</code>添加</p>
+<pre><code>classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;
+</code></pre><p>module目录的gradle中, 添加</p>
+<pre><code>apply plugin: &apos;android-apt&apos;
+</code></pre><p><strong>代码中调用</strong></p>
+<p>将之前打出的jar包导入项目中, 在MainActivity中写个测试方法</p>
+<pre><code> @Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    test();
+}
+
+@TestAnnotation(&quot;hehe&quot;)
+public void test(){
+}
+</code></pre><p>运行一遍项目之后, 代码就会自动生成. </p>
+<p>以下是生成的代码, 在路径<code>yourmodule/build/generated/source/apt/debug/yourpackagename</code>中:</p>
+<pre><code>public class My_MainActivityAutoGenerate { 
+
+    /** 打印值 */
+    public static void printTest() {
+        // 注解的父元素: com.example.pan.androidtestdemo.MainActivity
+        System.out.println(&quot;代码生成的路径: file:/Users/Pan/AndroidStudioProjects/AndroidTestDemo/app/build/generated/source/apt/debug/My_MainActivityAutoGenerate.java&quot;);
+        System.out.println(&quot;注解的元素: test()&quot;);
+        System.out.println(&quot;注解的值: hehe&quot;);
+    }
+}
+</code></pre><p>然后在test方法中调用自动生成的方法</p>
+<pre><code>@TestAnnotation(&quot;hehe&quot;)
+public void test(){
+    My_MainActivityAutoGenerate.printTest();
+}
+</code></pre><p>会看到以下打印结果: </p>
+<pre><code>代码生成的路径: file:/Users/Pan/AndroidStudioProjects/AndroidTestDemo/app/build/generated/source/apt/debug/com/example/pan/androidtestdemo/MainActivityAutoGenerate.java
+注解的元素: test()
+注解的值: hehe
+</code></pre><h2 id="报错之路"><a href="#报错之路" class="headerlink" title="报错之路"></a>报错之路</h2><p>开始时, 我在Android Studio的Java Library中编写解析类, 然后在Android Module依赖Java库, 然后报下面这个错误</p>
+<pre><code>For more information see https://docs.gradle.org/current/userguide/build_environment.html
+Error:Error converting bytecode to dex:
+Cause: Dex cannot parse version 52 byte code.
+This is caused by library dependencies that have been compiled using Java 8 or above.
+If you are using the &apos;java&apos; gradle plugin in a library submodule add 
+targetCompatibility = &apos;1.7&apos;
+sourceCompatibility = &apos;1.7&apos;
+to that submodule&apos;s build.gradle file.
+</code></pre><p>我tm本来就是Java8啊, 一番Google, 需要开启手动开启才能支持java8, 步骤如下:</p>
+<pre><code>android {
+    compileSdkVersion 23
+    // 开启Java8, buildTools版本必须24以上
+       buildToolsVersion &quot;24&quot;
+    ...
+    defaultConfig {
+        ...
+        // Java8需要jack工具链支持
+        jackOptions{
+            enabled true
+        }
+
+    }
+    ...
+    // 指定编译版本
+    compileOptions{
+        targetCompatibility = &apos;1.8&apos;
+        sourceCompatibility = &apos;1.8&apos;
+    }
+}
+</code></pre><p>然而…又报了这个错误</p>
+<pre><code>Error: Could not find the property &apos;options&apos; on the task&apos; : app: compileDebugJavaWithJack &apos;.
+</code></pre><p>来自JakeWharton大神的回复, jack编译器目前并不支持apt插件<a href="https://github.com/JakeWharton/butterknife/issues/571" target="_blank" rel="external">https://github.com/JakeWharton/butterknife/issues/571</a></p>
+<p>摔! 不用java8报错, 用了又尼玛报. 自动生成代码是必须要用apt插件的. 那就只能用java7在IDEA里开发了. </p>
+<p>时至今日(2016年06月23日), Google并没有解决这个问题, 目前jack编译器还处于预览版, 相信以后会解决吧</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>有了本文所述的注解知识, 对Dagger,ButterKnife等框架就不难理解了. 如果在时间精力允许的情况下, 我们也完全可以自定义个注解框架. </p>
+<p>本文中自动生成代码的部分十分简单, 也隐含bug: 在for循环中创建了文件, 如果一个类中使用了两次该注解, 第二次是无法创建新文件的. 真正的实际项目中, 肯定是将需要的信息保存起来, 之后统一创建java类. </p>
+<p>更进一步的应用大家可以查看其他注解框架的源码, 调试注解大家可以查看这篇文章<a href="http://www.jianshu.com/p/80a14bc35000" target="_blank" rel="external">如何debug自定义AbstractProcessor</a>, 我这里就不过多赘述了</p>
+<p>水平有限, 如有错误欢迎指正. </p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="http://a.codekk.com/detail/Android/Trinea/%E5%85%AC%E5%85%B1%E6%8A%80%E6%9C%AF%E7%82%B9%E4%B9%8B%20Java%20%E6%B3%A8%E8%A7%A3%20Annotation" target="_blank" rel="external">公共技术点之 Java 注解 Annotation</a></p>
+<p><a href="http://www.cnblogs.com/avenwu/p/4173899.html" target="_blank" rel="external">Annotation实战【自定义AbstractProcessor】</a></p>
+<p><a href="http://yzx41099298.github.io/2015/03/26/apt/" target="_blank" rel="external">android 中运用apt自定义一个AbstractProcessor
+</a></p>
+<p><a href="https://segmentfault.com/a/1190000002785541" target="_blank" rel="external">打造一个 Android 的注解库</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/29/how_to_use_singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          老司机来教你单例的正确姿势
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/08/android-navigator-best-practice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Activity跳转最佳实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="how_to_use_annotation" data-title="Android进阶之自定义注解" data-url="http://yoursite.com/2016/06/20/how_to_use_annotation/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

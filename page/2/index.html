@@ -4,21 +4,17 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>在Android5.x上运行ARM架构程序 | 聪明叉的博客</title>
+  <title>聪明叉的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
-<meta property="og:type" content="article">
-<meta property="og:title" content="在Android5.x上运行ARM架构程序">
-<meta property="og:url" content="http://yoursite.com/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/index.html">
+  <meta name="description" content="分享更能体现技术价值">
+<meta property="og:type" content="website">
+<meta property="og:title" content="聪明叉的博客">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
-<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta property="og:description" content="分享更能体现技术价值">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Android5.x上运行ARM架构程序">
-<meta name="twitter:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。
-本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+<meta name="twitter:title" content="聪明叉的博客">
+<meta name="twitter:description" content="分享更能体现技术价值">
   
     <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
   
@@ -175,7 +171,88 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="genymotion-Genymotion 在Android5.x上运行ARM架构程序" class="article article-type-genymotion" itemscope itemprop="blogPost">
+      <div class="body-wrap">
+  
+    <article id="post-多渠道打包总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/11/多渠道打包总结/" class="article-date">
+  	<time datetime="2016-01-11T07:15:30.000Z" itemprop="datePublished">2016-01-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/11/多渠道打包总结/">多渠道打包总结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用gradle进行多渠道打包"><a href="#使用gradle进行多渠道打包" class="headerlink" title="使用gradle进行多渠道打包"></a>使用gradle进行多渠道打包</h2><p>使用Android studio</p>
+<h3 id="基本多渠道打包"><a href="#基本多渠道打包" class="headerlink" title="基本多渠道打包"></a>基本多渠道打包</h3><p>以友盟的为例</p>
+<p>渠道信息一般在 <code>AndroidManifest.xml</code>中修改以下值：</p>
+<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;wandoujia&quot; /&gt;
+</code></pre><p>首先你必须在<code>AndroidManifest.xml</code>中的meta-data修改以下的样子：</p>
+<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;${UMENG_CHANNEL_VALUE}&quot; /&gt;
+</code></pre><p>其中<code>${UMENG_CHANNEL_VALUE}</code>中的值就是你在gradle中自定义配置的值。</p>
+<p><code>build.gradle</code>文件就利用<code>productFlavors</code>这样写：</p>
+<pre><code>productFlavors {
+    wandoujia {}
+    baidu {}
+    c360 {}
+    uc {}
+
+    productFlavors.all { flavor -&gt;
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+}
+</code></pre><p>其中name的值对相对应各个<code>productFlavors</code>的选项值，这样就达到自动替换渠道值的目的了。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多渠道打包/">多渠道打包</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/01/11/多渠道打包总结/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="genymotion-Genymotion 在Android5.x上运行ARM架构程序" class="article article-type-genymotion" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" class="article-date">
@@ -191,23 +268,12 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      在Android5.x上运行ARM架构程序
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/">在Android5.x上运行ARM架构程序</a>
     </h1>
   
 
       </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM-Translation/">ARM-Translation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Genymotion/">Genymotion</a></li></ul>
-	</div>
-
-        
-
-        <div class="clearfix"></div>
-      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -243,28 +309,20 @@
       
     </div>
     
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/01/11/多渠道打包总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          多渠道打包总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/12/28/EventBus3.0使用方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">EventBus3.0使用方法</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM-Translation/">ARM-Translation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Genymotion/">Genymotion</a></li></ul>
+	</div>
 
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
   
 </article>
 
@@ -273,28 +331,138 @@
 
 
 
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Genymotion 在Android5.x上运行ARM架构程序" data-title="在Android5.x上运行ARM架构程序" data-url="http://yoursite.com/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"smarx"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
+
+
+
+  
+    <article id="post-EventBus3.0使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/28/EventBus3.0使用方法/" class="article-date">
+  	<time datetime="2015-12-28T10:41:34.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/28/EventBus3.0使用方法/">EventBus3.0使用方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的</p>
+<p>今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/12/28/EventBus3.0使用方法/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
 
 
 
 
+
+
+
+
+
+  
+    <article id="post-Android面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/23/Android面试题/" class="article-date">
+  	<time datetime="2015-12-22T16:01:56.000Z" itemprop="datePublished">2015-12-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/23/Android面试题/">Android面试题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android面试题"><a href="#Android面试题" class="headerlink" title="Android面试题"></a>Android面试题</h1><p>// TODO 待编辑</p>
+<p>个人整理的给Android程序员的面试题</p>
+<p>所谓面试题, 固然是过面试的捷径, 但学习知识&amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/12/23/Android面试题/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -318,8 +486,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

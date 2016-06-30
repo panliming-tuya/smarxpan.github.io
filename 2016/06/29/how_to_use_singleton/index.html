@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>老司机来教你单例的正确姿势 | 聪明叉的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+没有性能问题
+防止序列化产生新对象
+防止反射攻击
+
+可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
+最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
+这货长这样： 
+public enum Si">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老司机来教你单例的正确姿势">
+<meta property="og:url" content="http://yoursite.com/2016/06/29/how_to_use_singleton/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+没有性能问题
+防止序列化产生新对象
+防止反射攻击
+
+可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
+最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
+这货长这样： 
+public enum Si">
+<meta property="og:updated_time" content="2016-06-30T14:27:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老司机来教你单例的正确姿势">
+<meta name="twitter:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+没有性能问题
+防止序列化产生新对象
+防止反射攻击
+
+可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
+最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
+这货长这样： 
+public enum Si">
+  
+    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">一只程序猿的进化之路</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">聪明叉</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">一只程序猿的进化之路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-how_to_use_singleton" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/29/how_to_use_singleton/" class="article-date">
+  	<time datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      老司机来教你单例的正确姿势
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="老司机来教你单例的正确姿势"><a href="#老司机来教你单例的正确姿势" class="headerlink" title="老司机来教你单例的正确姿势"></a>老司机来教你单例的正确姿势</h1><p>Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？</p>
+<ol>
+<li>单例（这不是废话吗）</li>
+<li>延迟加载</li>
+<li>线程安全</li>
+<li>没有性能问题</li>
+<li>防止序列化产生新对象</li>
+<li>防止反射攻击</li>
+</ol>
+<p>可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。</p>
+<h2 id="最佳实践单例之枚举"><a href="#最佳实践单例之枚举" class="headerlink" title="最佳实践单例之枚举"></a>最佳实践单例之枚举</h2><p>没错，直接就上最佳实践，就是这么任性</p>
+<p>这货长这样： </p>
+<pre><code>public enum Singleton{
+    INSTANCE;
+}
+</code></pre><p>如果你不熟悉枚举，可能会说：这货是啥？！</p>
+<p>这种方式的好处是：</p>
+<ol>
+<li>利用的枚举的特性实现单例</li>
+<li>由JVM保证线程安全</li>
+<li>序列化和反射攻击已经被枚举解决</li>
+</ol>
+<p>调用方式为<code>Singleton.INSTANCE</code>, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。</p>
+<blockquote>
+<p>关于单例最佳实践的讨论可以看Stackoverflow：<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java</a></p>
+</blockquote>
+<p>下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：<a href="http://blog.csdn.net/u013256816/article/details/50525335" target="_blank" rel="external">如何防止单例模式被JAVA反射攻击</a></p>
+<a id="more"></a>
+<h2 id="最简单的单例之饿汉式"><a href="#最简单的单例之饿汉式" class="headerlink" title="最简单的单例之饿汉式"></a>最简单的单例之饿汉式</h2><pre><code>public class Singleton {
+    private static final Singleton INSTANCE = new Singleton();
+    // 私有化构造函数
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+}
+</code></pre><p>这种单例的写法最简单，但是缺点是一旦类被加载，单例就会初始化，没有实现懒加载。而且当实现了Serializable接口后，反序列化时单例会被破坏。</p>
+<p>实现Serializable接口需要重写<code>readResolve</code>，才能保证其反序列化依旧是单例：</p>
+<pre><code>public class Singleton implements Serializable {
+    private static final Singleton INSTANCE = new Singleton();
+    // 私有化构造函数
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+
+    /**
+     * 如果实现了Serializable, 必须重写这个方法
+     */
+    private Object readResolve() throws ObjectStreamException {
+        return INSTANCE;
+    }
+}
+</code></pre><p>OK，反序列化要注意的就是这一点，下面的内容中就不再复述了。</p>
+<h2 id="最体现技术的单例之懒汉式"><a href="#最体现技术的单例之懒汉式" class="headerlink" title="最体现技术的单例之懒汉式"></a>最体现技术的单例之懒汉式</h2><p>懒汉式即实现延迟加载的单例，为上述饿汉式的优化形式。而因其仍需要进一步优化，往往成为面试考点，让我们一起来看看坑爹的“懒汉式”</p>
+<p>懒汉式的最初形式是这样的：</p>
+<pre><code>public class Singleton {
+    private static Singleton INSTANCE;
+    private Singleton (){}
+
+    public static Singleton getInstance() {
+     if (INSTANCE == null) {
+         INSTANCE = new Singleton();
+     }
+     return INSTANCE;
+    }
+}
+</code></pre><p>这种写法就轻松实现了单例的懒加载，只有调用了<code>getInstance</code>方法才会初始化。但是这样的写法出现了新的问题–线程不安全。当多个线程调用<code>getInstance</code>方法时，可能会创建多个实例，因此需要对其进行同步。</p>
+<p>如何使其线程安全呢？简单，加个<code>synchronized</code>关键字就行了</p>
+<pre><code>public static synchronized Singleton getInstance() {
+    if (INSTANCE == null) {
+        INSTANCE = new Singleton();
+    }
+    return INSTANCE;
+}
+</code></pre><p>可是…这样又出现了性能问题，简单粗暴的同步整个方法，导致同一时间内只有一个线程能够调用<code>getInstance</code>方法。</p>
+<p>因为仅仅需要对初始化部分的代码进行同步，所以再次进行优化：</p>
+<pre><code>public static Singleton getSingleton() {
+    if (INSTANCE == null) {               // 第一次检查
+        synchronized (Singleton.class) {
+            if (INSTANCE == null) {      // 第二次检查
+                INSTANCE = new Singleton();
+            }
+        }
+    }
+    return INSTANCE ;
+}
+</code></pre><p>执行两次检测很有必要：当多线程调用时，如果多个线程同时执行完了第一次检查，其中一个进入同步代码块创建了实例，后面的线程因第二次检测不会创建新实例。</p>
+<p>这段代码看起来很完美，但仍旧存在问题，以下内容引用自黑桃夹克大神的<a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="external">如何正确地写出单例模式</a></p>
+<blockquote>
+<p>这段代码看起来很完美，很可惜，它是有问题。主要在于instance = new Singleton()这句，这并非是一个原子操作，事实上在 JVM 中这句话大概做了下面 3 件事情。</p>
+<ol>
+<li>给 instance 分配内存</li>
+<li>调用 Singleton 的构造函数来初始化成员变量</li>
+<li>将instance对象指向分配的内存空间（执行完这步 instance 就为非 null 了）</li>
+</ol>
+<p>但是在 JVM 的即时编译器中存在指令重排序的优化。也就是说上面的第二步和第三步的顺序是不能保证的，最终的执行顺序可能是 1-2-3 也可能是 1-3-2。如果是后者，则在 3 执行完毕、2 未执行之前，被线程二抢占了，这时 instance 已经是非 null 了（但却没有初始化），所以线程二会直接返回 instance，然后使用，然后顺理成章地报错。</p>
+<p>我们只需要将 instance 变量声明成 volatile 就可以了。</p>
+</blockquote>
+<pre><code>public class Singleton {
+    private volatile static Singleton INSTANCE; //声明成 volatile
+    private Singleton (){}
+
+    public static Singleton getSingleton() {
+        if (INSTANCE == null) {                         
+            synchronized (Singleton.class) {
+                if (INSTANCE == null) {       
+                    INSTANCE = new Singleton();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+}
+</code></pre><blockquote>
+<p>使用 volatile 的主要原因是其另一个特性：禁止指令重排序优化。也就是说，在 volatile 变量的赋值操作后面会有一个内存屏障（生成的汇编代码上），读操作不会被重排序到内存屏障之前。比如上面的例子，取操作必须在执行完 1-2-3 之后或者 1-3-2 之后，不存在执行到 1-3 然后取到值的情况。从「先行发生原则」的角度理解的话，就是对于一个 volatile 变量的写操作都先行发生于后面对这个变量的读操作（这里的“后面”是时间上的先后顺序）。</p>
+<p>但是特别注意在 Java 5 以前的版本使用了 volatile 的双检锁还是有问题的。其原因是 Java 5 以前的 JMM （Java 内存模型）是存在缺陷的，即时将变量声明成 volatile 也不能完全避免重排序，主要是 volatile 变量前后的代码仍然存在重排序问题。这个 volatile 屏蔽重排序的问题在 Java 5 中才得以修复，所以在这之后才可以放心使用 volatile。</p>
+</blockquote>
+<p>至此，这样的懒汉式才是没有问题的懒汉式。</p>
+<h2 id="内部类实现单例"><a href="#内部类实现单例" class="headerlink" title="内部类实现单例"></a>内部类实现单例</h2><pre><code>public class Singleton { 
+    /** 
+     * 类级的内部类，也就是静态的成员式内部类，该内部类的实例与外部类的实例没有绑定关系， 
+     * 而且只有被调用到才会装载，从而实现了延迟加载 
+     */ 
+    private static class SingletonHolder{ 
+        /** 
+         * 静态初始化器，由JVM来保证线程安全 
+         */ 
+        private static final Singleton instance = new Singleton(); 
+    } 
+    /** 
+     * 私有化构造方法 
+     */ 
+    private Singleton(){ 
+    } 
+
+    public static  Singleton getInstance(){ 
+        return SingletonHolder.instance; 
+    } 
+} 
+</code></pre><p>使用内部类来维护单例的实例，当Singleton被加载时，其内部类并不会被初始化，故可以确保当 Singleton类被载入JVM时，不会初始化单例类。只有 <code>getInstance()</code> 方法调用时，才会初始化 instance。同时，由于实例的建立是时在类加载时完成，故天生对多线程友好，<code>getInstance()</code> 方法也无需使用同步关键字。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>无疑，单例就应使用枚举实现，最佳实践诚不欺我</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">What is an efficient way to implement a singleton pattern in Java</a></p>
+<p><a href="www.javapractices.com/topic/TopicAction.do?Id=46">Java Practices -&gt; Singleton</a></p>
+<p><a href="http://www.drdobbs.com/jvm/creating-and-destroying-java-objects-par/208403883?pgno=3" target="_blank" rel="external">Creating and Destroying Java Objects: Part 1</a></p>
+<p><a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="external">如何正确地写出单例模式</a></p>
+<p><a href="https://segmentfault.com/q/1010000000646806" target="_blank" rel="external">JAVA 枚举单例模式</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/20/how_to_use_annotation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android进阶之自定义注解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="how_to_use_singleton" data-title="老司机来教你单例的正确姿势" data-url="http://yoursite.com/2016/06/29/how_to_use_singleton/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"smarx"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 聪明叉
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

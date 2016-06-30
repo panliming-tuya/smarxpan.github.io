@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-23T11:10:06.000Z</updated>
+  <updated>2016-06-30T14:27:38.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,598 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>老司机来教你单例的正确姿势</title>
+    <link href="http://yoursite.com/2016/06/29/how_to_use_singleton/"/>
+    <id>http://yoursite.com/2016/06/29/how_to_use_singleton/</id>
+    <published>2016-06-29T02:15:28.000Z</published>
+    <updated>2016-06-30T14:27:38.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;老司机来教你单例的正确姿势&quot;&gt;&lt;a href=&quot;#老司机来教你单例的正确姿势&quot; class=&quot;headerlink&quot; title=&quot;老司机来教你单例的正确姿势&quot;&gt;&lt;/a&gt;老司机来教你单例的正确姿势&lt;/h1&gt;&lt;p&gt;Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单例（这不是废话吗）&lt;/li&gt;
+&lt;li&gt;延迟加载&lt;/li&gt;
+&lt;li&gt;线程安全&lt;/li&gt;
+&lt;li&gt;没有性能问题&lt;/li&gt;
+&lt;li&gt;防止序列化产生新对象&lt;/li&gt;
+&lt;li&gt;防止反射攻击&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。&lt;/p&gt;
+&lt;h2 id=&quot;最佳实践单例之枚举&quot;&gt;&lt;a href=&quot;#最佳实践单例之枚举&quot; class=&quot;headerlink&quot; title=&quot;最佳实践单例之枚举&quot;&gt;&lt;/a&gt;最佳实践单例之枚举&lt;/h2&gt;&lt;p&gt;没错，直接就上最佳实践，就是这么任性&lt;/p&gt;
+&lt;p&gt;这货长这样： &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public enum Singleton{
+    INSTANCE;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你不熟悉枚举，可能会说：这货是啥？！&lt;/p&gt;
+&lt;p&gt;这种方式的好处是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;利用的枚举的特性实现单例&lt;/li&gt;
+&lt;li&gt;由JVM保证线程安全&lt;/li&gt;
+&lt;li&gt;序列化和反射攻击已经被枚举解决&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;调用方式为&lt;code&gt;Singleton.INSTANCE&lt;/code&gt;, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于单例最佳实践的讨论可以看Stackoverflow：&lt;a href=&quot;http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：&lt;a href=&quot;http://blog.csdn.net/u013256816/article/details/50525335&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何防止单例模式被JAVA反射攻击&lt;/a&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;最简单的单例之饿汉式&quot;&gt;&lt;a href=&quot;#最简单的单例之饿汉式&quot; class=&quot;headerlink&quot; title=&quot;最简单的单例之饿汉式&quot;&gt;&lt;/a&gt;最简单的单例之饿汉式&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;public class Singleton {
+    private static final Singleton INSTANCE = new Singleton();
+    // 私有化构造函数
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种单例的写法最简单，但是缺点是一旦类被加载，单例就会初始化，没有实现懒加载。而且当实现了Serializable接口后，反序列化时单例会被破坏。&lt;/p&gt;
+&lt;p&gt;实现Serializable接口需要重写&lt;code&gt;readResolve&lt;/code&gt;，才能保证其反序列化依旧是单例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Singleton implements Serializable {
+    private static final Singleton INSTANCE = new Singleton();
+    // 私有化构造函数
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+
+    /**
+     * 如果实现了Serializable, 必须重写这个方法
+     */
+    private Object readResolve() throws ObjectStreamException {
+        return INSTANCE;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;OK，反序列化要注意的就是这一点，下面的内容中就不再复述了。&lt;/p&gt;
+&lt;h2 id=&quot;最体现技术的单例之懒汉式&quot;&gt;&lt;a href=&quot;#最体现技术的单例之懒汉式&quot; class=&quot;headerlink&quot; title=&quot;最体现技术的单例之懒汉式&quot;&gt;&lt;/a&gt;最体现技术的单例之懒汉式&lt;/h2&gt;&lt;p&gt;懒汉式即实现延迟加载的单例，为上述饿汉式的优化形式。而因其仍需要进一步优化，往往成为面试考点，让我们一起来看看坑爹的“懒汉式”&lt;/p&gt;
+&lt;p&gt;懒汉式的最初形式是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Singleton {
+    private static Singleton INSTANCE;
+    private Singleton (){}
+
+    public static Singleton getInstance() {
+     if (INSTANCE == null) {
+         INSTANCE = new Singleton();
+     }
+     return INSTANCE;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种写法就轻松实现了单例的懒加载，只有调用了&lt;code&gt;getInstance&lt;/code&gt;方法才会初始化。但是这样的写法出现了新的问题–线程不安全。当多个线程调用&lt;code&gt;getInstance&lt;/code&gt;方法时，可能会创建多个实例，因此需要对其进行同步。&lt;/p&gt;
+&lt;p&gt;如何使其线程安全呢？简单，加个&lt;code&gt;synchronized&lt;/code&gt;关键字就行了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static synchronized Singleton getInstance() {
+    if (INSTANCE == null) {
+        INSTANCE = new Singleton();
+    }
+    return INSTANCE;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可是…这样又出现了性能问题，简单粗暴的同步整个方法，导致同一时间内只有一个线程能够调用&lt;code&gt;getInstance&lt;/code&gt;方法。&lt;/p&gt;
+&lt;p&gt;因为仅仅需要对初始化部分的代码进行同步，所以再次进行优化：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static Singleton getSingleton() {
+    if (INSTANCE == null) {               // 第一次检查
+        synchronized (Singleton.class) {
+            if (INSTANCE == null) {      // 第二次检查
+                INSTANCE = new Singleton();
+            }
+        }
+    }
+    return INSTANCE ;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行两次检测很有必要：当多线程调用时，如果多个线程同时执行完了第一次检查，其中一个进入同步代码块创建了实例，后面的线程因第二次检测不会创建新实例。&lt;/p&gt;
+&lt;p&gt;这段代码看起来很完美，但仍旧存在问题，以下内容引用自黑桃夹克大神的&lt;a href=&quot;http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何正确地写出单例模式&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这段代码看起来很完美，很可惜，它是有问题。主要在于instance = new Singleton()这句，这并非是一个原子操作，事实上在 JVM 中这句话大概做了下面 3 件事情。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;给 instance 分配内存&lt;/li&gt;
+&lt;li&gt;调用 Singleton 的构造函数来初始化成员变量&lt;/li&gt;
+&lt;li&gt;将instance对象指向分配的内存空间（执行完这步 instance 就为非 null 了）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是在 JVM 的即时编译器中存在指令重排序的优化。也就是说上面的第二步和第三步的顺序是不能保证的，最终的执行顺序可能是 1-2-3 也可能是 1-3-2。如果是后者，则在 3 执行完毕、2 未执行之前，被线程二抢占了，这时 instance 已经是非 null 了（但却没有初始化），所以线程二会直接返回 instance，然后使用，然后顺理成章地报错。&lt;/p&gt;
+&lt;p&gt;我们只需要将 instance 变量声明成 volatile 就可以了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;public class Singleton {
+    private volatile static Singleton INSTANCE; //声明成 volatile
+    private Singleton (){}
+
+    public static Singleton getSingleton() {
+        if (INSTANCE == null) {                         
+            synchronized (Singleton.class) {
+                if (INSTANCE == null) {       
+                    INSTANCE = new Singleton();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;使用 volatile 的主要原因是其另一个特性：禁止指令重排序优化。也就是说，在 volatile 变量的赋值操作后面会有一个内存屏障（生成的汇编代码上），读操作不会被重排序到内存屏障之前。比如上面的例子，取操作必须在执行完 1-2-3 之后或者 1-3-2 之后，不存在执行到 1-3 然后取到值的情况。从「先行发生原则」的角度理解的话，就是对于一个 volatile 变量的写操作都先行发生于后面对这个变量的读操作（这里的“后面”是时间上的先后顺序）。&lt;/p&gt;
+&lt;p&gt;但是特别注意在 Java 5 以前的版本使用了 volatile 的双检锁还是有问题的。其原因是 Java 5 以前的 JMM （Java 内存模型）是存在缺陷的，即时将变量声明成 volatile 也不能完全避免重排序，主要是 volatile 变量前后的代码仍然存在重排序问题。这个 volatile 屏蔽重排序的问题在 Java 5 中才得以修复，所以在这之后才可以放心使用 volatile。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;至此，这样的懒汉式才是没有问题的懒汉式。&lt;/p&gt;
+&lt;h2 id=&quot;内部类实现单例&quot;&gt;&lt;a href=&quot;#内部类实现单例&quot; class=&quot;headerlink&quot; title=&quot;内部类实现单例&quot;&gt;&lt;/a&gt;内部类实现单例&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;public class Singleton { 
+    /** 
+     * 类级的内部类，也就是静态的成员式内部类，该内部类的实例与外部类的实例没有绑定关系， 
+     * 而且只有被调用到才会装载，从而实现了延迟加载 
+     */ 
+    private static class SingletonHolder{ 
+        /** 
+         * 静态初始化器，由JVM来保证线程安全 
+         */ 
+        private static final Singleton instance = new Singleton(); 
+    } 
+    /** 
+     * 私有化构造方法 
+     */ 
+    private Singleton(){ 
+    } 
+
+    public static  Singleton getInstance(){ 
+        return SingletonHolder.instance; 
+    } 
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用内部类来维护单例的实例，当Singleton被加载时，其内部类并不会被初始化，故可以确保当 Singleton类被载入JVM时，不会初始化单例类。只有 &lt;code&gt;getInstance()&lt;/code&gt; 方法调用时，才会初始化 instance。同时，由于实例的建立是时在类加载时完成，故天生对多线程友好，&lt;code&gt;getInstance()&lt;/code&gt; 方法也无需使用同步关键字。&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;无疑，单例就应使用枚举实现，最佳实践诚不欺我&lt;/p&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;What is an efficient way to implement a singleton pattern in Java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;www.javapractices.com/topic/TopicAction.do?Id=46&quot;&gt;Java Practices -&amp;gt; Singleton&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.drdobbs.com/jvm/creating-and-destroying-java-objects-par/208403883?pgno=3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Creating and Destroying Java Objects: Part 1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何正确地写出单例模式&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/q/1010000000646806&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JAVA 枚举单例模式&lt;/a&gt; &lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;老司机来教你单例的正确姿势&quot;&gt;&lt;a href=&quot;#老司机来教你单例的正确姿势&quot; class=&quot;headerlink&quot; title=&quot;老司机来教你单例的正确姿势&quot;&gt;&lt;/a&gt;老司机来教你单例的正确姿势&lt;/h1&gt;&lt;p&gt;Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单例（这不是废话吗）&lt;/li&gt;
+&lt;li&gt;延迟加载&lt;/li&gt;
+&lt;li&gt;线程安全&lt;/li&gt;
+&lt;li&gt;没有性能问题&lt;/li&gt;
+&lt;li&gt;防止序列化产生新对象&lt;/li&gt;
+&lt;li&gt;防止反射攻击&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。&lt;/p&gt;
+&lt;h2 id=&quot;最佳实践单例之枚举&quot;&gt;&lt;a href=&quot;#最佳实践单例之枚举&quot; class=&quot;headerlink&quot; title=&quot;最佳实践单例之枚举&quot;&gt;&lt;/a&gt;最佳实践单例之枚举&lt;/h2&gt;&lt;p&gt;没错，直接就上最佳实践，就是这么任性&lt;/p&gt;
+&lt;p&gt;这货长这样： &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public enum Singleton{
+    INSTANCE;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你不熟悉枚举，可能会说：这货是啥？！&lt;/p&gt;
+&lt;p&gt;这种方式的好处是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;利用的枚举的特性实现单例&lt;/li&gt;
+&lt;li&gt;由JVM保证线程安全&lt;/li&gt;
+&lt;li&gt;序列化和反射攻击已经被枚举解决&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;调用方式为&lt;code&gt;Singleton.INSTANCE&lt;/code&gt;, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于单例最佳实践的讨论可以看Stackoverflow：&lt;a href=&quot;http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&quot;&gt;what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：&lt;a href=&quot;http://blog.csdn.net/u013256816/article/details/50525335&quot;&gt;如何防止单例模式被JAVA反射攻击&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android进阶之自定义注解</title>
+    <link href="http://yoursite.com/2016/06/20/how_to_use_annotation/"/>
+    <id>http://yoursite.com/2016/06/20/how_to_use_annotation/</id>
+    <published>2016-06-20T07:15:30.000Z</published>
+    <updated>2016-06-30T14:29:29.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Android进阶之自定义注解&quot;&gt;&lt;a href=&quot;#Android进阶之自定义注解&quot; class=&quot;headerlink&quot; title=&quot;Android进阶之自定义注解&quot;&gt;&lt;/a&gt;Android进阶之自定义注解&lt;/h1&gt;&lt;p&gt;本篇文章内容包括: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1&quot;&gt;注解的概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2&quot;&gt;元注解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3&quot;&gt;自定义注解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4&quot;&gt;Android自定义编译时注解&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. &lt;/p&gt;
+&lt;h2 id=&quot;什么是注解&quot;&gt;&lt;a href=&quot;#什么是注解&quot; class=&quot;headerlink&quot; title=&quot;什么是注解&quot;&gt;&lt;/a&gt;&lt;span id=&quot;1&quot;&gt;什么是注解&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;先来看看Java文档中的定义&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. &lt;/p&gt;
+&lt;p&gt;首先, 明确一点: &lt;strong&gt;注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;定义注解用的关键字是&lt;code&gt;@interface&lt;/code&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;元注解&quot;&gt;&lt;a href=&quot;#元注解&quot; class=&quot;headerlink&quot; title=&quot;元注解&quot;&gt;&lt;/a&gt;&lt;span id=&quot;2&quot;&gt;元注解&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;java内置的注解有Override, Deprecated, SuppressWarnings等, 作用相信大家都知道. &lt;/p&gt;
+&lt;p&gt;现在查看Override注解的源码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override {
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;发现Override注解上面有两个注解, 这就是元注解. 元注解就是&lt;strong&gt;用来定义注解的注解&lt;/strong&gt;.其作用就是定义注解的作用范围, 使用在什么元素上等等, 下面来详细介绍. &lt;/p&gt;
+&lt;p&gt;元注解共有四种&lt;code&gt;@Retention&lt;/code&gt;, &lt;code&gt;@Target&lt;/code&gt;, &lt;code&gt;@Inherited&lt;/code&gt;, &lt;code&gt;@Documented&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;@Retention&lt;/code&gt; 保留的范围，默认值为CLASS. 可选值有三种&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SOURCE&lt;/code&gt;, 只在源码中可用&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CLASS&lt;/code&gt;, 在源码和字节码中可用&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RUNTIME&lt;/code&gt;, 在源码,字节码,运行时均可用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;@Target&lt;/code&gt; 可以用来修饰哪些程序元素，如 &lt;code&gt;TYPE&lt;/code&gt;, &lt;code&gt;METHOD&lt;/code&gt;, &lt;code&gt;CONSTRUCTOR&lt;/code&gt;, &lt;code&gt;FIELD&lt;/code&gt;, &lt;code&gt;PARAMETER&lt;/code&gt;等，未标注则表示可修饰所有&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;@Inherited&lt;/code&gt; 是否可以被继承，默认为false&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;@Documented&lt;/code&gt; 是否会保存到 Javadoc 文档中&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中, &lt;code&gt;@Retention&lt;/code&gt;是定义保留策略, 直接决定了我们用何种方式解析. SOUCE级别的注解是用来标记的, 比如Override, SuppressWarnings. 我们真正使用的类型是CLASS(编译时)和RUNTIME(运行时)&lt;/p&gt;
+&lt;h2 id=&quot;自定义注解&quot;&gt;&lt;a href=&quot;#自定义注解&quot; class=&quot;headerlink&quot; title=&quot;自定义注解&quot;&gt;&lt;/a&gt;&lt;span id=&quot;3&quot;&gt;自定义注解&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;举个栗子, 结合例子讲解&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface TestAnnotation {
+    String value();
+    String[] value2() default &amp;quot;value2&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;元注解的的意义参考上面的讲解, 不再重复, 这里看注解值的写法: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;类型 参数名() default 默认值;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中默认值是可选的, 可以定义, 也可以不定义. &lt;/p&gt;
+&lt;h3 id=&quot;处理运行时注解&quot;&gt;&lt;a href=&quot;#处理运行时注解&quot; class=&quot;headerlink&quot; title=&quot;处理运行时注解&quot;&gt;&lt;/a&gt;处理运行时注解&lt;/h3&gt;&lt;p&gt;Retention的值为RUNTIME时, 注解会保留到运行时, 因此使用反射来解析注解. &lt;/p&gt;
+&lt;p&gt;使用的注解就是上一步的&lt;code&gt;@TestAnnotation&lt;/code&gt;, 解析示例如下: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Demo {
+
+    @TestAnnotation(&amp;quot;Hello Annotation!&amp;quot;)
+    private String testAnnotation;
+
+    public static void main(String[] args) {
+        try {
+            // 获取要解析的类
+            Class cls = Class.forName(&amp;quot;myAnnotation.Demo&amp;quot;);
+            // 拿到所有Field
+            Field[] declaredFields = cls.getDeclaredFields();
+            for(Field field : declaredFields){
+                // 获取Field上的注解
+                TestAnnotation annotation = field.getAnnotation(TestAnnotation.class);
+                if(annotation != null){
+                    // 获取注解值
+                    String value = annotation.value();
+                    System.out.println(value);
+                }
+
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此处只演示了解析成员变量上的注解, 其他类型与此类似. &lt;/p&gt;
+&lt;h3 id=&quot;解析编译时注解&quot;&gt;&lt;a href=&quot;#解析编译时注解&quot; class=&quot;headerlink&quot; title=&quot;解析编译时注解&quot;&gt;&lt;/a&gt;解析编译时注解&lt;/h3&gt;&lt;p&gt;解析编译时注解需要继承AbstractProcessor类, 实现其抽象方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public boolean process(Set&amp;lt;? extends TypeElement&amp;gt; annotations, RoundEnvironment roundEnv)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;该方法返回ture表示该注解已经被处理, 后续不会再有其他处理器处理; 返回false表示仍可被其他处理器处理. &lt;/p&gt;
+&lt;p&gt;处理示例: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 指定要解析的注解
+@SupportedAnnotationTypes(&amp;quot;myAnnotation.TestAnnotation&amp;quot;)
+// 指定JDK版本
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
+public class MyAnnotationProcesser extends AbstractProcessor {
+    @Override
+    public boolean process(Set&amp;lt;? extends TypeElement&amp;gt; annotations, RoundEnvironment roundEnv) {
+        for (TypeElement te : annotations) {
+            for (Element element : roundEnv.getElementsAnnotatedWith(te)) {
+                TestAnnotation testAnnotation = element.getAnnotation(TestAnnotation.class);
+                // do something
+            }
+        }
+        return true;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里先大致介绍是怎么个套路, 接下来说具体实践过程.&lt;/p&gt;
+&lt;h2 id=&quot;Android中使用编译时注解&quot;&gt;&lt;a href=&quot;#Android中使用编译时注解&quot; class=&quot;headerlink&quot; title=&quot;Android中使用编译时注解&quot;&gt;&lt;/a&gt;&lt;span id=&quot;4&quot;&gt;Android中使用编译时注解&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;注解是个什么东西我们已经知道了, 也知道了如何解析注解. 我们下一步的目标是如ButterKnife一般自动生成代码. &lt;/p&gt;
+&lt;p&gt;接下来的操作基于InteliJ IDEA(开发注解及其解析类, 打出jar包)和Android Studio(实测使用情况)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note: AS的Android开发环境中没有&lt;code&gt;AbstractProcessor&lt;/code&gt;类, 而我新建了Java Module后遇到了各种各样的花式错误(后面的报错之路会叙述), 无奈只能在IDEA中开发并打出jar包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;开发注解库&quot;&gt;&lt;a href=&quot;#开发注解库&quot; class=&quot;headerlink&quot; title=&quot;开发注解库&quot;&gt;&lt;/a&gt;开发注解库&lt;/h3&gt;&lt;p&gt;在IDEA中新建java项目, 并开启maven支持. 如果新建项目的页面没有maven选项, 建好项目后右键项目目录-&amp;gt;”Add Framwork Support…”, 选择maven. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自定义编译时注解&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
+public @interface TestAnnotation {
+    String value() default &amp;quot;Hello Annotation&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;解析编译时注解&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 支持的注解类型, 此处要填写全类名
+@SupportedAnnotationTypes(&amp;quot;myannotation.TestAnnotation&amp;quot;)
+// JDK版本, 我用的是java7
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
+public class MyAnnotationProcessor extends AbstractProcessor {
+    // 类名的前缀后缀
+    public static final String SUFFIX = &amp;quot;AutoGenerate&amp;quot;;
+    public static final String PREFIX = &amp;quot;My_&amp;quot;;
+    @Override
+    public boolean process(Set&amp;lt;? extends TypeElement&amp;gt; annotations, RoundEnvironment roundEnv) {
+
+        for (TypeElement te : annotations) {
+            for (Element e : roundEnv.getElementsAnnotatedWith(te)) {
+                // 准备在gradle的控制台打印信息
+                Messager messager = processingEnv.getMessager();
+                // 打印
+                messager.printMessage(Diagnostic.Kind.NOTE, &amp;quot;Printing: &amp;quot; + e.toString());
+                messager.printMessage(Diagnostic.Kind.NOTE, &amp;quot;Printing: &amp;quot; + e.getSimpleName());
+                messager.printMessage(Diagnostic.Kind.NOTE, &amp;quot;Printing: &amp;quot; + e.getEnclosingElement().toString());
+
+                // 获取注解
+                TestAnnotation annotation = e.getAnnotation(TestAnnotation.class);
+
+                // 获取元素名并将其首字母大写
+                String name = e.getSimpleName().toString();
+                char c = Character.toUpperCase(name.charAt(0));
+                name = String.valueOf(c+name.substring(1));
+
+                // 包裹注解元素的元素, 也就是其父元素, 比如注解了成员变量或者成员函数, 其上层就是该类
+                Element enclosingElement = e.getEnclosingElement();
+                // 获取父元素的全类名, 用来生成包名
+                String enclosingQualifiedName;
+                if(enclosingElement instanceof PackageElement){
+                    enclosingQualifiedName = ((PackageElement)enclosingElement).getQualifiedName().toString();
+                }else {
+                    enclosingQualifiedName = ((TypeElement)enclosingElement).getQualifiedName().toString();
+                }
+                try {
+                    // 生成的包名
+                    String genaratePackageName = enclosingQualifiedName.substring(0, enclosingQualifiedName.lastIndexOf(&amp;apos;.&amp;apos;));
+                    // 生成的类名
+                    String genarateClassName = PREFIX + enclosingElement.getSimpleName() + SUFFIX;
+
+                    // 创建Java文件
+                    JavaFileObject f = processingEnv.getFiler().createSourceFile(genarateClassName);
+                    // 在控制台输出文件路径
+                    messager.printMessage(Diagnostic.Kind.NOTE, &amp;quot;Printing: &amp;quot; + f.toUri());
+                    Writer w = f.openWriter();
+                    try {
+                        PrintWriter pw = new PrintWriter(w);
+                        pw.println(&amp;quot;package &amp;quot; + genaratePackageName + &amp;quot;;&amp;quot;);
+                        pw.println(&amp;quot;\npublic class &amp;quot; + genarateClassName + &amp;quot; { &amp;quot;);
+                        pw.println(&amp;quot;\n    /** 打印值 */&amp;quot;);
+                        pw.println(&amp;quot;    public static void print&amp;quot; + name + &amp;quot;() {&amp;quot;);
+                        pw.println(&amp;quot;        // 注解的父元素: &amp;quot; + enclosingElement.toString());
+                        pw.println(&amp;quot;        System.out.println(\&amp;quot;代码生成的路径: &amp;quot;+f.toUri()+&amp;quot;\&amp;quot;);&amp;quot;);
+                        pw.println(&amp;quot;        System.out.println(\&amp;quot;注解的元素: &amp;quot;+e.toString()+&amp;quot;\&amp;quot;);&amp;quot;);
+                        pw.println(&amp;quot;        System.out.println(\&amp;quot;注解的值: &amp;quot;+annotation.value()+&amp;quot;\&amp;quot;);&amp;quot;);
+                        pw.println(&amp;quot;    }&amp;quot;);
+                        pw.println(&amp;quot;}&amp;quot;);
+                        pw.flush();
+                    } finally {
+                        w.close();
+                    }
+                } catch (IOException x) {
+                    processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+                            x.toString());
+                }
+            }
+        }
+        return true;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;看似代码很长, 其实很好理解. 只做了两件事, 1.解析注解并获取需要的值 2.使用&lt;code&gt;JavaFileObject&lt;/code&gt;类生成java代码. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;向JVM声明解析器&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我们的解析器虽然定义好了, 但是jvm并不知道, 也不会调用, 因此我们需要声明. &lt;/p&gt;
+&lt;p&gt;如图所示&lt;img src=&quot;http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在java的同级目录新建resources目录, 新建&lt;code&gt;META-INF/services/javax.annotation.processing.Processor&lt;/code&gt;文件, 文件中填写你自定义的Processor全类名&lt;br&gt;&lt;img src=&quot;http://7xqnsv.com1.z0.glb.clouddn.com/9AF6B510-9762-4DF8-80A2-3446CBD39263.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;然后打出jar包以待使用(打包方式自行百度)&lt;/p&gt;
+&lt;h3 id=&quot;Android中使用&quot;&gt;&lt;a href=&quot;#Android中使用&quot; class=&quot;headerlink&quot; title=&quot;Android中使用&quot;&gt;&lt;/a&gt;Android中使用&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用apt插件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;项目根目录gradle中&lt;code&gt;buildscript&lt;/code&gt;的&lt;code&gt;dependencies&lt;/code&gt;添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;classpath &amp;apos;com.neenbedankt.gradle.plugins:android-apt:1.8&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;module目录的gradle中, 添加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apply plugin: &amp;apos;android-apt&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;代码中调用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将之前打出的jar包导入项目中, 在MainActivity中写个测试方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; @Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    test();
+}
+
+@TestAnnotation(&amp;quot;hehe&amp;quot;)
+public void test(){
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行一遍项目之后, 代码就会自动生成. &lt;/p&gt;
+&lt;p&gt;以下是生成的代码, 在路径&lt;code&gt;yourmodule/build/generated/source/apt/debug/yourpackagename&lt;/code&gt;中:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class My_MainActivityAutoGenerate { 
+
+    /** 打印值 */
+    public static void printTest() {
+        // 注解的父元素: com.example.pan.androidtestdemo.MainActivity
+        System.out.println(&amp;quot;代码生成的路径: file:/Users/Pan/AndroidStudioProjects/AndroidTestDemo/app/build/generated/source/apt/debug/My_MainActivityAutoGenerate.java&amp;quot;);
+        System.out.println(&amp;quot;注解的元素: test()&amp;quot;);
+        System.out.println(&amp;quot;注解的值: hehe&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在test方法中调用自动生成的方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@TestAnnotation(&amp;quot;hehe&amp;quot;)
+public void test(){
+    My_MainActivityAutoGenerate.printTest();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;会看到以下打印结果: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;代码生成的路径: file:/Users/Pan/AndroidStudioProjects/AndroidTestDemo/app/build/generated/source/apt/debug/com/example/pan/androidtestdemo/MainActivityAutoGenerate.java
+注解的元素: test()
+注解的值: hehe
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;报错之路&quot;&gt;&lt;a href=&quot;#报错之路&quot; class=&quot;headerlink&quot; title=&quot;报错之路&quot;&gt;&lt;/a&gt;报错之路&lt;/h2&gt;&lt;p&gt;开始时, 我在Android Studio的Java Library中编写解析类, 然后在Android Module依赖Java库, 然后报下面这个错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;For more information see https://docs.gradle.org/current/userguide/build_environment.html
+Error:Error converting bytecode to dex:
+Cause: Dex cannot parse version 52 byte code.
+This is caused by library dependencies that have been compiled using Java 8 or above.
+If you are using the &amp;apos;java&amp;apos; gradle plugin in a library submodule add 
+targetCompatibility = &amp;apos;1.7&amp;apos;
+sourceCompatibility = &amp;apos;1.7&amp;apos;
+to that submodule&amp;apos;s build.gradle file.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我tm本来就是Java8啊, 一番Google, 需要开启手动开启才能支持java8, 步骤如下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;android {
+    compileSdkVersion 23
+    // 开启Java8, buildTools版本必须24以上
+       buildToolsVersion &amp;quot;24&amp;quot;
+    ...
+    defaultConfig {
+        ...
+        // Java8需要jack工具链支持
+        jackOptions{
+            enabled true
+        }
+
+    }
+    ...
+    // 指定编译版本
+    compileOptions{
+        targetCompatibility = &amp;apos;1.8&amp;apos;
+        sourceCompatibility = &amp;apos;1.8&amp;apos;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然而…又报了这个错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Error: Could not find the property &amp;apos;options&amp;apos; on the task&amp;apos; : app: compileDebugJavaWithJack &amp;apos;.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;来自JakeWharton大神的回复, jack编译器目前并不支持apt插件&lt;a href=&quot;https://github.com/JakeWharton/butterknife/issues/571&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/JakeWharton/butterknife/issues/571&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;摔! 不用java8报错, 用了又尼玛报. 自动生成代码是必须要用apt插件的. 那就只能用java7在IDEA里开发了. &lt;/p&gt;
+&lt;p&gt;时至今日(2016年06月23日), Google并没有解决这个问题, 目前jack编译器还处于预览版, 相信以后会解决吧&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;有了本文所述的注解知识, 对Dagger,ButterKnife等框架就不难理解了. 如果在时间精力允许的情况下, 我们也完全可以自定义个注解框架. &lt;/p&gt;
+&lt;p&gt;本文中自动生成代码的部分十分简单, 也隐含bug: 在for循环中创建了文件, 如果一个类中使用了两次该注解, 第二次是无法创建新文件的. 真正的实际项目中, 肯定是将需要的信息保存起来, 之后统一创建java类. &lt;/p&gt;
+&lt;p&gt;更进一步的应用大家可以查看其他注解框架的源码, 调试注解大家可以查看这篇文章&lt;a href=&quot;http://www.jianshu.com/p/80a14bc35000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何debug自定义AbstractProcessor&lt;/a&gt;, 我这里就不过多赘述了&lt;/p&gt;
+&lt;p&gt;水平有限, 如有错误欢迎指正. &lt;/p&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://a.codekk.com/detail/Android/Trinea/%E5%85%AC%E5%85%B1%E6%8A%80%E6%9C%AF%E7%82%B9%E4%B9%8B%20Java%20%E6%B3%A8%E8%A7%A3%20Annotation&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;公共技术点之 Java 注解 Annotation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/avenwu/p/4173899.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Annotation实战【自定义AbstractProcessor】&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://yzx41099298.github.io/2015/03/26/apt/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;android 中运用apt自定义一个AbstractProcessor
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000002785541&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;打造一个 Android 的注解库&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Android进阶之自定义注解&quot;&gt;&lt;a href=&quot;#Android进阶之自定义注解&quot; class=&quot;headerlink&quot; title=&quot;Android进阶之自定义注解&quot;&gt;&lt;/a&gt;Android进阶之自定义注解&lt;/h1&gt;&lt;p&gt;本篇文章内容包括: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1&quot;&gt;注解的概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2&quot;&gt;元注解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3&quot;&gt;自定义注解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4&quot;&gt;Android自定义编译时注解&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. &lt;/p&gt;
+&lt;h2 id=&quot;什么是注解&quot;&gt;&lt;a href=&quot;#什么是注解&quot; class=&quot;headerlink&quot; title=&quot;什么是注解&quot;&gt;&lt;/a&gt;&lt;span id=&#39;1&#39;&gt;什么是注解&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;先来看看Java文档中的定义&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. &lt;/p&gt;
+&lt;p&gt;首先, 明确一点: &lt;strong&gt;注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;定义注解用的关键字是&lt;code&gt;@interface&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Activity跳转最佳实践</title>
+    <link href="http://yoursite.com/2016/06/08/android-navigator-best-practice/"/>
+    <id>http://yoursite.com/2016/06/08/android-navigator-best-practice/</id>
+    <published>2016-06-08T07:15:28.000Z</published>
+    <updated>2016-06-30T14:24:44.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Activity跳转最佳实践&quot;&gt;&lt;a href=&quot;#Activity跳转最佳实践&quot; class=&quot;headerlink&quot; title=&quot;Activity跳转最佳实践&quot;&gt;&lt;/a&gt;Activity跳转最佳实践&lt;/h1&gt;&lt;p&gt;学习&lt;a href=&quot;https://github.com/android10/Android-CleanArchitecture&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android-CleanArchitecture&lt;/a&gt;时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.&lt;/p&gt;
+&lt;h2 id=&quot;传统写法&quot;&gt;&lt;a href=&quot;#传统写法&quot; class=&quot;headerlink&quot; title=&quot;传统写法&quot;&gt;&lt;/a&gt;传统写法&lt;/h2&gt;&lt;p&gt;跳转不需要参数时:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;跳转需要参数那就是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&amp;quot;key&amp;quot;,&amp;quot;someValue&amp;quot;);
+startActivity(intent);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;干净的写法&quot;&gt;&lt;a href=&quot;#干净的写法&quot; class=&quot;headerlink&quot; title=&quot;干净的写法&quot;&gt;&lt;/a&gt;干净的写法&lt;/h2&gt;&lt;p&gt;在&lt;code&gt;SecondActivity&lt;/code&gt;中定义静态方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public static Intent getCallingIntent(Context context){
+    Intent callingIntent = new Intent(context, SecondActivity.class);
+    return callingIntent;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建&lt;code&gt;Navigator&lt;/code&gt;类, 控制跳转&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public enum Navigator {
+
+    INSTANCE;
+
+    public void navigateToSecond(Context context){
+        if(context != null){
+            Intent callingIntent = SecondActivity.getCallingIntent(context);
+            context.startActivity(callingIntent);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Tips: 此处使用枚举实现单例, 枚举实现单例是单例的最佳实践, 参见&lt;a href=&quot;http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;What is an efficient way to implement a singleton pattern in Java?&lt;/a&gt;, 或者看&lt;a href=&quot;https://book.douban.com/subject/3360807/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Effective Java&lt;/a&gt;第三条&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;调用方式: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Navigator.INSTANCE.navigateToSecond(this);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;同理, 如果是需要传值, &lt;code&gt;SecondActivity&lt;/code&gt;中: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private static String EXTRA_KEY = &amp;quot;key&amp;quot;;
+
+public static Intent getCallingIntent(Context context, String value){
+    Intent callingIntent = new Intent(context, SecondActivity.class);
+    callingIntent.putExtra(EXTRA_KEY, value);
+    return callingIntent;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;将extra的key与需要该值的Activity写在一起, 而不是与跳转逻辑写在一起, 减少出错的可能.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Navigator&lt;/code&gt;改为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public enum Navigator {
+    INSTANCE;
+    public void navigateToSecond(Context context, String value){
+        if(context != null){
+            Intent callingIntent = SecondActivity.getCallingIntent(context, value);
+            context.startActivity(callingIntent);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;这样的写法将Activity跳转逻辑抽取了出来, 减少了人为犯错的可能, 还是值得大家在项目中实际使用的.&lt;/p&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/android10/Android-CleanArchitecture/blob/master/presentation/src/main/java/com/fernandocejas/android10/sample/presentation/navigation/Navigator.java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android-CleanArchitecture Navigator.java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;What is an efficient way to implement a singleton pattern in Java?&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Activity跳转最佳实践&quot;&gt;&lt;a href=&quot;#Activity跳转最佳实践&quot; class=&quot;headerlink&quot; title=&quot;Activity跳转最佳实践&quot;&gt;&lt;/a&gt;Activity跳转最佳实践&lt;/h1&gt;&lt;p&gt;学习&lt;a href=&quot;https://github.com/android10/Android-CleanArchitecture&quot;&gt;Android-CleanArchitecture&lt;/a&gt;时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.&lt;/p&gt;
+&lt;h2 id=&quot;传统写法&quot;&gt;&lt;a href=&quot;#传统写法&quot; class=&quot;headerlink&quot; title=&quot;传统写法&quot;&gt;&lt;/a&gt;传统写法&lt;/h2&gt;&lt;p&gt;跳转不需要参数时:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;跳转需要参数那就是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&amp;quot;key&amp;quot;,&amp;quot;someValue&amp;quot;);
+startActivity(intent);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>是时候学习一波Lambda表达式了</title>
@@ -245,6 +837,176 @@ printPerson(person, new IPersonPrinter() {
 &lt;p&gt;在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.&lt;/p&gt;
 &lt;p&gt;等等, 这个某类匿名内部类是神马意思?&lt;/p&gt;
 &lt;p&gt;这类能用Lambda表达式替代的匿名内部类有两个条件: &lt;strong&gt;必须是接口类型; 只有一个抽象方法&lt;/strong&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dagger2学习之相关概念详解</title>
+    <link href="http://yoursite.com/2016/04/17/Dagger2%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A6%82%E5%BF%B5%E5%85%A8%E6%94%BB%E7%95%A5/"/>
+    <id>http://yoursite.com/2016/04/17/Dagger2学习之概念全攻略/</id>
+    <published>2016-04-17T03:47:53.000Z</published>
+    <updated>2016-06-30T14:27:19.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Dagger2学习之相关概念详解&quot;&gt;&lt;a href=&quot;#Dagger2学习之相关概念详解&quot; class=&quot;headerlink&quot; title=&quot;Dagger2学习之相关概念详解&quot;&gt;&lt;/a&gt;Dagger2学习之相关概念详解&lt;/h1&gt;&lt;p&gt;// TODO 尚未完成&lt;/p&gt;
+&lt;p&gt;经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.&lt;/p&gt;
+&lt;p&gt;这里, 你将会学到以下知识点.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;什么是依赖注入&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@Module&lt;/code&gt;, &lt;code&gt;@Component&lt;/code&gt;, &lt;code&gt;@Provides&lt;/code&gt;, &lt;code&gt;@Inject&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@Singleton&lt;/code&gt;和自定义Scope&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@SubComponent&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;什么是依赖注入&quot;&gt;&lt;a href=&quot;#什么是依赖注入&quot; class=&quot;headerlink&quot; title=&quot;什么是依赖注入&quot;&gt;&lt;/a&gt;什么是依赖注入&lt;/h2&gt;&lt;p&gt;依赖注入(DI), Dependency Injection, 听起来十分高大上的概念, 事实上你每天都在用. 接下来将用Dagger官方的咖啡机例子来举例说明.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h4 id=&quot;没有依赖注入之前&quot;&gt;&lt;a href=&quot;#没有依赖注入之前&quot; class=&quot;headerlink&quot; title=&quot;没有依赖注入之前&quot;&gt;&lt;/a&gt;没有依赖注入之前&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;// 咖啡机
+class CoffeeMaker {
+    // 加热器
+    private final Heater heater;
+    // 泵 
+    private final Pump pump;
+
+    CoffeeMaker() {
+        // 电加热器
+        this.heater = new ElectricHeater(); 
+        // 虹吸泵
+        this.pump = new Thermosiphon(heater);         }
+
+    // 煮
+    public void brew() { /* ... */ }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用咖啡机&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CoffeMaker maker = new CoffeeMaker();
+maker.brew(); // 沖泡
+maker.brew(); // 沖泡
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看出耦合非常严重, 加热器和泵的构造器发生改变, 都需要去修改咖啡机的代码.&lt;/p&gt;
+&lt;h4 id=&quot;使用依赖注入后&quot;&gt;&lt;a href=&quot;#使用依赖注入后&quot; class=&quot;headerlink&quot; title=&quot;使用依赖注入后&quot;&gt;&lt;/a&gt;使用依赖注入后&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;class CoffeeMaker {
+    private final Heater heater;
+    private final Pump pump;
+
+    CoffeeMaker(Heater heater, Pump pump) {
+        this.heater = heater;
+        this.pump = pump;
+    }
+
+    public void brew() { /* ... */ }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开始泡咖啡&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Heater heater = new ElectricHeater();
+Pump pump = new Thermosiphon(heater);
+CoffeeMaker maker = new CoffeeMaker(heater, pump);
+CoffeeMaker maker2 = new CoffeeMaker(heater, pump);
+maker.brew();
+maker2.brew();
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就是向咖啡机注入了加热器和泵, 对加热器和泵的修改不需要改变咖啡机的代码.&lt;/p&gt;
+&lt;p&gt;看出区别没有? 是不是发出一声”卧槽, 这就是依赖注入啊!”&lt;/p&gt;
+&lt;p&gt;没错, 就是这么个我们天天写的东西. &lt;/p&gt;
+&lt;p&gt;而Dagger这个框架, 可以做到自动生成依赖注入的模板代码, 让我们从重复代码中解脱出来.&lt;/p&gt;
+&lt;h3 id=&quot;dependense和subcomponent&quot;&gt;&lt;a href=&quot;#dependense和subcomponent&quot; class=&quot;headerlink&quot; title=&quot;dependense和subcomponent&quot;&gt;&lt;/a&gt;dependense和subcomponent&lt;/h3&gt;&lt;p&gt;给其他Component提供依赖时, 必须暴露依赖方法, 否则找不到对象&lt;/p&gt;
+&lt;p&gt;而SubComponent不同, 子依赖能拿到父类所有对象, 不需要傻傻的提供.&lt;/p&gt;
+&lt;h2 id=&quot;Scope&quot;&gt;&lt;a href=&quot;#Scope&quot; class=&quot;headerlink&quot; title=&quot;Scope&quot;&gt;&lt;/a&gt;Scope&lt;/h2&gt;&lt;p&gt;对于直接使用 @Inject 构造函数的依赖，如果把 scope 注解放到它的类上，而不是构造函数上，就能达到局部单例的效果了；&lt;/p&gt;
+&lt;p&gt;Scope的作用是实现一定范围内的单例&lt;/p&gt;
+&lt;p&gt;如何实现的?&lt;/p&gt;
+&lt;p&gt;在ScopeProvider创建对象&lt;/p&gt;
+&lt;p&gt;自定义Scope作用代码很简单&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ActivityScope {
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后使用也很简单&lt;/p&gt;
+&lt;p&gt;在Module中这样, 在Component上面也要用&lt;/p&gt;
+&lt;p&gt;你会问, 这样就能保证生命周期了? 这是什么魔法? 那么, 我们就来揭示一下魔法的真相吧.&lt;/p&gt;
+&lt;p&gt;事实上并不存在魔法, Scope注解只是个注解, 并不能替你管理什么生命周期, 而是最终还是你自己做的处理&lt;/p&gt;
+&lt;p&gt;Singleton最好使用在Application里面&lt;/p&gt;
+&lt;p&gt;使用自定义Scope注解和Singleton注解生成的代码相同&lt;/p&gt;
+&lt;p&gt;事实上Singleton的含义并不明确, 应该自己去自定义一个而不是使用Singleton, 如果你很想使用Singleton&lt;/p&gt;
+&lt;p&gt;自定义的Scope并不存在魔法, 之所以要自定义Scope, Component只能依赖拥有不同Scope注解的Component&lt;/p&gt;
+&lt;h3 id=&quot;Scope使用错误示例&quot;&gt;&lt;a href=&quot;#Scope使用错误示例&quot; class=&quot;headerlink&quot; title=&quot;Scope使用错误示例&quot;&gt;&lt;/a&gt;Scope使用错误示例&lt;/h3&gt;&lt;p&gt;以下是一个错误的Scope使用示例，稍后会解释为何这样不能实现单例&lt;/p&gt;
+&lt;p&gt;Module是酱式儿的&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Module
+public class ActivityModule {
+
+    @Provides
+    @Singleton
+    static UserModel provideUserModel(){
+        return new UserModel();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Component是酱紫的&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Singleton
+@Component(modules = ActivityModule.class)
+public interface ActivityComponent {
+
+    void inject(MainActivity activity);
+    void inject(SecondActivity activity);
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;MainActivity和SecondActivity是这样的&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    UserModel userModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        activityComponent.inject(this);
+
+        TextView textview = (TextView) findViewById(R.id.tv);
+        textview.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+        Log.e(&amp;quot;TAG&amp;quot;, userModel + &amp;quot;---MainActivity&amp;quot;);
+    }
+}
+
+
+public class SecondActivity extends AppCompatActivity {
+
+    @Inject
+    UserModel userModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        ActivityComponent activityComponent = DaggerActivityComponent.create();
+        activityComponent.inject(this);
+
+        Log.e(&amp;quot;TAG&amp;quot;, userModel + &amp;quot;---SecondActivity&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 运行结果:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;UserModel@52765aac---MainActivity
+UserModel@52787e5c---SecondActivity
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Dagger2学习之相关概念详解&quot;&gt;&lt;a href=&quot;#Dagger2学习之相关概念详解&quot; class=&quot;headerlink&quot; title=&quot;Dagger2学习之相关概念详解&quot;&gt;&lt;/a&gt;Dagger2学习之相关概念详解&lt;/h1&gt;&lt;p&gt;// TODO 尚未完成&lt;/p&gt;
+&lt;p&gt;经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.&lt;/p&gt;
+&lt;p&gt;这里, 你将会学到以下知识点.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;什么是依赖注入&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@Module&lt;/code&gt;, &lt;code&gt;@Component&lt;/code&gt;, &lt;code&gt;@Provides&lt;/code&gt;, &lt;code&gt;@Inject&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@Singleton&lt;/code&gt;和自定义Scope&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@SubComponent&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;什么是依赖注入&quot;&gt;&lt;a href=&quot;#什么是依赖注入&quot; class=&quot;headerlink&quot; title=&quot;什么是依赖注入&quot;&gt;&lt;/a&gt;什么是依赖注入&lt;/h2&gt;&lt;p&gt;依赖注入(DI), Dependency Injection, 听起来十分高大上的概念, 事实上你每天都在用. 接下来将用Dagger官方的咖啡机例子来举例说明.&lt;/p&gt;
     
     </summary>
     
@@ -1083,7 +1845,7 @@ public class PrepareDexUtils {
     <link href="http://yoursite.com/2016/04/07/%E6%90%AD%E5%BB%BAHexo%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
     <id>http://yoursite.com/2016/04/07/搭建Hexo最佳实践/</id>
     <published>2016-04-07T09:07:34.000Z</published>
-    <updated>2016-05-04T17:18:08.000Z</updated>
+    <updated>2016-05-04T17:21:04.000Z</updated>
     
     <content type="html">&lt;p&gt;网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧&lt;/p&gt;
 &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
@@ -1328,7 +2090,7 @@ void insertSort(int arr[], int n){
     <link href="http://yoursite.com/2016/01/11/%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2016/01/11/多渠道打包总结/</id>
     <published>2016-01-11T07:15:30.000Z</published>
-    <updated>2016-04-08T13:49:35.000Z</updated>
+    <updated>2016-06-30T09:23:35.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用gradle进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用gradle进行多渠道打包&quot;&gt;&lt;/a&gt;使用gradle进行多渠道打包&lt;/h2&gt;&lt;p&gt;使用Android studio&lt;/p&gt;
 &lt;h3 id=&quot;基本多渠道打包&quot;&gt;&lt;a href=&quot;#基本多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;基本多渠道打包&quot;&gt;&lt;/a&gt;基本多渠道打包&lt;/h3&gt;&lt;p&gt;以友盟的为例&lt;/p&gt;
@@ -1425,7 +2187,17 @@ dependencies {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后，运行&lt;code&gt;gradle assembleQihu360&lt;/code&gt;命令即可生成包含360精品应用模块的渠道包了。&lt;/p&gt;
-&lt;/li&gt;
+&lt;h2 id=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用python脚本进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;/a&gt;使用python脚本进行多渠道打包&lt;/h2&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这种方案是美团提出的， 原理见：&lt;a href=&quot;http://tech.meituan.com/mt-apk-packaging.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;美团Android自动化之旅—生成渠道包&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这种方式不需要重新编译，一分钟900个渠道包不是梦想&lt;/p&gt;
+&lt;p&gt;以下是这种打包方式的教程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下载安装python环境&lt;/li&gt;
+&lt;li&gt;下载python脚本 &lt;code&gt;AndroidMultiChannelBuildTool&lt;/code&gt;&lt;a href=&quot;https://github.com/GavinCT/AndroidMultiChannelBuildTool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/GavinCT/AndroidMultiChannelBuildTool&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;将&lt;code&gt;ChannelUtil.java&lt;/code&gt;代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：&lt;code&gt;AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在&lt;code&gt;PythonTool/Info/channel.txt&lt;/code&gt;中编辑渠道列表，以换行隔开，工程中有示例&lt;/li&gt;
+&lt;li&gt;打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 &lt;code&gt;python MultiChannelBuildTool.py&lt;/code&gt;）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;使用Ant多渠道打包&quot;&gt;&lt;a href=&quot;#使用Ant多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用Ant多渠道打包&quot;&gt;&lt;/a&gt;使用Ant多渠道打包&lt;/h2&gt;&lt;p&gt;针对使用Eclipse的用户&lt;/p&gt;
 &lt;p&gt;跟着这个链接做（图文教程）&lt;a href=&quot;http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747&lt;/a&gt;&lt;/p&gt;
@@ -1694,14 +2466,6 @@ key.alias.password=525b2102
 &lt;pre&gt;&lt;code&gt;sdk.dir=D:\\adt-bundle-windows-x86_64-20140702\\sdk
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;a href=&quot;#使用python脚本进行多渠道打包&quot; class=&quot;headerlink&quot; title=&quot;使用python脚本进行多渠道打包&quot;&gt;&lt;/a&gt;使用python脚本进行多渠道打包&lt;/h2&gt;&lt;p&gt;使用脚本的打包方式速度很慢，每次打包都需要重新编译，如果需要打包的渠道很多，建议采用以下&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;下载安装python环境&lt;/li&gt;
-&lt;li&gt;下载python脚本 &lt;code&gt;AndroidMultiChannelBuildTool&lt;/code&gt;&lt;a href=&quot;https://github.com/GavinCT/AndroidMultiChannelBuildTool&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/GavinCT/AndroidMultiChannelBuildTool&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;将&lt;code&gt;ChannelUtil.java&lt;/code&gt;代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：&lt;code&gt;AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;在&lt;code&gt;PythonTool/Info/channel.txt&lt;/code&gt;中编辑渠道列表，以换行隔开，工程中有示例&lt;/li&gt;
-&lt;li&gt;打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 &lt;code&gt;python MultiChannelBuildTool.py&lt;/code&gt;）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）&lt;/li&gt;
-&lt;/ol&gt;
 &lt;p&gt;参考链接&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Android studio 多渠道打包(超简洁版)&lt;a href=&quot;http://xuyazhou.com/archives/461&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://xuyazhou.com/archives/461&lt;/a&gt;&lt;br&gt;美团Android自动化之旅—适配渠道包&lt;a href=&quot;http://tech.meituan.com/mt-apk-adaptation.html&quot; title=&quot;美团Android自动化之旅—适配渠道包&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://tech.meituan.com/mt-apk-adaptation.html&lt;/a&gt;&lt;br&gt;&lt;br&gt;Android Gradle Plugin指南（五）——Build Variants（构建变种版本）&lt;a href=&quot;http://blog.csdn.net/qinxiandiqi/article/details/37906449&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qinxiandiqi/article/details/37906449&lt;/a&gt;&lt;br&gt;美团Android自动化之旅—生成渠道包&lt;a href=&quot;http://tech.meituan.com/mt-apk-packaging.html&quot; title=&quot;美团Android自动化之旅—生成渠道包&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://tech.meituan.com/mt-apk-packaging.html&lt;/a&gt;&lt;br&gt;&lt;br&gt;Android批量打包提速 - 1分钟900个市场不是梦&lt;a href=&quot;http://www.cnblogs.com/ct2011/p/4152323.html&quot; title=&quot;Android批量打包提速 - 1分钟900个市场不是梦&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/ct2011/p/4152323.html&lt;/a&gt;&lt;/p&gt;
@@ -1967,7 +2731,445 @@ public class SecondActivity extends Activity {
     </summary>
     
     
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
       <category term="EventBus" scheme="http://yoursite.com/tags/EventBus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android面试题</title>
+    <link href="http://yoursite.com/2015/12/23/Android%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <id>http://yoursite.com/2015/12/23/Android面试题/</id>
+    <published>2015-12-22T16:01:56.000Z</published>
+    <updated>2016-06-30T14:26:44.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Android面试题&quot;&gt;&lt;a href=&quot;#Android面试题&quot; class=&quot;headerlink&quot; title=&quot;Android面试题&quot;&gt;&lt;/a&gt;Android面试题&lt;/h1&gt;&lt;p&gt;// TODO 待编辑&lt;/p&gt;
+&lt;p&gt;个人整理的给Android程序员的面试题&lt;/p&gt;
+&lt;p&gt;所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;算法与数据结构&quot;&gt;&lt;a href=&quot;#算法与数据结构&quot; class=&quot;headerlink&quot; title=&quot;算法与数据结构&quot;&gt;&lt;/a&gt;算法与数据结构&lt;/h2&gt;&lt;h3 id=&quot;请使用java或者C-实现反转单链表&quot;&gt;&lt;a href=&quot;#请使用java或者C-实现反转单链表&quot; class=&quot;headerlink&quot; title=&quot;请使用java或者C++实现反转单链表&quot;&gt;&lt;/a&gt;请使用java或者C++实现反转单链表&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;/**
+ * 定义一个单链表
+ */  
+class Node {  
+    //变量  
+    private int record;  
+    //指向下一个对象  
+    private Node nextNode;  
+
+    public Node(int record) {  
+        super();  
+        this.record = record;  
+    }  
+    public int getRecord() {  
+        return record;  
+    }  
+    public void setRecord(int record) {  
+        this.record = record;  
+    }  
+    public Node getNextNode() {  
+        return nextNode;  
+    }  
+    public void setNextNode(Node nextNode) {  
+        this.nextNode = nextNode;  
+    }  
+}  
+
+/**
+ * @author luochengcheng
+ *  两种方式实现单链表的反转(递归、普通)
+ *  新手强烈建议旁边拿着纸和笔跟着代码画图(便于理解)
+ */  
+public class ReverseSingleList {  
+    /**  
+     * 递归，在反转当前节点之前先反转后续节点  
+     */  
+    public static Node reverse(Node head) {  
+        if (null == head || null == head.getNextNode()) {  
+            return head;  
+        }  
+        Node reversedHead = reverse(head.getNextNode());  
+        head.getNextNode().setNextNode(head);  
+        head.setNextNode(null);  
+        return reversedHead;  
+    }  
+
+    /**  
+     * 遍历，将当前节点的下一个节点缓存后更改当前节点指针  
+     *   
+     */  
+    public static Node reverse2(Node head) {  
+        if (null == head) {  
+            return head;  
+        }  
+        Node pre = head;  
+        Node cur = head.getNextNode();  
+        Node next;  
+        while (null != cur) {  
+            next = cur.getNextNode();  
+            cur.setNextNode(pre);  
+            pre = cur;  
+            cur = next;  
+        }  
+        //将原链表的头节点的下一个节点置为null，再将反转后的头节点赋给head     
+        head.setNextNode(null);  
+        head = pre;  
+
+        return head;  
+    }  
+
+    public static void main(String[] args) {  
+        Node head = new Node(0);  
+        Node tmp = null;  
+        Node cur = null;  
+        // 构造一个长度为10的链表，保存头节点对象head     
+        for (int i = 1; i &amp;lt; 10; i++) {  
+            tmp = new Node(i);  
+            if (1 == i) {  
+                head.setNextNode(tmp);  
+            } else {  
+                cur.setNextNode(tmp);  
+            }  
+            cur = tmp;  
+        }  
+        //打印反转前的链表  
+        Node h = head;  
+        while (null != h) {  
+            System.out.print(h.getRecord() + &amp;quot; &amp;quot;);  
+            h = h.getNextNode();  
+        }  
+        //调用反转方法  
+        head = reverse2(head);  
+        System.out.println(&amp;quot;\n**************************&amp;quot;);  
+        //打印反转后的结果  
+        while (null != head) {  
+            System.out.print(head.getRecord() + &amp;quot; &amp;quot;);  
+            head = head.getNextNode();  
+        }  
+    }  
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;求素数&quot;&gt;&lt;a href=&quot;#求素数&quot; class=&quot;headerlink&quot; title=&quot;求素数&quot;&gt;&lt;/a&gt;求素数&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;/**
+ * 假如所求素数很大时，此方法效率很高
+ */
+public static List&amp;lt;Integer&amp;gt; getPrimeNumber(int from, int to) {
+    if (from &amp;lt;= 0 || from &amp;gt;= to) {
+        return null;
+    }
+    List&amp;lt;Integer&amp;gt; prime = new ArrayList&amp;lt;Integer&amp;gt;();
+    // 首先定义一个比所求素数大1的数组
+    boolean result[] = new boolean[to + 1];
+    // 排除偶数
+    for (int i = 2; i &amp;lt;= to; i++) {
+        result[i] = i % 2 != 0;
+    }
+    // 排除所有从3到开平方数的倍数
+    for (int i = 3; i &amp;lt;= Math.sqrt(to); i++) {
+        if (result[i]) {
+            for (int j = i + i; j &amp;lt; to; j += i) {
+                result[j] = false;
+            }
+        }
+    }
+
+    for (int i = from; i &amp;lt;= to; i++) {
+        if (result[i]){
+            prime.add(i);
+        }
+    }
+    return prime;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;冒泡排序&quot;&gt;&lt;a href=&quot;#冒泡排序&quot; class=&quot;headerlink&quot; title=&quot;冒泡排序&quot;&gt;&lt;/a&gt;冒泡排序&lt;/h3&gt;&lt;h3 id=&quot;二叉树遍历&quot;&gt;&lt;a href=&quot;#二叉树遍历&quot; class=&quot;headerlink&quot; title=&quot;二叉树遍历&quot;&gt;&lt;/a&gt;二叉树遍历&lt;/h3&gt;&lt;h3 id=&quot;最长不重复子串（最长重复子串）&quot;&gt;&lt;a href=&quot;#最长不重复子串（最长重复子串）&quot; class=&quot;headerlink&quot; title=&quot;最长不重复子串（最长重复子串）&quot;&gt;&lt;/a&gt;最长不重复子串（最长重复子串）&lt;/h3&gt;&lt;h3 id=&quot;写一个求递归程序-求54321&quot;&gt;&lt;a href=&quot;#写一个求递归程序-求54321&quot; class=&quot;headerlink&quot; title=&quot;写一个求递归程序 求54321&quot;&gt;&lt;/a&gt;写一个求递归程序 求54321&lt;/h3&gt;&lt;h3 id=&quot;写一个方法，交换两个变量的值？&quot;&gt;&lt;a href=&quot;#写一个方法，交换两个变量的值？&quot; class=&quot;headerlink&quot; title=&quot;写一个方法，交换两个变量的值？&quot;&gt;&lt;/a&gt;写一个方法，交换两个变量的值？&lt;/h3&gt;&lt;h3 id=&quot;二叉查找树的删除操作，手写代码&quot;&gt;&lt;a href=&quot;#二叉查找树的删除操作，手写代码&quot; class=&quot;headerlink&quot; title=&quot;二叉查找树的删除操作，手写代码&quot;&gt;&lt;/a&gt;二叉查找树的删除操作，手写代码&lt;/h3&gt;&lt;h3 id=&quot;二分查找，手写代码&quot;&gt;&lt;a href=&quot;#二分查找，手写代码&quot; class=&quot;headerlink&quot; title=&quot;二分查找，手写代码&quot;&gt;&lt;/a&gt;二分查找，手写代码&lt;/h3&gt;&lt;h3 id=&quot;有海量条-url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的-url，要求效率尽可能的高&quot;&gt;&lt;a href=&quot;#有海量条-url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的-url，要求效率尽可能的高&quot; class=&quot;headerlink&quot; title=&quot;有海量条 url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的 url，要求效率尽可能的高&quot;&gt;&lt;/a&gt;有海量条 url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的 url，要求效率尽可能的高&lt;/h3&gt;&lt;h3 id=&quot;反转字符串，要求手写代码，优化速度、优化空间&quot;&gt;&lt;a href=&quot;#反转字符串，要求手写代码，优化速度、优化空间&quot; class=&quot;headerlink&quot; title=&quot;反转字符串，要求手写代码，优化速度、优化空间&quot;&gt;&lt;/a&gt;反转字符串，要求手写代码，优化速度、优化空间&lt;/h3&gt;&lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&amp;amp;和&amp;amp;&amp;amp;的区别。
+Get和Post的区别
+UDP和TCP的区别
+java中的软引用, 弱引用, 强引用
+抽象类和接口的区别
+谈一下对java中的abstract的理解
+Overload和Override的区别
+内部类(Inner Class)和静态内部类(Static Nested Class)的不同
+内部类机制
+生产者、消费者
+死锁（同步嵌套同步且锁不同）
+写一个多线程实例代码；
+怎么用接口来连接两个层的
+接口是否可继承接口? 抽象类是否可实现(implements)接口? 抽象类是否可继承实体类(concreteclass)?
+private和default有什么区别
+java里的常量是怎么定义的
+类前边加+final的用处？
+finally final finalize的作用？
+java中final定义的类有什么特点
+try{ return} catch{} finally{}; return还是finally先执行。
+数组有没有length()这个方法? String有没有length()这个方法？
+是否可以继承String类?
+swtich是否能作用在byte上，是否能作用在long上，是否能作用在String上?
+常量final string str=“ab”可不可以变成”abd”，为什么？
+StringBuffer的作用？
+String s=new String(“abc”); new了几个对象
+启动一个线程是用run()还是start()?
+多线程有几种实现方法,都是什么?同步有几种实现方法,都是什么?
+同步和异步的区别？
+sleep和wait有什么区别？ 一个是用来让线程休息，一个是用来挂起线程
+abstract的method是否可同时是static,是否可同时是native，是否可同时是synchronized?
+当一个线程进入一个对象的一个synchronized方法后，其它线程是否可进入此对象的其它方法?
+Error与Exception的区别
+Java中的异常处理机制的简单原理和应用。
+Java内存回收机制，GC 垃圾回收机制,垃圾回收的优点和原理。并考虑2种回收机制。
+对象Object读写的是哪两个流
+反射，求字段的值和方法名
+Socket编程的步骤
+什么是Java序列化
+常见集合及区别
+ArrayList和Vector区别，HashMap和HashTable区别
+ArrayList和LinkedList的区别
+List, Set, Map是否继承自Collection接口?
+hashCode方法的作用
+Set里的元素是不能重复的，那么用什么方法来区分重复与否呢? 是用==还是equals()? 它们有何区别?
+当x.equals(y)等于true时，x.hashCode()与y.hashCode()可以不相等，这句话对不对?
+XML，解析XML的几种方式的原理与特点：DOM、SAX、PULL
+MD5加密原理，可否解密。
+heap和stack有什么区别。
+用最有效率的方法算出2乘以8等於几? （2&amp;lt;&amp;lt; 3）
+ArrayList和Vector的主要区别是什么？
+ArrayList在Java1.2引入，用于替换Vector
+Vector:
+线程同步
+当Vector中的元素超过它的初始大小时，Vector会将它的容量翻倍
+ArrayList:
+线程不同步，但性能很好
+当ArrayList中的元素超过它的初始大小时，ArrayList只增加50%的大小
+Java中try catch finally的执行顺序
+先执行try中代码发生异常执行catch中代码，最后一定会执行finally中代码
+switch是否能作用在byte上，是否能作用在long上，是否能作用在String上？
+switch支持使用byte类型，不支持long类型，String支持在java1.7引入
+常见异常，5种运行时异常
+运行时异常与一般异常有何异同？
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;设计模式&quot;&gt;&lt;a href=&quot;#设计模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式&quot;&gt;&lt;/a&gt;设计模式&lt;/h2&gt;&lt;p&gt;单例模式——写一个Singleton出来&lt;/p&gt;
+&lt;h2 id=&quot;网络&quot;&gt;&lt;a href=&quot;#网络&quot; class=&quot;headerlink&quot; title=&quot;网络&quot;&gt;&lt;/a&gt;网络&lt;/h2&gt;&lt;h2 id=&quot;Android&quot;&gt;&lt;a href=&quot;#Android&quot; class=&quot;headerlink&quot; title=&quot;Android&quot;&gt;&lt;/a&gt;Android&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;service生命周期，可以执行耗时操作吗？
+JNI开发流程
+Java线程池，线程同步
+自己设计一个图片加载框架
+自定义View相关方法
+插件化，动态加载
+性能优化，MAT
+AsyncTask原理
+65k限制
+Serializable和Parcelable
+文件和数据库哪个效率高
+断点续传
+WebView和JS
+静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？
+静态内部类：使用static修饰的内部类
+内部类：就是在某个类的内部又定义了一个类，内部类所嵌入的类称为外部类
+匿名内部类：使用new生成的内部类
+因为内部类的产生依赖于外部类，持有的引用是类名.this
+
+Activity和Fragment生命周期有哪些？
+Activity——onCreate-&amp;gt;onStart-&amp;gt;onResume-&amp;gt;onPause-&amp;gt;onStop-&amp;gt;onDestroy
+Fragment——onAttach-&amp;gt;onCreate-&amp;gt;onCreateView-&amp;gt;onActivityCreated-&amp;gt;onStart-&amp;gt;onResume-&amp;gt;onPause-&amp;gt;onStop-&amp;gt;onDestroyView-&amp;gt;onDestroy-&amp;gt;onDetach
+onInterceptTouchEvent()和onTouchEvent()的区别？
+onInterceptTouchEvent()用于拦截触摸事件
+onTouchEvent()用于处理触摸事件
+RemoteView在哪些功能中使用
+APPwidget和Notification中
+SurfaceView和View的区别是什么？
+SurfaceView中采用了双缓存技术，在单独的线程中更新界面
+View在UI线程中更新界面
+讲一下android中进程的优先级？
+前台进程
+可见进程
+服务进程
+后台进程
+空进程
+Activity生命周期及横竖屏切换时生命周期
+Activity四种启动模式
+内存不足时，怎么保持Activity的一些状态，在哪个方法里面做具体操作？
+介绍Activity、Service、Broadcast、BroadcastReceiver、Intent、IntentFilter
+怎么在启动一个activity时就启动一个service
+同一个程序不同的Activity如何放在不同的任务栈中？
+如何将一个Activity设置成窗口的样式
+如何退出Activity？如何安全退出已调用多个Activity的Application？
+Activity中如何动态的添加Fragment？
+activity的启动过程
+一个activity打开另外一个activity，再打开一个activity？回去的时候发生了什么操作？
+onActivityResult(int requestCode, int resultCode, Intent data)方法的用法；
+Fragment
+Fragment嵌套多个Fragment会出现bug吗？
+Broadcast Receiver
+注册广播有哪几种方式,有什么区别
+Android引入广播机制的用意？
+无序广播、有序广播 -1000——1000
+同优先级，清单文件中上面先收到
+Broadcast、Content Provider 和 AIDL的区别和联系
+Android基础——广播接收者BroadcastReceiver
+Service
+注册Service需要注意什么
+什么是Service以及描述下它的生命周期。
+Service与Activity怎么实现通信
+Service有哪些启动方法，有什么区别，怎样停用Service？
+什么是IntentService？有何优点？
+Service和Activity在同一个线程吗 main 线程 UI线程
+Service
+如何启用Service，如何停用Service
+说说Activity、Intent、Service是什么关系
+AIDL,两个android应用间的互相调用方法？
+AIDL的全称是什么？如何工作？能处理哪些类型的数据
+Android基础——Service
+Android基础——IntentService
+Android开发指导——Service
+Android开发指导——绑定Service
+Android开发指导——进程间通信AIDL
+ContentProvider
+自定义一个contentProvider。
+请介绍下ContentProvider是如何实现数据共享的
+创建一个属于你自己的Content provider或者将你的数据添加到一个已经存在的Content provider中，前提是有相同数据类型并且有写入Content provider的权限。
+contentProvider权限；
+AsyncTask简介
+Asynctask具体用法？
+Asynctask的Do in background方法是怎么通知UI线程刷新进度条的？
+Asynctask的Do in background方法默认是返回 true ，表示任务完成，如果想返回具体的数据呢，怎么做。如果Activity被销毁了，还会执行到postexcutd方法吗？
+ListView
+手指快速拖动ListView时，如何处理惯性引起的加载问题；
+怎么实现ListView多种布局？
+ListView与数据库绑定的实现
+怎么实现一个部分更新的 ListView？
+ListView卡顿的原因与性能优化，大量数据时,说的越多越好
+UI相关
+谈谈UI中，Padding和Margin有什么区别？
+drawable-hdpi的dpi是什么意思？
+请介绍下Android中常用的五种布局
+Android中px,sp,dip,dp的区别与联系
+怎么处理屏幕适配的
+android开发中怎么去调试debug
+请解释下Android程序运行时权限与文件系统的权限的区别
+JVM 和Dalvik虚拟机的区别
+android dvm的进程和Linux的进程应用程序是否为同一个概念
+sim卡的ef文件有何作用。
+android数字签名
+MVC, 在Android中MVC的具体体现
+简述Android应用程序的组成
+进程保活
+什么情况会导致Force Close?如何避免？是否捕获导致其的异常
+什么是 ANR 问题？为什么会引起 ANR 问题？
+URL和URI区别用法
+数据存储，数据持久化的方式有哪些
+进程优先级
+intent-filter属性及其含义；
+如何打开res/raw 目录中的数据库文件？
+NotifactionManager使用原理
+Asset与raw都能存放资源，他们有什么区别？
+postInvalidate与invalidate有什么区别？
+notifyDataSetChanged 和notifyDataSetInvalidated的区别
+Serializable和Parcelable的区别
+Intent启动Activity有几种方式，请分别简述
+列举常用的Android开源项目及应用场景
+数据库为何效率高
+常见设计模式，并手动简单实现观察者模式
+Handler机制
+热修复
+简述静默安装的原理，如何在无需Root权限的情况下实现静默安装
+什么是65535问题，如何防止或解决65535问题
+简述实现Android APK插件化的简单方法
+如何实现资源文件的混淆
+如何在不引用第三方工具的情况下防止应用二次打包？并对应用进行简单加固
+简述控制反转（Inversion of Control）的应用场景
+怎么考虑数据传输的安全性
+xmpp openfire 基于xmpp openfire smack开发之Android客户端开发
+应用常驻后台，避免被第三方杀掉的方法，讲讲你用过的奇淫巧技？
+简述实现Android APK插件化的简单方法
+JS交互
+如何实现点击网站某个链接就自动下载一个程序到手机上并自动安装运行；
+java和JS的交互 Android中Java和JavaScript交互
+WebView 远程代码执行漏洞浅析 解决方案：WebView中的Java与JavaScript提供【安全可靠】的多样互通方案
+Android动画
+Android中有哪些类型的动画，用属性动画实现控件的缩放
+不使用动画，怎么实现一个动态的 View？
+Android中的动画有哪些，区别是什么
+自定义View
+View,SurfaceView，GLSurfaceView有什么区别
+View的绘制
+如何自定义ViewGroup？
+View刷新机制
+android UI中的View如何刷新
+事件传递及处理机制
+View中onTouch，onTouchEvent，onClick的执行顺序
+JNI
+JNI怎么使用
+简单描述你是如何进行JNI开发的
+在哪些情况下java代码中需要调用C代码
+性能优化
+图片缓存及优化,设计一个图片缓存加载机制
+内存优化，布局优化，代码优化
+内存溢出OOM是怎么引起的？怎么尽量避免OOM问题的出现?
+Android中引起内存泄露的原因
+Android面试——APP性能优化
+数据库
+分页查询数据
+如何将SQLite数据库与apk文件一起发布？
+左连接与右连接的区别
+描述Sqlite数据库（类型、关系）；
+你的项目中Sqlite数据库中存储的数据用SharePreference来处理也可以，为什么不用SharePreference呢；
+网络编程
+Rest API
+Volley相关 Volley Android Volley完全解析
+如何控制TCP连接时的拥塞 TCP的流量控制和拥塞控制
+三次握手 TCP协议中的三次握手和四次挥手(图解)
+Android客户端和服务端如何使用Token和Session
+移动端获取网络数据优化
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;进阶&quot;&gt;&lt;a href=&quot;#进阶&quot; class=&quot;headerlink&quot; title=&quot;进阶&quot;&gt;&lt;/a&gt;进阶&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;转自知乎用户-&lt;a href=&quot;http://zhihu.com/question/40909636/answer/88775539&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;马天宇的回答&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;整体性能如何探测，有哪方面 什么指标，怎么保证更流畅&lt;/li&gt;
+&lt;li&gt;讲讲架构这块，如何解耦，大项目逻辑多怎么办。&lt;/li&gt;
+&lt;li&gt;android的发展大事件和主要技术发展&lt;/li&gt;
+&lt;li&gt;avtivity（service）启动流程简述&lt;/li&gt;
+&lt;li&gt;动态化的几种方案&lt;/li&gt;
+&lt;li&gt;热修复的原理&lt;/li&gt;
+&lt;li&gt;网络这块怎么优化&lt;/li&gt;
+&lt;li&gt;数据库性能怎么保证&lt;/li&gt;
+&lt;li&gt;线程安全怎么保证，异步并发这块你怎么做的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;1-App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？&quot;&gt;&lt;a href=&quot;#1-App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？&quot; class=&quot;headerlink&quot; title=&quot;1. App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？&quot;&gt;&lt;/a&gt;1. App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？&lt;/h3&gt;&lt;p&gt;性能可以根据帧率、内存、CPU、GPU等指标的数据和表现辅助判断，可以从/proc文件夹下读取文件获取cpu、内存等信息，也可以用dumpsys命令获取帧率等信息，也可以通过android API获取相关信息。&lt;/p&gt;
+&lt;p&gt;还有很多性能相关的分析工具很重要，辅助判断和分析，比如Heap Tool、Memory Monitor、Lint、HierarchyView、WireShark、TraceView等。&lt;/p&gt;
+&lt;p&gt;保证流畅有很多点可以去研究，比如布局、代码、缓存、网络、数据库、异步并发等方面的优化，涉及很多的知识点，可以google下，先简单说下，有时间再细述。&lt;/p&gt;
+&lt;p&gt;布局充分利用include、viewstub、merge 等标签，控制层级，避免过度渲染（绘制）。&lt;br&gt;代码上尽量使用final、局部变量、系统函数如arraycopy等、位移操作是否可以代替乘除、for循环是否可以避免size计算和new对象等等。&lt;br&gt;缓存方面，线程、位图、视图、网络数据是否可以被缓存，IO用缓冲流。&lt;br&gt;网络方面，如尽量避免轮询，控制节奏和频率，IP直连，采用SPDY方案（或HTTP2.0）来实现压缩header、多路复用、双向通信等，API数据压缩，多个请求是否可以合并，数据压缩和尝试protocol buffer相关序列化方案。&lt;br&gt;数据库方面，尝试用SQLiteStatement代替SQLiteDatabase完成操作，索引和事务的充分理解和使用，注意SQL语句语法和拼接，采用部分查询和延迟加载。&lt;br&gt;异步并发方面，全App只有一个线程池，控制核心并发数量，控制超载时排队数量和策略，合理调度任务，优化业务逻辑。&lt;br&gt;最后关于帧率，你看到的视觉卡顿，直接原因基本是“掉帧”。关于帧率，尽量保证主线程里做的事情，不会超过16毫秒（其实这挺难的），16毫秒大法好，具体可以去理解下CPU、GPU、屏幕三者如何配合完成渲染的，推荐老罗的博客。&lt;/p&gt;
+&lt;h3 id=&quot;2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？&quot;&gt;&lt;a href=&quot;#2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？&quot; class=&quot;headerlink&quot; title=&quot;2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？&quot;&gt;&lt;/a&gt;2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？&lt;/h3&gt;&lt;p&gt;适当参考我在知乎的一个回答 怎样搭高质量的Android项目框架，框架的结构具体描述？ - &lt;a href=&quot;https://www.zhihu.com/question/27163593/answer/42703123?utm_source=weibo&amp;amp;utm_medium=weibo_share&amp;amp;utm_content=share_answer&amp;amp;utm_campaign=share_button&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;马天宇的回答 &lt;/a&gt;，结合模块化、组件化思想去做，多实践一下mvp、mvvm等策略。&lt;/p&gt;
+&lt;h3 id=&quot;3-android的发展大事件和主要技术发展&quot;&gt;&lt;a href=&quot;#3-android的发展大事件和主要技术发展&quot; class=&quot;headerlink&quot; title=&quot;3. android的发展大事件和主要技术发展&quot;&gt;&lt;/a&gt;3. android的发展大事件和主要技术发展&lt;/h3&gt;&lt;p&gt;额，挺多的，朋友们补充吧。&lt;br&gt;这个问题蛮好的 &lt;a href=&quot;https://www.zhihu.com/question/32037895&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android 开发有哪些新技术出现？ - Android 应用&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;4-avtivity（service）启动流程简述&quot;&gt;&lt;a href=&quot;#4-avtivity（service）启动流程简述&quot; class=&quot;headerlink&quot; title=&quot;4. avtivity（service）启动流程简述&quot;&gt;&lt;/a&gt;4. avtivity（service）启动流程简述&lt;/h3&gt;&lt;p&gt;可以自己阅读源代码，结合罗老师的博客，研究的非常棒：&lt;a href=&quot;http://blog.csdn.net/luoshengyang/article/details/6689748&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android应用程序启动过程源代码分析&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;5-动态化的几种方案&quot;&gt;&lt;a href=&quot;#5-动态化的几种方案&quot; class=&quot;headerlink&quot; title=&quot;5. 动态化的几种方案&quot;&gt;&lt;/a&gt;5. 动态化的几种方案&lt;/h3&gt;&lt;p&gt;早期的H5方案，通过js和java互通增强h5的能力。&lt;br&gt;还有DexClasssLoader结合反射代理的方案。&lt;br&gt;还有React Native方案，手淘的Weex框架。&lt;br&gt;还有Lua等脚本实现动态化方案。&lt;/p&gt;
+&lt;h3 id=&quot;6-热修复的原理&quot;&gt;&lt;a href=&quot;#6-热修复的原理&quot; class=&quot;headerlink&quot; title=&quot;6. 热修复的原理&quot;&gt;&lt;/a&gt;6. 热修复的原理&lt;/h3&gt;&lt;p&gt;Github上读一下AndFix这个项目的源码，还有xposed、dexposed。&lt;/p&gt;
+&lt;p&gt;大致原理就是将java方法通过c/c++修改属性变为public native方法，上下文携带到native层，然后根据上下文指向另一个java方法，从而“偷梁换柱”，如果是支持ART的手机，那么策略不一样，将bug method的关键信息（classloader、theadid等）保留，将修复过的方法的各种信息赋给bug method，完成“移花接木”。&lt;/p&gt;
+&lt;p&gt;另外，其实有挺多的策略改变运行时行为的，比如：&lt;br&gt;Javasisst：字节码修改类库，依赖字节码修改和DX类库，可以完成动态替换和切面编程。&lt;br&gt;AspectJ：依赖字节码编织器，需要按照其语法来编写，需要一点“编织”时间。&lt;br&gt;Xposed方案，简直是一个Bug，神器般的存在，没准以后会被Android系统修复呢，不仅可以改变自己的类行为还可以hook系统的方法，root过的机器还可以hook其他App和系统进程。&lt;/p&gt;
+&lt;h3 id=&quot;7-网络这块怎么优化&quot;&gt;&lt;a href=&quot;#7-网络这块怎么优化&quot; class=&quot;headerlink&quot; title=&quot;7. 网络这块怎么优化&quot;&gt;&lt;/a&gt;7. 网络这块怎么优化&lt;/h3&gt;&lt;p&gt;尽量避免轮询，控制节奏和频率。&lt;/p&gt;
+&lt;p&gt;IP直连节省DNS解析时间。&lt;/p&gt;
+&lt;p&gt;尝试其他数据序列化方案比如protocol buffer等。&lt;/p&gt;
+&lt;p&gt;采用SPDY方案（或HTTP2.0）来压缩header、多路复用、双向通信等。&lt;/p&gt;
+&lt;p&gt;服务器做优化，比如分布式、缓存之类的，减少API涉及的业务操作所需要的时间嘛。&lt;/p&gt;
+&lt;p&gt;API接口数据精简，多个请求是否可以合并，增量请求啊、GIP压缩啊什么的，等等。&lt;/p&gt;
+&lt;h3 id=&quot;8-数据库性能怎么保证&quot;&gt;&lt;a href=&quot;#8-数据库性能怎么保证&quot; class=&quot;headerlink&quot; title=&quot;8. 数据库性能怎么保证&quot;&gt;&lt;/a&gt;8. 数据库性能怎么保证&lt;/h3&gt;&lt;p&gt;尝试使用SQLiteStatement取代SQLiteDatabase对象完成操作，避免直接使用SQLiteDatabase提供的update、inset等方法。&lt;/p&gt;
+&lt;p&gt;索引和事务的充分理解和使用，批量操作使用事务极大提升速度，这个我是做过试验的，效果惊人。&lt;/p&gt;
+&lt;p&gt;SQL语句拼接和本身的优化，仅查询部分局部数据，使用延迟加载策略。&lt;/p&gt;
+&lt;p&gt;10万条数据插入比系统SQLiteDatabase操作快一倍，推荐我的LiteOrm数据库框架&lt;a href=&quot;https://github.com/litesuits/android-lite-orm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;litesuits/android-lite-orm&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;9-线程安全怎么保证，异步并发这块你怎么做的&quot;&gt;&lt;a href=&quot;#9-线程安全怎么保证，异步并发这块你怎么做的&quot; class=&quot;headerlink&quot; title=&quot;9. 线程安全怎么保证，异步并发这块你怎么做的&quot;&gt;&lt;/a&gt;9. 线程安全怎么保证，异步并发这块你怎么做的&lt;/h3&gt;&lt;p&gt;理解并使用ReentrantLock，Synchronized保护对象或过程，final来保护不可变对象，无状态和只读对象是安全的，合理使用一些 concurrent容器，比如ConcurrentHashmap等，重量级耗时任务考虑是否可以释放锁，多线程下实例化或延迟加载需要保护起来，保护多线程下关键数据访问的原子性，等等还有很多的。。。&lt;/p&gt;
+&lt;p&gt;推荐研究下Doug Lea主写和设计的java concurrent包，理解CountDownLatch、CyclicBarrier、Semaphore、FutureTask等对象。&lt;/p&gt;
+&lt;p&gt;具体开上，我使用自己写的SmartExecutor，直接继承ExecutorService，封装了一个公共线程池，全App保证只有一个线程池。源码在这个开源项目里：&lt;a href=&quot;https://github.com/litesuits/android-lite-http&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub - litesuits/android-lite-http&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在一个 App 中 SmartExecutor 可以有多个实例，每个实例都有独立核心和等待线程数指标，每个实例都有独立的调度和满载处理策略，但它们 共享一个线程池。这种机制既满足不同木块对线程控制和任务调度的独立需求，又共享一个池资源。独立又共享，最大程度上节省资源，提升性能。&lt;/p&gt;
+&lt;p&gt;控制核心并发数，尽量和CPU核数保持一致（或者多两个）我认为吞吐量是最佳的，线程过多则调度线程消耗CPU和时间，过少则不能充分利用多核的能力。&lt;/p&gt;
+&lt;p&gt;控制排队策略和排队数量，是否考虑新任务先处理，过度超载丢掉最老的任务。&lt;/p&gt;
+&lt;p&gt;还有就是业务上，合理调度任务，优化业务逻辑，不要胡搞乱搞，不作恶。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下问题来自问题&lt;a href=&quot;https://www.zhihu.com/question/29708440&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;感觉安卓应用开发就是一些接口的调用和ui界面的逻辑处理，还有其他可以深入学习的吗&lt;/a&gt;, Kaede的回答&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;个人尽量给出回答, 不准确欢迎指出&lt;/p&gt;
+&lt;h3 id=&quot;10-Android-App的生命周期是什么&quot;&gt;&lt;a href=&quot;#10-Android-App的生命周期是什么&quot; class=&quot;headerlink&quot; title=&quot;10. Android App的生命周期是什么&quot;&gt;&lt;/a&gt;10. Android App的生命周期是什么&lt;/h3&gt;&lt;h3 id=&quot;11-四大组件很熟悉了吧，ContentProvider的生命周期是什么；&quot;&gt;&lt;a href=&quot;#11-四大组件很熟悉了吧，ContentProvider的生命周期是什么；&quot; class=&quot;headerlink&quot; title=&quot;11. 四大组件很熟悉了吧，ContentProvider的生命周期是什么；&quot;&gt;&lt;/a&gt;11. 四大组件很熟悉了吧，ContentProvider的生命周期是什么；&lt;/h3&gt;&lt;h3 id=&quot;12-Android设备开机的启动过程；&quot;&gt;&lt;a href=&quot;#12-Android设备开机的启动过程；&quot; class=&quot;headerlink&quot; title=&quot;12. Android设备开机的启动过程；&quot;&gt;&lt;/a&gt;12. Android设备开机的启动过程；&lt;/h3&gt;&lt;h3 id=&quot;13-Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？&quot;&gt;&lt;a href=&quot;#13-Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？&quot; class=&quot;headerlink&quot; title=&quot;13. Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？&quot;&gt;&lt;/a&gt;13. Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？&lt;/h3&gt;&lt;h3 id=&quot;14-Dialog、PopupWindow、WindowManager加载视图的区别；&quot;&gt;&lt;a href=&quot;#14-Dialog、PopupWindow、WindowManager加载视图的区别；&quot; class=&quot;headerlink&quot; title=&quot;14. Dialog、PopupWindow、WindowManager加载视图的区别；&quot;&gt;&lt;/a&gt;14. Dialog、PopupWindow、WindowManager加载视图的区别；&lt;/h3&gt;&lt;h3 id=&quot;15-Service与Thread的区别；&quot;&gt;&lt;a href=&quot;#15-Service与Thread的区别；&quot; class=&quot;headerlink&quot; title=&quot;15. Service与Thread的区别；&quot;&gt;&lt;/a&gt;15. Service与Thread的区别；&lt;/h3&gt;&lt;h3 id=&quot;16-ServiceManager、ActivityManager、XXXManager是干什么的；&quot;&gt;&lt;a href=&quot;#16-ServiceManager、ActivityManager、XXXManager是干什么的；&quot; class=&quot;headerlink&quot; title=&quot;16. ServiceManager、ActivityManager、XXXManager是干什么的；&quot;&gt;&lt;/a&gt;16. ServiceManager、ActivityManager、XXXManager是干什么的；&lt;/h3&gt;&lt;h3 id=&quot;17-为什么一定要在UI线程更新视图，为什么要这么设计；&quot;&gt;&lt;a href=&quot;#17-为什么一定要在UI线程更新视图，为什么要这么设计；&quot; class=&quot;headerlink&quot; title=&quot;17. 为什么一定要在UI线程更新视图，为什么要这么设计；&quot;&gt;&lt;/a&gt;17. 为什么一定要在UI线程更新视图，为什么要这么设计；&lt;/h3&gt;&lt;h3 id=&quot;18-能不能直接New一个Activity并启动它；&quot;&gt;&lt;a href=&quot;#18-能不能直接New一个Activity并启动它；&quot; class=&quot;headerlink&quot; title=&quot;18. 能不能直接New一个Activity并启动它；&quot;&gt;&lt;/a&gt;18. 能不能直接New一个Activity并启动它；&lt;/h3&gt;&lt;h3 id=&quot;19-打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；&quot;&gt;&lt;a href=&quot;#19-打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；&quot; class=&quot;headerlink&quot; title=&quot;19. 打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；&quot;&gt;&lt;/a&gt;19. 打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；&lt;/h3&gt;&lt;h3 id=&quot;20-MVP模式是啥；&quot;&gt;&lt;a href=&quot;#20-MVP模式是啥；&quot; class=&quot;headerlink&quot; title=&quot;20. MVP模式是啥；&quot;&gt;&lt;/a&gt;20. MVP模式是啥；&lt;/h3&gt;&lt;h3 id=&quot;21-View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。&quot;&gt;&lt;a href=&quot;#21-View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。&quot; class=&quot;headerlink&quot; title=&quot;21. View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。&quot;&gt;&lt;/a&gt;21. View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。&lt;/h3&gt;&lt;h3 id=&quot;22-res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；&quot;&gt;&lt;a href=&quot;#22-res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；&quot; class=&quot;headerlink&quot; title=&quot;22. res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；&quot;&gt;&lt;/a&gt;22. res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；&lt;/h3&gt;&lt;h3 id=&quot;23-Binder原理是什么，出了Binder之外，还能怎么跟Service交互；&quot;&gt;&lt;a href=&quot;#23-Binder原理是什么，出了Binder之外，还能怎么跟Service交互；&quot; class=&quot;headerlink&quot; title=&quot;23. Binder原理是什么，出了Binder之外，还能怎么跟Service交互；&quot;&gt;&lt;/a&gt;23. Binder原理是什么，出了Binder之外，还能怎么跟Service交互；&lt;/h3&gt;&lt;h3 id=&quot;24-Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；&quot;&gt;&lt;a href=&quot;#24-Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；&quot; class=&quot;headerlink&quot; title=&quot;24. Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；&quot;&gt;&lt;/a&gt;24. Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；&lt;/h3&gt;&lt;h3 id=&quot;25-ROOT的原理是什么，系统是怎么管理APP的权限的；&quot;&gt;&lt;a href=&quot;#25-ROOT的原理是什么，系统是怎么管理APP的权限的；&quot; class=&quot;headerlink&quot; title=&quot;25. ROOT的原理是什么，系统是怎么管理APP的权限的；&quot;&gt;&lt;/a&gt;25. ROOT的原理是什么，系统是怎么管理APP的权限的；&lt;/h3&gt;&lt;h3 id=&quot;26-Material-Desgin这么好看，为什么不出兼容包，让5-0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render-Thread是怎么工作的；&quot;&gt;&lt;a href=&quot;#26-Material-Desgin这么好看，为什么不出兼容包，让5-0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render-Thread是怎么工作的；&quot; class=&quot;headerlink&quot; title=&quot;26. Material Desgin这么好看，为什么不出兼容包，让5.0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render Thread是怎么工作的；&quot;&gt;&lt;/a&gt;26. Material Desgin这么好看，为什么不出兼容包，让5.0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render Thread是怎么工作的；&lt;/h3&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Android面试题&quot;&gt;&lt;a href=&quot;#Android面试题&quot; class=&quot;headerlink&quot; title=&quot;Android面试题&quot;&gt;&lt;/a&gt;Android面试题&lt;/h1&gt;&lt;p&gt;// TODO 待编辑&lt;/p&gt;
+&lt;p&gt;个人整理的给Android程序员的面试题&lt;/p&gt;
+&lt;p&gt;所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧&lt;/p&gt;
+    
+    </summary>
+    
     
       <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     

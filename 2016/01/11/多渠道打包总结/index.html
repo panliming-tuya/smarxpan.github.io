@@ -20,7 +20,7 @@
 渠道信息一般在 AndroidManifest.xml中修改以下值：
 &amp;lt;meta-data android:name=&amp;quot;UMENG_CHANNEL&amp;quot; android:value=&amp;quot;wandoujia&amp;quot; /&amp;gt;
 首先你必须在AndroidManifest.xm">
-<meta property="og:updated_time" content="2016-04-08T13:49:35.000Z">
+<meta property="og:updated_time" content="2016-06-30T09:23:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多渠道打包总结">
 <meta name="twitter:description" content="使用gradle进行多渠道打包使用Android studio
@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
 					</div>
 				</section>
 				
@@ -316,7 +316,17 @@ dependencies {
     }
 }
 </code></pre><p>最后，运行<code>gradle assembleQihu360</code>命令即可生成包含360精品应用模块的渠道包了。</p>
-</li>
+<h2 id="使用python脚本进行多渠道打包"><a href="#使用python脚本进行多渠道打包" class="headerlink" title="使用python脚本进行多渠道打包"></a>使用python脚本进行多渠道打包</h2></li>
+</ol>
+<p>这种方案是美团提出的， 原理见：<a href="http://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="external">美团Android自动化之旅—生成渠道包</a></p>
+<p>这种方式不需要重新编译，一分钟900个渠道包不是梦想</p>
+<p>以下是这种打包方式的教程：</p>
+<ol>
+<li>下载安装python环境</li>
+<li>下载python脚本 <code>AndroidMultiChannelBuildTool</code><a href="https://github.com/GavinCT/AndroidMultiChannelBuildTool" target="_blank" rel="external">https://github.com/GavinCT/AndroidMultiChannelBuildTool</a></li>
+<li>将<code>ChannelUtil.java</code>代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：<code>AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；</code></li>
+<li>在<code>PythonTool/Info/channel.txt</code>中编辑渠道列表，以换行隔开，工程中有示例</li>
+<li>打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 <code>python MultiChannelBuildTool.py</code>）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）</li>
 </ol>
 <h2 id="使用Ant多渠道打包"><a href="#使用Ant多渠道打包" class="headerlink" title="使用Ant多渠道打包"></a>使用Ant多渠道打包</h2><p>针对使用Eclipse的用户</p>
 <p>跟着这个链接做（图文教程）<a href="http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747" target="_blank" rel="external">http://blog.csdn.net/zhaokaiqiang1992/article/details/38086747</a></p>
@@ -585,14 +595,6 @@ key.alias.password=525b2102
 <pre><code>sdk.dir=D:\\adt-bundle-windows-x86_64-20140702\\sdk
 </code></pre></li>
 </ul>
-<h2 id="使用python脚本进行多渠道打包"><a href="#使用python脚本进行多渠道打包" class="headerlink" title="使用python脚本进行多渠道打包"></a>使用python脚本进行多渠道打包</h2><p>使用脚本的打包方式速度很慢，每次打包都需要重新编译，如果需要打包的渠道很多，建议采用以下</p>
-<ol>
-<li>下载安装python环境</li>
-<li>下载python脚本 <code>AndroidMultiChannelBuildTool</code><a href="https://github.com/GavinCT/AndroidMultiChannelBuildTool" target="_blank" rel="external">https://github.com/GavinCT/AndroidMultiChannelBuildTool</a></li>
-<li>将<code>ChannelUtil.java</code>代码集成到工程里面，在app启动时获取渠道号传送给后台（如友盟：<code>AnalyticsConfig.setChannel(ChannelUtil.getChannel(this))；</code></li>
-<li>在<code>PythonTool/Info/channel.txt</code>中编辑渠道列表，以换行隔开，工程中有示例</li>
-<li>打包apk，将apk文件复制到PythonTool目录下（与py同级），运行（直接双击.py文件或者在命令行输入 <code>python MultiChannelBuildTool.py</code>）py脚本即可打包完成。（生成的渠道apk包在output_** 目录下）</li>
-</ol>
 <p>参考链接</p>
 <blockquote>
 <p>Android studio 多渠道打包(超简洁版)<a href="http://xuyazhou.com/archives/461" target="_blank" rel="external">http://xuyazhou.com/archives/461</a><br>美团Android自动化之旅—适配渠道包<a href="http://tech.meituan.com/mt-apk-adaptation.html" title="美团Android自动化之旅—适配渠道包" target="_blank" rel="external">http://tech.meituan.com/mt-apk-adaptation.html</a><br><br>Android Gradle Plugin指南（五）——Build Variants（构建变种版本）<a href="http://blog.csdn.net/qinxiandiqi/article/details/37906449" target="_blank" rel="external">http://blog.csdn.net/qinxiandiqi/article/details/37906449</a><br>美团Android自动化之旅—生成渠道包<a href="http://tech.meituan.com/mt-apk-packaging.html" title="美团Android自动化之旅—生成渠道包" target="_blank" rel="external">http://tech.meituan.com/mt-apk-packaging.html</a><br><br>Android批量打包提速 - 1分钟900个市场不是梦<a href="http://www.cnblogs.com/ct2011/p/4152323.html" title="Android批量打包提速 - 1分钟900个市场不是梦" target="_blank" rel="external">http://www.cnblogs.com/ct2011/p/4152323.html</a></p>

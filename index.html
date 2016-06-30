@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
+						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,234 @@
 
       <div class="body-wrap">
   
+    <article id="post-how_to_use_singleton" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/29/how_to_use_singleton/" class="article-date">
+  	<time datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/29/how_to_use_singleton/">老司机来教你单例的正确姿势</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="老司机来教你单例的正确姿势"><a href="#老司机来教你单例的正确姿势" class="headerlink" title="老司机来教你单例的正确姿势"></a>老司机来教你单例的正确姿势</h1><p>Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？</p>
+<ol>
+<li>单例（这不是废话吗）</li>
+<li>延迟加载</li>
+<li>线程安全</li>
+<li>没有性能问题</li>
+<li>防止序列化产生新对象</li>
+<li>防止反射攻击</li>
+</ol>
+<p>可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。</p>
+<h2 id="最佳实践单例之枚举"><a href="#最佳实践单例之枚举" class="headerlink" title="最佳实践单例之枚举"></a>最佳实践单例之枚举</h2><p>没错，直接就上最佳实践，就是这么任性</p>
+<p>这货长这样： </p>
+<pre><code>public enum Singleton{
+    INSTANCE;
+}
+</code></pre><p>如果你不熟悉枚举，可能会说：这货是啥？！</p>
+<p>这种方式的好处是：</p>
+<ol>
+<li>利用的枚举的特性实现单例</li>
+<li>由JVM保证线程安全</li>
+<li>序列化和反射攻击已经被枚举解决</li>
+</ol>
+<p>调用方式为<code>Singleton.INSTANCE</code>, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。</p>
+<blockquote>
+<p>关于单例最佳实践的讨论可以看Stackoverflow：<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java">what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java</a></p>
+</blockquote>
+<p>下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：<a href="http://blog.csdn.net/u013256816/article/details/50525335">如何防止单例模式被JAVA反射攻击</a></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/29/how_to_use_singleton/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-how_to_use_annotation" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/20/how_to_use_annotation/" class="article-date">
+  	<time datetime="2016-06-20T07:15:30.000Z" itemprop="datePublished">2016-06-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/20/how_to_use_annotation/">Android进阶之自定义注解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android进阶之自定义注解"><a href="#Android进阶之自定义注解" class="headerlink" title="Android进阶之自定义注解"></a>Android进阶之自定义注解</h1><p>本篇文章内容包括: </p>
+<ul>
+<li><a href="#1">注解的概念</a></li>
+<li><a href="#2">元注解</a></li>
+<li><a href="#3">自定义注解</a></li>
+<li><a href="#4">Android自定义编译时注解</a></li>
+</ul>
+<p>如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. </p>
+<h2 id="什么是注解"><a href="#什么是注解" class="headerlink" title="什么是注解"></a><span id='1'>什么是注解</span></h2><p>先来看看Java文档中的定义</p>
+<blockquote>
+<p>An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.</p>
+</blockquote>
+<p>注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. </p>
+<p>首先, 明确一点: <strong>注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.</strong></p>
+<p>定义注解用的关键字是<code>@interface</code></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/20/how_to_use_annotation/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-android-navigator-best-practice" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/android-navigator-best-practice/" class="article-date">
+  	<time datetime="2016-06-08T07:15:28.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/08/android-navigator-best-practice/">Activity跳转最佳实践</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Activity跳转最佳实践"><a href="#Activity跳转最佳实践" class="headerlink" title="Activity跳转最佳实践"></a>Activity跳转最佳实践</h1><p>学习<a href="https://github.com/android10/Android-CleanArchitecture">Android-CleanArchitecture</a>时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.</p>
+<h2 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h2><p>跳转不需要参数时:</p>
+<pre><code>Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+</code></pre><p>跳转需要参数那就是</p>
+<pre><code>Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&quot;key&quot;,&quot;someValue&quot;);
+startActivity(intent);
+</code></pre><p>这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/08/android-navigator-best-practice/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Lamada表达式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -225,6 +453,75 @@
       
         <p class="article-more-link">
           <a  href="/2016/04/23/Lamada表达式/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Dagger2学习之概念全攻略" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/17/Dagger2学习之概念全攻略/" class="article-date">
+  	<time datetime="2016-04-17T03:47:53.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/Dagger2学习之概念全攻略/">Dagger2学习之相关概念详解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Dagger2学习之相关概念详解"><a href="#Dagger2学习之相关概念详解" class="headerlink" title="Dagger2学习之相关概念详解"></a>Dagger2学习之相关概念详解</h1><p>// TODO 尚未完成</p>
+<p>经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.</p>
+<p>这里, 你将会学到以下知识点.</p>
+<ol>
+<li>什么是依赖注入</li>
+<li><code>@Module</code>, <code>@Component</code>, <code>@Provides</code>, <code>@Inject</code></li>
+<li><code>@Singleton</code>和自定义Scope</li>
+<li><code>@SubComponent</code></li>
+</ol>
+<h2 id="什么是依赖注入"><a href="#什么是依赖注入" class="headerlink" title="什么是依赖注入"></a>什么是依赖注入</h2><p>依赖注入(DI), Dependency Injection, 听起来十分高大上的概念, 事实上你每天都在用. 接下来将用Dagger官方的咖啡机例子来举例说明.</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/04/17/Dagger2学习之概念全攻略/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -605,229 +902,10 @@ npm install hexo-generator-feed --save
 
 
   
-    <article id="post-多渠道打包总结" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2016/01/11/多渠道打包总结/" class="article-date">
-  	<time datetime="2016-01-11T07:15:30.000Z" itemprop="datePublished">2016-01-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/11/多渠道打包总结/">多渠道打包总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="使用gradle进行多渠道打包"><a href="#使用gradle进行多渠道打包" class="headerlink" title="使用gradle进行多渠道打包"></a>使用gradle进行多渠道打包</h2><p>使用Android studio</p>
-<h3 id="基本多渠道打包"><a href="#基本多渠道打包" class="headerlink" title="基本多渠道打包"></a>基本多渠道打包</h3><p>以友盟的为例</p>
-<p>渠道信息一般在 <code>AndroidManifest.xml</code>中修改以下值：</p>
-<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;wandoujia&quot; /&gt;
-</code></pre><p>首先你必须在<code>AndroidManifest.xml</code>中的meta-data修改以下的样子：</p>
-<pre><code>&lt;meta-data android:name=&quot;UMENG_CHANNEL&quot; android:value=&quot;${UMENG_CHANNEL_VALUE}&quot; /&gt;
-</code></pre><p>其中<code>${UMENG_CHANNEL_VALUE}</code>中的值就是你在gradle中自定义配置的值。</p>
-<p><code>build.gradle</code>文件就利用<code>productFlavors</code>这样写：</p>
-<pre><code>productFlavors {
-    wandoujia {}
-    baidu {}
-    c360 {}
-    uc {}
-
-    productFlavors.all { flavor -&gt;
-        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
-
-}
-</code></pre><p>其中name的值对相对应各个<code>productFlavors</code>的选项值，这样就达到自动替换渠道值的目的了。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多渠道打包/">多渠道打包</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/01/11/多渠道打包总结/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="genymotion-Genymotion 在Android5.x上运行ARM架构程序" class="article article-type-genymotion" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" class="article-date">
-  	<time datetime="2015-12-29T02:04:53.000Z" itemprop="datePublished">2015-12-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/">在Android5.x上运行ARM架构程序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Genymotion-在Android5-x上运行ARM架构程序"><a href="#Genymotion-在Android5-x上运行ARM架构程序" class="headerlink" title="Genymotion 在Android5.x上运行ARM架构程序"></a>Genymotion 在Android5.x上运行ARM架构程序</h1><p>原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。</p>
-<p>本文提供<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>、<code>ARM_Translation_Lollipop</code>的三个版本。其中<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>对应Android 5.x以下，个人发现4.4安装v1.1没卵用，安装前者反而有效，读者自行试验。<code>ARM_Translation_Lollipop</code>毫无疑问对应5.x系统。</p>
-<blockquote>
-<p>下载地址：<a href="http://pan.baidu.com/s/1pJ5YZl5" title="http://pan.baidu.com/s/1pJ5YZl5" target="_blank" rel="external">http://pan.baidu.com/s/1pJ5YZl5</a> 密码：w3ol</p>
-</blockquote>
-<h2 id="5-x的使用方法"><a href="#5-x的使用方法" class="headerlink" title="5.x的使用方法"></a>5.x的使用方法</h2><p>使用方法：</p>
-<ol>
-<li><p>在 Genymotion 里面建立 5.0 or 5.1 的模拟器。</p>
-</li>
-<li><p>开机后把 <code>ARM_Translation_Lollipop.zip</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>先不要重启模拟器，打开CMD命令行，输入<code>adb shell /system/etc/houdini_patcher.sh</code></p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
-<blockquote>
-<p>方法及安装包来自二三接脚大神：<a href="http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image" target="_blank" rel="external">http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image</a></p>
-</blockquote>
-<h2 id="5-0以下的使用方法"><a href="#5-0以下的使用方法" class="headerlink" title="5.0以下的使用方法"></a>5.0以下的使用方法</h2><ol>
-<li><p>在 Genymotion 里面建立4.x的模拟器。</p>
-</li>
-<li><p>开机后把<code>Genymotion-ARM-Translation</code>或者<code>Genymotion-ARM-Translation_v1.1</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM-Translation/">ARM-Translation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Genymotion/">Genymotion</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-EventBus3.0使用方法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/28/EventBus3.0使用方法/" class="article-date">
-  	<time datetime="2015-12-28T10:41:34.000Z" itemprop="datePublished">2015-12-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/28/EventBus3.0使用方法/">EventBus3.0使用方法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>EventBus是使用十分广泛的事件总线框架, 2.0到3.0的变化还是挺大的</p>
-<p>今天准备重构代码，关于解耦想到了用EventBus，发现EventBus出了3.0的beta版，使用方式略有区别，特此记录。如果不会用EventBus的，请参考上面的教程连接。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/12/28/EventBus3.0使用方法/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
