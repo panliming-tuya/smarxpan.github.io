@@ -14,25 +14,25 @@
     
     
     
-    <title>理解Python装饰器 | 聪明叉的博客 | 成为更好的自己</title>
+    <title>理解Python装饰器(Decorator) | 聪明叉的博客 | 成为更好的自己</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Python">
-    <meta name="description" content="理解Python装饰器Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个被引用">
+    <meta name="description" content="理解Python装饰器(Decorator)Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解Python装饰器">
+<meta property="og:title" content="理解Python装饰器(Decorator)">
 <meta property="og:url" content="http://smarxpan.github.io/2018/12/05/理解Python装饰器/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="理解Python装饰器Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个被引用">
+<meta property="og:description" content="理解Python装饰器(Decorator)Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-14T13:01:48.718Z">
+<meta property="og:updated_time" content="2018-12-17T11:14:00.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解Python装饰器">
-<meta name="twitter:description" content="理解Python装饰器Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个被引用">
+<meta name="twitter:title" content="理解Python装饰器(Decorator)">
+<meta name="twitter:description" content="理解Python装饰器(Decorator)Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。 想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。 看看维基百科中的解释：  在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由">
     
         <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
     
@@ -113,7 +113,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">理解Python装饰器</div>
+        <div class="flex-col header-title ellipsis">理解Python装饰器(Decorator)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -135,7 +135,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">理解Python装饰器</h1>
+        <h1 class="title">理解Python装饰器(Decorator)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-12-05T07:15:30.000Z" itemprop="datePublished" class="page-time">
@@ -158,7 +158,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#理解Python装饰器"><span class="post-toc-number">1.</span> <span class="post-toc-text">理解Python装饰器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#装饰器"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">装饰器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#带参数的装饰器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">带参数的装饰器</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#理解Python装饰器-Decorator"><span class="post-toc-number">1.</span> <span class="post-toc-text">理解Python装饰器(Decorator)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#装饰器"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">装饰器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#带参数的装饰器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">带参数的装饰器</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -166,7 +166,7 @@
 <article id="post-理解Python装饰器" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">理解Python装饰器</h1>
+        <h1 class="post-card-title">理解Python装饰器(Decorator)</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-12-05 15:15:30" datetime="2018-12-05T07:15:30.000Z" itemprop="datePublished">2018-12-05</time>
 
@@ -181,7 +181,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="理解Python装饰器"><a href="#理解Python装饰器" class="headerlink" title="理解Python装饰器"></a>理解Python装饰器</h2><p>Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。</p>
+            <h2 id="理解Python装饰器-Decorator"><a href="#理解Python装饰器-Decorator" class="headerlink" title="理解Python装饰器(Decorator)"></a>理解Python装饰器(Decorator)</h2><p>Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。</p>
 <p>想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。</p>
 <p>看看维基百科中的解释：</p>
 <blockquote>
@@ -280,7 +280,7 @@ test_with_param
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-12-14T13:01:48.718Z" itemprop="dateUpdated">2018-12-14 21:01:48</time>
+    Last updated: <time datetime="2018-12-17T11:14:00.993Z" itemprop="dateUpdated">2018-12-17 19:14:00</time>
 </span><br>
 
 
@@ -316,7 +316,7 @@ test_with_param
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器(Decorator)》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -326,7 +326,7 @@ test_with_param
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器(Decorator)》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -336,7 +336,7 @@ test_with_param
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python装饰器》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python装饰器(Decorator)》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -489,7 +489,7 @@ test_with_param
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器(Decorator)》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -499,7 +499,7 @@ test_with_param
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&title=《理解Python装饰器(Decorator)》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -509,7 +509,7 @@ test_with_param
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python装饰器》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python装饰器(Decorator)》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/12/05/理解Python装饰器/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
