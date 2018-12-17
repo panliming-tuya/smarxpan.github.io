@@ -195,7 +195,13 @@
 <a id="more"></a>
 <h2 id="简述原理"><a href="#简述原理" class="headerlink" title="简述原理"></a>简述原理</h2><p>理解如何动态加载dex包，先要理解正常启动过程dex是如何加载的。</p>
 <p>Android是通过ClassLoader类加载应用的, 如下图，ClassLoader类的体系：</p>
-<p><img src="http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://7xqnsv.com1.z0.glb.clouddn.com/01094253_Ta85.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>我们能使用到的是DexClassLoader和PathClassLoader，这两个类的用途分别是：</p>
 <ol>
 <li><p>关于PathClassLoader，文档中写到： <code>Android uses this class for its system class loader and for its application class loader(s)</code>,<br>由此可知，PathClassLoader只能加载已安装到系统中（即/data/app目录下）的apk文件，Android应用就是用它来加载;</p>
@@ -252,7 +258,13 @@ protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException {
 <h3 id="制作Dex包"><a href="#制作Dex包" class="headerlink" title="制作Dex包"></a>制作Dex包</h3><p>我这里的插件项目只是单纯的一个Activity，插件项目和一般项目的不同在于，不能直接使用R文件调用资源文件，需要反射调用。因为插件需要运行在宿主项目中，宿主项目的R文件和你的R文件并不相同。</p>
 <p>反射调用R文件中的内容也是开发sdk的基础，反射调用的工具类会在本文结尾的代码清单中放出</p>
 <p>对于Eclipse，新建工程，做些你想要的操作，右键工程到处jar包<br>注意，此处只需要选择src目录，也就是只需要代码</p>
-<p><img src="http://7xqnsv.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160219181614.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://7xqnsv.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160219181614.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>对于Android Studio，只能手动打jar包。<br>新建Module，写好代码</p>
 <p>进入<font color="red">项目根目录</font></p>
 <pre><code>gradlew clean

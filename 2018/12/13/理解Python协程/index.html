@@ -479,7 +479,13 @@ Compute 1 + 2 ...
 end
 </code></pre><p><code>print_sum</code>这个协程中调用了子协程<code>compute</code>，它将等待<code>compute</code>执行结束才返回结果。</p>
 <p>这个demo点调用流程如下图：</p>
-<p><img src="https://docs.python.org/3.4/_images/tulip_coro.png" alt="tulip_coro.png"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://docs.python.org/3.4/_images/tulip_coro.png" alt="tulip_coro.png" title="">
+                </div>
+                <div class="image-caption">tulip_coro.png</div>
+            </figure>
 <p>EventLoop将会把<code>print_sum</code>封装成Task对象</p>
 <p>流程图展示了这个demo的控制流程，不过没有展示其全部细节。比如其中“暂停”的1s，实际上创建了一个future对象, 然后通过<code>BaseEventLoop.call_later()</code>在1s后唤醒这个任务。</p>
 <p>值得注意的是，<a href="mailto:`@asyncio.coroutine" target="_blank" rel="noopener">`@asyncio.coroutine</a>`将在Python3.10版本中移除。</p>

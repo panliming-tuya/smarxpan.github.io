@@ -183,7 +183,13 @@ localIntent.putExtra(&quot;extra_pkgname&quot;, context.getPackageName());
 context.startActivity(localIntent);
 </code></pre><p>这种方式已经不能满足如今的新版MIUI，所以，自己动手丰衣足食</p>
 <p>电脑打开cmd/terminal， 手机打开应用权限设置页面：</p>
-<p><img src="images/quanxian.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="images/quanxian.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>命令行输入：</p>
 <pre><code>adb shell dumpsys activity | grep &quot;mFocusedActivity&quot;
 </code></pre><p>输入结果：</p>

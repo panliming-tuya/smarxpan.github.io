@@ -373,8 +373,20 @@ public class MyAnnotationProcessor extends AbstractProcessor {
 </code></pre><p>看似代码很长, 其实很好理解. 只做了两件事, 1.解析注解并获取需要的值 2.使用<code>JavaFileObject</code>类生成java代码. </p>
 <p><strong>向JVM声明解析器</strong></p>
 <p>我们的解析器虽然定义好了, 但是jvm并不知道, 也不会调用, 因此我们需要声明. </p>
-<p>如图所示<img src="http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png" alt=""></p>
-<p>在java的同级目录新建resources目录, 新建<code>META-INF/services/javax.annotation.processing.Processor</code>文件, 文件中填写你自定义的Processor全类名<br><img src="http://7xqnsv.com1.z0.glb.clouddn.com/9AF6B510-9762-4DF8-80A2-3446CBD39263.png" alt=""></p>
+<p>如图所示<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://7xqnsv.com1.z0.glb.clouddn.com/6B29FABB-47C9-40DE-AE95-198C268A4EAC.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>在java的同级目录新建resources目录, 新建<code>META-INF/services/javax.annotation.processing.Processor</code>文件, 文件中填写你自定义的Processor全类名<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://7xqnsv.com1.z0.glb.clouddn.com/9AF6B510-9762-4DF8-80A2-3446CBD39263.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <p>然后打出jar包以待使用(打包方式自行百度)</p>
 <h3 id="Android中使用"><a href="#Android中使用" class="headerlink" title="Android中使用"></a>Android中使用</h3><p><strong>使用apt插件</strong></p>
 <p>项目根目录gradle中<code>buildscript</code>的<code>dependencies</code>添加</p>

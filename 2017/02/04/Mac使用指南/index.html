@@ -193,10 +193,22 @@
 <p>对于新款带有Multi Touch Bar的macbook，此条并不适用</p>
 </blockquote>
 <h3 id="全键盘控制"><a href="#全键盘控制" class="headerlink" title="全键盘控制"></a>全键盘控制</h3><p>当你清理废纸篓时会遇到这样的对话框</p>
-<p><img src="images/not_control.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="images/not_control.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>按回车后会清理废纸篓，但是想要通过键盘控制取消却不可以，只能鼠标点击取消。</p>
 <p>在<code>系统偏好设置</code>-&gt;<code>键盘</code>中，<code>快捷键</code>选项卡中选择<code>所有控制</code>，弹框会变成这样：</p>
-<p><img src="images/all_control.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="images/all_control.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>取消选项上就出现了蓝色边框，这时就可以通过<code>空格键</code>选择该选项，可以通过<code>tab键</code>切换选项</p>
 <h3 id="触摸板和鼠标设置"><a href="#触摸板和鼠标设置" class="headerlink" title="触摸板和鼠标设置"></a>触摸板和鼠标设置</h3><p><code>系统偏好设置</code>-&gt;<code>触摸板</code>、<code>系统偏好设置</code>-&gt;<code>鼠标</code>，里面所有的选项，除了<code>静默点按</code>不需要勾选，所有的选项都勾选，那些选项提供了很多快捷操作</p>
 <h3 id="更改Caps-Lock键为Control键"><a href="#更改Caps-Lock键为Control键" class="headerlink" title="更改Caps Lock键为Control键"></a>更改Caps Lock键为Control键</h3><p>我本人总是使用按住<code>Shift</code>的方式输入大写，或者使用快捷键转换大写，基本用不掉<code>Caps Lock</code>键，因此将其转换为更常用的<code>Control</code></p>
@@ -214,7 +226,13 @@ KillAll Finder
 </code></pre><p>这样就可以默认显示隐藏文件夹，如果不想显示隐藏文件夹：</p>
 <pre><code>defaults write com.apple.finder AppleShowAllFiles -bool false
 KillAll Finder
-</code></pre><h3 id="文件夹上方显示文件夹路径"><a href="#文件夹上方显示文件夹路径" class="headerlink" title="文件夹上方显示文件夹路径"></a>文件夹上方显示文件夹路径</h3><p><img src="images/finder_path.png" alt=""></p>
+</code></pre><h3 id="文件夹上方显示文件夹路径"><a href="#文件夹上方显示文件夹路径" class="headerlink" title="文件夹上方显示文件夹路径"></a>文件夹上方显示文件夹路径</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="images/finder_path.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>终端中执行：</p>
 <pre><code>defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
 </code></pre><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p>Mac官方快捷键文档地址：<a href="https://support.apple.com/zh-cn/HT201236" target="_blank" rel="noopener">https://support.apple.com/zh-cn/HT201236</a></p>
@@ -298,7 +316,13 @@ KillAll Finder
 <h3 id="Go2Shell"><a href="#Go2Shell" class="headerlink" title="Go2Shell"></a>Go2Shell</h3><p>在当前文件夹中打开命令行，安装方式：</p>
 <pre><code>brew cask install go2shell
 </code></pre><p>安装完成后文件夹上方会出现这个图标：</p>
-<p><img src="images/folder.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="images/folder.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>点击即可在当前文件夹打开命令行，可以打开应用设置默认打开的命令行是Terminal还是iTerm2</p>
 <h3 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh My Zsh"></a>Oh My Zsh</h3><p>默认是shell是bash，zsh意为zshell，意味着终极shell，但是设置非常麻烦，直到Oh My Zsh出现，大大简化其设置。zsh拥有许多插件，让你的终端进入彩色时代，并且更为变得强大</p>
 <p>安装方法见官网：<a href="http://ohmyz.sh/" target="_blank" rel="noopener">http://ohmyz.sh/</a></p>
