@@ -1,972 +1,658 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>聪明叉的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分享更能体现技术价值">
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android, Programer">
+    <meta name="description" content="分享更能体现技术价值">
+<meta name="keywords" content="Android, Programer">
 <meta property="og:type" content="website">
 <meta property="og:title" content="聪明叉的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://smarxpan.github.io/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
 <meta property="og:description" content="分享更能体现技术价值">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聪明叉的博客">
 <meta name="twitter:description" content="分享更能体现技术价值">
-  
-    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-		</a>
+    <div id="loading" class="active"></div>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
-		</hgroup>
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect active">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-		
-		<p class="header-subtitle">一只程序猿的进化之路</p>
-		
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">聪明叉的博客</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
 
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
+    <div class="container fade-scale">
+        <h1 class="title">聪明叉的博客</h1>
+        <h5 class="subtitle">
+            
+                成为更好的自己
+            
+        </h5>
+    </div>
 
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
-					</div>
-				</section>
-				
-				
-				
+    
 
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
-</div>
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-理解Python协程" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-13 15:15:30" datetime="2018-12-13T07:15:30.000Z" itemprop="datePublished">2018-12-13</time>
+
+        
+
 
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">聪明叉</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">一只程序猿的进化之路</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/12/13/理解Python协程/">理解Python协程(Coroutine)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+
+
+理解Python的协程(Coroutine)
+生成器(Generator)
+yield表达式的使用
+生产者和消费者模型
+yield from表达式
+
+
+协程(Coroutine)
+@asyncio.coroutine
+async/await
+
+
+总结
+参考链接
+
+
+
+
+由于GIL的存在，导致Python多线程性能甚至比单线程更糟。
+
+GIL: 全局解释器锁（英语：Global Inte...
+    
+
+        <a href="/2018/12/13/理解Python协程/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-理解Python装饰器" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-05 15:15:30" datetime="2018-12-05T07:15:30.000Z" itemprop="datePublished">2018-12-05</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/12/05/理解Python装饰器/">理解Python装饰器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        理解Python装饰器Python装饰器看起来类似Java中的注解，然鹅和注解并不相同，不过同样能够实现面向切面编程。
+想要理解Python中的装饰器，不得不先理解闭包（closure）这一概念。
+看看维基百科中的解释：
+
+在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个...
+    
+
+        <a href="/2018/12/05/理解Python装饰器/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-理解Python中的元类(metaclass)" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-30 15:15:30" datetime="2018-11-30T07:15:30.000Z" itemprop="datePublished">2018-11-30</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/11/30/理解Python中的元类(metaclass)/">理解Python中的元类(metaclass)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        理解Python中的元类(metaclass)这篇文章基本上是What are metaclasses in Python?最高赞答案的翻译，同时我简化了一点东西，加了点自己的demo。可以直接去看原文。
+类也是对象在理解元类之前，你需要先掌握Python中的类。Python中类的概念借鉴于Smalltalk，这显得有些奇特。在大多数编程语言中，类就是一组用来描述如何生成一个对象的代码段。在...
+    
+
+        <a href="/2018/11/30/理解Python中的元类(metaclass)/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-运营商三网sdk接入整理" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-02-07 15:15:30" datetime="2018-02-07T07:15:30.000Z" itemprop="datePublished">2018-02-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/02/07/运营商三网sdk接入整理/">游戏接入运营商三网Android SDK整理</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        游戏接入运营商三网Android SDK整理记录下坑爹的三网支付运营商接入。
+融合支付移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。
+因此需要自行融合三网支付接入游戏。
+咪咕的特殊之处（需验证是否符合需求）Q. 三网融合计费功能集成。
+
+26005 SDK已经集成移动，电信，...
+    
+
+        <a href="/2018/02/07/运营商三网sdk接入整理/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-CentOs6-7和Ubuntu安装shadowsocks-libv" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-05-03 15:15:30" datetime="2017-05-03T07:15:30.000Z" itemprop="datePublished">2017-05-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/05/03/CentOs6-7和Ubuntu安装shadowsocks-libv/">CentOs6/7和Ubuntu安装shadowsocks-libev及使用</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        CentOs6/7和Ubuntu安装shadowsocks-libev及使用CentOs6/7
+安装Fedora软件源
+cd /etc/yum.repos.d/
+wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
+
+upda...
+    
+
+        <a href="/2017/05/03/CentOs6-7和Ubuntu安装shadowsocks-libv/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-编程的智慧by王垠" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-04-20 15:15:30" datetime="2017-04-20T07:15:30.000Z" itemprop="datePublished">2017-04-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/04/20/编程的智慧by王垠/">编程的智慧</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        编程的智慧（王垠）编程是一种创造性的工作，是一门艺术。精通任何一门艺术，都需要很多的练习和领悟，所以这里提出的“智慧”，并不是号称一天瘦十斤的减肥药，它并不能代替你自己的勤奋。然而由于软件行业喜欢标新立异，喜欢把简单的事情搞复杂，我希望这些文字能给迷惑中的人们指出一些正确的方向，让他们少走一些弯路，基本做到一分耕耘一分收获。
+反复推敲代码既然“天才是百分之一的灵感，百分之九十九的汗水”，那我...
+    
+
+        <a href="/2017/04/20/编程的智慧by王垠/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Android权限视频适配管理" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-04-18 15:15:30" datetime="2017-04-18T07:15:30.000Z" itemprop="datePublished">2017-04-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/04/18/Android权限视频适配管理/">Android权限管理适配</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Android权限管理适配Android权限管理的变动从Android6.0开始，权限分为普通权限和许可权限。许可权限分类归组，一个权限授权之后，该组下的权限均可使用。
+
+普通权限
+ 只需要在xml申请即可，使用方法和之前6.0以前的一样。在应用安装应用时，会默认获得许可。
+
+许可权限
+ 当指定target&gt;=23时（Android6.0），需要开发者手动申请以下权限，如果没有手动申请...
+    
+
+        <a href="/2017/04/18/Android权限视频适配管理/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    </div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-how_to_use_singleton" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/29/how_to_use_singleton/" class="article-date">
-  	<time datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/29/how_to_use_singleton/">老司机来教你单例的正确姿势</a>
-    </h1>
-  
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="老司机来教你单例的正确姿势"><a href="#老司机来教你单例的正确姿势" class="headerlink" title="老司机来教你单例的正确姿势"></a>老司机来教你单例的正确姿势</h1><p>Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？</p>
-<ol>
-<li>单例（这不是废话吗）</li>
-<li>延迟加载</li>
-<li>线程安全</li>
-<li>没有性能问题</li>
-<li>防止序列化产生新对象</li>
-<li>防止反射攻击</li>
-</ol>
-<p>可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。</p>
-<h2 id="最佳实践单例之枚举"><a href="#最佳实践单例之枚举" class="headerlink" title="最佳实践单例之枚举"></a>最佳实践单例之枚举</h2><p>没错，直接就上最佳实践，就是这么任性</p>
-<p>这货长这样： </p>
-<pre><code>public enum Singleton{
-    INSTANCE;
-}
-</code></pre><p>如果你不熟悉枚举，可能会说：这货是啥？！</p>
-<p>这种方式的好处是：</p>
-<ol>
-<li>利用的枚举的特性实现单例</li>
-<li>由JVM保证线程安全</li>
-<li>序列化和反射攻击已经被枚举解决</li>
-</ol>
-<p>调用方式为<code>Singleton.INSTANCE</code>, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。</p>
-<blockquote>
-<p>关于单例最佳实践的讨论可以看Stackoverflow：<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java">what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java</a></p>
-</blockquote>
-<p>下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：<a href="http://blog.csdn.net/u013256816/article/details/50525335">如何防止单例模式被JAVA反射攻击</a></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/29/how_to_use_singleton/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-how_to_use_annotation" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/20/how_to_use_annotation/" class="article-date">
-  	<time datetime="2016-06-20T07:15:30.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/how_to_use_annotation/">Android进阶之自定义注解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Android进阶之自定义注解"><a href="#Android进阶之自定义注解" class="headerlink" title="Android进阶之自定义注解"></a>Android进阶之自定义注解</h1><p>本篇文章内容包括: </p>
-<ul>
-<li><a href="#1">注解的概念</a></li>
-<li><a href="#2">元注解</a></li>
-<li><a href="#3">自定义注解</a></li>
-<li><a href="#4">Android自定义编译时注解</a></li>
-</ul>
-<p>如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. </p>
-<h2 id="什么是注解"><a href="#什么是注解" class="headerlink" title="什么是注解"></a><span id='1'>什么是注解</span></h2><p>先来看看Java文档中的定义</p>
-<blockquote>
-<p>An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.</p>
-</blockquote>
-<p>注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. </p>
-<p>首先, 明确一点: <strong>注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.</strong></p>
-<p>定义注解用的关键字是<code>@interface</code></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/20/how_to_use_annotation/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-android-navigator-best-practice" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/08/android-navigator-best-practice/" class="article-date">
-  	<time datetime="2016-06-08T07:15:28.000Z" itemprop="datePublished">2016-06-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/08/android-navigator-best-practice/">Activity跳转最佳实践</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Activity跳转最佳实践"><a href="#Activity跳转最佳实践" class="headerlink" title="Activity跳转最佳实践"></a>Activity跳转最佳实践</h1><p>学习<a href="https://github.com/android10/Android-CleanArchitecture">Android-CleanArchitecture</a>时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.</p>
-<h2 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h2><p>跳转不需要参数时:</p>
-<pre><code>Intent intent = new Intent(this, SecondActivity.class);
-startActivity(intent);
-</code></pre><p>跳转需要参数那就是</p>
-<pre><code>Intent intent = new Intent(this, SecondActivity.class);
-intent.putExtra(&quot;key&quot;,&quot;someValue&quot;);
-startActivity(intent);
-</code></pre><p>这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/08/android-navigator-best-practice/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Lamada表达式" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/23/Lamada表达式/" class="article-date">
-  	<time datetime="2016-04-22T16:01:56.000Z" itemprop="datePublished">2016-04-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/23/Lamada表达式/">是时候学习一波Lambda表达式了</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="是时候学习一波Lambda表达式了"><a href="#是时候学习一波Lambda表达式了" class="headerlink" title="是时候学习一波Lambda表达式了"></a>是时候学习一波Lambda表达式了</h1><p>Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步</p>
-<h2 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h2><p>首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.</p>
-<p>要明白什么是Lambda, 先要知道什么是<a href="https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6">闭包</a>)(Closure).</p>
-<p>闭包来源于<a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80">函数式编程</a>, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:</p>
-<blockquote>
-<p>“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁<br><br>–来自阮一峰技术博客</p>
-</blockquote>
-<p>而Lambda表达式是java对闭包这一特性的实现方式.</p>
-<p>在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.</p>
-<p>等等, 这个某类匿名内部类是神马意思?</p>
-<p>这类能用Lambda表达式替代的匿名内部类有两个条件: <strong>必须是接口类型; 只有一个抽象方法</strong>.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/23/Lamada表达式/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Dagger2学习之概念全攻略" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/17/Dagger2学习之概念全攻略/" class="article-date">
-  	<time datetime="2016-04-17T03:47:53.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/Dagger2学习之概念全攻略/">Dagger2学习之相关概念详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Dagger2学习之相关概念详解"><a href="#Dagger2学习之相关概念详解" class="headerlink" title="Dagger2学习之相关概念详解"></a>Dagger2学习之相关概念详解</h1><p>// TODO 尚未完成</p>
-<p>经过上一篇文章Hello Dagger2的实践, 相信大家都已经能把Dagger2的Demo跑起来了. 大家肯定对相关概念产生了一万个疑问, 而这篇文章将会为实际应用Dagger铺平道路.</p>
-<p>这里, 你将会学到以下知识点.</p>
-<ol>
-<li>什么是依赖注入</li>
-<li><code>@Module</code>, <code>@Component</code>, <code>@Provides</code>, <code>@Inject</code></li>
-<li><code>@Singleton</code>和自定义Scope</li>
-<li><code>@SubComponent</code></li>
-</ol>
-<h2 id="什么是依赖注入"><a href="#什么是依赖注入" class="headerlink" title="什么是依赖注入"></a>什么是依赖注入</h2><p>依赖注入(DI), Dependency Injection, 听起来十分高大上的概念, 事实上你每天都在用. 接下来将用Dagger官方的咖啡机例子来举例说明.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/17/Dagger2学习之概念全攻略/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-算法系列-2-不那么简单的排序" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/14/算法系列-2-不那么简单的排序/" class="article-date">
-  	<time datetime="2016-04-14T14:48:23.000Z" itemprop="datePublished">2016-04-14</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/算法系列-2-不那么简单的排序/">算法系列(2)--不那么简单的排序之希尔、归并、快速排序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>也不知道与简单排序对应的应该叫什么, 就叫不那么简单的排序好了.</p>
-<p>本篇博客主要学习了希尔排序、归并排序and快速排序。</p>
-<p><em>注: 这一篇和上一篇<a href="http://smarxpan.github.io/2016/04/03/%E7%AE%97%E6%B3%95%E7%B3%BB%E5%88%97-1-%E7%AE%80%E5%8D%95%E6%8E%92%E5%BA%8F/">简单排序</a>都算是学习<a href="http://blog.csdn.net/column/details/algorithm-easyword.html">白话算法系列</a>的学习笔记吧</em></p>
-<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是基于插入排序而来, 插入排序的最好时间复杂度是O(n), 当数组基本有序时, 效率是很高的. 而希尔排序, 设定一个增量, 按增量将数组分组.</p>
-<p>例如数组{1,2,3,4}, 增量是2, 那么数组就可以分为{1,3}, {2,4}两组, 增量是1那就是1,2,3,4四组.</p>
-<p>分组之后在组内进行插入排序, 再缩小增量重新分组再次排序, 直到增量是1(等同于正常的插入排序), 再插入排序一次, 排序完成. </p>
-<pre><code>void shellSort(int arr[], int n){
-
-    for (int gap = n/2; gap&gt;0; gap/=2) {
-        for (int i = gap; i&lt;n; i++) {
-            if (arr[i] &lt; arr[i - gap]) {
-                int temp = arr[i];
-                int j;
-                // 思路与插入排序相同, 用临时变量保存要插入的数, 向数组前面查找插入的位置, 一边查找, 一边将前面较大的数字后移
-                // 临时变量不小于前面的某数时, 说明找到了正确的位置, 只要放在那个数后面就可以了
-                for (j = i-gap; j&gt;=0 &amp;&amp; temp&lt;arr[j]; j-=gap) {
-                    arr[j+gap] = arr[j];
-                }
-                arr[j+gap] = temp;
-            }
-        }
-    }
-}
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/14/算法系列-2-不那么简单的排序/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Dagger2探索之Hello-Dagger" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/12/Dagger2探索之Hello-Dagger/" class="article-date">
-  	<time datetime="2016-04-12T03:47:53.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/Dagger2探索之Hello-Dagger/">Dagger2学习之Hello Dagger</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Dagger是Square公司的开源项目, 后来被Google fork下来, 继续开发, 诞生了Dagger2. 这个项目的主要作用是依赖注入. </p>
-<p>新手觉得一个东西太难学, 主要原因是一下子暴露在太多难以理解的概念中, 无所适从. 而当你用了一遍 因此这一篇博客仅仅使用最简单的应用方式. 对Dagger2有了个最基本的认识之后, 慢慢深入学习就不那么困难.</p>
-<h2 id="gradle配置"><a href="#gradle配置" class="headerlink" title="gradle配置"></a>gradle配置</h2><p>先上使用方式, gradle文件配置相关</p>
-<p>项目根目录gradle中<code>buildscript</code>的<code>dependencies</code>添加</p>
-<pre><code>classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;
-</code></pre><p>module目录的gradle中, 添加</p>
-<pre><code>apply plugin: &apos;android-apt&apos;
-</code></pre><p>添加这个东西的作用是让AS能够识别Dagger2自动生成的代码并且能够跳转跟踪等.</p>
-<p>添加依赖</p>
-<pre><code>compile &apos;com.google.dagger:dagger:2.0.2&apos;
-provided &apos;com.google.dagger:dagger-compiler:2.0.2&apos;
-provided &apos;javax.annotation:jsr250-api:1.0&apos;
-</code></pre><font color='gray' size='2'>注1: 此时(16年4月11日)最新的dagger版本是2.0.3, 但请不要升级, 其引用的Guava版本有问题<br>注2: <code>javax.annotation:jsr250-api:1.0</code>, Android Api中没有这个包, 而Dagger中用到了<code>@Generated</code>注解, 不引入会报错</font>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/12/Dagger2探索之Hello-Dagger/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-一个可应用的动态加载dex实践" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/07/一个可应用的动态加载dex实践/" class="article-date">
-  	<time datetime="2016-04-07T10:05:54.000Z" itemprop="datePublished">2016-04-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/07/一个可应用的动态加载dex实践/">一个可应用的动态加载dex实践</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。<br/>这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。</p>
-<p>这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)</p>
-<p>本文参考链接先行放出：</p>
-<blockquote>
-<p><a href="http://my.oschina.net/853294317/blog/308583">Android dex分包方案</a></p>
-<p><a href="https://github.com/dodola/HotFix">HoxFix项目</a></p>
-<p><a href="http://blog.csdn.net/lmj623565791/article/details/49883661">Android 热补丁动态修复框架小结</a></p>
-</blockquote>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/07/一个可应用的动态加载dex实践/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-搭建Hexo最佳实践" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/07/搭建Hexo最佳实践/" class="article-date">
-  	<time datetime="2016-04-07T09:07:34.000Z" itemprop="datePublished">2016-04-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/07/搭建Hexo最佳实践/">搭建Hexo最佳实践</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li><p>安装npm</p>
-<pre><code>curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-</code></pre><p>windows请自行下载安装包</p>
-</li>
-<li>安装git<ul>
-<li>window自行下载安装</li>
-<li>mac使用homebrew <code>brew install git</code></li>
-<li>linux <code>sudo apt-get install git-core</code></li>
-</ul>
-</li>
-<li><p>安装hexo<br><br><br>mac使用命令</p>
-<pre><code>sudo npm install hexo-cli -g
-</code></pre><p>windows使用</p>
-<pre><code>npm install hexo-cli -g
-</code></pre></li>
-<li><p>hexo初始化    </p>
-<pre><code>hexo init blog
-cd blog
-npm install
-</code></pre><p>其中<code>hexo init blog</code>中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了</p>
-</li>
-<li><p>安装插件</p>
-<pre><code>npm install hexo-deployer-git --save
-npm install hexo-generator-sitemap --save
-npm install hexo-generator-feed --save
-</code></pre><p>上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件</p>
-</li>
-</ol>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/07/搭建Hexo最佳实践/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-算法系列-1-简单排序" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/03/算法系列-1-简单排序/" class="article-date">
-  	<time datetime="2016-04-02T16:01:56.000Z" itemprop="datePublished">2016-04-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/03/算法系列-1-简单排序/">算法系列(1)--简单排序算法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h2><p>简单排序有三种, 冒泡排序,选择排序,插入排序</p>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序是一种易于实现的排序算法, 以升序为例:</p>
-<p>有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. </p>
-<p>第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/03/算法系列-1-简单排序/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 聪明叉
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
     </div>
-  </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
 </footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/&title=聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/&title=聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=聪明叉的博客&url=http://smarxpan.github.io/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAAAAAAZai4+AAABUUlEQVR42u3aQQ7DIAwAwfz/0+m1UhS6tkMj8HKqWhomB8AYHwdu51e7fj/uee3zWJMlayPWOWx3fcZPuKOTsWTJ6sy6m6HjhYAsCmSxkCVLVpTFN+NoT1myZOVY4639tQVClqxlWZVhSDA9MZaXJWsLFs/q1D9PyW/JkrU46wy26LRPjiJLVjMWn8CcSLZwdHkjS1YbFgl/6xct/AmyZHVmRY+sBMHLFALnaVmyNmXVi3v4wsG3f1myOrPqBXnRl3w47yVL1uIsEgTXS3zC/5IlS1bh7gMVE5BfZclqyZq3MeeOuLJkdWb9Mwb/Ma4sWW1YyVIAkGCKhgKyZHVm5ZJHucKg6TktWbIWZ/HBok/IFSjIktWZRYJacujNrUyyZMmKsnIXJ+EXkCVLFh6AX6vwwFqWrM6s3KGUBMfJFJIsWc1Y0YuQXBbomNFkydqB9QGjosVtj9C5wgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
 </script>
 
 
-  </div>
+
 </body>
 </html>

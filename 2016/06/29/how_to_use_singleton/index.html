@@ -1,251 +1,187 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>老司机来教你单例的正确姿势 | 聪明叉的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+<head><meta name="generator" content="Hexo 3.8.0">
+    
 
-单例（这不是废话吗）
-延迟加载
-线程安全
-没有性能问题
-防止序列化产生新对象
-防止反射攻击
+    
 
-可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
-最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
-这货长这样： 
-public enum Si">
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>老司机来教你单例的正确姿势 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java">
+    <meta name="description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？  单例（这不是废话吗） 延迟加载 线程安全 没有性能问题 防止序列化产生新对象 防止反射攻击  可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。 最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性 这货长这样：  public enum Si">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="老司机来教你单例的正确姿势">
-<meta property="og:url" content="http://yoursite.com/2016/06/29/how_to_use_singleton/index.html">
+<meta property="og:url" content="http://smarxpan.github.io/2016/06/29/how_to_use_singleton/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
-
-单例（这不是废话吗）
-延迟加载
-线程安全
-没有性能问题
-防止序列化产生新对象
-防止反射攻击
-
-可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
-最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
-这货长这样： 
-public enum Si">
+<meta property="og:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？  单例（这不是废话吗） 延迟加载 线程安全 没有性能问题 防止序列化产生新对象 防止反射攻击  可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。 最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性 这货长这样：  public enum Si">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-06-30T14:27:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="老司机来教你单例的正确姿势">
-<meta name="twitter:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+<meta name="twitter:description" content="老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？  单例（这不是废话吗） 延迟加载 线程安全 没有性能问题 防止序列化产生新对象 防止反射攻击  可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。 最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性 这货长这样：  public enum Si">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
 
-单例（这不是废话吗）
-延迟加载
-线程安全
-没有性能问题
-防止序列化产生新对象
-防止反射攻击
+    <!-- custom head -->
+    
 
-可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
-最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
-这货长这样： 
-public enum Si">
-  
-    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-		</a>
+    <div id="loading" class="active"></div>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">一只程序猿的进化之路</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
-					</div>
-				</section>
-				
-				
-				
-
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">聪明叉</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">一只程序猿的进化之路</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap"><article id="post-how_to_use_singleton" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/29/how_to_use_singleton/" class="article-date">
-  	<time datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      老司机来教你单例的正确姿势
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-        
-
-        <div class="clearfix"></div>
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
       </div>
-      
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">老司机来教你单例的正确姿势</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">老司机来教你单例的正确姿势</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished" class="page-time">
+  2016-06-29
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="老司机来教你单例的正确姿势"><a href="#老司机来教你单例的正确姿势" class="headerlink" title="老司机来教你单例的正确姿势"></a>老司机来教你单例的正确姿势</h1><p>Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？</p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#老司机来教你单例的正确姿势"><span class="post-toc-number">1.</span> <span class="post-toc-text">老司机来教你单例的正确姿势</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳实践单例之枚举"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">最佳实践单例之枚举</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最简单的单例之饿汉式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">最简单的单例之饿汉式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最体现技术的单例之懒汉式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">最体现技术的单例之懒汉式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内部类实现单例"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">内部类实现单例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">参考链接</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-how_to_use_singleton" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">老司机来教你单例的正确姿势</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-06-29 10:15:28" datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="老司机来教你单例的正确姿势"><a href="#老司机来教你单例的正确姿势" class="headerlink" title="老司机来教你单例的正确姿势"></a>老司机来教你单例的正确姿势</h1><p>Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？</p>
 <ol>
 <li>单例（这不是废话吗）</li>
 <li>延迟加载</li>
@@ -269,9 +205,9 @@ public enum Si">
 </ol>
 <p>调用方式为<code>Singleton.INSTANCE</code>, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。</p>
 <blockquote>
-<p>关于单例最佳实践的讨论可以看Stackoverflow：<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java</a></p>
+<p>关于单例最佳实践的讨论可以看Stackoverflow：<a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="noopener">what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java</a></p>
 </blockquote>
-<p>下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：<a href="http://blog.csdn.net/u013256816/article/details/50525335" target="_blank" rel="external">如何防止单例模式被JAVA反射攻击</a></p>
+<p>下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：<a href="http://blog.csdn.net/u013256816/article/details/50525335" target="_blank" rel="noopener">如何防止单例模式被JAVA反射攻击</a></p>
 <a id="more"></a>
 <h2 id="最简单的单例之饿汉式"><a href="#最简单的单例之饿汉式" class="headerlink" title="最简单的单例之饿汉式"></a>最简单的单例之饿汉式</h2><pre><code>public class Singleton {
     private static final Singleton INSTANCE = new Singleton();
@@ -335,15 +271,19 @@ public enum Si">
     return INSTANCE ;
 }
 </code></pre><p>执行两次检测很有必要：当多线程调用时，如果多个线程同时执行完了第一次检查，其中一个进入同步代码块创建了实例，后面的线程因第二次检测不会创建新实例。</p>
-<p>这段代码看起来很完美，但仍旧存在问题，以下内容引用自黑桃夹克大神的<a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="external">如何正确地写出单例模式</a></p>
+<p>这段代码看起来很完美，但仍旧存在问题，以下内容引用自黑桃夹克大神的<a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="noopener">如何正确地写出单例模式</a></p>
 <blockquote>
 <p>这段代码看起来很完美，很可惜，它是有问题。主要在于instance = new Singleton()这句，这并非是一个原子操作，事实上在 JVM 中这句话大概做了下面 3 件事情。</p>
+</blockquote>
 <ol>
 <li>给 instance 分配内存</li>
 <li>调用 Singleton 的构造函数来初始化成员变量</li>
 <li>将instance对象指向分配的内存空间（执行完这步 instance 就为非 null 了）</li>
 </ol>
+<blockquote>
 <p>但是在 JVM 的即时编译器中存在指令重排序的优化。也就是说上面的第二步和第三步的顺序是不能保证的，最终的执行顺序可能是 1-2-3 也可能是 1-3-2。如果是后者，则在 3 执行完毕、2 未执行之前，被线程二抢占了，这时 instance 已经是非 null 了（但却没有初始化），所以线程二会直接返回 instance，然后使用，然后顺理成章地报错。</p>
+</blockquote>
+<blockquote>
 <p>我们只需要将 instance 变量声明成 volatile 就可以了。</p>
 </blockquote>
 <pre><code>public class Singleton {
@@ -364,6 +304,8 @@ public enum Si">
 }
 </code></pre><blockquote>
 <p>使用 volatile 的主要原因是其另一个特性：禁止指令重排序优化。也就是说，在 volatile 变量的赋值操作后面会有一个内存屏障（生成的汇编代码上），读操作不会被重排序到内存屏障之前。比如上面的例子，取操作必须在执行完 1-2-3 之后或者 1-3-2 之后，不存在执行到 1-3 然后取到值的情况。从「先行发生原则」的角度理解的话，就是对于一个 volatile 变量的写操作都先行发生于后面对这个变量的读操作（这里的“后面”是时间上的先后顺序）。</p>
+</blockquote>
+<blockquote>
 <p>但是特别注意在 Java 5 以前的版本使用了 volatile 的双检锁还是有问题的。其原因是 Java 5 以前的 JMM （Java 内存模型）是存在缺陷的，即时将变量声明成 volatile 也不能完全避免重排序，主要是 volatile 变量前后的代码仍然存在重排序问题。这个 volatile 屏蔽重排序的问题在 Java 5 中才得以修复，所以在这之后才可以放心使用 volatile。</p>
 </blockquote>
 <p>至此，这样的懒汉式才是没有问题的懒汉式。</p>
@@ -391,119 +333,336 @@ public enum Si">
 </code></pre><p>使用内部类来维护单例的实例，当Singleton被加载时，其内部类并不会被初始化，故可以确保当 Singleton类被载入JVM时，不会初始化单例类。只有 <code>getInstance()</code> 方法调用时，才会初始化 instance。同时，由于实例的建立是时在类加载时完成，故天生对多线程友好，<code>getInstance()</code> 方法也无需使用同步关键字。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>无疑，单例就应使用枚举实现，最佳实践诚不欺我</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
-<p><a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="external">What is an efficient way to implement a singleton pattern in Java</a></p>
+<p><a href="http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java" target="_blank" rel="noopener">What is an efficient way to implement a singleton pattern in Java</a></p>
 <p><a href="www.javapractices.com/topic/TopicAction.do?Id=46">Java Practices -&gt; Singleton</a></p>
-<p><a href="http://www.drdobbs.com/jvm/creating-and-destroying-java-objects-par/208403883?pgno=3" target="_blank" rel="external">Creating and Destroying Java Objects: Part 1</a></p>
-<p><a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="external">如何正确地写出单例模式</a></p>
-<p><a href="https://segmentfault.com/q/1010000000646806" target="_blank" rel="external">JAVA 枚举单例模式</a> </p>
+<p><a href="http://www.drdobbs.com/jvm/creating-and-destroying-java-objects-par/208403883?pgno=3" target="_blank" rel="noopener">Creating and Destroying Java Objects: Part 1</a></p>
+<p><a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="noopener">如何正确地写出单例模式</a></p>
+<p><a href="https://segmentfault.com/q/1010000000646806" target="_blank" rel="noopener">JAVA 枚举单例模式</a> </p>
 </blockquote>
 
-      
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2016-06-30T14:27:38.000Z" itemprop="dateUpdated">2016-06-30 22:27:38</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2016/06/29/how_to_use_singleton/" target="_blank" rel="external">http://smarxpan.github.io/2016/06/29/how_to_use_singleton/</a>
+        
     </div>
     
-  </div>
-  
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
     
-<nav id="article-nav">
-  
-  
-    <a href="/2016/06/20/how_to_use_annotation/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android进阶之自定义注解</div>
-      <strong class="article-nav-caption">></strong>
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&title=《老司机来教你单例的正确姿势》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&title=《老司机来教你单例的正确姿势》 — 聪明叉的博客&source=老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《老司机来教你单例的正确姿势》 — 聪明叉的博客&url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/11/15/Linux使用指南/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Linux使用指南</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/06/20/how_to_use_annotation/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Android进阶之自定义注解</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
 </article>
 
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="how_to_use_singleton" data-title="老司机来教你单例的正确姿势" data-url="http://yoursite.com/2016/06/29/how_to_use_singleton/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"smarx"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 聪明叉
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
 </footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&title=《老司机来教你单例的正确姿势》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&title=《老司机来教你单例的正确姿势》 — 聪明叉的博客&source=老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《老司机来教你单例的正确姿势》 — 聪明叉的博客&url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2016/06/29/how_to_use_singleton/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aS47iQBAFwL7/pZntLMb4vSwzaqrCKySM7QApyd/PT3y8/jqu3s3Pv/ps/qnhgYGB8bWM19vj6pyV6yeY/NkwMDDOYbSXvgqR+bvtvW6eGQMDA+Mi+ctTullAx8DAwPhEEFwpSjEwMDDeM5KA+FTbbiUQP1CLY2BgfCGjvf3/fP2R+QYGBsZXMV7l0SaCK6lh8VQYGBhbM/IAlydnSdPtqRUNDAyMExht+ZqH17zgnMH+8TtgYGBsysgvN7vlSurZfokYGBi7MvI2/Wwxoi2J80TzJrfFwMDYiFFUum+D4Hpa+VTQx8DA2JuxsgTWFqv5Feq1DwwMjO0Y699BXpquv3v5GgMDY2vG+wfK07tkYDAbDCQpKQYGxt6MNrFry9q89J2lpDe/AAYGxhaM5KS23b++bFGsVmBgYBzGyNte7QByNsJMwnGR4WJgYGzH+NzAoP0HqBNEDAyMAxjtpfNG2yzgtrkfBgbGaYyosfVQoz9hR1fGwMDYlLEyHmgL1FmiGbUCMTAwDmC0g4FnQ2e7tHGTFGJgYGzKiNrucdE7o86GrBgYGHsz1hcm1tcs8nHpTf2NgYGxKaNtos2a/nnS2Ra9D2+9YWBg/GJGEi7bh2tbcg8EXAwMjAMYs6WK2dBxJe0rZrAYGBgHM1rqSr1ZLH9gYGBglKQ2yM6GppfLFhgYGJsy2pWI/MazRlvytWJgYJzDaBO1vLjNx5PrwwkMDIxNGX8AGw0sumuZet0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
 </script>
 
 
-  </div>
+
 </body>
 </html>

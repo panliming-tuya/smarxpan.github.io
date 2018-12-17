@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>理解Python中的元类(metaclass) | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python">
+    <meta name="description" content="理解Python中的元类(metaclass)这篇文章基本上是What are metaclasses in Python?最高赞答案的翻译，同时我简化了一点东西，加了点自己的demo。可以直接去看原文。 类也是对象在理解元类之前，你需要先掌握Python中的类。Python中类的概念借鉴于Smalltalk，这显得有些奇特。在大多数编程语言中，类就是一组用来描述如何生成一个对象的代码段。在Pyt">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Python中的元类(metaclass)">
+<meta property="og:url" content="http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="理解Python中的元类(metaclass)这篇文章基本上是What are metaclasses in Python?最高赞答案的翻译，同时我简化了一点东西，加了点自己的demo。可以直接去看原文。 类也是对象在理解元类之前，你需要先掌握Python中的类。Python中类的概念借鉴于Smalltalk，这显得有些奇特。在大多数编程语言中，类就是一组用来描述如何生成一个对象的代码段。在Pyt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T13:01:20.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Python中的元类(metaclass)">
+<meta name="twitter:description" content="理解Python中的元类(metaclass)这篇文章基本上是What are metaclasses in Python?最高赞答案的翻译，同时我简化了一点东西，加了点自己的demo。可以直接去看原文。 类也是对象在理解元类之前，你需要先掌握Python中的类。Python中类的概念借鉴于Smalltalk，这显得有些奇特。在大多数编程语言中，类就是一组用来描述如何生成一个对象的代码段。在Pyt">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">理解Python中的元类(metaclass)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">理解Python中的元类(metaclass)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-30T07:15:30.000Z" itemprop="datePublished" class="page-time">
+  2018-11-30
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#理解Python中的元类-metaclass"><span class="post-toc-number">1.</span> <span class="post-toc-text">理解Python中的元类(metaclass)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类也是对象"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">类也是对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态地创建类"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">动态地创建类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#元类"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">元类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义元类"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">自定义元类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#demo1"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">demo1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#demo2"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">demo2</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#究竟为什么要使用元类？"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">究竟为什么要使用元类？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个简单的orm-demo"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">一个简单的orm demo</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">结语</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-理解Python中的元类(metaclass)" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">理解Python中的元类(metaclass)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-30 15:15:30" datetime="2018-11-30T07:15:30.000Z" itemprop="datePublished">2018-11-30</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="理解Python中的元类-metaclass"><a href="#理解Python中的元类-metaclass" class="headerlink" title="理解Python中的元类(metaclass)"></a>理解Python中的元类(metaclass)</h1><p>这篇文章基本上是<a href="https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python" target="_blank" rel="noopener">What are metaclasses in Python?</a>最高赞答案的翻译，同时我简化了一点东西，加了点自己的demo。可以直接去看原文。</p>
+<h2 id="类也是对象"><a href="#类也是对象" class="headerlink" title="类也是对象"></a>类也是对象</h2><p>在理解元类之前，你需要先掌握Python中的类。Python中类的概念借鉴于Smalltalk，这显得有些奇特。在大多数编程语言中，类就是一组用来描述如何生成一个对象的代码段。在Python中这一点仍然成立：</p>
+<pre><code>&gt;&gt;&gt; class ObjectCreator(object):
+...       pass
+...
+
+&gt;&gt;&gt; my_object = ObjectCreator()
+&gt;&gt;&gt; print(my_object)
+&lt;__main__.ObjectCreator object at 0x8974f2c&gt;
+</code></pre><p>但是，Python中的类还远不止如此。类同样也是一种对象。是的，没错，就是对象。只要你使用关键字class，Python解释器在执行的时候就会创建一个对象.</p>
+<p>下面这段代码：</p>
+<pre><code>class ObjectCreator(object):
+      pass
+</code></pre><p>将在内存中创建一个对象，名字就是ObjectCreator。这个对象（类）自身拥有创建对象（类实例）的能力，而这就是为什么它是一个类的原因。但是，它的本质仍然是一个对象，于是你可以对它做如下的操作：</p>
+<ol>
+<li>你可以将它赋值给一个变量</li>
+<li>你可以拷贝它</li>
+<li>你可以为它增加属性</li>
+<li>你可以将它作为函数参数进行传递</li>
+</ol>
+<p>下面是示例：</p>
+<pre><code>&gt;&gt;&gt; print ObjectCreator     # 你可以打印一个类，因为它其实也是一个对象
+&lt;class &apos;__main__.ObjectCreator&apos;&gt;
+&gt;&gt;&gt; def echo(o):
+…       print o
+…
+&gt;&gt;&gt; echo(ObjectCreator)                 # 你可以将类做为参数传给函数
+&lt;class &apos;__main__.ObjectCreator&apos;&gt;
+&gt;&gt;&gt; print hasattr(ObjectCreator, &apos;new_attribute&apos;)
+Fasle
+&gt;&gt;&gt; ObjectCreator.new_attribute = &apos;foo&apos; #  你可以为类增加属性
+&gt;&gt;&gt; print hasattr(ObjectCreator, &apos;new_attribute&apos;)
+True
+&gt;&gt;&gt; print ObjectCreator.new_attribute
+foo
+&gt;&gt;&gt; ObjectCreatorMirror = ObjectCreator # 你可以将类赋值给一个变量
+&gt;&gt;&gt; print ObjectCreatorMirror()
+&lt;__main__.ObjectCreator object at 0x8997b4c&gt;
+</code></pre><h2 id="动态地创建类"><a href="#动态地创建类" class="headerlink" title="动态地创建类"></a>动态地创建类</h2><p>因为类也是对象，你可以在运行时动态的创建它们，就像其他任何对象一样。首先，你可以在函数中创建类，使用class关键字即可</p>
+<pre><code>&gt;&gt;&gt; def choose_class(name):
+…       if name == &apos;foo&apos;:
+…           class Foo(object):
+…               pass
+…           return Foo     # 返回的是类，不是类的实例
+…       else:
+…           class Bar(object):
+…               pass
+…           return Bar
+…
+&gt;&gt;&gt; MyClass = choose_class(&apos;foo&apos;)
+&gt;&gt;&gt; print MyClass              # 函数返回的是类，不是类的实例
+&lt;class &apos;__main__&apos;.Foo&gt;
+&gt;&gt;&gt; print MyClass()            # 你可以通过这个类创建类实例，也就是对象
+&lt;__main__.Foo object at 0x89c6d4c&gt;
+</code></pre><p>但这还不够动态，因为你仍然需要自己编写整个类的代码。由于类也是对象，所以它们必须是通过什么东西来生成的才对。</p>
+<p>type能动态的创建类，type可以接受一个类的描述作为参数，然后返回一个类。</p>
+<pre><code>type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
+</code></pre><p>比如下面的代码：</p>
+<pre><code>&gt;&gt;&gt; MyShinyClass = type(&apos;MyShinyClass&apos;, (), {})  # 返回一个类对象
+&gt;&gt;&gt; print MyShinyClass
+&lt;class &apos;__main__.MyShinyClass&apos;&gt;
+&gt;&gt;&gt; print MyShinyClass()  #  创建一个该类的实例
+&lt;__main__.MyShinyClass object at 0x8997cec&gt;
+</code></pre><p>type 接受一个字典来为类定义属性，因此：</p>
+<pre><code>&gt;&gt;&gt; class Foo(object):
+…       bar = True
+</code></pre><p>等同于：</p>
+<pre><code>Foo = type(&apos;Foo&apos;, (), {&apos;bar&apos;:True})
+</code></pre><p>在Python中，类也是对象，你可以动态的创建类。这就是当你使用关键字class时Python在幕后做的事情，而这就是通过元类来实现的。</p>
+<h2 id="元类"><a href="#元类" class="headerlink" title="元类"></a>元类</h2><p>元类就是创建类这种对象的东西。如果你喜欢的话，可以把元类称为“类工厂”。type就是Python的内建元类，当然了，你也可以创建自己的元类。</p>
+<p>元类本身而言，它们其实是很简单的：</p>
+<p>1)   拦截类的创建</p>
+<p>2)   修改类</p>
+<p>3)   返回修改之后的类</p>
+<h2 id="自定义元类"><a href="#自定义元类" class="headerlink" title="自定义元类"></a>自定义元类</h2><p>元类的主要目的就是为了当创建类时能够自动地改变类。</p>
+<p>Python 3中创建元类的语法:</p>
+<pre><code>class NothingMetaclass(type):
+    def __new__(mcs, name, bases, namespace):
+         # 什么都没做，你可以在这里做点什么
+        return type.__new__(mcs, name, bases, namespace)
+
+class Foo(object, metaclass=NothingMetaclass):
+    pass
+</code></pre><h3 id="demo1"><a href="#demo1" class="headerlink" title="demo1"></a>demo1</h3><ol>
+<li>new是一个静态方法,而init是一个实例方法.</li>
+<li>new方法会返回一个创建的实例,而init什么都不返回.</li>
+<li>只有在new返回一个cls的实例时后面的init才能被调用.</li>
+<li>当创建一个新实例时调用new,初始化一个实例时用init.</li>
+</ol>
+<p>看一个例子</p>
+<pre><code># 请记住，&apos;type&apos;实际上是一个类，就像&apos;str&apos;和&apos;int&apos;一样
+# 所以，你可以从type继承
+class MetaA(type):
+    # __new__ 是在__init__之前被调用的特殊方法
+    # __new__是用来创建对象并返回之的方法
+    # 而__init__只是用来将传入的参数初始化给对象
+    # 你很少用到__new__，除非你希望能够控制对象的创建
+    # 这里，创建的对象是类，我们希望能够自定义它，所以我们这里改写__new__
+    # 如果你希望的话，你也可以在__init__中做些事情
+    # 还有一些高级的用法会涉及到改写__call__特殊方法，但是我们这里不用
+    def __new__(cls, name, bases, dct):
+        print(&apos;MetaA.__new__&apos;)
+        # 这种方式不会调用__init__方法
+        # return type(name, bases, dct)
+        # 这种方式会调用__init__
+        return type.__new__(cls, name, bases, dct)
+
+    def __init__(cls, name, bases, dct):
+        print(&apos;MetaA.__init__&apos;)
+
+
+class A(object, metaclass=MetaA):
+    pass
+
+
+print(A())
+</code></pre><h3 id="demo2"><a href="#demo2" class="headerlink" title="demo2"></a>demo2</h3><pre><code>class ListMetaclass(type):
+
+    # 元类会自动将你通常传给‘type’的参数作为自己的参数传入
+    # mcs表示元类
+    # name表示创建类的类名（在这里创建类就是继承Model类的子类User）
+    # bases表示创建类继承的所有父类
+    # namespace表示创建类的所有属性和方法（以键值对的字典的形式）
+    def __new__(mcs, name, bases, namespace):
+        namespace[&apos;add&apos;] = lambda self, value: self.append(value)
+        return type.__new__(mcs, name, bases, namespace)
+
+
+# 通过metaclass，给该类动态添加了add方法
+class MyList(list, metaclass=ListMetaclass):
+    pass
+
+
+l = MyList()
+l.add(1)
+print(l)
+</code></pre><h2 id="究竟为什么要使用元类？"><a href="#究竟为什么要使用元类？" class="headerlink" title="究竟为什么要使用元类？"></a>究竟为什么要使用元类？</h2><p>现在回到我们的大主题上来，究竟是为什么你会去使用这样一种容易出错且晦涩的特性？好吧，一般来说，你根本就用不上它：</p>
+<blockquote>
+<p>“元类就是深度的魔法，99%的用户应该根本不必为此操心。如果你想搞清楚究竟是否需要用到元类，那么你就不需要它。那些实际用到元类的人都非常清楚地知道他们需要做什么，而且根本不需要解释为什么要用元类。”  —— Python界的领袖 Tim Peters</p>
+</blockquote>
+<p>元类的主要用途是创建API。一个典型的例子是Django ORM。它允许你像这样定义</p>
+<pre><code>class Person(models.Model):
+    name = models.CharField(max_length=30)
+    age = models.IntegerField()
+</code></pre><p>然后可以通过简单点API操作数据库。其背后的魔法就是定义了元类，并且使用了一些魔法能够将你刚刚定义的简单的Person类转变成对数据库的一个复杂hook。Django框架将这些看起来很复杂的东西通过暴露出一个简单的使用元类的API将其化简，通过这个API重新创建代码，在背后完成真正的工作。</p>
+<h3 id="一个简单的orm-demo"><a href="#一个简单的orm-demo" class="headerlink" title="一个简单的orm demo"></a>一个简单的orm demo</h3><pre><code>class Field:
+    def __init__(self, name, column_type):
+        self.name = name
+        self.column_type = column_type
+
+    def __str__(self):
+        return &apos;&lt;%s:%s&gt;&apos; % (self.__class__.__name__, self.name)
+
+
+class StringField(Field):
+    def __init__(self, name):
+        super(StringField, self).__init__(name, &apos;varchar(100)&apos;)
+
+
+class IntegerField(Field):
+    def __init__(self, name):
+        super(IntegerField, self).__init__(name, &apos;bigint&apos;)
+
+
+class ModelMetaclass(type):
+    def __new__(mcs, name, bases, attrs):
+        if name == &apos;Model&apos;:
+            return type.__new__(mcs, name, bases, attrs)
+        print(&quot;Found Model: %s&quot; % name)
+        mapping = dict()
+        fields = list()
+        # 将属性保存到mapping中
+        for k, v in attrs.items():
+            if isinstance(v, Field):
+                print(&apos;Found mapping : %s ==&gt; %s&apos; % (k, v))
+                mapping[k] = v
+                fields.append(k)
+        # 将Model中的Field删除
+        for k in mapping.keys():
+            attrs.pop(k)
+
+        attrs[&apos;__fields__&apos;] = list(map(lambda f: &apos;`%s`&apos; % f, fields))
+        attrs[&apos;__mapping__&apos;] = mapping
+        attrs[&apos;__table__&apos;] = name
+        return type.__new__(mcs, name, bases, attrs)
+
+
+class Model(dict, metaclass=ModelMetaclass):
+    def __init__(self, **kwargs):
+        super(Model, self).__init__(kwargs)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r&quot;&apos;Model&apos; object has no attribute &apos;%s&apos;&quot; % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+    def save(self):
+        fields = []
+        params = []
+        args = []
+
+        for k, v in self.__mapping__.items():
+            print(&quot;%s------%s&quot; % (k, v))
+            fields.append(v.name)
+            params.append(&apos;?&apos;)
+            args.append(getattr(self, k, None))
+
+        sql = &apos;insert into %s (%s) values (%s)&apos; % (self.__table__, &apos;,&apos;.join(self.__fields__), &apos;,&apos;.join(params))
+        print(&apos;SQL: %s&apos; % sql)
+        print(&apos;ARGS: %s&apos; % str(args))
+
+
+class User(Model):
+    # 定义类的属性到列的映射：
+    id = IntegerField(&apos;id&apos;)
+    name = StringField(&apos;username&apos;)
+    email = StringField(&apos;email&apos;)
+    password = StringField(&apos;password&apos;)
+
+
+u = User(id=12345, name=&apos;Michael&apos;, email=&apos;test@orm.org&apos;, password=&apos;my-pwd&apos;)
+u.save()
+</code></pre><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Python中的一切都是对象，它们要么是类的实例，要么是元类的实例，除了type。type实际上是它自己的元类，在纯Python环境中这可不是你能够做到的，这是通过在实现层面耍一些小手段做到的。其次，元类是很复杂的。对于非常简单的类，你可能不希望通过使用元类来对类做修改。你可以通过其他两种技术来修改类：</p>
+<p>1）Monkey patching</p>
+<p>2) 类装饰器</p>
+<p>当你需要动态修改类时，99%的时间里你最好使用上面这两种技术。当然了，其实在99%的时间里你根本就不需要动态修改类</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-14T13:01:20.889Z" itemprop="dateUpdated">2018-12-14 21:01:20</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/11/30/理解Python中的元类(metaclass)/" target="_blank" rel="external">http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&title=《理解Python中的元类(metaclass)》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&title=《理解Python中的元类(metaclass)》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python中的元类(metaclass)》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/05/理解Python装饰器/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">理解Python装饰器</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/07/运营商三网sdk接入整理/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">游戏接入运营商三网Android SDK整理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&title=《理解Python中的元类(metaclass)》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&title=《理解Python中的元类(metaclass)》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《理解Python中的元类(metaclass)》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/11/30/理解Python中的元类(metaclass)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpklEQVR42u3aUW4iMRAEUO5/afYACVDVdq+I9PyFYJj4OdK4KffjEY/n2/Hzyp+vX3366vr3n14eeHh4eAtTfx6MfOr5YuXLjYeHh7fHe/VETR7xsy3k/En+fs54eHh438PLH9YtILkeDw8P7y/y3r+TlMsnhTseHh7e9/DaKCHZDNpp5Z+uZC14eHh4p5nAhfJ67/XK+R4eHh7ecWDaHmW1wW6+JQxni4eHh7fAyx+4bXtB3lZ1K+p9uVh4eHh4C7yTKjSJG9rv5ndIfgDg4eHh3eWdP7Jnwe77b7XHbB/yaTw8PLyrvDwsyEPePETI2xTakAIPDw9vm9e2Vc2aBobTimfyOPkP4OHh4cW8Nkg9YbetV21M/Mv98fDw8BZ4dw+c2sOw9spkaeoTPDw8PLwRL38cnzcH3Jp6nVXj4eHhXeUlx1FJEdzGuHkA0Rb0eHh4eHu8k8mdFNZtL9hwc8LDw8Nb5rUNT0mJ3BbEbRBcR7d4eHh4V3l3S9v2/m18HH0XDw8Pb4HXNj+1BfesNaE+u3u/oHh4eHj/kbdX7LbTnW1UeHh4eHu8GTUvcJOFGJ7atUuGh4eHd8xrG62SpqjZ0sw2gw/X4OHh4a3x8oj2vHUgX4JZ5PFLDIGHh4d3lZcg80aoWbF+6zDsQ4yLh4eHt8BrA9z8mnyTmAXHRUqNh4eHt8abtVLN/nwefLTv4+Hh4W3zWkBbjudbyMn48IsBDw8P75j3LMetI//zg7Rkm8HDw8Pb4B3tJ6N2q9loFw4PDw9vm7d361mgcHlDwsPDw1vjJQVueyjVHqc9NgYeHh7e1/PydoHZ6/ZKPDw8vO/hXTh5K1sHhpsKHh4e3hovDwJm1WzeUDWLIV7OEA8PD2+BdzLRdoNpY98LZ3d4eHh4N3n/AEMmsYYVIxnfAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Mac设置开机启动 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Mac">
+    <meta name="description" content="Mac设置开机启动 本文针对命令行使用的开发工具或自己编写的脚本设置开机启动，图形化界面的程序仅需要设置-&amp;gt;用户与群组-&amp;gt;登录项中即可配置。  相比于Linux开机启动设置的简单方便–配置rc.local文件即可，mac设置开机启动略显麻烦。 如果是使用homebrew安装软件自然不用考虑开机启动这回事，但有时候想执行自己的脚本或者有特殊需求，就不得不自己处理开机启动了。 1. 使用登">
+<meta name="keywords" content="Mac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac设置开机启动">
+<meta property="og:url" content="http://smarxpan.github.io/2017/01/28/Mac设置开机启动/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="Mac设置开机启动 本文针对命令行使用的开发工具或自己编写的脚本设置开机启动，图形化界面的程序仅需要设置-&amp;gt;用户与群组-&amp;gt;登录项中即可配置。  相比于Linux开机启动设置的简单方便–配置rc.local文件即可，mac设置开机启动略显麻烦。 如果是使用homebrew安装软件自然不用考虑开机启动这回事，但有时候想执行自己的脚本或者有特殊需求，就不得不自己处理开机启动了。 1. 使用登">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T12:57:34.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac设置开机启动">
+<meta name="twitter:description" content="Mac设置开机启动 本文针对命令行使用的开发工具或自己编写的脚本设置开机启动，图形化界面的程序仅需要设置-&amp;gt;用户与群组-&amp;gt;登录项中即可配置。  相比于Linux开机启动设置的简单方便–配置rc.local文件即可，mac设置开机启动略显麻烦。 如果是使用homebrew安装软件自然不用考虑开机启动这回事，但有时候想执行自己的脚本或者有特殊需求，就不得不自己处理开机启动了。 1. 使用登">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mac设置开机启动</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mac设置开机启动</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-28T07:15:30.000Z" itemprop="datePublished" class="page-time">
+  2017-01-28
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Mac设置开机启动"><span class="post-toc-number">1.</span> <span class="post-toc-text">Mac设置开机启动</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-使用登录项添加可执行脚本（推荐）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 使用登录项添加可执行脚本（推荐）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-launchctl加载plist文件"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. launchctl加载plist文件</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Mac设置开机启动" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mac设置开机启动</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-01-28 15:15:30" datetime="2017-01-28T07:15:30.000Z" itemprop="datePublished">2017-01-28</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Mac设置开机启动"><a href="#Mac设置开机启动" class="headerlink" title="Mac设置开机启动"></a>Mac设置开机启动</h1><blockquote>
+<p>本文针对命令行使用的开发工具或自己编写的脚本设置开机启动，图形化界面的程序仅需要<code>设置</code>-&gt;<code>用户与群组</code>-&gt;<code>登录项</code>中即可配置。</p>
+</blockquote>
+<p>相比于Linux开机启动设置的简单方便–配置<code>rc.local</code>文件即可，mac设置开机启动略显麻烦。</p>
+<p>如果是使用homebrew安装软件自然不用考虑开机启动这回事，但有时候想执行自己的脚本或者有特殊需求，就不得不自己处理开机启动了。</p>
+<h2 id="1-使用登录项添加可执行脚本（推荐）"><a href="#1-使用登录项添加可执行脚本（推荐）" class="headerlink" title="1. 使用登录项添加可执行脚本（推荐）"></a>1. 使用登录项添加可执行脚本（推荐）</h2><p>在用户的家目录编写一个sh脚本，例如：</p>
+<p>test.sh</p>
+<pre><code>#!/bin/bash
+
+# 在用户的家目录创建一个文件
+touch ~/haha.txt
+</code></pre><p>添加可执行权限</p>
+<pre><code>chmod 755 test.sh
+</code></pre><p>进入<code>设置</code>-&gt;<code>用户与群组</code>-&gt;<code>登录项</code>，点+号，选择test.sh文件即可。</p>
+<p>重启电脑，验证是否新建了文件，如存在说明配置成功，修改该文件内容为你想要的配置。</p>
+<p>该文件将会在开机时执行，可在命令行中执行的开机启动项均可在此文件中配置。</p>
+<blockquote>
+<p>PS: 开机后会显示一个“进程已结束”的终端，不太爽，需要进入终端的<code>偏好设置</code>-&gt;<code>shell</code>选项卡-&gt;<code>当shell退出时</code>, 选择“关闭窗口”。这样开机时就不会出现一个终端了</p>
+</blockquote>
+<h2 id="2-launchctl加载plist文件"><a href="#2-launchctl加载plist文件" class="headerlink" title="2. launchctl加载plist文件"></a>2. launchctl加载plist文件</h2><p>macOS开机启动一般使用launchctl加载plist文件</p>
+<p>plist文件放置处：</p>
+<pre><code>~/Library/LaunchAgents 由用户自己定义的任务项
+/Library/LaunchAgents 由管理员为用户定义的任务项
+/Library/LaunchDaemons 由管理员定义的守护进程任务项
+/System/Library/LaunchAgents 由Mac OS X为用户定义的任务项
+/System/Library/LaunchDaemons 由Mac OS X定义的守护进程任务项
+</code></pre><p>建议放在 ~/Library/LaunchAgents 下面。</p>
+<p>下面再来理解几个基础概念：</p>
+<p>/System/Library和/Library和~/Library目录的区别？</p>
+<pre><code>/System/Library目录是存放Apple自己开发的软件。
+/Library目录是系统管理员存放的第三方软件。
+~/Library/是用户自己存放的第三方软件。
+</code></pre><p>LaunchDaemons和LaunchAgents的区别？</p>
+<pre><code>LaunchDaemons是用户未登陆前就启动的服务（守护进程）。
+LaunchAgents是用户登陆后启动的服务（守护进程）。
+</code></pre><p>plist文件示例</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//EN
+http://www.apple.com/DTDs/PropertyList-1.0.dtd &gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.example.exampled&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+         &lt;string&gt;exampled&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre><p>launchd.plist的部分键值说明，完整版见<a href="https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/launchd.plist.5.html#//apple_ref/doc/man/5/launchd.plist" target="_blank" rel="noopener">launchd.plist(5)</a></p>
+<p><strong>Label (必须)</strong></p>
+<p>该项服务的名称</p>
+<p><strong>ProgramArguments</strong></p>
+<p>指定可执行文件路径及其参数，比如执行<code>ls -a</code>，对应到该配置中，应该写作：</p>
+<pre><code>&lt;key&gt;ProgramArguments&lt;/key&gt;
+&lt;array&gt;
+     &lt;string&gt;ls&lt;/string&gt;         
+     &lt;string&gt;-a&lt;/string&gt;
+&lt;/array&gt;
+</code></pre><p><strong>RunAtLoad (可选)</strong></p>
+<p>标识launchd在加载完该项服务之后立即启动路径指定的可执行文件。默认值为 false,设置为 true 即可实现开机运行脚本文件。</p>
+<p><strong>StartCalendarInterval</strong> (可选)</p>
+<p>该关键字可以用来设置定时执行可执行程序，可使用 Month, Day, Hour, Minute, Second等子关键字，它可以指定脚本在多少月，天，小时，分钟，秒，星期几等时间上执行，若缺少某个关键字则表示任意该时间点，类似于 Unix 的 Crontab 计划任务的设置方式，比如在该例子中设置为每小时的20分的时候执行该命令。</p>
+<p><strong>KeepAlive</strong>（可选）</p>
+<p>是否保持持续运行</p>
+<p>所有key关键字详细使用说明可以在Mac OS X终端下使用命令 man launchd.plist 查询</p>
+<p>修改 plist 文件权限</p>
+<pre><code>sudo chown root:wheel ~/Library/LaunchAgents/example.plist
+sudo chmod 644 ~/Library/LaunchAgents/example.plist
+</code></pre><p>生效配置</p>
+<pre><code># 载入配置
+sudo launchctl load ~/Library/LaunchAgents/example.plist
+# 卸载配置
+sudo launchctl unload ~/Library/LaunchAgents/example.plist
+# 检查语法是否正确
+plutil ~/Library/LaunchAgents/example.plist
+# 查看服务运行状态
+sudo launchctl list
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-14T12:57:34.483Z" itemprop="dateUpdated">2018-12-14 20:57:34</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/01/28/Mac设置开机启动/" target="_blank" rel="external">http://smarxpan.github.io/2017/01/28/Mac设置开机启动/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&title=《Mac设置开机启动》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&title=《Mac设置开机启动》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mac设置开机启动》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/02/04/Mac使用指南/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Mac使用指南</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/01/23/Rails学习笔记/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Rails学习笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&title=《Mac设置开机启动》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&title=《Mac设置开机启动》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mac设置开机启动》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/01/28/Mac设置开机启动/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aS24jMQwFwNz/0s5mFgGCbr8nOgO0VFoZ/siqXhAUya+veL1+rPt3fn/68/12zw8vDAyMxzJet2vtO/f7X50heRyX+2BgYBzAyLe+j3j3O9wfN/9fDAwMjDYItuljsjAwMDDmjPvraPtpG+gxMDDOZKwFvrw814byP7yLY2BgPJCRH+v/v/6T/gYGBsajGK9ytQ3OJPmbnOffPhgYGFsz2qJ/cqA8dWuHM978CwYGxqaMZDBiLZhOxsLqx4eBgXEkY62FmR80eTT5dzAwME5jTDadhOO1FBMDA+NMxmQ8Ky+rTT69rBpiYGBszVgbs0iul8VRglTyck8MDIytGXn4y6+vbbqZNzKjx4SBgbEdoy3Kt43MNn1s98HAwDiB0YbCycDEpIQXleEwMDA2ZSQtxvmY1/xX0cUVAwNjU0b7B/O077PhOOJhYGA8nNEG3Lzp+IESf54gYmBgHMCYdAMnzYD8Mb0JxxgYGFsz1q61CTIZS/3U+CwGBsYJjKR5WadrMWZSjLtsYWJgYBzGaEcr5uF18dKLgYFxACMZG22L+0k4XutIXqaGGBgY2zFe5Wqvr0mozcN9VFzDwMDYjrEW5vIBi6KUvzTkUcMwMDAey2iDbJ4+tgnox3oaGBgYmzLywNeG5uS6Ox/swMDAwMiPMkkEJ7MTGBgYGBNS257Mmwpvhi0wMDC2Y+QtzHZUYnJxLRJKDAyMrRnt1TEfxWhLaflvF5uaGBgYz2N8AweGIuA8mnANAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

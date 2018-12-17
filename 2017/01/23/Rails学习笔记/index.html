@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Rails学习笔记 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="rails">
+    <meta name="description" content="Rails学习笔记git操作使用 Git 之前，要做些一次性设置。这些设置对整个系统都有效，因此一台电脑只需设置一次： git config --global user.name &amp;quot;Your Name&amp;quot; git config --global user.email your.email@example.com 初始化一个新仓库： git init 把项目中的所有文件都放到仓库中">
+<meta name="keywords" content="rails">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rails学习笔记">
+<meta property="og:url" content="http://smarxpan.github.io/2017/01/23/Rails学习笔记/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="Rails学习笔记git操作使用 Git 之前，要做些一次性设置。这些设置对整个系统都有效，因此一台电脑只需设置一次： git config --global user.name &amp;quot;Your Name&amp;quot; git config --global user.email your.email@example.com 初始化一个新仓库： git init 把项目中的所有文件都放到仓库中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T12:47:53.938Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rails学习笔记">
+<meta name="twitter:description" content="Rails学习笔记git操作使用 Git 之前，要做些一次性设置。这些设置对整个系统都有效，因此一台电脑只需设置一次： git config --global user.name &amp;quot;Your Name&amp;quot; git config --global user.email your.email@example.com 初始化一个新仓库： git init 把项目中的所有文件都放到仓库中">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Rails学习笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Rails学习笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-23T07:15:30.000Z" itemprop="datePublished" class="page-time">
+  2017-01-23
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Rails学习笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">Rails学习笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git操作"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">git操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#撤销操作"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">撤销操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Rails内建环境"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Rails内建环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#账户持久会话设计方案"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">账户持久会话设计方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部署heroku"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">部署heroku</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Rails学习笔记" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Rails学习笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-01-23 15:15:30" datetime="2017-01-23T07:15:30.000Z" itemprop="datePublished">2017-01-23</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Rails学习笔记"><a href="#Rails学习笔记" class="headerlink" title="Rails学习笔记"></a>Rails学习笔记</h1><h2 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h2><p>使用 Git 之前，要做些一次性设置。这些设置对整个系统都有效，因此一台电脑只需设置一次：</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email your.email@example.com
+</code></pre><p>初始化一个新仓库：</p>
+<pre><code>git init
+</code></pre><p>把项目中的所有文件都放到仓库中：</p>
+<pre><code>git add -A
+</code></pre><p>提交：</p>
+<pre><code>git commit -m &quot;Initialize repository&quot;
+</code></pre><p>提交<strong>已加入版本控制文件</strong>的全部改动：</p>
+<pre><code>git commit -am &quot;message&quot;
+</code></pre><p>检查状态</p>
+<pre><code>git status
+</code></pre><p>强制撤销未提交的改动：</p>
+<pre><code>git checkout -f
+</code></pre><p>添加至远程仓库，然后首次推送：</p>
+<pre><code>git remote add origin git@bitbucket.org:&lt;username&gt;/hello_app.git
+git push -u origin --all
+</code></pre><p>之后的推送只要<code>git push</code>即可</p>
+<p><strong>分支操作</strong></p>
+<pre><code># 查看分支
+git branch 
+# 查看所有分支（包含远程）
+git branch -a
+# 合并分支
+git merge branch_name
+# 删除本地分支
+git branch --delete branch_name
+# 删除远程分支
+git push origin --delete branch_name
+# 创建并切换到该分支
+git checkout -b xxx
+</code></pre><h2 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h2><p>一般来说，下面这两个命令是相互抵消的：</p>
+<pre><code>rails generate controller StaticPages home help
+rails destroy  controller StaticPages home help
+
+# 生成Model
+rails generate model User name:string email:string
+# 删除Model
+rails destroy model User
+</code></pre><p>数据库</p>
+<pre><code># 数据迁移
+rails db:migrate
+# 回滚
+rails db:rollback
+# 回到最开始的状态
+rails db:migrate VERSION=0
+</code></pre><p>把数字 0 换成其他数字就会回到相应的版本，这些版本数字是按照迁移执行的顺序排列的。</p>
+<h2 id="Rails内建环境"><a href="#Rails内建环境" class="headerlink" title="Rails内建环境"></a>Rails内建环境</h2><p>Rails 内建了三个环境，分别是测试环境、开发环境和生产环境。Rails 控制台默认使用的是开发环境：</p>
+<pre><code>$ rails console
+Loading development environment
+&gt;&gt; Rails.env
+=&gt; &quot;development&quot;
+</code></pre><p>Rails 本地服务器和控制台一样，默认使用开发环境，不过也可以在其他环境中运行：</p>
+<pre><code>$ rails server --environment production
+</code></pre><p>如果想在生产环境中运行应用，要先有一个生产数据库。在生产环境中执行 rails db:migrate 命令可以生成这个数据库：</p>
+<pre><code>$ rails db:migrate RAILS_ENV=production
+</code></pre><p>把应用部署到 Heroku 后，可以使用 <code>heroku run console</code> 命令进入控制台查看所用的环境：</p>
+<pre><code>$ heroku run console
+&gt;&gt; Rails.env
+=&gt; &quot;production&quot;
+</code></pre><h2 id="账户持久会话设计方案"><a href="#账户持久会话设计方案" class="headerlink" title="账户持久会话设计方案"></a>账户持久会话设计方案</h2><ol>
+<li>生成随机字符串，用作记忆令牌；</li>
+<li>把这个令牌存入浏览器的 cookie 中，并把过期时间设为未来的某个日期；</li>
+<li>在数据库中存储令牌的摘要；</li>
+<li>在浏览器的 cookie 中存储加密后的用户 ID；</li>
+<li>如果 cookie 中有用户的 ID，就用这个 ID 在数据库中查找用户，并且检查 cookie 中的记忆令牌和数据库中的哈希摘要是否匹配。</li>
+</ol>
+<h2 id="部署heroku"><a href="#部署heroku" class="headerlink" title="部署heroku"></a>部署heroku</h2><p>部署到 Heroku 之前要注意一个问题：推送之后，迁移完成之前，应用基本上处于不可用状态。在拥有巨大流量的线上网站中，更新前最好开启维护模式：</p>
+<pre><code>$ heroku maintenance:on
+$ git push heroku
+$ heroku run rails db:migrate
+$ heroku maintenance:off
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-14T12:47:53.938Z" itemprop="dateUpdated">2018-12-14 20:47:53</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/01/23/Rails学习笔记/" target="_blank" rel="external">http://smarxpan.github.io/2017/01/23/Rails学习笔记/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&title=《Rails学习笔记》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&title=《Rails学习笔记》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/01/23/Rails学习笔记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Rails学习笔记》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/01/28/Mac设置开机启动/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Mac设置开机启动</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/01/17/rails项目部署heroku教程/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">heroku安装及部署rails项目教程</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&title=《Rails学习笔记》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&title=《Rails学习笔记》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/01/23/Rails学习笔记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Rails学习笔记》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/01/23/Rails学习笔记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS27jMBAFwNz/0s56MLD8XlMOILK0ChJbYmnR6d/PT3y94uv/zyd3br81vDAwMB7LWDnW9bfeffId4Br24SkYGBgHMJJQmH8++c31K2ufhYGBgdEGx2vGLPhiYGBg5IykHJ0lhRgYGBjXjKSIvT5c+9c8ZN9ci2NgYDyQkXfd//7nr8w3MDAwHsV4lVcyJGhD6uwk/9wHAwNja0ZboK4cNB8kzM6DgYFxAiNfd0gSx7zgnJXKH2pxDAyM7RhJ2F1ZiZillfnLxcDAOIeRDBRnjblZo78N1hgYGKcx8oRsNlZs0836iRgYGBsx8sJ1VujOwmUSsuvdDQwMjMcy8jJ1fZtjNshs23MYGBj7Me5t+ieF6MrR374IDAyMrRntI5OSMi8+25dSjAQwMDA2ZeTpYBL+8rZ+O+Cs81AMDIyNGHn5mi9A5C25/P7FzggGBsZGjPWUbn200KaAGBgY5zC+3fyaheA8QGNgYJzAaCvBvB02a8/lh47KWgwMjI0Y622vNnDn9y9WxDAwMA5grAwG8tZY+2qK/xUYGBgHML694JWzhzNKDAyMTRmv8mobYfliWd5oKypjDAyMLRjtulg7pLyrcC12RjAwMDZlzBYjZosUCXsYcDEwMA5gtG24leC4kvZ9yHMxMDAw4ubavS/oiwEXAwNjU8ZKUtgG62IgioGBcQCjHQaslKN12ndvuw0DA+OBjNmKw6w0XR8hLA01MTAwnsf4BdKxk2HmtZKgAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

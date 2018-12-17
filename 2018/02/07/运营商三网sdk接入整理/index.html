@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>游戏接入运营商三网Android SDK整理 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="游戏接入运营商三网Android SDK整理记录下坑爹的三网支付运营商接入。 融合支付移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。 因此需要自行融合三网支付接入游戏。 咪咕的特殊之处（需验证是否符合需求）Q. 三网融合计费功能集成。  26005 SDK已经集成移动，电信，联通三">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏接入运营商三网Android SDK整理">
+<meta property="og:url" content="http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="游戏接入运营商三网Android SDK整理记录下坑爹的三网支付运营商接入。 融合支付移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。 因此需要自行融合三网支付接入游戏。 咪咕的特殊之处（需验证是否符合需求）Q. 三网融合计费功能集成。  26005 SDK已经集成移动，电信，联通三">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-15T03:43:57.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="游戏接入运营商三网Android SDK整理">
+<meta name="twitter:description" content="游戏接入运营商三网Android SDK整理记录下坑爹的三网支付运营商接入。 融合支付移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。 因此需要自行融合三网支付接入游戏。 咪咕的特殊之处（需验证是否符合需求）Q. 三网融合计费功能集成。  26005 SDK已经集成移动，电信，联通三">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">游戏接入运营商三网Android SDK整理</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">游戏接入运营商三网Android SDK整理</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-07T07:15:30.000Z" itemprop="datePublished" class="page-time">
+  2018-02-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#游戏接入运营商三网Android-SDK整理"><span class="post-toc-number">1.</span> <span class="post-toc-text">游戏接入运营商三网Android SDK整理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#融合支付"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">融合支付</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#咪咕的特殊之处（需验证是否符合需求）"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">咪咕的特殊之处（需验证是否符合需求）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#联通"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">联通</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#爱游戏融合"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">爱游戏融合</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#migu"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">migu</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注意要点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">注意要点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#混淆"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">混淆</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支付和初始化API及配置相关"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">支付和初始化API及配置相关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#联通-1"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">联通</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#初始化"><span class="post-toc-number">1.4.1.1.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#支付"><span class="post-toc-number">1.4.1.2.</span> <span class="post-toc-text">支付</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#支付回调（listener）"><span class="post-toc-number">1.4.1.3.</span> <span class="post-toc-text">支付回调（listener）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#咪咕"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">咪咕</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取运营商"><span class="post-toc-number">1.4.2.1.</span> <span class="post-toc-text">获取运营商</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#初始化-1"><span class="post-toc-number">1.4.2.2.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#支付-1"><span class="post-toc-number">1.4.2.3.</span> <span class="post-toc-text">支付</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#爱游戏"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">爱游戏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#初始化-2"><span class="post-toc-number">1.4.3.1.</span> <span class="post-toc-text">初始化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#支付-2"><span class="post-toc-number">1.4.3.2.</span> <span class="post-toc-text">支付</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#错误代码"><span class="post-toc-number">1.4.3.3.</span> <span class="post-toc-text">错误代码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户端功能划分"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">客户端功能划分</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-运营商三网sdk接入整理" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">游戏接入运营商三网Android SDK整理</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-07 15:15:30" datetime="2018-02-07T07:15:30.000Z" itemprop="datePublished">2018-02-07</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="游戏接入运营商三网Android-SDK整理"><a href="#游戏接入运营商三网Android-SDK整理" class="headerlink" title="游戏接入运营商三网Android SDK整理"></a>游戏接入运营商三网Android SDK整理</h1><p>记录下坑爹的三网支付运营商接入。</p>
+<h2 id="融合支付"><a href="#融合支付" class="headerlink" title="融合支付"></a>融合支付</h2><p>移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。</p>
+<p>因此需要自行融合三网支付接入游戏。</p>
+<h3 id="咪咕的特殊之处（需验证是否符合需求）"><a href="#咪咕的特殊之处（需验证是否符合需求）" class="headerlink" title="咪咕的特殊之处（需验证是否符合需求）"></a>咪咕的特殊之处（需验证是否符合需求）</h3><p>Q. 三网融合计费功能集成。</p>
+<ol>
+<li>26005 SDK已经集成移动，电信，联通三家运营商的统一计费功能，能够满足一次集 成，运营商话费支付全覆盖的业务场景。无需自行集成三家运营商的计费SDK。</li>
+<li>三网融合计费功能需在业务平台进行申请后才能够使用。( 暂时没有对合作伙伴开放申请)</li>
+</ol>
+<h3 id="联通"><a href="#联通" class="headerlink" title="联通"></a>联通</h3><p>联通沃商店提供的SDK中，自带有测试用计费文件(Multimode_UniPay_payinfo.jar包含计费文件），如果CP做成的版本是为在沃商店上线使用的，只需要在代码中，将支付接口中计费点编号与Cp开发者社区里面的审核过的计费点编号对应好，打包成APK后，自测通过，即可提交开发者社区，开发者社区会自动为CP替换正式的计费文件。<br>如果CP使用SDK的三网支付能力，必须到开发者社区进行打包。如果CP自己下载计费点文件，自行打包，移动支付能力将不能使用<br>渠道外放单网包，只有联通话费能力，电信、移动卡支付会跳转到沃币支付是正常的。打包方式：到社区》渠道商打包，下载外渠道商用计费文件替换payinfo.jar自行打包即可</p>
+<p>不使用sdk自带第三方支付，如何配置？</p>
+<p>A：</p>
+<pre><code>&lt;meta-data android:name=&quot;wostore_billing_otherpay&quot;&gt;&lt;/meta-data&gt; android:value=&quot;false&quot;/&gt;
+</code></pre><p>设置为false，并且支付宝的相关jar可以不加入工程libs目录</p>
+<h3 id="爱游戏融合"><a href="#爱游戏融合" class="headerlink" title="爱游戏融合"></a>爱游戏融合</h3><p>融合只要在接入段自测联通即可，咪咕计费嵌入游戏后为测试计费点，提交包体，爱游戏OPEN系统送咪咕完成计费加固后，咪咕计费点正式生效。</p>
+<p><a href="http://open.play.cn/dev/wiki/p1?page=1" target="_blank" rel="noopener">http://open.play.cn/dev/wiki/p1?page=1</a></p>
+<h3 id="migu"><a href="#migu" class="headerlink" title="migu"></a>migu</h3><p>Q. 如果 不接入联通支付 或 自行拟合三网包 ，联通相关的文件和配置可以 省略吗?<br>可以省略，但是如果有后续三网融合计费的业务需求，建议保留。<br>如果不接入联通、电信支付，可以删除如下文件和配置:</p>
+<ol>
+<li>SDK/AndroidManifest.xml.activity.txt中联通相关配置，如下: </li>
+</ol>
+<pre><code>&lt;service android:name=&quot;com.unicom.channel.paysecurity.TouchPayService&quot;
+</code></pre><p>/&gt;<br>            <activity android:name="com.unicom.channel.paysecurity.SecurityActivity" android:configchanges="screenSize|orientation" android:exported="true" android:theme="@android:style/Theme.Translucent.NoTitleBar"><br>                 </activity></p>
+<ol start="2">
+<li><p>SDK/AndroidManifest.xml.permision.txt中联通相关配置，如下:</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.GET_TASKS&quot; /&gt; &lt;!-- 联通pay --&gt;
+</code></pre></li>
+<li>SDK\libs\armeabi目录下libsmsprotocol.so、libunipaychsec.so两个文件</li>
+<li><p>SDK\assets目录<br>下feeInfo.dat、unicom_channel_classez.jar、unicom_channel_resource.dat 三个文件</p>
+<p>咪咕游戏SDK和Baidu、360等其他SDK融合时的不兼容，如何解决?</p>
+</li>
+<li>开一个空的Activity，在这个Activity中完成其他SDK的初始化接口调用;</li>
+<li>然后再加载咪咕的so文件(System.loadLibrary(“”megjb”“););</li>
+<li>同时在Activity 跳转到GameOpenActivity中;</li>
+<li>GameOpenActivity 会跳转到 cn.cmgame.demo.MainActivity ——在string.xml中<br>的”g_class_name”指定的游戏Activity——中调用咪咕的初始化接口。 (避免两个初始化的接口在同一个Activity中调用)</li>
+</ol>
+<h2 id="注意要点"><a href="#注意要点" class="headerlink" title="注意要点"></a>注意要点</h2><ol>
+<li><p>计费文件</p>
+<p> 先上传游戏，获取爱游戏的计费文件</p>
+<p> 沃商店的计费文件比较特殊，上传游戏之后就可以获取，但是每个渠道的</p>
+</li>
+<li><p>渠道打包</p>
+<p> 先提交通过审核一个通用包，再进行单独渠道包的上传</p>
+</li>
+<li><p>计费能力申报顺序</p>
+<p> 爱游戏和联通并行–&gt;获取爱游戏和联通计费能力后–&gt;融合爱游戏和联通到咪咕后台上传打包</p>
+</li>
+</ol>
+<h2 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h2><pre><code>#---------------爱游戏短代-------------
+-keep class cn.egame.terminal.**{*;}
+#---------------爱游戏短代-------------
+
+#---------------联通短代---------------
+-libraryjars  libs/Multimode_UniPay_base.jar
+-libraryjars  libs/miniapay.jar
+-libraryjars  libs/alipaysdk.jar
+-libraryjars  libs/MobileSecSdk.jar
+-libraryjars  libs/utdid4all-1.0.4.jar
+
+-keep class com.unipay.account.**{*;}
+-keep class com.unicom.dcLoader.**{*;}
+-keep class com.unicom.wostore.unipay.paysecurity.**{*;}
+-keep class com.wow.shell.**{*;}
+
+-keep class cn.egame.terminal.miniapay.**{*;}
+-keep class egame.terminal.feesmslib.jni.**{*;}
+
+-keep class com.alipay.sdk.**{*;}
+-keep class com.alipay.auth.**{*;}
+-keep class com.alipay.android.app.**{*;}
+#---------------联通短代---------------
+</code></pre><h2 id="支付和初始化API及配置相关"><a href="#支付和初始化API及配置相关" class="headerlink" title="支付和初始化API及配置相关"></a>支付和初始化API及配置相关</h2><h3 id="联通-1"><a href="#联通-1" class="headerlink" title="联通"></a>联通</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ol>
+<li>继承UnicomApplicationWrapper</li>
+<li><p>初始化</p>
+<pre><code>public void initPayContext(Activity activity, UnipayPayResultListener listener)
+</code></pre></li>
+</ol>
+<h4 id="支付"><a href="#支付" class="headerlink" title="支付"></a>支付</h4><p>单机</p>
+<pre><code>Utils.getInstances().pay(Context mContext,   String number,UnipayPayResultListener listener);
+</code></pre><p>联网</p>
+<pre><code>Utils.getInstances().payOnline (Context mContext,  String number,   String monthType,  String orderid,UnipayPayResultListener listener);
+</code></pre><h4 id="支付回调（listener）"><a href="#支付回调（listener）" class="headerlink" title="支付回调（listener）"></a>支付回调（listener）</h4><pre><code>public class mCallback implements UnipayPayResultListener
+{
+        public void PayResult(String paycode, int flag, int flag2, String error) {
+            // flag为支付回调结果，flag2为回调类型，error为当前结果描述，paycode是完整的计费点编码
+            switch (flag) {
+            case 1://success
+                //此处放置支付请求已提交的相关处理代码
+                break;
+            case 2://fail
+                //此处放置支付请求失败的相关处理代码
+                break;
+            case 3://cancel
+                //此处放置支付请求被取消的相关处理代码
+                break;
+            default:
+                break;
+        }
+}
+
+flag2参数，请参考如下定义：
+SMS_SEND = 5;
+VAC_SEND = 8;
+MONTH_SEND = 11;
+UNMONTH_SEND = 12;
+DX_SMS_SEND = 13;
+
+SUBCOMMIT_VAC = 20; // VAC支付提交
+SUCCESS_SMS = 21; // 短代支付成功
+SUBCOMMIT_WEBALIPAY = 22; // WEB支付宝提交
+SUCCESS_KALIPAY = 23; // 支付宝快捷支付成功
+SUBCOMMIT_SZF = 24; // 神州付提交
+SUCCESS_EXCHANGECODE = 25; // 兑换成功
+CANCEL_FIRSTPAGE = 26; // 第一次确认支付取消
+CANCEL_VACPAYPAGE = 27; // VAC支付页面取消
+CANCEL_OTHERPAYPAGE = 28; // 其他支付页面取消
+CANCEL_CHANGECODE = 29; // 兑换码页面取消
+CANCEL_VACYZM = 30; // 话费验证码页面取消
+CANCEL_CHINAMOBILE = 31;
+SUCCESS_POINTPAY = 32; // 沃币支付成功
+SUBCOMMIT_ANCI = 35;
+UNSUBCOMMIT_ANCI = 36;
+SUBCOMMIT_BANKCARD = 37;
+SUBCOMMIT_WEIXINPAY = 38;
+SUBCOMMIT_QQPAY = 39;
+</code></pre><h3 id="咪咕"><a href="#咪咕" class="headerlink" title="咪咕"></a>咪咕</h3><h4 id="获取运营商"><a href="#获取运营商" class="headerlink" title="获取运营商"></a>获取运营商</h4><pre><code>IOperatorCallback operatorCallback = new IOperatorCallback() {
+             @Override
+            public void onResult(int resultCode) { switch (resultCode) {
+                case IsOperator.CMCC://移动
+                break;
+                case IsOperator.CUCC://联通
+                break;
+                case IsOperator.CTCC://电信
+                break;
+                case IsOperator.UNKNOWN://未知状态
+             break;
+             }}};
+   GameInterface.CheckOperator(this, operatorCallback);
+</code></pre><h4 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h4><p>application中加载so：</p>
+<pre><code>System.loadLibrary(&quot;megjb&quot;);
+</code></pre><p>设置咪咕为首屏Activity</p>
+<p>游戏Activity中调用初始化</p>
+<pre><code> void GameInterface.initializeApp(Activity main, String loginNo, ILoginCallback
+callback);
+</code></pre><h4 id="支付-1"><a href="#支付-1" class="headerlink" title="支付"></a>支付</h4><pre><code>IPayCallback billingCallback = new IPayCallback() {
+Override
+public void onResult(int resultCode, String billingIndex, Object arg) {
+        // 游戏业务收到付费结果后的处理逻辑
+        switch (resultCode) {
+            case BillingResult.SUCCESS: //成功
+                break;
+            case BillingResult.FAILED://失败
+                break; ......
+};
+
+void GameInterface.doBilling(Context context, int propsType, String billingIndex, String cpParam, IPayCallback billingCallback);
+</code></pre><p>只有成功和失败，没有错误代码</p>
+<h3 id="爱游戏"><a href="#爱游戏" class="headerlink" title="爱游戏"></a>爱游戏</h3><pre><code>&lt;meta-data android:name=&quot;EGAME_IAPPPAY&quot; android:value=&quot;false&quot; /&gt;
+&lt;meta-data android:name=&quot;EGAME_ALIPAY&quot; android:value=&quot;false&quot; /&gt;
+&lt;meta-data android:name=&quot;EGAME_UNIPAY&quot; android:value=&quot;false&quot; /&gt;
+&lt;meta-data android:name=&quot;EGAME_NOWWECHATPAY&quot; android:value=&quot;false&quot; /&gt;
+&lt;meta-data android:name=&quot;EGAME_BESTPAY&quot; android:value=&quot;false&quot; /&gt;
+&lt;meta-data android:name=&quot;EGAME_CARDPSWD&quot;  android:value=&quot;false&quot;/&gt;
+&lt;meta-data android:name=&quot;EGAME_HUAFEI_CARD&quot; android:value=&quot;false&quot;/&gt;
+</code></pre><h4 id="初始化-2"><a href="#初始化-2" class="headerlink" title="初始化"></a>初始化</h4><p>activity中初始化</p>
+<pre><code>EgamePay.init(this);
+</code></pre><h4 id="支付-2"><a href="#支付-2" class="headerlink" title="支付"></a>支付</h4><pre><code>HashMap payParams=new HashMap();
+payParams.put(EgamePay.PAY_PARAMS_KEY_TOOLS_ALIAS, &quot;TOOL888&quot;);
+EgamePay.pay(Activity activity, Map payParams,EgamePayListener listener);
+</code></pre><h4 id="错误代码"><a href="#错误代码" class="headerlink" title="错误代码"></a>错误代码</h4><pre><code>错误代码    错误描述
+-2    未获得到实例，init重复调用，或与pay方法调用间隔过短
+-10    外部SDK无法读取，检查工程及打好的apk的assets/egame文件夹内是否缺少文件
+-11    打开输出文件错误,外部SDK无法解包
+-12    MD5校验错误
+-13    文件拷贝错误
+-14    无法初始化实例
+-20    sdk初始化异常
+-100    Activity对象为空
+-101    feeInfo.dat计费文件未找到或者数据读取异常
+-102    无法读取当前应用信息
+-103    应用信息校验失败，请检查包名及app_name是否和申报一致(注：信息更新后需要重新下载计费配置文件)
+-104    非电信用户
+-106    计费金额错误
+-108    无可用计费通道
+-109    manifest配置错误
+-200    初始化失败，无法进行计费
+-201    计费回调对象为空
+-202    计费道具别名错误
+-203    渠道ID数据异常
+-204    SERVICE_CODE数据异常
+-205    自定义参数格式异常
+-206    计费方法调用过快
+-207    计费短信发送失败,检查手机及卡
+-209    :第3方支付失败，请检查对应第3方资源及manifest中相关注册是否遗漏，以及检查是否混淆
+-300    获取计费流水号网络异常
+-301    获取计费流水号数据异常，检查open平台游戏状态是否正常
+-111    未使用最新SDK资源，检查so及jar包【针对4.1.6及以上】
+</code></pre><h2 id="客户端功能划分"><a href="#客户端功能划分" class="headerlink" title="客户端功能划分"></a>客户端功能划分</h2><pre><code>[46000] MCC:460 MNC:00 China China Mobile
+[46002] MCC:460 MNC:02 China China Mobile
+[46007] MCC:460 MNC:07 China China Mobile
+
+[46003] MCC:460 MNC:03 China China Telecom
+[46005] MCC:460 MNC:05 China China Telecom
+</code></pre><ol>
+<li><p>接口请求</p>
+<p> 计费策略接口和日志接口。</p>
+<p> 接口内容已写完。</p>
+</li>
+<li><p>接入计费逻辑</p>
+<p> 其中包括接入三网计费，同时隐藏了一个计费文件，这个计费文件保存了我方计费点查询到运营商计费点的信息。这个计费文件需要从后台导出，放在游戏中。</p>
+<p> 接入计费逻辑的时候要考虑好接入过程。</p>
+<p> 计费逻辑已完成</p>
+</li>
+<li><p>本地计费策略的缓存和处理</p>
+<p> 包括计费策略的缓存和更新。缓存即存储到本地数据库。根据每次触发计费，处理策略的更新。</p>
+<p> 每次计费成功，需要更新本地的计费策略。</p>
+<p> 开始时设置一个计时器，用来处理计费策略的更新。</p>
+</li>
+</ol>
+<ol start="4">
+<li>日志接口十分重要，需要思考好所有日志的类型–尽量细分。</li>
+</ol>
+<p>初始化接口删除cellId,localAeraCode,meid</p>
+<p>初始化时需将策略放入缓存</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-12-15T03:43:57.868Z" itemprop="dateUpdated">2018-12-15 11:43:57</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/02/07/运营商三网sdk接入整理/" target="_blank" rel="external">http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&title=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&title=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/30/理解Python中的元类(metaclass)/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">理解Python中的元类(metaclass)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/05/03/CentOs6-7和Ubuntu安装shadowsocks-libv/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOs6/7和Ubuntu安装shadowsocks-libev及使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&title=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&title=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&source=分享更能体现技术价值" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《游戏接入运营商三网Android SDK整理》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/02/07/运营商三网sdk接入整理/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3a0W4iMQwF0P7/T7NSn1ZaaO+1E9qVTp5QGQZOKsUe2x8f8Xp8rlev/17Jp15d0155bOHh4eGNfvqr9e81yX3yDfp6y5Jrvt5iPDw8vHu85Ad9c6M4VHyNyf8SBQ88PDy8H+Xlh3gbeJKkGQ8PD+//5W2+eFOwwMPDw/ttvKQYkaS8m0M/v+eVWgseHh5ezNs3wN7/+q39PTw8PLw4JMyaYclgQQ54LBYeHh7eDV7+I/ZBJWmGJWGpHlzAw8PDu8ZrCwTtUZ4Ej5YXBRg8PDy8C7y24ZSXaJNCcLsR7T8ADw8P7yxv8/C/GS/Ig0Te4nryS/Dw8PCu8TajA7Mib07Kk/56JgIPDw9vxJsl0Kd69G25djjUhYeHh3eZNxsI2JR3k6Cyasvh4eHhHeVtDuKieX9oTKHeIDw8PLxrvNnDf3IOt+NWbago+nh4eHh4h3ibssKmLJtvbl4oicIMHh4e3prXlhI2h3v7ui3XPvkUHh4e3gVeXqht0/FZMr0ZU/gm7uHh4eEd4u2b+m04yZPmfJvqMi4eHh7egtd+cV66Ta7fbGi7HXh4eHineLMSQBskWtKM/eRdPDw8vGu85IF/+AXxwMEeFj0x4OHh4a157ZflCXdebN08ARwYusLDw8Mb8WbtqFPNszbk1I03PDw8vKO8R7CS4mkbPDYNrSTdx8PDw3snry3I7osXs/JEFMzw8PDwLvDyhHXWzs/T6HZkoV54eHh4h3iPcs0aUftBq/ye9RMDHh4eXslrz9jk3bat1d75VOKOh4eHt+G1Zdw8+c7LtXmaXo9n4eHh4V3jtYdykijPBq3aaBYVcPHw8PB+iLdv6s+Cx6Z8jIeHh/d7eO0BnY8C7Ee+hik1Hh4eXsnLixF5U2rWTpuVIV7eEw8PD+8Cr22A5eXU2d3awHBgSAsPDw8v5f0Bi/Mr8FIMUAAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,221 +1,187 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Android面试题 | 聪明叉的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android面试题// TODO 待编辑
-个人整理的给Android程序员的面试题
-所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Android面试题 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="Android面试题// TODO 待编辑 个人整理的给Android程序员的面试题 所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android面试题">
-<meta property="og:url" content="http://yoursite.com/2015/12/23/Android面试题/index.html">
+<meta property="og:url" content="http://smarxpan.github.io/2015/12/23/Android面试题/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="Android面试题// TODO 待编辑
-个人整理的给Android程序员的面试题
-所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
+<meta property="og:description" content="Android面试题// TODO 待编辑 个人整理的给Android程序员的面试题 所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-06-30T14:26:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题">
-<meta name="twitter:description" content="Android面试题// TODO 待编辑
-个人整理的给Android程序员的面试题
-所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
-  
-    <link rel="alternative" href="/atom.xml" title="聪明叉的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="Android面试题// TODO 待编辑 个人整理的给Android程序员的面试题 所谓面试题, 固然是过面试的捷径, 但学习知识&amp;amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-		</a>
+    <div id="loading" class="active"></div>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">聪明叉</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">一只程序猿的进化之路</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ARM-Translation/" style="font-size: 10px;">ARM-Translation</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Genymotion/" style="font-size: 10px;">Genymotion</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/多渠道打包/" style="font-size: 10px;">多渠道打包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a>
-					</div>
-				</section>
-				
-				
-				
-
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">一只不怎么强大的Android程序猿</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">聪明叉</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="http://7xqnsv.com1.z0.glb.clouddn.com/20150422113520402.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">聪明叉</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">一只程序猿的进化之路</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/smarxpan" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5332818993?is_all=1" title="weibo">weibo</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pan-li-ming-15" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap"><article id="post-Android面试题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/23/Android面试题/" class="article-date">
-  	<time datetime="2015-12-22T16:01:56.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Android面试题
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-        
-
-        <div class="clearfix"></div>
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
       </div>
-      
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android面试题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android面试题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-12-22T16:01:56.000Z" itemprop="datePublished" class="page-time">
+  2015-12-23
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Android面试题"><a href="#Android面试题" class="headerlink" title="Android面试题"></a>Android面试题</h1><p>// TODO 待编辑</p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android面试题"><span class="post-toc-number">1.</span> <span class="post-toc-text">Android面试题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法与数据结构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">算法与数据结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#请使用java或者C-实现反转单链表"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">请使用java或者C++实现反转单链表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#求素数"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">求素数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#冒泡排序"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">冒泡排序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二叉树遍历"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">二叉树遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最长不重复子串（最长重复子串）"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">最长不重复子串（最长重复子串）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写一个求递归程序-求54321"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">写一个求递归程序 求54321</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写一个方法，交换两个变量的值？"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">写一个方法，交换两个变量的值？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二叉查找树的删除操作，手写代码"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">二叉查找树的删除操作，手写代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二分查找，手写代码"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">二分查找，手写代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#有海量条-url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的-url，要求效率尽可能的高"><span class="post-toc-number">1.1.10.</span> <span class="post-toc-text">有海量条 url，其中不重复的有300万条，现在希望挑选出重复出现次数最高的 url，要求效率尽可能的高</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反转字符串，要求手写代码，优化速度、优化空间"><span class="post-toc-number">1.1.11.</span> <span class="post-toc-text">反转字符串，要求手写代码，优化速度、优化空间</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Java"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Java</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计模式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">设计模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#网络"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Android</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进阶"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">进阶</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">1. App性能如何探测，有哪些方面，什么指标，怎么保证更流畅？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-android的发展大事件和主要技术发展"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">3. android的发展大事件和主要技术发展</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-avtivity（service）启动流程简述"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">4. avtivity（service）启动流程简述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-动态化的几种方案"><span class="post-toc-number">1.6.5.</span> <span class="post-toc-text">5. 动态化的几种方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-热修复的原理"><span class="post-toc-number">1.6.6.</span> <span class="post-toc-text">6. 热修复的原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-网络这块怎么优化"><span class="post-toc-number">1.6.7.</span> <span class="post-toc-text">7. 网络这块怎么优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-数据库性能怎么保证"><span class="post-toc-number">1.6.8.</span> <span class="post-toc-text">8. 数据库性能怎么保证</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-线程安全怎么保证，异步并发这块你怎么做的"><span class="post-toc-number">1.6.9.</span> <span class="post-toc-text">9. 线程安全怎么保证，异步并发这块你怎么做的</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-Android-App的生命周期是什么"><span class="post-toc-number">1.6.10.</span> <span class="post-toc-text">10. Android App的生命周期是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-四大组件很熟悉了吧，ContentProvider的生命周期是什么；"><span class="post-toc-number">1.6.11.</span> <span class="post-toc-text">11. 四大组件很熟悉了吧，ContentProvider的生命周期是什么；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-Android设备开机的启动过程；"><span class="post-toc-number">1.6.12.</span> <span class="post-toc-text">12. Android设备开机的启动过程；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？"><span class="post-toc-number">1.6.13.</span> <span class="post-toc-text">13. Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#14-Dialog、PopupWindow、WindowManager加载视图的区别；"><span class="post-toc-number">1.6.14.</span> <span class="post-toc-text">14. Dialog、PopupWindow、WindowManager加载视图的区别；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#15-Service与Thread的区别；"><span class="post-toc-number">1.6.15.</span> <span class="post-toc-text">15. Service与Thread的区别；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#16-ServiceManager、ActivityManager、XXXManager是干什么的；"><span class="post-toc-number">1.6.16.</span> <span class="post-toc-text">16. ServiceManager、ActivityManager、XXXManager是干什么的；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#17-为什么一定要在UI线程更新视图，为什么要这么设计；"><span class="post-toc-number">1.6.17.</span> <span class="post-toc-text">17. 为什么一定要在UI线程更新视图，为什么要这么设计；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#18-能不能直接New一个Activity并启动它；"><span class="post-toc-number">1.6.18.</span> <span class="post-toc-text">18. 能不能直接New一个Activity并启动它；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#19-打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；"><span class="post-toc-number">1.6.19.</span> <span class="post-toc-text">19. 打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#20-MVP模式是啥；"><span class="post-toc-number">1.6.20.</span> <span class="post-toc-text">20. MVP模式是啥；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#21-View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。"><span class="post-toc-number">1.6.21.</span> <span class="post-toc-text">21. View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#22-res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；"><span class="post-toc-number">1.6.22.</span> <span class="post-toc-text">22. res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#23-Binder原理是什么，出了Binder之外，还能怎么跟Service交互；"><span class="post-toc-number">1.6.23.</span> <span class="post-toc-text">23. Binder原理是什么，出了Binder之外，还能怎么跟Service交互；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#24-Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；"><span class="post-toc-number">1.6.24.</span> <span class="post-toc-text">24. Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#25-ROOT的原理是什么，系统是怎么管理APP的权限的；"><span class="post-toc-number">1.6.25.</span> <span class="post-toc-text">25. ROOT的原理是什么，系统是怎么管理APP的权限的；</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#26-Material-Desgin这么好看，为什么不出兼容包，让5-0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render-Thread是怎么工作的；"><span class="post-toc-number">1.6.26.</span> <span class="post-toc-text">26. Material Desgin这么好看，为什么不出兼容包，让5.0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render Thread是怎么工作的；</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Android面试题" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android面试题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-12-23 00:01:56" datetime="2015-12-22T16:01:56.000Z" itemprop="datePublished">2015-12-23</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Android面试题"><a href="#Android面试题" class="headerlink" title="Android面试题"></a>Android面试题</h1><p>// TODO 待编辑</p>
 <p>个人整理的给Android程序员的面试题</p>
 <p>所谓面试题, 固然是过面试的捷径, 但学习知识&amp;提高自己才是最终目的. 这些题目只是把一些知识点单独拿出来, 零散且不成体系. 所以我在其中会穿插推荐几本参考书, 一起进步吧</p>
 <a id="more"></a>
@@ -586,7 +552,7 @@ Volley相关 Volley Android Volley完全解析
 Android客户端和服务端如何使用Token和Session
 移动端获取网络数据优化
 </code></pre><h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><blockquote>
-<p>转自知乎用户-<a href="http://zhihu.com/question/40909636/answer/88775539" target="_blank" rel="external">马天宇的回答</a></p>
+<p>转自知乎用户-<a href="http://zhihu.com/question/40909636/answer/88775539" target="_blank" rel="noopener">马天宇的回答</a></p>
 </blockquote>
 <ol>
 <li>整体性能如何探测，有哪方面 什么指标，怎么保证更流畅</li>
@@ -603,9 +569,9 @@ Android客户端和服务端如何使用Token和Session
 <p>还有很多性能相关的分析工具很重要，辅助判断和分析，比如Heap Tool、Memory Monitor、Lint、HierarchyView、WireShark、TraceView等。</p>
 <p>保证流畅有很多点可以去研究，比如布局、代码、缓存、网络、数据库、异步并发等方面的优化，涉及很多的知识点，可以google下，先简单说下，有时间再细述。</p>
 <p>布局充分利用include、viewstub、merge 等标签，控制层级，避免过度渲染（绘制）。<br>代码上尽量使用final、局部变量、系统函数如arraycopy等、位移操作是否可以代替乘除、for循环是否可以避免size计算和new对象等等。<br>缓存方面，线程、位图、视图、网络数据是否可以被缓存，IO用缓冲流。<br>网络方面，如尽量避免轮询，控制节奏和频率，IP直连，采用SPDY方案（或HTTP2.0）来实现压缩header、多路复用、双向通信等，API数据压缩，多个请求是否可以合并，数据压缩和尝试protocol buffer相关序列化方案。<br>数据库方面，尝试用SQLiteStatement代替SQLiteDatabase完成操作，索引和事务的充分理解和使用，注意SQL语句语法和拼接，采用部分查询和延迟加载。<br>异步并发方面，全App只有一个线程池，控制核心并发数量，控制超载时排队数量和策略，合理调度任务，优化业务逻辑。<br>最后关于帧率，你看到的视觉卡顿，直接原因基本是“掉帧”。关于帧率，尽量保证主线程里做的事情，不会超过16毫秒（其实这挺难的），16毫秒大法好，具体可以去理解下CPU、GPU、屏幕三者如何配合完成渲染的，推荐老罗的博客。</p>
-<h3 id="2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？"><a href="#2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？" class="headerlink" title="2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？"></a>2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？</h3><p>适当参考我在知乎的一个回答 怎样搭高质量的Android项目框架，框架的结构具体描述？ - <a href="https://www.zhihu.com/question/27163593/answer/42703123?utm_source=weibo&amp;utm_medium=weibo_share&amp;utm_content=share_answer&amp;utm_campaign=share_button" target="_blank" rel="external">马天宇的回答 </a>，结合模块化、组件化思想去做，多实践一下mvp、mvvm等策略。</p>
-<h3 id="3-android的发展大事件和主要技术发展"><a href="#3-android的发展大事件和主要技术发展" class="headerlink" title="3. android的发展大事件和主要技术发展"></a>3. android的发展大事件和主要技术发展</h3><p>额，挺多的，朋友们补充吧。<br>这个问题蛮好的 <a href="https://www.zhihu.com/question/32037895" target="_blank" rel="external">Android 开发有哪些新技术出现？ - Android 应用</a></p>
-<h3 id="4-avtivity（service）启动流程简述"><a href="#4-avtivity（service）启动流程简述" class="headerlink" title="4. avtivity（service）启动流程简述"></a>4. avtivity（service）启动流程简述</h3><p>可以自己阅读源代码，结合罗老师的博客，研究的非常棒：<a href="http://blog.csdn.net/luoshengyang/article/details/6689748" target="_blank" rel="external">Android应用程序启动过程源代码分析</a></p>
+<h3 id="2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？"><a href="#2-谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？" class="headerlink" title="2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？"></a>2. 谈谈架构。大项目，逻辑多怎么办，如何应对多App和多终端？</h3><p>适当参考我在知乎的一个回答 怎样搭高质量的Android项目框架，框架的结构具体描述？ - <a href="https://www.zhihu.com/question/27163593/answer/42703123?utm_source=weibo&amp;utm_medium=weibo_share&amp;utm_content=share_answer&amp;utm_campaign=share_button" target="_blank" rel="noopener">马天宇的回答 </a>，结合模块化、组件化思想去做，多实践一下mvp、mvvm等策略。</p>
+<h3 id="3-android的发展大事件和主要技术发展"><a href="#3-android的发展大事件和主要技术发展" class="headerlink" title="3. android的发展大事件和主要技术发展"></a>3. android的发展大事件和主要技术发展</h3><p>额，挺多的，朋友们补充吧。<br>这个问题蛮好的 <a href="https://www.zhihu.com/question/32037895" target="_blank" rel="noopener">Android 开发有哪些新技术出现？ - Android 应用</a></p>
+<h3 id="4-avtivity（service）启动流程简述"><a href="#4-avtivity（service）启动流程简述" class="headerlink" title="4. avtivity（service）启动流程简述"></a>4. avtivity（service）启动流程简述</h3><p>可以自己阅读源代码，结合罗老师的博客，研究的非常棒：<a href="http://blog.csdn.net/luoshengyang/article/details/6689748" target="_blank" rel="noopener">Android应用程序启动过程源代码分析</a></p>
 <h3 id="5-动态化的几种方案"><a href="#5-动态化的几种方案" class="headerlink" title="5. 动态化的几种方案"></a>5. 动态化的几种方案</h3><p>早期的H5方案，通过js和java互通增强h5的能力。<br>还有DexClasssLoader结合反射代理的方案。<br>还有React Native方案，手淘的Weex框架。<br>还有Lua等脚本实现动态化方案。</p>
 <h3 id="6-热修复的原理"><a href="#6-热修复的原理" class="headerlink" title="6. 热修复的原理"></a>6. 热修复的原理</h3><p>Github上读一下AndFix这个项目的源码，还有xposed、dexposed。</p>
 <p>大致原理就是将java方法通过c/c++修改属性变为public native方法，上下文携带到native层，然后根据上下文指向另一个java方法，从而“偷梁换柱”，如果是支持ART的手机，那么策略不一样，将bug method的关键信息（classloader、theadid等）保留，将修复过的方法的各种信息赋给bug method，完成“移花接木”。</p>
@@ -619,129 +585,329 @@ Android客户端和服务端如何使用Token和Session
 <h3 id="8-数据库性能怎么保证"><a href="#8-数据库性能怎么保证" class="headerlink" title="8. 数据库性能怎么保证"></a>8. 数据库性能怎么保证</h3><p>尝试使用SQLiteStatement取代SQLiteDatabase对象完成操作，避免直接使用SQLiteDatabase提供的update、inset等方法。</p>
 <p>索引和事务的充分理解和使用，批量操作使用事务极大提升速度，这个我是做过试验的，效果惊人。</p>
 <p>SQL语句拼接和本身的优化，仅查询部分局部数据，使用延迟加载策略。</p>
-<p>10万条数据插入比系统SQLiteDatabase操作快一倍，推荐我的LiteOrm数据库框架<a href="https://github.com/litesuits/android-lite-orm" target="_blank" rel="external">litesuits/android-lite-orm</a>。</p>
+<p>10万条数据插入比系统SQLiteDatabase操作快一倍，推荐我的LiteOrm数据库框架<a href="https://github.com/litesuits/android-lite-orm" target="_blank" rel="noopener">litesuits/android-lite-orm</a>。</p>
 <h3 id="9-线程安全怎么保证，异步并发这块你怎么做的"><a href="#9-线程安全怎么保证，异步并发这块你怎么做的" class="headerlink" title="9. 线程安全怎么保证，异步并发这块你怎么做的"></a>9. 线程安全怎么保证，异步并发这块你怎么做的</h3><p>理解并使用ReentrantLock，Synchronized保护对象或过程，final来保护不可变对象，无状态和只读对象是安全的，合理使用一些 concurrent容器，比如ConcurrentHashmap等，重量级耗时任务考虑是否可以释放锁，多线程下实例化或延迟加载需要保护起来，保护多线程下关键数据访问的原子性，等等还有很多的。。。</p>
 <p>推荐研究下Doug Lea主写和设计的java concurrent包，理解CountDownLatch、CyclicBarrier、Semaphore、FutureTask等对象。</p>
-<p>具体开上，我使用自己写的SmartExecutor，直接继承ExecutorService，封装了一个公共线程池，全App保证只有一个线程池。源码在这个开源项目里：<a href="https://github.com/litesuits/android-lite-http" target="_blank" rel="external">GitHub - litesuits/android-lite-http</a></p>
+<p>具体开上，我使用自己写的SmartExecutor，直接继承ExecutorService，封装了一个公共线程池，全App保证只有一个线程池。源码在这个开源项目里：<a href="https://github.com/litesuits/android-lite-http" target="_blank" rel="noopener">GitHub - litesuits/android-lite-http</a></p>
 <p>在一个 App 中 SmartExecutor 可以有多个实例，每个实例都有独立核心和等待线程数指标，每个实例都有独立的调度和满载处理策略，但它们 共享一个线程池。这种机制既满足不同木块对线程控制和任务调度的独立需求，又共享一个池资源。独立又共享，最大程度上节省资源，提升性能。</p>
 <p>控制核心并发数，尽量和CPU核数保持一致（或者多两个）我认为吞吐量是最佳的，线程过多则调度线程消耗CPU和时间，过少则不能充分利用多核的能力。</p>
 <p>控制排队策略和排队数量，是否考虑新任务先处理，过度超载丢掉最老的任务。</p>
 <p>还有就是业务上，合理调度任务，优化业务逻辑，不要胡搞乱搞，不作恶。</p>
 <blockquote>
-<p>以下问题来自问题<a href="https://www.zhihu.com/question/29708440" target="_blank" rel="external">感觉安卓应用开发就是一些接口的调用和ui界面的逻辑处理，还有其他可以深入学习的吗</a>, Kaede的回答</p>
+<p>以下问题来自问题<a href="https://www.zhihu.com/question/29708440" target="_blank" rel="noopener">感觉安卓应用开发就是一些接口的调用和ui界面的逻辑处理，还有其他可以深入学习的吗</a>, Kaede的回答</p>
 </blockquote>
 <p>个人尽量给出回答, 不准确欢迎指出</p>
 <h3 id="10-Android-App的生命周期是什么"><a href="#10-Android-App的生命周期是什么" class="headerlink" title="10. Android App的生命周期是什么"></a>10. Android App的生命周期是什么</h3><h3 id="11-四大组件很熟悉了吧，ContentProvider的生命周期是什么；"><a href="#11-四大组件很熟悉了吧，ContentProvider的生命周期是什么；" class="headerlink" title="11. 四大组件很熟悉了吧，ContentProvider的生命周期是什么；"></a>11. 四大组件很熟悉了吧，ContentProvider的生命周期是什么；</h3><h3 id="12-Android设备开机的启动过程；"><a href="#12-Android设备开机的启动过程；" class="headerlink" title="12. Android设备开机的启动过程；"></a>12. Android设备开机的启动过程；</h3><h3 id="13-Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？"><a href="#13-Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？" class="headerlink" title="13. Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？"></a>13. Activity的视图层次是什么？打开一个对话框的时候，这个对话框是如何加入到视图上去的？</h3><h3 id="14-Dialog、PopupWindow、WindowManager加载视图的区别；"><a href="#14-Dialog、PopupWindow、WindowManager加载视图的区别；" class="headerlink" title="14. Dialog、PopupWindow、WindowManager加载视图的区别；"></a>14. Dialog、PopupWindow、WindowManager加载视图的区别；</h3><h3 id="15-Service与Thread的区别；"><a href="#15-Service与Thread的区别；" class="headerlink" title="15. Service与Thread的区别；"></a>15. Service与Thread的区别；</h3><h3 id="16-ServiceManager、ActivityManager、XXXManager是干什么的；"><a href="#16-ServiceManager、ActivityManager、XXXManager是干什么的；" class="headerlink" title="16. ServiceManager、ActivityManager、XXXManager是干什么的；"></a>16. ServiceManager、ActivityManager、XXXManager是干什么的；</h3><h3 id="17-为什么一定要在UI线程更新视图，为什么要这么设计；"><a href="#17-为什么一定要在UI线程更新视图，为什么要这么设计；" class="headerlink" title="17. 为什么一定要在UI线程更新视图，为什么要这么设计；"></a>17. 为什么一定要在UI线程更新视图，为什么要这么设计；</h3><h3 id="18-能不能直接New一个Activity并启动它；"><a href="#18-能不能直接New一个Activity并启动它；" class="headerlink" title="18. 能不能直接New一个Activity并启动它；"></a>18. 能不能直接New一个Activity并启动它；</h3><h3 id="19-打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；"><a href="#19-打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；" class="headerlink" title="19. 打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；"></a>19. 打包APK的过程干了什么；安装APK的过程干了什么；启动APK的过程干了什么；怎么玩DexLoader（动态升级）；</h3><h3 id="20-MVP模式是啥；"><a href="#20-MVP模式是啥；" class="headerlink" title="20. MVP模式是啥；"></a>20. MVP模式是啥；</h3><h3 id="21-View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。"><a href="#21-View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。" class="headerlink" title="21. View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。"></a>21. View的生命周期是啥；TWEEN动画跟熟悉动画在View的绘制过程是怎么作用的；自定义动画玩过吗，里面的Matrix怎么控制。</h3><h3 id="22-res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；"><a href="#22-res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；" class="headerlink" title="22. res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；"></a>22. res里面的XML资源最终都要转化成JavaCode，怎么完全脱离res，用纯代码的方式实现res资源的功能，怎么缩放一张点九图；</h3><h3 id="23-Binder原理是什么，出了Binder之外，还能怎么跟Service交互；"><a href="#23-Binder原理是什么，出了Binder之外，还能怎么跟Service交互；" class="headerlink" title="23. Binder原理是什么，出了Binder之外，还能怎么跟Service交互；"></a>23. Binder原理是什么，出了Binder之外，还能怎么跟Service交互；</h3><h3 id="24-Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；"><a href="#24-Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；" class="headerlink" title="24. Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；"></a>24. Touch事件的分发机制；能不能用代码模拟一组TOUCH事件（比如自动点击广告，自动滚动）；</h3><h3 id="25-ROOT的原理是什么，系统是怎么管理APP的权限的；"><a href="#25-ROOT的原理是什么，系统是怎么管理APP的权限的；" class="headerlink" title="25. ROOT的原理是什么，系统是怎么管理APP的权限的；"></a>25. ROOT的原理是什么，系统是怎么管理APP的权限的；</h3><h3 id="26-Material-Desgin这么好看，为什么不出兼容包，让5-0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render-Thread是怎么工作的；"><a href="#26-Material-Desgin这么好看，为什么不出兼容包，让5-0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render-Thread是怎么工作的；" class="headerlink" title="26. Material Desgin这么好看，为什么不出兼容包，让5.0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render Thread是怎么工作的；"></a>26. Material Desgin这么好看，为什么不出兼容包，让5.0以下的系统也能要动画效果；ART模式与Dalvik有什么不同；Render Thread是怎么工作的；</h3>
-      
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2016-06-30T14:26:44.000Z" itemprop="dateUpdated">2016-06-30 22:26:44</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2015/12/23/Android面试题/" target="_blank" rel="external">http://smarxpan.github.io/2015/12/23/Android面试题/</a>
+        
     </div>
     
-  </div>
-  
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
     
-<nav id="article-nav">
-  
-    <a href="/2015/12/28/EventBus3.0使用方法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          EventBus3.0使用方法
-        
-      </div>
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2015/12/23/Android面试题/&title=《Android面试题》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2015/12/23/Android面试题/&title=《Android面试题》 — 聪明叉的博客&source=Android面试题// TODO 待编辑
+个人整理的给Android程序员的面试题
+所谓面试题, 固然是过面试的捷径, 但学习知识&amp;提高自己才是..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2015/12/23/Android面试题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试题》 — 聪明叉的博客&url=http://smarxpan.github.io/2015/12/23/Android面试题/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2015/12/23/Android面试题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/12/28/EventBus3.0使用方法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">EventBus3.0使用方法</h4>
+      </a>
+    </div>
+  
+
   
 </nav>
 
-  
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
 </article>
 
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android面试题" data-title="Android面试题" data-url="http://yoursite.com/2015/12/23/Android面试题/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"smarx"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 聪明叉
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
 </footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2015/12/23/Android面试题/&title=《Android面试题》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2015/12/23/Android面试题/&title=《Android面试题》 — 聪明叉的博客&source=Android面试题// TODO 待编辑
+个人整理的给Android程序员的面试题
+所谓面试题, 固然是过面试的捷径, 但学习知识&amp;提高自己才是..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2015/12/23/Android面试题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试题》 — 聪明叉的博客&url=http://smarxpan.github.io/2015/12/23/Android面试题/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2015/12/23/Android面试题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aSW7DMAwF0Nz/0u4BCjufpLKw9LQKGg96LcCKw+cTr+tmJdfn1yR3jRYGBsZrGdfjSq5Jtvv/8zMm3xsGBsY5jPz1yYt7Vybs259jYGBgFINmEnyrVAwMDIzqke75cNlLU59JGBgYGEkS+4zMy2S9Jy/LxTEwMF7ImLz4159/0t/AwMB4FeMqrnmCmlxZ3hUGBsbWjDzA9Ur8vWZDbz8YGBi7MiajFfldvV9NIWRjYGAcwIiicjF/rIbU0cAHBgbGMYzklUkDspqa9g6atwEXAwNjO0YeaqvHx/xp1Y1GR08MDIztGNXXNIPgojGyL38BDAyMTRlfUsRW6X8yWNY7RGJgYOzNmKSXSVCuhtS8hYCBgXEOo9dcrGbJeTlvVV8SAwNjD0Y1XE7amb2sc0EbAAMDYwtGL8hOxiMScD66gYGBsTcjCa+r2pnV8JontxgYGHsz8kesHY/otQ1ud4KBgbE1I09NJ0MVk6JezsbAwNib0Su69Qpqk0LbFwwGBsYBjLzEXx3OWDuW8SXgYmBgHMBY9tBFAxx54wEDA2NXxlVcvbGJ6pxaOf/GwMDYmlENc9Xy2aRFWv0HgIGBsTdj0mLM7+0NhBUCLgYGxgGMQtbbOlwm947aohgYGBitgtokjJaHPDAwMDCCYYu1I6rlQh4GBsYBjDwRrQ5VVEt1vRExDAyMvRmTSY3e1pNvfzKugYGB8T7GH/OuIuBUDhXKAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '白了个白~';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '您回来了~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
 </script>
 
 
-  </div>
+
 </body>
 </html>
