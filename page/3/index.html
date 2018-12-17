@@ -118,7 +118,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -150,6 +150,58 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-rails项目部署heroku教程" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-01-17 15:15:30" datetime="2017-01-17T07:15:30.000Z" itemprop="datePublished">2017-01-17</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/01/17/rails项目部署heroku教程/">heroku安装及部署rails项目教程</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        heroku安装及部署rails项目教程开发了一个带数据库的小项目，部署至heroku看看效果。
+安装macOS安装：
+brew install heroku
+其他系统安装参见heroku官网
+检查是否安装好：
+heroku version
+确认 Heroku 命令行工具已经安装之后，使用 heroku 命令登录，然后添加 SSH 密钥：
+heroku login
+heroku keys:a...
+    
+
+        <a href="/2017/01/17/rails项目部署heroku教程/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-rails安装指南" class="article-card article-type-post" itemprop="blogPost">
@@ -185,7 +237,7 @@ gem update --system &amp;&amp; gem update --n...
     
 
         <a href="/2017/01/05/rails安装指南/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -235,7 +287,7 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/se...
     
 
         <a href="/2017/01/04/Mac安装PostgreSQL/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -286,7 +338,7 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/se...
     
 
         <a href="/2016/11/15/Linux使用指南/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -356,7 +408,7 @@ public enum Singleton{
     
 
         <a href="/2016/06/29/how_to_use_singleton/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -414,7 +466,7 @@ An annotation is a form of metadata, that can be added to Java source code. Clas
     
 
         <a href="/2016/06/20/how_to_use_annotation/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -466,67 +518,13 @@ startActivity(intent);
     
 
         <a href="/2016/06/08/android-navigator-best-practice/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Lamada表达式" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-23 00:01:56" datetime="2016-04-22T16:01:56.000Z" itemprop="datePublished">2016-04-23</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/23/Lamada表达式/">是时候学习一波Lambda表达式了</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        是时候学习一波Lambda表达式了Android N预览版的发布, 支持了一些java 8的新特性, lambda表达式算是最重要的新特性之一. 本篇文章将会探讨及使用Lambda表达式, 跟紧Google粑粑的脚步
-什么是Lambda首先Lambda并不是新鲜事物, 其为java8最重要的新特性之一. 我们Android开发者开始一直用java7, 直到AndroidN的发布终于能过使用Lambda.
-要明白什么是Lambda, 先要知道什么是闭包)(Closure).
-闭包来源于函数式编程, 关于闭包的概念各类定义总是深(bu)奥(shuo)难(ren)懂(hua). 用人话来说就是:
-
-“定义在函数内部的函数”, 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁–来自阮一峰技术博客
-
-而Lambda表达式是java对闭包这一特性的实现方式.
-在java中实际使用时就是将函数参数中某类匿名内部类改写成不明觉屌的Lambda表达式.
-等等, 这个某类匿名内部类是神马意思?
-这类能用Lambda表达式替代的匿名内部类有两个条件: 必须是接口类型; 只有一个抽象方法.
-    
-
-        <a href="/2016/04/23/Lamada表达式/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
     </div>
     
@@ -563,7 +561,7 @@ startActivity(intent);
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -670,10 +668,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = '白了个白~';
+            document.title = '今天也要加油鸭';
             clearTimeout(titleTime);
         } else {
-            document.title = '您回来了~';
+            document.title = 'just do IT';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);
