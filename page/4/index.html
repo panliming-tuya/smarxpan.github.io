@@ -152,6 +152,58 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-android-navigator-best-practice" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-08 15:15:28" datetime="2016-06-08T07:15:28.000Z" itemprop="datePublished">2016-06-08</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/08/android-navigator-best-practice/">Activity跳转最佳实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Activity跳转最佳实践学习Android-CleanArchitecture时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.
+传统写法跳转不需要参数时:
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+跳转需要参数那就是
+Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&quot;key&quot;,&quot;someValue&quot;);
+startActivity(intent);
+这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.
+    
+
+        <a href="/2016/06/08/android-navigator-best-practice/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Lamada表达式" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -498,53 +550,6 @@ npm install hexo-generator-feed --save
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-算法系列-1-简单排序" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-03 00:01:56" datetime="2016-04-02T16:01:56.000Z" itemprop="datePublished">2016-04-03</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/03/算法系列-1-简单排序/">算法系列(1)--简单排序算法</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
-冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
-有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
-第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.
-    
-
-        <a href="/2016/04/03/算法系列-1-简单排序/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </div>
     
