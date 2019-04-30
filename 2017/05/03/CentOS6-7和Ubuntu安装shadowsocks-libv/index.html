@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="聪明叉的博客">
 <meta property="og:description" content="CentOS6/7安装 安装Fedora软件源 cd /etc/yum.repos.d/ wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo  update sudo yum update  安装 sudo yum install">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-03T02:44:05.702Z">
+<meta property="og:updated_time" content="2019-01-03T06:03:09.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS6&#x2F;7和Ubuntu安装shadowsocks-libev及使用">
 <meta name="twitter:description" content="CentOS6/7安装 安装Fedora软件源 cd /etc/yum.repos.d/ wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo  update sudo yum update  安装 sudo yum install">
@@ -260,19 +260,22 @@ yum install rng-tools
 </code></pre><h2 id="启动BBR加速"><a href="#启动BBR加速" class="headerlink" title="启动BBR加速"></a>启动BBR加速</h2><p>注意：仅KVM架构可用，OVZ不可以这样安装</p>
 <h3 id="Debian-8-Ubuntu-14-04"><a href="#Debian-8-Ubuntu-14-04" class="headerlink" title="Debian 8+ / Ubuntu 14.04+"></a>Debian 8+ / Ubuntu 14.04+</h3><ul>
 <li><p>下载最新内核,最新内核查看<a href="http://kernel.ubuntu.com/~kernel-ppa/mainline" target="_blank" rel="noopener">这里</a>  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-image-4.16.0-041600-generic_4.16.0-041600.201804012230_amd64.deb</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.16/linux-image-4.16.0-041600-generic_4.16.0-041600.201804012230_amd64.deb</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>安装内核</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i linux-image-4.*.deb</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i linux-image-4.*.deb</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>删除旧内核(可选)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l | grep linux-image </span><br><span class="line">apt-get purge 旧内核</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l | grep linux-image </span><br><span class="line">apt-get purge 旧内核</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>更新 grub 系统引导文件并重启</p>
-<pre><code>update-grub
-reboot
-</code></pre></li>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	update-grub</span><br><span class="line">	reboot</span><br><span class="line">	```	</span><br><span class="line"></span><br><span class="line">### 开启bbr</span><br><span class="line">开机后 `uname -r` 看看是不是内核 &gt;= 4.9  </span><br><span class="line"></span><br><span class="line">执行 `lsmod | grep bbr`，如果结果中没有 `tcp_bbr` 的话就先执行</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>modprobe tcp_bbr<br>echo “tcp_bbr” | sudo tee –append /etc/modules-load.d/modules.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行</span><br></pre></td></tr></table></figure></p>
+<p>echo “net.core.default_qdisc=fq” | sudo tee –append /etc/sysctl.conf<br>echo “net.ipv4.tcp_congestion_control=bbr” | sudo tee –append /etc/sysctl.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">保存生效  </span><br><span class="line"></span><br><span class="line">`sysctl -p`  </span><br><span class="line"></span><br><span class="line">执行</span><br></pre></td></tr></table></figure></p>
+<p>sysctl net.ipv4.tcp_available_congestion_control<br>sysctl net.ipv4.tcp_congestion_control<br><code>`</code><br>如果结果都有 <code>bbr</code>, 则证明你的内核已开启 bbr  </p>
+<p>执行 <code>lsmod | grep bbr</code>, 看到有 tcp_bbr 模块即说明 bbr 已启动  </p>
 <h2 id="启用simple-obfs（非必选）"><a href="#启用simple-obfs（非必选）" class="headerlink" title="启用simple-obfs（非必选）"></a>启用simple-obfs（非必选）</h2><p>如需使用混淆请继续，不需要请离开</p>
 <h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><pre><code># Debian / Ubuntu
 sudo apt-get install --no-install-recommends build-essential autoconf libtool libssl-dev libpcre3-dev libev-dev asciidoc xmlto automake
@@ -302,7 +305,7 @@ sudo make install
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-01-03T02:44:05.702Z" itemprop="dateUpdated">2019-01-03 10:44:05</time>
+    Last updated: <time datetime="2019-01-03T06:03:09.130Z" itemprop="dateUpdated">2019-01-03 14:03:09</time>
 </span><br>
 
 

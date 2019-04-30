@@ -152,6 +152,64 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-how_to_use_annotation" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-20 15:15:30" datetime="2016-06-20T07:15:30.000Z" itemprop="datePublished">2016-06-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/20/how_to_use_annotation/">Android进阶之自定义注解</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Android进阶之自定义注解本篇文章内容包括: 
+
+注解的概念
+元注解
+自定义注解
+Android自定义编译时注解
+
+如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. 
+什么是注解先来看看Java文档中的定义
+
+An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.
+
+注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. 
+首先, 明确一点: 注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.
+定义注解用的关键字是@interface
+    
+
+        <a href="/2016/06/20/how_to_use_annotation/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-android-navigator-best-practice" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -477,79 +535,6 @@ Android 热补丁动态修复框架小结
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-搭建Hexo最佳实践" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-07 17:07:34" datetime="2016-04-07T09:07:34.000Z" itemprop="datePublished">2016-04-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/07/搭建Hexo最佳实践/">搭建Hexo最佳实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
-安装
-安装npm
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-windows请自行下载安装包
-
-安装git
-window自行下载安装
-mac使用homebrew brew install git
-linux sudo apt-get install git-core
-
-
-安装hexomac使用命令
-sudo npm install hexo-cli -g
-windows使用
-npm install hexo-cli -g
-
-hexo初始化    
-hexo init blog
-cd blog
-npm install
-其中hexo init blog中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了
-
-安装插件
-npm install hexo-deployer-git --save
-npm install hexo-generator-sitemap --save
-npm install hexo-generator-feed --save
-上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件
-
-
-    
-
-        <a href="/2016/04/07/搭建Hexo最佳实践/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
 
     </div>
     

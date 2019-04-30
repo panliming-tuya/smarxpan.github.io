@@ -152,6 +152,55 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Android源码解析之MethodAndArgsCaller" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-04-30 10:58:11" datetime="2019-04-30T02:58:11.000Z" itemprop="datePublished">2019-04-30</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/04/30/Android源码解析之MethodAndArgsCaller/">Android源码解析之MethodAndArgsCaller</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Android源码解析之MethodAndArgsCaller如果你看过ZygoteInit.java的main方法可能会对这个类不陌生，在Android8.1之前，其main方法都是类似以下这样：
+
+以下代码基于Android8.0
+
+public static void main(String argv[]) {
+    ZygoteServer zygoteServer = new Z...
+    
+
+        <a href="/2019/04/30/Android源码解析之MethodAndArgsCaller/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Github GraphQL API v4初探" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -440,54 +489,6 @@ adb shell am start -S -W com.outfit7.mytalkingtomfree/com....
     
 
         <a href="/2018/02/07/运营商三网sdk接入整理/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-06 21:05:21" datetime="2017-12-06T13:05:21.000Z" itemprop="datePublished">2017-12-06</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/12/06/Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信/">Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        网络请求框架使用的retrofit，客户端与服务端之间需要加密通信并且请求需要gzip压缩。为完成这一需求，需要拦截请求和响应。特此记录下修改请求的过程，希望可以帮助有需要的人。
-处理requestretrofit2使用okhttp3.x，请求上的处理只需要给okhttp添加拦截器即可
-这里与服务端通信相互之间对称加密，并且需要开启gzip压缩，因此这里定义了三个拦截器完成这一需求
-
-修改请...
-    
-
-        <a href="/2017/12/06/Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>

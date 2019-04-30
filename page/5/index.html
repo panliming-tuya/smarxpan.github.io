@@ -152,6 +152,79 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-搭建Hexo最佳实践" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-04-07 17:07:34" datetime="2016-04-07T09:07:34.000Z" itemprop="datePublished">2016-04-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/04/07/搭建Hexo最佳实践/">搭建Hexo最佳实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
+安装
+安装npm
+curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+windows请自行下载安装包
+
+安装git
+window自行下载安装
+mac使用homebrew brew install git
+linux sudo apt-get install git-core
+
+
+安装hexomac使用命令
+sudo npm install hexo-cli -g
+windows使用
+npm install hexo-cli -g
+
+hexo初始化    
+hexo init blog
+cd blog
+npm install
+其中hexo init blog中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了
+
+安装插件
+npm install hexo-deployer-git --save
+npm install hexo-generator-sitemap --save
+npm install hexo-generator-feed --save
+上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件
+
+
+    
+
+        <a href="/2016/04/07/搭建Hexo最佳实践/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-算法系列-1-简单排序" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
