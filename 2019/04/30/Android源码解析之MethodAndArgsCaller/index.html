@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="聪明叉的博客">
 <meta property="og:description" content="Android源码解析之MethodAndArgsCaller如果你看过ZygoteInit.java的main方法可能会对这个类不陌生，在Android8.1之前，其main方法都是类似以下这样：  以下代码基于Android8.0  public static void main(String argv[]) {     ZygoteServer zygoteServer = new Zygo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-30T03:35:23.299Z">
+<meta property="og:updated_time" content="2019-04-30T03:37:46.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android源码解析之MethodAndArgsCaller">
 <meta name="twitter:description" content="Android源码解析之MethodAndArgsCaller如果你看过ZygoteInit.java的main方法可能会对这个类不陌生，在Android8.1之前，其main方法都是类似以下这样：  以下代码基于Android8.0  public static void main(String argv[]) {     ZygoteServer zygoteServer = new Zygo">
@@ -119,7 +119,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -434,7 +434,6 @@ public class Main2 {
 </code></pre><p>这没有用什么奇技淫巧，也没有额外的堆栈信息，Android哪个catch Exception的操作在搞什么？</p>
 <p>我这时以为是Runnable接口有什么魔力，然后自己写了个接口，让<code>MethodAndArgsCaller</code>继承，结果没有什么两样。</p>
 <p>也就是说，将所需要的结果封装成一个对象，最终返回到main方法，main方法中调用就可以了–并不会有中间设置对象的堆栈信息被保留。</p>
-<p>真是个无用的知识。</p>
 
         </div>
 
@@ -443,7 +442,7 @@ public class Main2 {
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-04-30T03:35:23.299Z" itemprop="dateUpdated">2019-04-30 11:35:23</time>
+    最后更新时间：<time datetime="2019-04-30T03:37:46.545Z" itemprop="dateUpdated">2019-04-30 11:37:46</time>
 </span><br>
 
 
@@ -623,7 +622,7 @@ public class Main2 {
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
