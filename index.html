@@ -118,7 +118,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -150,6 +150,57 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-kotlin语法之将函数作为参数" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-05-06 20:24:56" datetime="2019-05-06T12:24:56.000Z" itemprop="datePublished">2019-05-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/05/06/kotlin语法之将函数作为参数/">kotlin语法之将函数作为参数</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        一个setOnClickListener的错误写了个demo，点击事件离奇的不生效。
+开始实在是看不出有什么问题，错误代码如下：
+findViewById&lt;Button&gt;(R.id.btn).setOnClickListener {
+    View.OnClickListener {
+        ...
+    }
+}
+运行不报错，就是不触发OnClickListener中...
+    
+
+        <a href="/2019/05/06/kotlin语法之将函数作为参数/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-Android源码解析之MethodAndArgsCaller" class="article-card article-type-post" itemprop="blogPost">
@@ -186,13 +237,13 @@ public static void main(String argv[]) {
     
 
         <a href="/2019/04/30/Android源码解析之MethodAndArgsCaller/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 
     </div>
     
@@ -233,7 +284,7 @@ GraphQL是一门语言，专门用于API查询。可以类...
     
 
         <a href="/2018/12/20/Github GraphQL API v4初探/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -300,7 +351,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/12/13/理解Python协程/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -348,7 +399,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/12/05/理解Python装饰器/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -393,7 +444,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/11/30/理解Python中的元类(metaclass)/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -440,56 +491,7 @@ adb shell am start -S -W com.outfit7.mytalkingtomfree/com....
     
 
         <a href="/2018/08/29/Android应用冷启动时间优化探究/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-运营商三网sdk接入整理" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-02-07 15:15:30" datetime="2018-02-07T07:15:30.000Z" itemprop="datePublished">2018-02-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/02/07/运营商三网sdk接入整理/">游戏接入运营商三网Android SDK整理</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        游戏接入运营商三网Android SDK整理记录下坑爹的三网支付运营商接入。
-融合支付移动、联通和电信都提供了三网融合支付。但是运营商提供的融合支付仅支持他们自有渠道，外放渠道均不支持。如需要使用wostore和爱游戏渠道，单接他们的短代sdk即可。
-因此需要自行融合三网支付接入游戏。
-咪咕的特殊之处（需验证是否符合需求）Q. 三网融合计费功能集成。
-
-26005 SDK已经集成移动，电信，...
-    
-
-        <a href="/2018/02/07/运营商三网sdk接入整理/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -532,7 +534,7 @@ adb shell am start -S -W com.outfit7.mytalkingtomfree/com....
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

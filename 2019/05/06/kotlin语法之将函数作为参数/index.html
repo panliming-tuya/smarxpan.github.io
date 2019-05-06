@@ -14,25 +14,25 @@
     
     
     
-    <title>在Android5.x上运行ARM架构程序 | 聪明叉的博客 | 成为更好的自己</title>
+    <title>kotlin语法之将函数作为参数 | 聪明叉的博客 | 成为更好的自己</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Android">
-    <meta name="description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。 本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+    <meta name="description" content="一个setOnClickListener的错误写了个demo，点击事件离奇的不生效。 开始实在是看不出有什么问题，错误代码如下： findViewById&amp;lt;Button&amp;gt;(R.id.btn).setOnClickListener {     View.OnClickListener {         ...     } } 运行不报错，就是不触发OnClickListener中的代码">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Android5.x上运行ARM架构程序">
-<meta property="og:url" content="http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/index.html">
+<meta property="og:title" content="kotlin语法之将函数作为参数">
+<meta property="og:url" content="http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。 本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+<meta property="og:description" content="一个setOnClickListener的错误写了个demo，点击事件离奇的不生效。 开始实在是看不出有什么问题，错误代码如下： findViewById&amp;lt;Button&amp;gt;(R.id.btn).setOnClickListener {     View.OnClickListener {         ...     } } 运行不报错，就是不触发OnClickListener中的代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-18T01:43:16.806Z">
+<meta property="og:updated_time" content="2019-05-06T12:26:10.798Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Android5.x上运行ARM架构程序">
-<meta name="twitter:description" content="Genymotion 在Android5.x上运行ARM架构程序原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。 本文提供Genymotion-ARM-Translation、Genymotion-ARM-Translation_v1.1、ARM_Translation_Lollipop的三个版本。其中">
+<meta name="twitter:title" content="kotlin语法之将函数作为参数">
+<meta name="twitter:description" content="一个setOnClickListener的错误写了个demo，点击事件离奇的不生效。 开始实在是看不出有什么问题，错误代码如下： findViewById&amp;lt;Button&amp;gt;(R.id.btn).setOnClickListener {     View.OnClickListener {         ...     } } 运行不报错，就是不触发OnClickListener中的代码">
     
         <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
     
@@ -113,7 +113,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">在Android5.x上运行ARM架构程序</div>
+        <div class="flex-col header-title ellipsis">kotlin语法之将函数作为参数</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -135,11 +135,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">在Android5.x上运行ARM架构程序</h1>
+        <h1 class="title">kotlin语法之将函数作为参数</h1>
         <h5 class="subtitle">
             
-                <time datetime="2015-12-29T02:04:53.000Z" itemprop="datePublished" class="page-time">
-  2015-12-29
+                <time datetime="2019-05-06T12:24:56.000Z" itemprop="datePublished" class="page-time">
+  2019-05-06
 </time>
 
 
@@ -158,17 +158,17 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Genymotion-在Android5-x上运行ARM架构程序"><span class="post-toc-number">1.</span> <span class="post-toc-text">Genymotion 在Android5.x上运行ARM架构程序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-x的使用方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">5.x的使用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-0以下的使用方法"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">5.0以下的使用方法</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个setOnClickListener的错误"><span class="post-toc-number">1.</span> <span class="post-toc-text">一个setOnClickListener的错误</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将函数作为参数传递"><span class="post-toc-number">2.</span> <span class="post-toc-text">将函数作为参数传递</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="genymotion-Genymotion 在Android5.x上运行ARM架构程序" class="post-article article-type-genymotion fade" itemprop="blogPost">
+<article id="post-kotlin语法之将函数作为参数" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">在Android5.x上运行ARM架构程序</h1>
+        <h1 class="post-card-title">kotlin语法之将函数作为参数</h1>
         <div class="post-meta">
-            <time class="post-time" title="2015-12-29 10:04:53" datetime="2015-12-29T02:04:53.000Z" itemprop="datePublished">2015-12-29</time>
+            <time class="post-time" title="2019-05-06 20:24:56" datetime="2019-05-06T12:24:56.000Z" itemprop="datePublished">2019-05-06</time>
 
             
 
@@ -181,34 +181,99 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Genymotion-在Android5-x上运行ARM架构程序"><a href="#Genymotion-在Android5-x上运行ARM架构程序" class="headerlink" title="Genymotion 在Android5.x上运行ARM架构程序"></a>Genymotion 在Android5.x上运行ARM架构程序</h1><p>原生的Genymotion模拟器只支持x86架构，很多使用了.so文件的应用不支持x86架构，因此无法运行。如果想要运行，必须安装ARM转换包。</p>
-<p>本文提供<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>、<code>ARM_Translation_Lollipop</code>的三个版本。其中<code>Genymotion-ARM-Translation</code>、<code>Genymotion-ARM-Translation_v1.1</code>对应Android 5.x以下，个人发现4.4安装v1.1没卵用，安装前者反而有效，读者自行试验。<code>ARM_Translation_Lollipop</code>毫无疑问对应5.x系统。</p>
+            <h2 id="一个setOnClickListener的错误"><a href="#一个setOnClickListener的错误" class="headerlink" title="一个setOnClickListener的错误"></a>一个setOnClickListener的错误</h2><p>写了个demo，点击事件离奇的不生效。</p>
+<p>开始实在是看不出有什么问题，错误代码如下：</p>
+<pre><code>findViewById&lt;Button&gt;(R.id.btn).setOnClickListener {
+    View.OnClickListener {
+        ...
+    }
+}
+</code></pre><p>运行不报错，就是不触发OnClickListener中的代码。</p>
+<p>那么正确的写法应该是怎样呢？</p>
+<p>如下所示：</p>
+<pre><code>// 写法1：OnClickListener写法
+findViewById&lt;Button&gt;(R.id.btn).setOnClickListener(
+        View.OnClickListener {
+            ...
+        }
+)
+</code></pre><p>或者这样：</p>
+<pre><code>// 写法2：闭包写法
+findViewById&lt;Button&gt;(R.id.btn).setOnClickListener {
+    ...
+}
+</code></pre><p>为什么那个错误的写法不报错但是却不能正确运行呢？</p>
+<p>因为错误的写法实际上是在写法2的闭包里面又声明了一个OnClickListener，仅仅声明listener当然不能调用里面的代码了。</p>
+<h2 id="将函数作为参数传递"><a href="#将函数作为参数传递" class="headerlink" title="将函数作为参数传递"></a>将函数作为参数传递</h2><p>为什么<code>setOnClickListener</code>有两种写法呢？</p>
+<p>实际上这里<code>setOnClickListener</code>这个方法有两个重载：</p>
+<pre><code>// 参数是OnClickListener对象
+fun setOnClickListener(l: View.OnClickListener?)
+// 参数是闭包
+fun setOnClickListener(l: (v: View) -&gt; Unit)
+</code></pre><p>因为有两个重载方法，<code>setOnClickListener</code>才可以有两种写法。</p>
+<p>所谓闭包：</p>
 <blockquote>
-<p>下载地址：<a href="http://pan.baidu.com/s/1pJ5YZl5" title="http://pan.baidu.com/s/1pJ5YZl5" target="_blank" rel="noopener">http://pan.baidu.com/s/1pJ5YZl5</a> 密码：w3ol</p>
+<p>在计算机科学中，闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。</p>
 </blockquote>
-<h2 id="5-x的使用方法"><a href="#5-x的使用方法" class="headerlink" title="5.x的使用方法"></a>5.x的使用方法</h2><p>使用方法：</p>
-<ol>
-<li><p>在 Genymotion 里面建立 5.0 or 5.1 的模拟器。</p>
-</li>
-<li><p>开机后把 <code>ARM_Translation_Lollipop.zip</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>先不要重启模拟器，打开CMD命令行，输入<code>adb shell /system/etc/houdini_patcher.sh</code></p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
+<p>kotlin中的闭包一般称为lambda表达式，详细内容可以查看：</p>
 <blockquote>
-<p>方法及安装包来自二三接脚大神：<a href="http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image" target="_blank" rel="noopener">http://23pin.logdown.com/posts/294446-genymotion-use-arm-translation-on-5x-image</a></p>
+<p><a href="https://www.kotlincn.net/docs/reference/lambdas.html" target="_blank" rel="noopener">高阶函数与 lambda 表达式</a></p>
 </blockquote>
-<h2 id="5-0以下的使用方法"><a href="#5-0以下的使用方法" class="headerlink" title="5.0以下的使用方法"></a>5.0以下的使用方法</h2><ol>
-<li><p>在 Genymotion 里面建立4.x的模拟器。</p>
-</li>
-<li><p>开机后把<code>Genymotion-ARM-Translation</code>或者<code>Genymotion-ARM-Translation_v1.1</code>（请勿解压）拖到模拟器中，自动安装。</p>
-</li>
-<li><p>完成后重启模拟器。</p>
-</li>
-</ol>
+<p>我们这里只看将函数作为参数传递的用法。</p>
+<p>因为闭包这一特性的存在，上面<code>setOnClickListener</code>才可以不使用传统的<code>OnClickListener</code>， 下面我们自己定义一个简单的例子来说明。</p>
+<p>传统写法：</p>
+<pre><code>// 声明listener
+interface TestListener {
+    fun test()
+}
 
+// 声明使用listener作为参数的方法
+private fun setListener(listener: TestListener) {
+    // 调用listener的test方法
+   listener.test()
+}
+
+// 方法中使用
+fun main(){
+    setListener(object : TestListener {
+        override fun test() {
+            Log.i(&quot;test_tag&quot;, &quot;test Listener&quot;)
+        }
+    })
+}
+</code></pre><p>闭包写法：</p>
+<pre><code>// 声明方法
+private fun setListener(listener: () -&gt; Unit) {
+    // 调用传入的方法
+    listener()
+}
+
+// 方法中使用
+fun main(){
+    setListener { Log.i(&quot;test_tag&quot;, &quot;test unit&quot;) }
+}
+</code></pre><p>明显简化了许多，再也不需要通过声明接口设置监听了。</p>
+<p>需要额外说明将函数作为参数传递使用的几种变种：</p>
+<p>带参数的闭包：</p>
+<pre><code>// 带参数
+private fun setListener(l: (c: Context) -&gt; Unit) {
+    l(applicationContext)
+}
+// 使用，只有一个参数时，可以用it代替传入的参数
+setListener { Toast.makeText(it, &quot;test param&quot;, Toast.LENGTH_SHORT).show() }
+</code></pre><p>带参数且有返回值：</p>
+<pre><code>private fun setListener(l: (c: Context) -&gt; Boolean) {
+    val b = l(applicationContext)
+    Toast.makeText(applicationContext, if (b) &quot;当前时间是偶数&quot; else &quot;当前时间是奇数&quot;, Toast.LENGTH_SHORT).show()
+}
+
+// 使用，只有一个参数时，可以用it代替传入的参数
+setListener {
+    Toast.makeText(it, &quot;test param&quot;, Toast.LENGTH_SHORT).show()
+    // 当前时间是否是偶数
+    System.currentTimeMillis() % 2 == 0L
+}
+</code></pre>
         </div>
 
         <blockquote class="post-copyright">
@@ -216,7 +281,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-12-18T01:43:16.806Z" itemprop="dateUpdated">2018-12-18 09:43:16</time>
+    最后更新时间：<time datetime="2019-05-06T12:26:10.798Z" itemprop="dateUpdated">2019-05-06 20:26:10</time>
 </span><br>
 
 
@@ -252,7 +317,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&title=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&title=《kotlin语法之将函数作为参数》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -262,22 +327,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&title=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&title=《kotlin语法之将函数作为参数》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《kotlin语法之将函数作为参数》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -297,21 +362,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2016/01/11/多渠道打包总结/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">多渠道打包总结</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2015/12/28/EventBus3.0使用方法/" id="post-next" class="post-nav-link">
+      <a href="/2019/04/30/Android源码解析之MethodAndArgsCaller/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">EventBus3.0使用方法</h4>
+        <h4 class="title">Android源码解析之MethodAndArgsCaller</h4>
       </a>
     </div>
   
@@ -334,7 +392,7 @@
     <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
     <script>
         var gitment = new Gitment({
-            id: 'Tue Dec 29 2015 10:04:53 GMT+0800',
+            id: 'Mon May 06 2019 20:24:56 GMT+0800',
             owner: 'smarxpan',
             repo: 'smarxpan.github.io',
             oauth: {
@@ -425,7 +483,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&title=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&title=《kotlin语法之将函数作为参数》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -435,22 +493,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&title=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&title=《kotlin语法之将函数作为参数》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在Android5.x上运行ARM架构程序》 — 聪明叉的博客&url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《kotlin语法之将函数作为参数》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2015/12/29/Genymotion 在Android5.x上运行ARM架构程序/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/05/06/kotlin语法之将函数作为参数/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -461,7 +519,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADL0lEQVR42u3aQW7jMBAEwPz/07tAboFhuXuoBCZdOgWKI7Oow2Sm+fUVX/++r8efHz/zG9f1Sp6t54YLGxsbexN28pXJo5Ml5itJ7l9vxPX2YWNjY5/Hzh+XMGbbd71xK5uLjY2Njb3y9UnzkH/meiuxsbGxsWcFLGkG2iKXNyTY2NjY2PlQKR/l3xUDJEX012dp2NjY2G/PXgl63+3nP8q3sbGxsd+GPSsws2AgaVRmJadWYGNjYx/Ezkf/yb/+s8M3+bfP1vP0adjY2NhHsNtFJF8wK3V53Dtrk37cwcbGxj6OPWsD2lHOCqNd54sXgI2NjX0QO29LkuMy7Zgpj3tnR4iKF4mNjY29LTsfEuUDoLxFaYdZ+Z3o3WJjY2Mfx145Ujl7fjEGCgph0fZgY2NjH8qeDYBmhadtQlZWGwW92NjY2NuyZ6WiLSRtQJtjkt9Gx3ewsbGxN2cn45g8NsjbjNnVRr/Y2NjYn8DOI9W2sLXRbFs+27KKjY2NfTa7LWCz1iJHroQHdWuEjY2NvS17NrhZKTCzIzvtIZ4XT8bGxsY+lD0bLbVtRl5+ZkP/aEOxsbGxD2LfhWkLT954rNwpDutgY2Njb8tu/yBZdD7cWSlFs6L7Y6iEjY2NfRx71gDMNigfA92AfFwtNjY29qHsu7Lie4vcrHF68ZKwsbGxD2K3R2GGU6tg8DR7wlKEjI2NjX0Qe2Xc30YCbcQ7O8RTvB5sbGzsI9jtQZl23NMGxnkDM4uHsbGxsU9it4OkleH+3xwDWsq3sbGxsbdltyHBLHCdxQ/JeKg+jomNjY19EDtpNvJSkTczeWS7UrqwsbGxP4G9frwmLzDtVq4PsJ5+EhsbG/s4dhu+Xi9r5ZhOnkuvHPHBxsbGPo/dRrn3hgd5nFz3WM9Wi42NjX0Qux0MrZSQlSFRHeWWm4KNjY29O3s2vrmrmLX38yi3nqhhY2Njb85OljuLZvPit9Ia1duNjY2N/ZHstsFoeXdtTbQebGxs7A9mz4by+XKTdiK/83QjsLGxsY9jJ0spRjYBuy1ss/B4mHJjY2Njb8Vug94WPxtL5ezZX2FjY2Mfwf4PZwrJXRMV77oAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW7cMAwF0Ln/pVOgqwKTmfxPStMWeF4FjmPraSEyJB+P+Pr6fT3f+fP+8zOvnnx+/uvpen//8IWHh4c3WvqrK1l6u0Hv/2q2HS+3AA8PD+8ab7Og2XHffn243Xh4eHh/lRcdxGVq3ibxeHh4eP8XL0+I81JCksp/NO7h4eHhxbz8My1+9s7kK4drLXh4eHhncuAiSHzy54v9PTw8PLxFVz05dpPD+myhoVgnHh4e3gXe+1b9qVLsrJSwScSjSQQ8PDy8Ne/9H58qMSRb2QahH0ILHh4e3lHe2eLsZozg/ftb9uNG7RkPDw+v/Fc/GQVoS67Je04FGzw8PLyzvFnKu3++XW6bZOPh4eHd4OXl1ASTN65mBeIkLH3T38PDw8O7zJu18PNzeFbIaIcS8PDw8O7xZiWJvNg6G9vKG2/1WAMeHh7emrd59SyBPvvOH76Ch4eHd4E3K7nmgSQJGJt0vC554OHh4V3gtcNYs9Z+y2sbbI92ZgEPDw9vwcth+wZ/HkjaZhseHh7ebd6s6TU7yvONS0JXlFLj4eHhHeXtD/rZk22LK0nof5iMwMPDw7vG2xQXZgl02yQris54eHh413izgaoWtkmRhwEJDw8P7zKvHbo6FU7yMNAGHjw8PLwbvDZtbRtRReGgLOAmQ114eHh4t3ltyps0xjYtrnZwoSbh4eHhLXhtAt22zXJ8spLkt99MRuDh4eFd4LWJbLLoTRI8Cx7f3MHDw8M7yvsqr3wLZon4LDy8/C4eHh7eBd6mGLH5TJtkJ+WMYQEXDw8Pb8TbJ8rtRhSlhFFgwMPDw/sML28+7QezNsh2pAAPDw/vX+CdSq/z0sMsKcfDw8P7F3jv21ez5taplBoPDw/v87x8ue0WzEa4No03PDw8vNu8WQMsT7v3sHaMAA8PD+8a7xd5pSvwXQf9fwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

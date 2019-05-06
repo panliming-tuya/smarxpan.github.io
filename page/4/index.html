@@ -118,7 +118,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -150,6 +150,76 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-how_to_use_singleton" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-29 10:15:28" datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/29/how_to_use_singleton/">老司机来教你单例的正确姿势</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+没有性能问题
+防止序列化产生新对象
+防止反射攻击
+
+可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
+最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
+这货长这样： 
+public enum Singleton{
+    INSTANCE;
+}
+如果你不熟悉枚举，可能会说：这货是啥？！
+这种方式的好处是：
+
+利用的枚举的特性实现单例
+由JVM保证线程安全
+序列化和反射攻击已经被枚举解决
+
+调用方式为Singleton.INSTANCE, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。
+
+关于单例最佳实践的讨论可以看Stackoverflow：what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java
+
+下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：如何防止单例模式被JAVA反射攻击
+    
+
+        <a href="/2016/06/29/how_to_use_singleton/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-how_to_use_annotation" class="article-card article-type-post" itemprop="blogPost">
@@ -195,7 +265,7 @@ An annotation is a form of metadata, that can be added to Java source code. Clas
     
 
         <a href="/2016/06/20/how_to_use_annotation/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -247,7 +317,7 @@ startActivity(intent);
     
 
         <a href="/2016/06/08/android-navigator-best-practice/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -301,7 +371,7 @@ startActivity(intent);
     
 
         <a href="/2016/04/23/Lamada表达式/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -354,7 +424,7 @@ startActivity(intent);
     
 
         <a href="/2016/04/17/Dagger2学习之概念全攻略/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -421,7 +491,7 @@ void shellSort(int arr[], int n){
     
 
         <a href="/2016/04/14/算法系列-2-不那么简单的排序/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -477,58 +547,7 @@ provided &apos;javax.annotation:jsr250-api:1.0&apos;
     
 
         <a href="/2016/04/12/Dagger2探索之Hello-Dagger/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-一个可应用的动态加载dex实践" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-07 18:05:54" datetime="2016-04-07T10:05:54.000Z" itemprop="datePublished">2016-04-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/07/一个可应用的动态加载dex实践/">一个可应用的动态加载dex实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
-这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
-本文参考链接先行放出：
-
-Android dex分包方案
-HoxFix项目
-Android 热补丁动态修复框架小结
-
-    
-
-        <a href="/2016/04/07/一个可应用的动态加载dex实践/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -571,7 +590,7 @@ Android 热补丁动态修复框架小结
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

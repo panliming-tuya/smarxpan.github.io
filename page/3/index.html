@@ -118,7 +118,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -150,6 +150,52 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-Mac使用指南" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-02-04 15:15:30" datetime="2017-02-04T07:15:30.000Z" itemprop="datePublished">2017-02-04</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/02/04/Mac使用指南/">Mac使用指南</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Mac使用指南之前购入mac时，整理了一篇Mac使用指南，部分内容来自强迫症的 Mac 设置指南。
+系统设置功能键默认情况下，F1-F12 都是特殊功能，比如调节屏幕亮度。而当你需要键入 F1-F12 时（比如在使用 IntelliJ IDEA 的快捷键时），需要同时按住 Fn。这对于开发人员来说是非常不方便的。
+在系统偏好设置-&gt;键盘-&gt;键盘中，选择将F1、F2等键用作基本功能...
+    
+
+        <a href="/2017/02/04/Mac使用指南/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-Mac设置开机启动" class="article-card article-type-post" itemprop="blogPost">
@@ -186,7 +232,7 @@
     
 
         <a href="/2017/01/28/Mac设置开机启动/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -235,7 +281,7 @@ git init
     
 
         <a href="/2017/01/23/Rails学习笔记/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -287,7 +333,7 @@ heroku keys:a...
     
 
         <a href="/2017/01/17/rails项目部署heroku教程/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -335,7 +381,7 @@ gem update --system &amp;&amp; gem update --n...
     
 
         <a href="/2017/01/05/rails安装指南/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -385,7 +431,7 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/se...
     
 
         <a href="/2017/01/04/Mac安装PostgreSQL/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
@@ -436,83 +482,13 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/se...
     
 
         <a href="/2016/11/15/Linux使用指南/" class="post-more waves-effect waves-button">
-            Continue reading...
+            阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-how_to_use_singleton" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-06-29 10:15:28" datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/06/29/how_to_use_singleton/">老司机来教你单例的正确姿势</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
-
-单例（这不是废话吗）
-延迟加载
-线程安全
-没有性能问题
-防止序列化产生新对象
-防止反射攻击
-
-可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
-最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
-这货长这样： 
-public enum Singleton{
-    INSTANCE;
-}
-如果你不熟悉枚举，可能会说：这货是啥？！
-这种方式的好处是：
-
-利用的枚举的特性实现单例
-由JVM保证线程安全
-序列化和反射攻击已经被枚举解决
-
-调用方式为Singleton.INSTANCE, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。
-
-关于单例最佳实践的讨论可以看Stackoverflow：what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java
-
-下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：如何防止单例模式被JAVA反射攻击
-    
-
-        <a href="/2016/06/29/how_to_use_singleton/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
     </div>
     
@@ -549,7 +525,7 @@ public enum Singleton{
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
