@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://smarxpan.github.io/"/>
-  <updated>2019-05-06T12:26:10.798Z</updated>
+  <updated>2019-05-09T08:03:52.268Z</updated>
   <id>http://smarxpan.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java7的try-with-resources声明</title>
+    <link href="http://smarxpan.github.io/2019/05/09/Java7%E7%9A%84try-with-resources%E5%A3%B0%E6%98%8E/"/>
+    <id>http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/</id>
+    <published>2019-05-09T06:53:10.000Z</published>
+    <updated>2019-05-09T08:03:52.268Z</updated>
+    
+    <content type="html"><![CDATA[<p>看《Effective Java》第三版的时候，看到了其中建议将<code>try-finally</code>替换为<code>try-with-resources</code>。这个语法糖还算有意思，特此成文。</p><h2 id="用法辨析"><a href="#用法辨析" class="headerlink" title="用法辨析"></a>用法辨析</h2><p>Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用<code>try-finally</code>的方式关闭资源；Java7之后，推出了<code>try-with-resources</code>声明来替代之前的方式。 <code>try-with-resources</code> 声明要求其中定义的变量实现 AutoCloseable 接口，这样系统可以自动调用它们的close方法，从而替代了finally中关闭资源的功能。</p><p>举个栗子，下面是一个复制文件的方法，按照原本<code>try-catch-finally</code>的写法：</p><pre><code>// 一个简单的复制文件方法。public static void copy(String src, String dst) {    InputStream in = null;    OutputStream out = null;    try {        in = new FileInputStream(src);        out = new FileOutputStream(dst);        byte[] buff = new byte[1024];        int n;        while ((n = in.read(buff)) &gt;= 0) {            out.write(buff, 0, n);        }    } catch (IOException e) {        e.printStackTrace();    } finally {        if (in != null) {            try {                in.close();            } catch (IOException e) {                e.printStackTrace();            }        }        if (out != null) {            try {                out.close();            } catch (IOException e) {                e.printStackTrace();            }        }    }}</code></pre><p>可以看出，这种实现非常的丑陋。</p><p>下面来看使用了<code>try-with-resources</code>后的效果：</p><pre><code>public static void copy(String src, String dst) {    try (InputStream in = new FileInputStream(src);         OutputStream out = new FileOutputStream(dst)) {        byte[] buff = new byte[1024];        int n;        while ((n = in.read(buff)) &gt;= 0) {            out.write(buff, 0, n);        }    } catch (IOException e) {        e.printStackTrace();    }}</code></pre><p><code>try-with-resources</code>将会自动关闭<code>try()</code>中的资源，并且将先关闭后声明的资源。</p><p>如果不catch IOException就更加清爽了：</p><pre><code>public static void copy(String src, String dst) throws IOException {    try (InputStream in = new FileInputStream(src);         OutputStream out = new FileOutputStream(dst)) {        byte[] buff = new byte[1024];        int n;        while ((n = in.read(buff)) &gt;= 0) {            out.write(buff, 0, n);        }    }}</code></pre><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>实际上<code>try-with-resources</code>只是个语法糖，它将在编译时编译成关闭资源的代码。我们将上述例子中的代码编译成class文件，再打成jar包，反编译回java文件，就能看到如下代码：</p><pre><code>public static void copy(String var0, String var1) throws IOException {    FileInputStream var2 = new FileInputStream(var0);    Throwable var3 = null;    try {        FileOutputStream var4 = new FileOutputStream(var1);        Throwable var5 = null;        try {            byte[] var6 = new byte[1024];            int var7;            while((var7 = var2.read(var6)) &gt;= 0) {                var4.write(var6, 0, var7);            }        } catch (Throwable var29) {            var5 = var29;            throw var29;        } finally {            if (var4 != null) {                if (var5 != null) {                    try {                        // 关闭FileOutputStream                        var4.close();                    } catch (Throwable var28) {                        var5.addSuppressed(var28);                    }                } else {                    var4.close();                }            }        }    } catch (Throwable var31) {        var3 = var31;        throw var31;    } finally {        if (var2 != null) {            if (var3 != null) {                try {                    // 关闭FileInputStream                    var2.close();                } catch (Throwable var27) {                    var3.addSuppressed(var27);                }            } else {                var2.close();            }        }    }}</code></pre><p>除却处理异常相关的代码，其实就是调用了资源的close方法。</p><p>不过不得不说这个语法糖挺甜，真香。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;看《Effective Java》第三版的时候，看到了其中建议将&lt;code&gt;try-finally&lt;/code&gt;替换为&lt;code&gt;try-with-resources&lt;/code&gt;。这个语法糖还算有意思，特此成文。&lt;/p&gt;
+&lt;h2 id=&quot;用法辨析&quot;&gt;&lt;a href=&quot;#用
+      
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://smarxpan.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>kotlin语法之将函数作为参数</title>
@@ -454,29 +478,6 @@ localIntent.setC
       
         &lt;h1 id=&quot;Rails安装指南&quot;&gt;&lt;a href=&quot;#Rails安装指南&quot; class=&quot;headerlink&quot; title=&quot;Rails安装指南&quot;&gt;&lt;/a&gt;Rails安装指南&lt;/h1&gt;&lt;p&gt;介绍 Mac、linux、windows 安装 rails 的方式&lt;/p&gt;
 &lt;h2 
-      
-    
-    </summary>
-    
-    
-      <category term="Rails" scheme="http://smarxpan.github.io/tags/Rails/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac安装PostgreSQL</title>
-    <link href="http://smarxpan.github.io/2017/01/04/Mac%E5%AE%89%E8%A3%85PostgreSQL/"/>
-    <id>http://smarxpan.github.io/2017/01/04/Mac安装PostgreSQL/</id>
-    <published>2017-01-04T07:15:30.000Z</published>
-    <updated>2018-12-14T12:53:54.370Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Mac安装PostgreSQL"><a href="#Mac安装PostgreSQL" class="headerlink" title="Mac安装PostgreSQL"></a>Mac安装PostgreSQL</h1><p>最近在学习rails，记录下安装psql的过程</p><h2 id="安装及初始化"><a href="#安装及初始化" class="headerlink" title="安装及初始化"></a>安装及初始化</h2><p>这里使用homebrew安装</p><pre><code>brew install postgresql</code></pre><p>等待安装完成后，初始化：</p><pre><code>initdb /usr/local/var/postgres</code></pre><p>启动服务：</p><pre><code>pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</code></pre><h2 id="创建数据库和账户"><a href="#创建数据库和账户" class="headerlink" title="创建数据库和账户"></a>创建数据库和账户</h2><p>mac安装postgresql后不会创建用户名数据库，执行命令：</p><pre><code>createdb</code></pre><p>然后登录PostgreSQL控制台：</p><pre><code>psql</code></pre><p>使用<code>\l</code>命令列出所有的数据库，看到已存在用户同名数据库、postgres数据库，但是postgres数据库的所有者是当前用户，没有postgres用户。按<code>:q</code>退出查看</p><p>之后需要做以下几件事：</p><ol><li><p>创建postgres用户</p><pre><code>CREATE USER postgres WITH PASSWORD &apos;password&apos;;</code></pre></li><li><p>删除默认生成的postgres数据库</p><pre><code>DROP DATABASE postgres;</code></pre></li><li><p>创建属于postgres用户的postgres数据库</p><pre><code>CREATE DATABASE postgres OWNER postgres;</code></pre></li><li><p>将数据库所有权限赋予postgres用户</p><pre><code>GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;</code></pre></li><li><p>给postgres用户添加创建数据库的属性</p><pre><code>CREATE ROLE postgres CREATEDB;</code></pre><p>这样就可以使用postgres作为数据库的登录用户了，并可以使用该用户管理数据库</p></li></ol><h2 id="配置开机启动"><a href="#配置开机启动" class="headerlink" title="配置开机启动"></a>配置开机启动</h2><p>编辑<code>.bash_profile</code>文件</p><pre><code>vim ~/.bash_profile</code></pre><p>按i进入插入模式，粘贴启动服务的命令到文件中：</p><pre><code>pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</code></pre><h2 id="登录控制台指令"><a href="#登录控制台指令" class="headerlink" title="登录控制台指令"></a>登录控制台指令</h2><pre><code>psql -U [user] -d [database] -h [host] -p [post]</code></pre><p>-U指定用户，-d指定数据库，-h指定服务器，-p指定端口</p><p>上方直接使用<code>psql</code>登录控制台，实际上使用的是缺省数据</p><pre><code>user：当前mac用户database：用户同名数据库主机：localhost端口号：5432，postgresql的默认端口是5432</code></pre><p>完整的登录命令，比如使用postgres用户登录</p><pre><code>psql -U postgres -d postgres</code></pre><h2 id="常用控制台命令"><a href="#常用控制台命令" class="headerlink" title="常用控制台命令"></a>常用控制台命令</h2><pre><code>\h：查看SQL命令的解释，比如\h select。\?：查看psql命令列表。\l：列出所有数据库。\c [database_name]：连接其他数据库。\d：列出当前数据库的所有表格。\d [table_name]：列出某一张表格的结构。\du：列出所有用户。\e：打开文本编辑器。\conninfo：列出当前数据库和连接的信息。\password [user]: 修改用户密码\q：退出</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Mac安装PostgreSQL&quot;&gt;&lt;a href=&quot;#Mac安装PostgreSQL&quot; class=&quot;headerlink&quot; title=&quot;Mac安装PostgreSQL&quot;&gt;&lt;/a&gt;Mac安装PostgreSQL&lt;/h1&gt;&lt;p&gt;最近在学习rails，记录下安装ps
       
     
     </summary>

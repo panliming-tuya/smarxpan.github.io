@@ -14,25 +14,25 @@
     
     
     
-    <title>Looper解析 | 聪明叉的博客 | 成为更好的自己</title>
+    <title>Java7的try-with-resources声明 | 聪明叉的博客 | 成为更好的自己</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="Android">
-    <meta name="description" content="Looper解析正确的主线程运行代码一个回调 public interface MyCallback {     void onSuccess(String result); } 创建主线程的Handler，然后将回调post到主线程执行 public class SubThreadTest {     static Handler handler  = new Handler(Looper.ge">
-<meta name="keywords" content="Android">
+    <meta name="keywords" content="Java">
+    <meta name="description" content="看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。 用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-wit">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Looper解析">
-<meta property="og:url" content="http://smarxpan.github.io/2017/03/22/Looper的有趣问题/index.html">
+<meta property="og:title" content="Java7的try-with-resources声明">
+<meta property="og:url" content="http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/index.html">
 <meta property="og:site_name" content="聪明叉的博客">
-<meta property="og:description" content="Looper解析正确的主线程运行代码一个回调 public interface MyCallback {     void onSuccess(String result); } 创建主线程的Handler，然后将回调post到主线程执行 public class SubThreadTest {     static Handler handler  = new Handler(Looper.ge">
+<meta property="og:description" content="看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。 用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-wit">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-14T12:59:01.129Z">
+<meta property="og:updated_time" content="2019-05-09T08:03:52.268Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Looper解析">
-<meta name="twitter:description" content="Looper解析正确的主线程运行代码一个回调 public interface MyCallback {     void onSuccess(String result); } 创建主线程的Handler，然后将回调post到主线程执行 public class SubThreadTest {     static Handler handler  = new Handler(Looper.ge">
+<meta name="twitter:title" content="Java7的try-with-resources声明">
+<meta name="twitter:description" content="看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。 用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-wit">
     
         <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
     
@@ -113,7 +113,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Looper解析</div>
+        <div class="flex-col header-title ellipsis">Java7的try-with-resources声明</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -135,11 +135,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Looper解析</h1>
+        <h1 class="title">Java7的try-with-resources声明</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-03-22T07:15:30.000Z" itemprop="datePublished" class="page-time">
-  2017-03-22
+                <time datetime="2019-05-09T06:53:10.000Z" itemprop="datePublished" class="page-time">
+  2019-05-09
 </time>
 
 
@@ -158,17 +158,17 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Looper解析"><span class="post-toc-number">1.</span> <span class="post-toc-text">Looper解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正确的主线程运行代码"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">正确的主线程运行代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个有趣的问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">一个有趣的问题</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用法辨析"><span class="post-toc-number">1.</span> <span class="post-toc-text">用法辨析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原理分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">原理分析</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Looper的有趣问题" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-Java7的try-with-resources声明" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Looper解析</h1>
+        <h1 class="post-card-title">Java7的try-with-resources声明</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-03-22 15:15:30" datetime="2017-03-22T07:15:30.000Z" itemprop="datePublished">2017-03-22</time>
+            <time class="post-time" title="2019-05-09 14:53:10" datetime="2019-05-09T06:53:10.000Z" itemprop="datePublished">2019-05-09</time>
 
             
 
@@ -181,89 +181,122 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Looper解析"><a href="#Looper解析" class="headerlink" title="Looper解析"></a>Looper解析</h1><h2 id="正确的主线程运行代码"><a href="#正确的主线程运行代码" class="headerlink" title="正确的主线程运行代码"></a>正确的主线程运行代码</h2><p>一个回调</p>
-<pre><code>public interface MyCallback {
-    void onSuccess(String result);
-}
-</code></pre><p>创建主线程的Handler，然后将回调post到主线程执行</p>
-<pre><code>public class SubThreadTest {
-    static Handler handler  = new Handler(Looper.getMainLooper());
-    public static void mockRequest(final String url, final MyCallback callback){
-        handler.post(new Runnable() {
-
-            @Override
-            public void run() {
-                callback.onSuccess(url);
+            <p>看《Effective Java》第三版的时候，看到了其中建议将<code>try-finally</code>替换为<code>try-with-resources</code>。这个语法糖还算有意思，特此成文。</p>
+<h2 id="用法辨析"><a href="#用法辨析" class="headerlink" title="用法辨析"></a>用法辨析</h2><p>Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用<code>try-finally</code>的方式关闭资源；Java7之后，推出了<code>try-with-resources</code>声明来替代之前的方式。 <code>try-with-resources</code> 声明要求其中定义的变量实现 AutoCloseable 接口，这样系统可以自动调用它们的close方法，从而替代了finally中关闭资源的功能。</p>
+<p>举个栗子，下面是一个复制文件的方法，按照原本<code>try-catch-finally</code>的写法：</p>
+<pre><code>// 一个简单的复制文件方法。
+public static void copy(String src, String dst) {
+    InputStream in = null;
+    OutputStream out = null;
+    try {
+        in = new FileInputStream(src);
+        out = new FileOutputStream(dst);
+        byte[] buff = new byte[1024];
+        int n;
+        while ((n = in.read(buff)) &gt;= 0) {
+            out.write(buff, 0, n);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (in != null) {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+        }
+        if (out != null) {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
-</code></pre><p>调用过程</p>
-<pre><code>public class MainActivity extends ActionBarActivity {
+</code></pre><p>可以看出，这种实现非常的丑陋。</p>
+<p>下面来看使用了<code>try-with-resources</code>后的效果：</p>
+<pre><code>public static void copy(String src, String dst) {
+    try (InputStream in = new FileInputStream(src);
+         OutputStream out = new FileOutputStream(dst)) {
+        byte[] buff = new byte[1024];
+        int n;
+        while ((n = in.read(buff)) &gt;= 0) {
+            out.write(buff, 0, n);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre><p><code>try-with-resources</code>将会自动关闭<code>try()</code>中的资源，并且将先关闭后声明的资源。</p>
+<p>如果不catch IOException就更加清爽了：</p>
+<pre><code>public static void copy(String src, String dst) throws IOException {
+    try (InputStream in = new FileInputStream(src);
+         OutputStream out = new FileOutputStream(dst)) {
+        byte[] buff = new byte[1024];
+        int n;
+        while ((n = in.read(buff)) &gt;= 0) {
+            out.write(buff, 0, n);
+        }
+    }
+}
+</code></pre><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>实际上<code>try-with-resources</code>只是个语法糖，它将在编译时编译成关闭资源的代码。我们将上述例子中的代码编译成class文件，再打成jar包，反编译回java文件，就能看到如下代码：</p>
+<pre><code>public static void copy(String var0, String var1) throws IOException {
+    FileInputStream var2 = new FileInputStream(var0);
+    Throwable var3 = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    try {
+        FileOutputStream var4 = new FileOutputStream(var1);
+        Throwable var5 = null;
 
-        new Thread(new Runnable() {
+        try {
+            byte[] var6 = new byte[1024];
 
-            @Override
-            public void run() {
-                SubThreadTest.mockRequest(&quot;heheda&quot;, new MyCallback() {
-
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println(Thread.currentThread().getName()+&quot; : &quot;+result);
-                        Toast.makeText(getApplicationContext(), result, 0).show();
+            int var7;
+            while((var7 = var2.read(var6)) &gt;= 0) {
+                var4.write(var6, 0, var7);
+            }
+        } catch (Throwable var29) {
+            var5 = var29;
+            throw var29;
+        } finally {
+            if (var4 != null) {
+                if (var5 != null) {
+                    try {
+                        // 关闭FileOutputStream
+                        var4.close();
+                    } catch (Throwable var28) {
+                        var5.addSuppressed(var28);
                     }
-                });
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();  
+                } else {
+                    var4.close();
                 }
-                Looper.prepare();
-                System.out.println(Thread.currentThread().getName()+&quot; : &quot;);
-                Toast.makeText(getApplicationContext(), &quot;result&quot;, 0).show();
-                TextView findViewById = (TextView) findViewById(R.id.tv);
-                findViewById.setText(&quot;heheda&quot;);
-                Looper.loop();
             }
-        }).start();
+
+        }
+    } catch (Throwable var31) {
+        var3 = var31;
+        throw var31;
+    } finally {
+        if (var2 != null) {
+            if (var3 != null) {
+                try {
+                    // 关闭FileInputStream
+                    var2.close();
+                } catch (Throwable var27) {
+                    var3.addSuppressed(var27);
+                }
+            } else {
+                var2.close();
+            }
+        }
+
     }
 
 }
-</code></pre><h2 id="一个有趣的问题"><a href="#一个有趣的问题" class="headerlink" title="一个有趣的问题"></a>一个有趣的问题</h2><pre><code>public class MainActivity extends ActionBarActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();  
-                }
-                Looper.prepare();
-                System.out.println(Thread.currentThread().getName()+&quot; : &quot;);
-                Toast.makeText(getApplicationContext(), &quot;result&quot;, 0).show();
-                TextView findViewById = (TextView) findViewById(R.id.tv);
-                findViewById.setText(&quot;heheda&quot;);
-                Looper.loop();
-            }
-        }).start();
-    }
-}
-</code></pre><p>子线程中其实可以弹Toast，只是需要使用Looper，而设置TextView却不行</p>
-<p>待查看源码了解</p>
+</code></pre><p>除却处理异常相关的代码，其实就是调用了资源的close方法。</p>
+<p>不过不得不说这个语法糖挺甜，真香。</p>
 
         </div>
 
@@ -272,7 +305,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-12-14T12:59:01.129Z" itemprop="dateUpdated">2018-12-14 20:59:01</time>
+    Last updated: <time datetime="2019-05-09T08:03:52.268Z" itemprop="dateUpdated">2019-05-09 16:03:52</time>
 </span><br>
 
 
@@ -298,7 +331,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
 
             
@@ -308,7 +341,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&title=《Looper解析》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&title=《Java7的try-with-resources声明》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -318,22 +351,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&title=《Looper解析》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&title=《Java7的try-with-resources声明》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Looper解析》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java7的try-with-resources声明》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -353,21 +386,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/04/13/MIUI跳转至权限设置页面/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">MIUI跳转至权限设置页面</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/02/04/Mac使用指南/" id="post-next" class="post-nav-link">
+      <a href="/2019/05/06/kotlin语法之将函数作为参数/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Mac使用指南</h4>
+        <h4 class="title">kotlin语法之将函数作为参数</h4>
       </a>
     </div>
   
@@ -390,7 +416,7 @@
     <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
     <script>
         var gitment = new Gitment({
-            id: 'Wed Mar 22 2017 15:15:30 GMT+0800',
+            id: 'Thu May 09 2019 14:53:10 GMT+0800',
             owner: 'smarxpan',
             repo: 'smarxpan.github.io',
             oauth: {
@@ -481,7 +507,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&title=《Looper解析》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&title=《Java7的try-with-resources声明》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -491,22 +517,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&title=《Looper解析》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&title=《Java7的try-with-resources声明》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Looper解析》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/&via=http://smarxpan.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java7的try-with-resources声明》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/&via=http://smarxpan.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/03/22/Looper的有趣问题/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/05/09/Java7的try-with-resources声明/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -517,7 +543,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3awa7CMAxE0f7/TxeJLUo64ymI2jcr9ARtThZ+duzjkNf5Xp+fV99cff/8WPu/37xgwIDxWMa5XfpWdPbqacq7lu+FAQPGAEayFTdk75+vBHcYMGDAUMJibSu1lBEGDBgw3IBbK0H1kAoDBgwYSRFrlJRBQP96LQ4DBowHMpLGwLc//6i/AQMGjD9mnMFSrvVrSaG9ExgwYLRm7K/Sahf9bsqYHNDFlAcMGDAaMdwRB7eY3IPdi7aLo4cBA0Y7xr2jYPpxuJXpxdHAgAGjNSNpT7opXXKtL/0KBgwYTRm1kOqOQbhBXCmPYcCAMY2hJ4W14YkEKeFhwIDRmlF7/Z6hv94uU2HAgDGS4YqT4OjW1kbQhwEDRmuGW1gmiV0+TiGNhcGAAaMdwx3eqg2TuUWvcjRHLX7DgAHjgYy8TM2HwJQ2gNHyhAEDRlOGPkjhBlY91NZCOQwYMKYx3ODoJnBRna0cAQwYMMYw8nBcG07VA/HyuGHAgDGA4T5CL0drqaT9TBgwYAxg5AFRv3RLGqJ2/wEGDBgtGElLUt+uO8Ba+8cAAwaMfox7X6akcXoaqlzwwYABYwIj7w/mzcgkQYQBA8YchhJk89F5N3C7l4AwYMCYwKhdtLlH4F72GWklDBgwYJRItecrIx3GecCAAWMYI08Ka4Oq0bAFDBgwGjH0jboXZPqv3HE0GDBgzGHUGgPGHIdwZLVwf0N/AwYMGP/OeAHhZSy6eitI0AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3aQXLjMAwEQP//08kDtqzMAGTirWqdUolssXUgkAFfr/j6erz+vTP/huRTz/ccuPDw8PAuLP35N8/g529o11k/HQ8PD+8ar92UE3BSEmbFI1kzHh4e3ufw8g39+aXMwHh4eHj/L2+zZbclBA8PD+8zebN2Nkc+x75JNHw9a8HDw8Pretc6Qv3bn6/M9/Dw8PDWU/W2nd0PsfJWPlotHh4e3gVevtxNC7t5WZtn4eHh4d3gzf7JfxcWzALf/P66tODh4eFd5iWbbzLgbw8Q3IhFioQYDw8Pb5SCzsZdbdywWfSsPODh4eHd4OWFoQ5PR/OpvCDVJQEPDw/vKG82amqHW/l2n3+qGH3h4eHhXeDtH3wgeA2Cj6LM4OHh4V3gbQ5FbcpDXpDakoCHh4f3O7xZJNGWgfavx2JfPDw8vGu8pD3dRLd5M90eyfrhO/Hw8PAu8DZb9j62yM84tEMyPDw8vBu85OvaItGWk02AW8cQeHh4eId4m0Ukr6Y+ZlrWtLfFBg8PD+8ybxMBtCFFO0LLA9yi38fDw8Mb8drNuhg7jYZhmxIybKzx8PDwSt6+dc439PzKG/Qfno6Hh4f367y6wpRterv0fAj3mtUiPDw8vHKilMcNeUnI8fnxrOQ1FYeu8PDw8Ea8dsPdRLebUGN4yAAPDw/vMm8W3Q5rUTlOmx0Ow8PDw7vHa1vhzQGstqjMChseHh7eDd5mO95HEu0W35YZPDw8vBu8dvNtY9xZDJHfP6yEeHh4eGteUgxm47GvxdVGG2/xeHh4eNd4bYucL65txw9feHh4eB/Dm7W5edP8vMLiuAMeHh7eB/DyeCJZ1tmjBgcKAx4eHl7Ma4dPeRvdNtl56BC9bjw8PLwLvNl/9JvBf3L/gUXj4eHhned9A6QO2k+E/IjZAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

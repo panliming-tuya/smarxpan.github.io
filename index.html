@@ -118,7 +118,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -150,6 +150,51 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-Java7的try-with-resources声明" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-05-09 14:53:10" datetime="2019-05-09T06:53:10.000Z" itemprop="datePublished">2019-05-09</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/05/09/Java7的try-with-resources声明/">Java7的try-with-resources声明</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。
+用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-...
+    
+
+        <a href="/2019/05/09/Java7的try-with-resources声明/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-kotlin语法之将函数作为参数" class="article-card article-type-post" itemprop="blogPost">
@@ -188,7 +233,7 @@ findViewById&lt;Button&gt;(R.id.btn).setOnClickListener {
     
 
         <a href="/2019/05/06/kotlin语法之将函数作为参数/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -237,7 +282,7 @@ public static void main(String argv[]) {
     
 
         <a href="/2019/04/30/Android源码解析之MethodAndArgsCaller/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -284,7 +329,7 @@ GraphQL是一门语言，专门用于API查询。可以类...
     
 
         <a href="/2018/12/20/Github GraphQL API v4初探/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -351,7 +396,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/12/13/理解Python协程/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -399,7 +444,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/12/05/理解Python装饰器/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -444,7 +489,7 @@ GIL: 全局解释器锁（英语：Global Inte...
     
 
         <a href="/2018/11/30/理解Python中的元类(metaclass)/" class="post-more waves-effect waves-button">
-            阅读全文…
+            Continue reading...
         </a>
     </div>
     
@@ -458,59 +503,12 @@ GIL: 全局解释器锁（英语：Global Inte...
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-Android应用冷启动时间优化探究" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-08-29 20:48:33" datetime="2018-08-29T12:48:33.000Z" itemprop="datePublished">2018-08-29</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/08/29/Android应用冷启动时间优化探究/">Android应用冷启动时间优化探究</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Android应用冷启动时间优化探究启动时间过长原因探究因应用三网融合SDK点击后启动时间过长，因此探究其冷启动时间过长的原因。
-编写了一个Demo，demo的启动Activity为com.zhexin.paymergesdk.MainActivity
-使用以下命令启动应用：
-adb shell am start -S -W com.outfit7.mytalkingtomfree/com....
-    
-
-        <a href="/2018/08/29/Android应用冷启动时间优化探究/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </div>
 </nav>
 
@@ -534,7 +532,7 @@ adb shell am start -S -W com.outfit7.mytalkingtomfree/com....
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
