@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="聪明叉的博客">
 <meta property="og:description" content="看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。 用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-wit">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-09T08:03:52.268Z">
+<meta property="og:updated_time" content="2019-05-09T08:14:20.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java7的try-with-resources声明">
 <meta name="twitter:description" content="看《Effective Java》第三版的时候，看到了其中建议将try-finally替换为try-with-resources。这个语法糖还算有意思，特此成文。 用法辨析Java库中有很多资源需要手动关闭，比如InputStream、OutputStream、java.sql.Connection等等。在此之前，通常是使用try-finally的方式关闭资源；Java7之后，推出了try-wit">
@@ -119,7 +119,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -241,7 +241,13 @@ public static void copy(String src, String dst) {
         }
     }
 }
-</code></pre><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>实际上<code>try-with-resources</code>只是个语法糖，它将在编译时编译成关闭资源的代码。我们将上述例子中的代码编译成class文件，再打成jar包，反编译回java文件，就能看到如下代码：</p>
+</code></pre><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>那么<code>try-with-resources</code>有什么神奇之处呢？到底做了什么呢？</p>
+<p>我们先来看下<code>AutoCloseable</code>接口：</p>
+<pre><code>public interface AutoCloseable {
+    void close() throws Exception;
+}
+</code></pre><p>其中仅有一个close方法，实现AutoCloseable接口的类将在close方法中实现其关闭资源的功能。</p>
+<p>而<code>try-with-resources</code>其实是个语法糖，它将在编译时编译成关闭资源的代码。我们将上述例子中的代码编译成class文件，再反编译回java文件，就能看到如下代码：</p>
 <pre><code>public static void copy(String var0, String var1) throws IOException {
     FileInputStream var2 = new FileInputStream(var0);
     Throwable var3 = null;
@@ -305,7 +311,7 @@ public static void copy(String src, String dst) {
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-05-09T08:03:52.268Z" itemprop="dateUpdated">2019-05-09 16:03:52</time>
+    最后更新时间：<time datetime="2019-05-09T08:14:20.073Z" itemprop="dateUpdated">2019-05-09 16:14:20</time>
 </span><br>
 
 
@@ -485,7 +491,7 @@ public static void copy(String src, String dst) {
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
