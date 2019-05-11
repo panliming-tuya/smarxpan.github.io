@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://smarxpan.github.io/2017/05/03/CentOS6-7%E5%92%8CUbuntu%E5%AE%89%E8%A3%85shadowsocks-libv/</loc>
+    
+    <lastmod>2019-05-11T03:09:31.624Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://smarxpan.github.io/2019/05/09/Java7%E7%9A%84try-with-resources%E5%A3%B0%E6%98%8E/</loc>
     
     <lastmod>2019-05-09T08:14:20.073Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://smarxpan.github.io/2019/04/30/Android%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BMethodAndArgsCaller/</loc>
     
     <lastmod>2019-05-06T12:25:50.329Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://smarxpan.github.io/2017/05/03/CentOS6-7%E5%92%8CUbuntu%E5%AE%89%E8%A3%85shadowsocks-libv/</loc>
-    
-    <lastmod>2019-01-03T06:03:09.130Z</lastmod>
     
   </url>
   
