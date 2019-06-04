@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Android刘海屏、水滴屏全面屏适配方案 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="我将适配方案整理后，封装成了一个库并上传至github，可参考使用 项目地址: https://github.com/smarxpan/NotchScreenTool  市面上的屏幕尺寸和全面屏方案五花八门。 这里我使用了小米的图来说明：">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android刘海屏、水滴屏全面屏适配方案">
+<meta property="og:url" content="http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="我将适配方案整理后，封装成了一个库并上传至github，可参考使用 项目地址: https://github.com/smarxpan/NotchScreenTool  市面上的屏幕尺寸和全面屏方案五花八门。 这里我使用了小米的图来说明：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://f1.market.xiaomi.com/download/MiPass/0322247c5535c9cb311630d309c65fee2d8412968/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E-2019.1.24-2.png">
+<meta property="og:image" content="http://smarxpan.github.io/images/fullscreen.jpg">
+<meta property="og:updated_time" content="2019-06-04T08:54:33.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android刘海屏、水滴屏全面屏适配方案">
+<meta name="twitter:description" content="我将适配方案整理后，封装成了一个库并上传至github，可参考使用 项目地址: https://github.com/smarxpan/NotchScreenTool  市面上的屏幕尺寸和全面屏方案五花八门。 这里我使用了小米的图来说明：">
+<meta name="twitter:image" content="http://f1.market.xiaomi.com/download/MiPass/0322247c5535c9cb311630d309c65fee2d8412968/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E-2019.1.24-2.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android刘海屏、水滴屏全面屏适配方案</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android刘海屏、水滴屏全面屏适配方案</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-03T08:54:22.000Z" itemprop="datePublished" class="page-time">
+  2019-06-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#当我们在谈屏幕适配时，我们在谈什么"><span class="post-toc-number">1.</span> <span class="post-toc-text">当我们在谈屏幕适配时，我们在谈什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#声明最大长宽比"><span class="post-toc-number">2.</span> <span class="post-toc-text">声明最大长宽比</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#适配方式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">适配方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原理说明"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">原理说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#适配刘海屏"><span class="post-toc-number">3.</span> <span class="post-toc-text">适配刘海屏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Android9-0及以上适配"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Android9.0及以上适配</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Android-O-适配"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Android O 适配</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适配华为Android-O设备"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">适配华为Android O设备</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适配小米Android-O设备"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">适配小米Android O设备</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适配oppoAndroid-O设备"><span class="post-toc-number">3.2.3.</span> <span class="post-toc-text">适配oppoAndroid O设备</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#适配总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">适配总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Android刘海屏、水滴屏全面屏适配方案" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android刘海屏、水滴屏全面屏适配方案</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-03 16:54:22" datetime="2019-06-03T08:54:22.000Z" itemprop="datePublished">2019-06-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>我将适配方案整理后，封装成了一个库并上传至github，可参考使用</p>
+<p>项目地址: <a href="https://github.com/smarxpan/NotchScreenTool" target="_blank" rel="noopener">https://github.com/smarxpan/NotchScreenTool</a></p>
+</blockquote>
+<p>市面上的屏幕尺寸和全面屏方案五花八门。</p>
+<p>这里我使用了小米的图来说明：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://f1.market.xiaomi.com/download/MiPass/0322247c5535c9cb311630d309c65fee2d8412968/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E-2019.1.24-2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上述两种屏幕都可以统称为刘海屏，不过对于右侧较小的刘海，业界一般称为水滴屏或美人尖。为便于说明，后文提到的「刘海屏」「刘海区」都同时指代上图两种屏幕。</p>
+<h2 id="当我们在谈屏幕适配时，我们在谈什么"><a href="#当我们在谈屏幕适配时，我们在谈什么" class="headerlink" title="当我们在谈屏幕适配时，我们在谈什么"></a>当我们在谈屏幕适配时，我们在谈什么</h2><ol>
+<li>适应更长的屏幕</li>
+<li>防止内容被刘海遮挡</li>
+</ol>
+<p>其中第一点是所有应用都需要适配的，对应下文的<code>声明最大长宽比</code></p>
+<p>而第二点，如果应用本身不需要全屏显示或使用沉浸式状态栏，是不需要适配的。</p>
+<p>针对需要适配第二点的应用，需要获取刘海的位置和宽高，然后将显示内容避开即可。</p>
+<h2 id="声明最大长宽比"><a href="#声明最大长宽比" class="headerlink" title="声明最大长宽比"></a>声明最大长宽比</h2><p>以前的普通屏长宽比为16：9，全面屏手机的屏幕长宽比增大了很多，如果不适配的话就会类似下面这样：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/fullscreen.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>黑色区域为未利用的区域。</p>
+<h3 id="适配方式"><a href="#适配方式" class="headerlink" title="适配方式"></a>适配方式</h3><p>适配方式有两种：</p>
+<ol>
+<li><p>将targetSdkVersion版本设置到API 24及以上</p>
+<p> 这个操作将会为<code>&lt;application&gt;</code> 标签隐式添加一个属性，<code>android:resizeableActivity=&quot;true&quot;</code>, 该属性的作用后面将详细说明。</p>
+</li>
+<li><p>在 <code>&lt;application&gt;</code> 标签中增加属性：<code>android:resizeableActivity=&quot;false&quot;</code></p>
+<p> 同时在节点下增加一个<code>meta-data</code>标签：</p>
+<pre><code>&lt;!-- Render on full screen up to screen aspect ratio of 2.4 --&gt;
+&lt;!-- Use a letterbox on screens larger than 2.4 --&gt;
+&lt;meta-data android:name=&quot;android.max_aspect&quot; android:value=&quot;2.4&quot; /&gt;
+</code></pre></li>
+</ol>
+<h3 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h3><p>这里涉及到的知识点是android:resizeableActivity属性。</p>
+<p>在 Android 7.0（API 级别 24）或更高版本的应用，android:resizeableActivity属性默认为true（对应适配方式1）。这个属性是控制多窗口显示的，决定当前的应用或者Activity是否支持多窗口。</p>
+<blockquote>
+<p><a href="https://developer.android.com/guide/topics/ui/multi-window.html?hl=zh-CN" target="_blank" rel="noopener">多窗口支持</a></p>
+</blockquote>
+<p>在清单的<code>&lt;activity&gt;</code>或 <code>&lt;application&gt;</code>节点中设置该属性，启用或禁用多窗口显示：</p>
+<pre><code>android:resizeableActivity=[&quot;true&quot; | &quot;false&quot;]
+</code></pre><p>如果该属性设置为 true，Activity 将能以分屏和自由形状模式启动。 如果此属性设置为 false，Activity 将不支持多窗口模式。 如果该值为 false，且用户尝试在多窗口模式下启动 Activity，该 Activity 将全屏显示。</p>
+<p>适配方式2即为设置屏幕的最大长宽比，这是官方提供的设置方式。</p>
+<p><strong>如果设置了最大长宽比，必须<code>android:resizeableActivity=&quot;false&quot;</code>。 否则最大长宽比没有任何作用。</strong></p>
+<h2 id="适配刘海屏"><a href="#适配刘海屏" class="headerlink" title="适配刘海屏"></a>适配刘海屏</h2><h3 id="Android9-0及以上适配"><a href="#Android9-0及以上适配" class="headerlink" title="Android9.0及以上适配"></a>Android9.0及以上适配</h3><p>Android P（9.0）开始，官方提供了适配异形屏的方式。</p>
+<blockquote>
+<p><a href="https://developer.android.com/guide/topics/display-cutout?hl=zh-CN" target="_blank" rel="noopener">Support display cutouts</a></p>
+</blockquote>
+<p>通过全新的 DisplayCutout 类，可以确定非功能区域的位置和形状，这些区域不应显示内容。 要确定这些凹口屏幕区域是否存在及其位置，请使用 getDisplayCutout() 函数。</p>
+<ol>
+<li><p>全新的窗口布局属性 layoutInDisplayCutoutMode 让您的应用可以为设备凹口屏幕周围的内容进行布局。 您可以将此属性设为下列值之一：</p>
+<ul>
+<li><code>LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT</code></li>
+<li><code>LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES</code></li>
+<li><p><code>LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER</code></p>
+<p>默认值是<code>LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT</code>，刘海区域不会显示内容，需要将值设置为<code>LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES</code></p>
+</li>
+</ul>
+</li>
+<li><p>您可以按如下方法在任何运行 Android P 的设备或模拟器上模拟屏幕缺口：</p>
+<ol>
+<li>启用开发者选项。</li>
+<li>在 Developer options 屏幕中，向下滚动至 Drawing 部分并选择 Simulate a display with a cutout。</li>
+<li>选择凹口屏幕的大小。</li>
+</ol>
+</li>
+<li><p>适配参考：</p>
+<pre><code>// 延伸显示区域到刘海
+WindowManager.LayoutParams lp = window.getAttributes();
+lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+window.setAttributes(lp);
+// 设置页面全屏显示
+final View decorView = window.getDecorView();
+decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+</code></pre><p> 其中延伸显示区域到刘海的代码，也可以通过修改Activity或应用的style实现，例如：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;style name=&quot;AppTheme&quot; parent=&quot;xxx&quot;&gt;
+        &lt;item name=&quot;android:windowLayoutInDisplayCutoutMode&quot;&gt;shortEdges&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre></li>
+</ol>
+<h3 id="Android-O-适配"><a href="#Android-O-适配" class="headerlink" title="Android O 适配"></a>Android O 适配</h3><p>因Google官方的适配方案到Android P才推出，因此在Android O设备上，各家厂商有自己的实现方案。</p>
+<p>我这里主要适配了华为、小米、oppo，这三家都给了完整的解决方案。至于vivo，vivo给了判断是否刘海屏的API，但是没用设置刘海区域显示到API，因此无需适配。</p>
+<h4 id="适配华为Android-O设备"><a href="#适配华为Android-O设备" class="headerlink" title="适配华为Android O设备"></a>适配华为Android O设备</h4><p>方案一：</p>
+<ol>
+<li><p>具体方式如下所示：</p>
+<pre><code>&lt;meta-data android:name=&quot;android.notch_support&quot; android:value=&quot;true&quot;/&gt;
+</code></pre></li>
+<li><p>对Application生效，意味着该应用的所有页面，系统都不会做竖屏场景的特殊下移或者是横屏场景的右移特殊处理：</p>
+<pre><code>&lt;application
+    android:allowBackup=&quot;true&quot;
+    android:icon=&quot;@mipmap/ic_launcher&quot;
+    android:label=&quot;@string/app_name&quot;
+    android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+    android:testOnly=&quot;false&quot;
+    android:supportsRtl=&quot;true&quot;
+    android:theme=&quot;@style/AppTheme&quot;&gt;
+    &lt;meta-data android:name=&quot;android.notch_support&quot; android:value=&quot;true&quot;/&gt;
+    &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+        &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre></li>
+<li><p>对Activity生效，意味着可以针对单个页面进行刘海屏适配，设置了该属性的Activity系统将不会做特殊处理：</p>
+<pre><code>&lt;application
+    android:allowBackup=&quot;true&quot;
+    android:icon=&quot;@mipmap/ic_launcher&quot;
+    android:label=&quot;@string/app_name&quot;
+    android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+    android:testOnly=&quot;false&quot;
+    android:supportsRtl=&quot;true&quot;
+    android:theme=&quot;@style/AppTheme&quot;&gt;
+    &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+
+            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+        &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+    &lt;activity android:name=&quot;.LandscapeFullScreenActivity&quot; android:screenOrientation=&quot;sensor&quot;&gt;
+    &lt;/activity&gt;
+    &lt;activity android:name=&quot;.FullScreenActivity&quot;&gt;
+        &lt;meta-data android:name=&quot;android.notch_support&quot; android:value=&quot;true&quot;/&gt;
+    &lt;/activity&gt;
+&lt;/application&gt;
+</code></pre></li>
+</ol>
+<p>方案二</p>
+<p>对Application生效，意味着该应用的所有页面，系统都不会做竖屏场景的特殊下移或者是横屏场景的右移特殊处理</p>
+<blockquote>
+<p>我的<a href="https://github.com/smarxpan/NotchScreenTool" target="_blank" rel="noopener">NotchScreenTool</a>中使用的就是方案二，如果需要针对Activity，建议自行修改。</p>
+</blockquote>
+<ol>
+<li><p>设置应用窗口在华为刘海屏手机使用刘海区</p>
+<pre><code>/*刘海屏全屏显示FLAG*/
+public static final int FLAG_NOTCH_SUPPORT=0x00010000;
+/**
+ * 设置应用窗口在华为刘海屏手机使用刘海区
+ * @param window 应用页面window对象
+ */
+public static void setFullScreenWindowLayoutInDisplayCutout(Window window) {
+    if (window == null) {
+        return;
+    }
+    WindowManager.LayoutParams layoutParams = window.getAttributes();
+    try {
+        Class layoutParamsExCls = Class.forName(&quot;com.huawei.android.view.LayoutParamsEx&quot;);
+        Constructor con=layoutParamsExCls.getConstructor(LayoutParams.class);
+        Object layoutParamsExObj=con.newInstance(layoutParams);
+        Method method=layoutParamsExCls.getMethod(&quot;addHwFlags&quot;, int.class);
+        method.invoke(layoutParamsExObj, FLAG_NOTCH_SUPPORT);
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |InstantiationException 
+    | InvocationTargetException e) {
+        Log.e(&quot;test&quot;, &quot;hw add notch screen flag api error&quot;);
+    } catch (Exception e) {
+        Log.e(&quot;test&quot;, &quot;other Exception&quot;);
+    }
+}
+</code></pre></li>
+<li><p>清除添加的华为刘海屏Flag，恢复应用不使用刘海区显示</p>
+<pre><code>/**
+ * 设置应用窗口在华为刘海屏手机使用刘海区
+ * @param window 应用页面window对象
+ */
+public static void setNotFullScreenWindowLayoutInDisplayCutout (Window window) {
+    if (window == null) {
+        return;
+    }
+    WindowManager.LayoutParams layoutParams = window.getAttributes();
+    try {
+        Class layoutParamsExCls = Class.forName(&quot;com.huawei.android.view.LayoutParamsEx&quot;);
+        Constructor con=layoutParamsExCls.getConstructor(LayoutParams.class);
+        Object layoutParamsExObj=con.newInstance(layoutParams);
+        Method method=layoutParamsExCls.getMethod(&quot;clearHwFlags&quot;, int.class);
+        method.invoke(layoutParamsExObj, FLAG_NOTCH_SUPPORT);
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |InstantiationException 
+    | InvocationTargetException e) {
+        Log.e(&quot;test&quot;, &quot;hw clear notch screen flag api error&quot;);
+    } catch (Exception e) {
+        Log.e(&quot;test&quot;, &quot;other Exception&quot;);
+    }
+}
+</code></pre></li>
+</ol>
+<h4 id="适配小米Android-O设备"><a href="#适配小米Android-O设备" class="headerlink" title="适配小米Android O设备"></a>适配小米Android O设备</h4><ol>
+<li><p>判断是否是刘海屏</p>
+<pre><code>private static boolean isNotch() {
+    try {
+        Method getInt = Class.forName(&quot;android.os.SystemProperties&quot;).getMethod(&quot;getInt&quot;, String.class, int.class);
+        int notch = (int) getInt.invoke(null, &quot;ro.miui.notch&quot;, 0);
+        return notch == 1;
+    } catch (Throwable ignore) {
+    }
+    return false;
+}
+</code></pre></li>
+<li><p>设置显示到刘海区域</p>
+<pre><code>@Override
+public void setDisplayInNotch(Activity activity) {
+    int flag = 0x00000100 | 0x00000200 | 0x00000400;
+    try {
+        Method method = Window.class.getMethod(&quot;addExtraFlags&quot;,
+                int.class);
+        method.invoke(activity.getWindow(), flag);
+    } catch (Exception ignore) {
+    }
+}
+</code></pre></li>
+<li><p>获取刘海宽高</p>
+<pre><code>public static int getNotchHeight(Context context) {
+    int resourceId = context.getResources().getIdentifier(&quot;notch_height&quot;, &quot;dimen&quot;, &quot;android&quot;);
+    if (resourceId &gt; 0) {
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
+    return 0;
+}
+
+public static int getNotchWidth(Context context) {
+    int resourceId = context.getResources().getIdentifier(&quot;notch_width&quot;, &quot;dimen&quot;, &quot;android&quot;);
+    if (resourceId &gt; 0) {
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
+    return 0;
+}
+</code></pre></li>
+</ol>
+<h4 id="适配oppoAndroid-O设备"><a href="#适配oppoAndroid-O设备" class="headerlink" title="适配oppoAndroid O设备"></a>适配oppoAndroid O设备</h4><ol>
+<li><p>判断是否是刘海屏</p>
+<pre><code>@Override
+public boolean hasNotch(Activity activity) {
+    boolean ret = false;
+    try {
+        ret = activity.getPackageManager().hasSystemFeature(&quot;com.oppo.feature.screen.heteromorphism&quot;);
+    } catch (Throwable ignore) {
+    }
+    return ret;
+}
+</code></pre></li>
+<li><p>获取刘海的左上角和右下角的坐标</p>
+<pre><code>/**
+ * 获取刘海的坐标
+ * &lt;p&gt;
+ * 属性形如：[ro.oppo.screen.heteromorphism]: [378,0:702,80]
+ * &lt;p&gt;
+ * 获取到的值为378,0:702,80
+ * &lt;p&gt;
+ * &lt;p&gt;
+ * (378,0)是刘海区域左上角的坐标
+ * &lt;p&gt;
+ * (702,80)是刘海区域右下角的坐标
+ */
+private static String getScreenValue() {
+    String value = &quot;&quot;;
+    Class&lt;?&gt; cls;
+    try {
+        cls = Class.forName(&quot;android.os.SystemProperties&quot;);
+        Method get = cls.getMethod(&quot;get&quot;, String.class);
+        Object object = cls.newInstance();
+        value = (String) get.invoke(object, &quot;ro.oppo.screen.heteromorphism&quot;);
+    } catch (Throwable ignore) {
+    }
+    return value;
+}
+</code></pre></li>
+</ol>
+<p>Oppo Android O机型不需要设置显示到刘海区域，只要设置了应用全屏就会默认显示。</p>
+<p>因此Oppo机型必须适配。</p>
+<h2 id="适配总结"><a href="#适配总结" class="headerlink" title="适配总结"></a>适配总结</h2><p>根据上述功能，我将其整理成了一个依赖库：<a href="https://github.com/smarxpan/NotchScreenTool" target="_blank" rel="noopener">NotchScreenTool</a></p>
+<p>使用起来很简单：</p>
+<pre><code>// 支持显示到刘海区域
+NotchScreenManager.getInstance().setDisplayInNotch(this);
+// 获取刘海屏信息
+NotchScreenManager.getInstance().getNotchInfo(this, new INotchScreen.NotchScreenCallback() {
+    @Override
+    public void onResult(INotchScreen.NotchScreenInfo notchScreenInfo) {
+        Log.i(TAG, &quot;Is this screen notch? &quot; + notchScreenInfo.hasNotch);
+        if (notchScreenInfo.hasNotch) {
+            for (Rect rect : notchScreenInfo.notchRects) {
+                Log.i(TAG, &quot;notch screen Rect =  &quot; + rect.toShortString());
+            }
+        }
+    }
+});
+</code></pre><p>获取刘海区域信息后就可以根据自己应用的需要，来避开重要的控件。</p>
+<p>详情可参考我项目中的代码。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="[https://developer.android.com/guide/practices/screens-distribution?hl=zh-CN#MaxAspectRatio](https://developer.android.com/guide/practices/screens-distribution?hl=zh-CN#MaxAspectRatio">声明受限屏幕支持：声明最大长宽比</a>)</p>
+</blockquote>
+<blockquote>
+<p><a href="https://source.android.google.cn/compatibility/android-cdd.html?hl=zh-cn" target="_blank" rel="noopener">Android 8.1 兼容性定义</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://developer.android.com/guide/topics/ui/multi-window.html?hl=zh-CN" target="_blank" rel="noopener">多窗口支持</a></p>
+<p><a href="https://developer.android.com/guide/topics/display-cutout?hl=zh-CN" target="_blank" rel="noopener">Support display cutouts</a></p>
+<p><a href="https://developer.huawei.com/consumer/cn/devservice/doc/50114" target="_blank" rel="noopener">华为刘海屏手机安卓O版本适配指导</a></p>
+<p><a href="https://open.oppomobile.com/wiki/doc#id=10159" target="_blank" rel="noopener">OPPO凹形屏适配说明</a></p>
+<p><a href="https://dev.vivo.com.cn/documentCenter/doc/103" target="_blank" rel="noopener">vivo 全面屏应用适配指南</a></p>
+<p><a href="https://dev.mi.com/console/doc/detail?pId=1293" target="_blank" rel="noopener">小米刘海屏水滴屏 Android O 适配</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-06-04T08:54:33.749Z" itemprop="dateUpdated">2019-06-04 16:54:33</time>
+</span><br>
+
+
+        
+        本文章遵循署名-非商业性使用 4.0 国际 (<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">CC BY-NC 4.0</a>) 共享协议, 如果觉得对你有帮助，可以打赏我一杯咖啡☕
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&title=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&title=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/09/Java7的try-with-resources声明/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java7的try-with-resources声明</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="/gitment/style/default.css">
+    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: 'Mon Jun 03 2019 16:54:22 GMT+0800',
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&title=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&title=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android刘海屏、水滴屏全面屏适配方案》 — 聪明叉的博客&url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2019/06/03/Android刘海屏、水滴屏全面屏适配方案/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADH0lEQVR42u3aS27kMAwFwNz/0j3bATLteY90A7FSWgUNx1bJC5qfr694vf5a+TXvrn99W/ke2l2tFjY2NvZD2K/L9f2R15vO/ze/PtltbsHGxsY+lX0dMK6R+fU5IGG0IRMbGxsbO08Grtl5uMoTEmxsbGzsfHOz0NKmE+1OsLGxsbHzYk39gDKktZiP19KwsbGxfzy7bbL+5L8/0t/GxsbG/sHs12htRnaSXz6+f2xsbOyD2G2QmDVl80bCrCExTJ+wsbGxD2JvRmo2reL8ENsw2Za0sLGxsZ/Ovn7ALPHIA8xsD/k9sbGxsX8De58S5ElLnirMBoaS0IiNjY19Hrv9uF8NwcR3SBKV9viwsbGxT2Xvi++zwtA+ydkMFWFjY2Ofx84bAHcVj9qmwqz1WxSVsLGxsR/LbstG16Eo/6UtNrVhbPiesbGxsR/I/nQYm5V72sJTXnLCxsbGPpu9GaZJHt8mGHVGhY2Njf3r2XnYyKn53TbHN+yHYGNjYz+c3RbW20CSj+PMhnhue7fY2NjYj2W3YePeFKIFzF5SNKOEjY2N/Vj2vdtqm7j7+yelpaizjY2Njf1YdvK5vynH56EoT5PaMSNsbGzss9lJpjKj5ic9Cz8J+O312NjY2MexZ49MkpB2u21redjZxsbGxj6OPUsJZiGkTVQ2rdwiFcHGxsY+jp2nKPvG7f5w6yY0NjY29kHsWZKQBJtNI7kdJ2qPAxsbG/skdlt8nx1QGwjveg1vd46NjY19HDsZ08mD1uawkjsnpaWiPYCNjY39cPbsQ38z0HNdxG/Bs4YBNjY29kns2af/XeGkTV1mTd9/KLCxsbEPYrdN1j0jHwlKcodkvb0zNjY29hHszfjLrAGQtIrvLUW9jdvY2NjYR7DbMNAO1rRlpuRo9ukQNjY29nnsJGi1YSZpFSdHnBf984IUNjY29qnsNjC8Rqtt/W5i73+OGxsbG/tXsu89iORZObU+SmxsbOxfyd6AkxRihh82ALCxsbGPY8+KSpuiz+yg29bv2xeMjY2NfRC7DXLJY/ZbyQtSHxnWwcbGxn4G+w+OwQdKATZCOgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '春起之苗, 不见其增, 日有所长';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '持志如心痛';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
