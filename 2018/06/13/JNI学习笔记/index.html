@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>JNI学习笔记 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="JNI学习笔记注册静态注册我们从网上找到的与JNI有关的资料，一般都会介绍如何使用这种方法来完成JNI函数的注册，这种方法就是根据函数名来找对应的JNI函数。它需要Java的工具程序javah参与，整体流程如下： 先编写Java代码，然后编译生成.class文件。 使用Java的工具程序javah，如javah -o output packagename.classname，这样它会生成一个叫ou">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JNI学习笔记">
+<meta property="og:url" content="http://smarxpan.github.io/2018/06/13/JNI学习笔记/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="JNI学习笔记注册静态注册我们从网上找到的与JNI有关的资料，一般都会介绍如何使用这种方法来完成JNI函数的注册，这种方法就是根据函数名来找对应的JNI函数。它需要Java的工具程序javah参与，整体流程如下： 先编写Java代码，然后编译生成.class文件。 使用Java的工具程序javah，如javah -o output packagename.classname，这样它会生成一个叫ou">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-09T11:19:09.311Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JNI学习笔记">
+<meta name="twitter:description" content="JNI学习笔记注册静态注册我们从网上找到的与JNI有关的资料，一般都会介绍如何使用这种方法来完成JNI函数的注册，这种方法就是根据函数名来找对应的JNI函数。它需要Java的工具程序javah参与，整体流程如下： 先编写Java代码，然后编译生成.class文件。 使用Java的工具程序javah，如javah -o output packagename.classname，这样它会生成一个叫ou">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JNI学习笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">JNI学习笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-13T08:54:22.000Z" itemprop="datePublished" class="page-time">
+  2018-06-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JNI学习笔记"><span class="post-toc-number">1.</span> <span class="post-toc-text">JNI学习笔记</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注册"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">注册</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态注册"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">静态注册</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动态注册"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">动态注册</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过JNIEnv操作jobject"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">通过JNIEnv操作jobject</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jfieldID和jmethodID介绍"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">jfieldID和jmethodID介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jstring介绍"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">jstring介绍</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#垃圾回收"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">垃圾回收</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JNI中的异常处理"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">JNI中的异常处理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-JNI学习笔记" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">JNI学习笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-13 16:54:22" datetime="2018-06-13T08:54:22.000Z" itemprop="datePublished">2018-06-13</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="JNI学习笔记"><a href="#JNI学习笔记" class="headerlink" title="JNI学习笔记"></a>JNI学习笔记</h1><h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>我们从网上找到的与JNI有关的资料，一般都会介绍如何使用这种方法来完成JNI函数的注册，这种方法就是根据函数名来找对应的JNI函数。它需要Java的工具程序javah参与，整体流程如下：</p>
+<p>先编写Java代码，然后编译生成.class文件。</p>
+<p>使用Java的工具程序javah，如<code>javah -o output packagename.classname</code>，这样它会生成一个叫<code>output.h</code>的JNI层头文件。其中<code>packagename.classname</code>是Java代码编译后的class文件，而在生成的<code>output.h</code>文件里，声明了对应的JNI层函数，只要实现里面的函数即可。</p>
+<p>这个头文件的名字一般都会使用<code>packagename_class.h</code>的样式</p>
+<p>静态方法就是根据函数名来建立Java函数和JNI函数之间的关联关系的，而且它要求JNI层函数的名字必须遵循特定的格式。</p>
+<p>这种方法也有几个弊端，即：</p>
+<p>需要编译所有声明了native函数的Java类，每个所生成的class文件都得用javah生成一个头文件。</p>
+<p>javah生成的JNI层函数名特别长，书写起来很不方便。</p>
+<p>初次调用native函数时要根据函数名字搜索对应的JNI层函数来建立关联关系，这样会影响运行效率。</p>
+<p>有什么办法可以克服上面三个弊端吗？根据上面的介绍可知，Java native函数是通过函数指针来和JNI层函数建立关联关系的。如果直接让native函数知道JNI层对应函数的函数指针，不就万事大吉了吗？这就是下面要介绍的第二种方法：动态注册法。</p>
+<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>既然Java native函数和JNI函数是一一对应的，那么是不是会有一个结构来保存这种关联关系呢？答案是肯定的。在JNI技术中，用来记录这种一一对应关系的，是一个叫JNINativeMethod的结构，其定义如下：</p>
+<pre><code>typedef struct{
+    //Java中native函数的名字，不用携带包的路径，例如“native_init”。
+    const char*name;
+    //Java函数的签名信息，用字符串表示，是参数类型和返回值类型的组合。
+    const char*signature;
+    void*fnPtr;//JNI层对应函数的函数指针，注意它是void*类型。
+}JNINativeMethod;
+</code></pre><p>应该如何使用这个结构体呢？来看MediaScanner JNI层是如何做的，代码如下所示：</p>
+<pre><code>[--＞android_media_MediaScanner.cpp]
+//定义一个JNINativeMethod数组，其成员就是MS中所有native函数的一一对应关系。
+static JNINativeMethod gMethods[]={
+    ……
+    {
+    &quot;processFile&quot;//Java中native函数的函数名。
+    //processFile的签名信息，签名信息的知识后面再做介绍。
+    &quot;(Ljava/lang/String;Ljava/lang/String;Landroid/media/MediaScannerClient;)V&quot;，
+    (void*)android_media_MediaScanner_processFile//JNI层对应的函数指针。
+    }，
+    ……
+    {
+    &quot;native_init&quot;，
+    &quot;()V&quot;，
+    (void*)android_media_MediaScanner_native_init
+    }，
+    ……
+};
+
+//注册JNINativeMethod数组
+int register_android_media_MediaScanner(JNIEnv*env)
+{
+//调用AndroidRuntime的registerNativeMethods函数，第二个参数表明是Java中的哪个类return AndroidRuntime：registerNativeMethods(env，&quot;android/media/MediaScanner&quot;，gMethods,NELEM(gMethods));
+}
+
+[--＞AndroidRunTime.cpp]
+int AndroidRuntime：registerNativeMethods(JNIEnv*env，const char*className,const JNINativeMethod*gMethods,int numMethods)
+{
+//调用jniRegisterNativeMethods函数完成注册return jniRegisterNativeMethods(env,className,gMethods,numMethods);
+}
+</code></pre><p>最终会调用JNIHelper.c中的</p>
+<pre><code>[--＞JNIHelp.c]
+int jniRegisterNativeMethods(JNIEnv*env,const char*className, const JNINativeMethod*gMethods,int numMethods)
+</code></pre><p>其实动态注册的工作，只用两个函数就能完成。总结如下：</p>
+<pre><code>/*
+env指向一个JNIEnv结构体，它非常重要，后面会讨论它。classname为对应的Java类名，由于JNINativeMethod中使用的函数名并非全路径名，所以要指明是哪个类。
+*/
+jclass clazz=(*env)-＞FindClass(env,className);
+
+//调用JNIEnv的RegisterNatives函数，注册关联关系。
+(*env)-＞RegisterNatives(env,clazz,gMethods,numMethods);
+</code></pre><p>这些动态注册的函数在什么时候和什么地方被调用呢？这里就不卖关子了，直接给出该问题的答案：</p>
+<p>当Java层通过System.loadLibrary加载完JNI动态库后，紧接着会查找该库中一个叫JNI_OnLoad的函数。如果有，就调用它，而动态注册的工作就是在这里完成的。</p>
+<p>所以，如果想使用动态注册方法，就必须实现JNI_OnLoad函数，只有在这个函数中才有机会完成动态注册的工作。</p>
+<h2 id="通过JNIEnv操作jobject"><a href="#通过JNIEnv操作jobject" class="headerlink" title="通过JNIEnv操作jobject"></a>通过JNIEnv操作jobject</h2><p>前面提到过一个问题，即Java的引用类型除了少数几个外，最终在JNI层都会用jobject来表示对象的数据类型，那么该如何操作这个jobject呢？</p>
+<p>从另外一个角度来解释这个问题。一个Java对象是由什么组成的？当然是它的成员变量和成员函数了。那么，操作jobject的本质就应当是操作这些对象的成员变量和成员函数。所以应先来看与成员变量及成员函数有关的内容。</p>
+<h3 id="jfieldID和jmethodID介绍"><a href="#jfieldID和jmethodID介绍" class="headerlink" title="jfieldID和jmethodID介绍"></a>jfieldID和jmethodID介绍</h3><p>我们知道，成员变量和成员函数都是由类定义的，它们是类的属性，所以在JNI规则中，用jfieldID和jmethodID来表示Java类的成员变量和成员函数，可通过JNIEnv的下面两个函数得到：</p>
+<pre><code>jfieldID GetFieldID(jclass clazz,const char*name,const char*sig);
+
+jmethodID GetMethodID(jclass clazz,const char*name,const char*sig);
+</code></pre><p>其中，jclass代表Java类，name表示成员函数或成员变量的名字，sig为这个函数和变量的签名信息。如前所示，成员函数和成员变量都是类的信息，这两个函数的第一个参数都是jclass。</p>
+<p>使用示例：</p>
+<pre><code>[--＞android_media_MediaScanner.cpp：MyMediaScannerClient构造函数]
+MyMediaScannerClient(JNIEnv*env,jobject client)……
+{
+    //先找到android.media.MediaScannerClient类在JNI层中对应的jclass实例。
+    jclass mediaScannerClientInterface=env-＞FindClass(&quot;android/media/MediaScannerClient&quot;);
+    //取出MediaScannerClient类中函数scanFile的jMethodID。
+    mScanFileMethodID=env-＞GetMethodID(mediaScannerClientInterface，&quot;scanFile&quot;，&quot;(Ljava/lang/String;JJ)V&quot;);
+    //取出MediaScannerClient类中函数handleStringTag的jMethodID。
+    mHandleStringTagMethodID=env-＞GetMethodID(mediaScannerClientInterface，&quot;handleStringTag&quot;，&quot;(Ljava/lang/String;Ljava/lang/String;)V&quot;);
+    ……
+}
+</code></pre><p>在上面的代码中，将scanFile和handleStringTag函数的jmethodID保存为MyMediaScannerClient的成员变量。为什么这里要把它们保存起来呢？这个问题涉及一个关于程序运行效率的知识点：</p>
+<p>如果每次操作jobject前都去查询jmethodID或jfieldID，那么将会影响程序运行的效率，所以我们在初始化的时候可以取出这些ID并保存起来以供后续使用。</p>
+<p>取出jmethodID后，又该怎么用它呢？</p>
+<pre><code>/*
+调用JNIEnv的CallVoidMethod函数，注意CallVoidMethod的参数：
+第一个是代表MediaScannerClient的jobject对象，第二个参数是函数scanFile的jmethodID，后面是Java中scanFile的参数。
+*/
+mEnv-＞CallVoidMethod(mClient,mScanFileMethodID,pathStr，lastModified,fileSize);
+</code></pre><p>通过JNIEnv输出CallVoidMethod，再把jobject、jMethodID和对应的参数传进去，JNI层就能够调用Java对象的函数了！</p>
+<p>实际上JNIEnv输出了一系列类似CallVoidMethod的函数，形式如下：</p>
+<pre><code>NativeType Call＜type＞Method(JNIEnv*env,jobject obj,jmethodID methodID，……)
+</code></pre><p>其中type对应Java函数的返回值类型，例如CallIntMethod、CallVoidMethod等。</p>
+<p>上面是针对非static函数的，如果想调用Java中的static函数，则用JNIEnv输出的CallStatic＜Type＞Method系列函数。</p>
+<p>现在，我们已了解了如何通过JNIEnv操作jobject的成员函数，那如何通过jfieldID操作jobject的成员变量呢？这里，直接给出整体解决方案，如下所示：</p>
+<pre><code>//获得fieldID后，可调用Get＜type＞Field系列函数获取jobject对应的成员变量的值。
+NativeType Get＜type＞Field(JNIEnv*env,jobject obj,jfieldID fieldID)
+
+//或者调用Set＜type＞Field系列函数来设置jobject对应的成员变量的值。
+void Set＜type＞Field(JNIEnv*env,jobject obj,jfieldID fieldID,NativeType value)
+
+//下面我们列出一些常用的Get/Set函数。
+GetObjectField()SetObjectField()
+
+GetBooleanField()SetBooleanField()
+
+GetByteField()SetByteField()
+
+GetCharField()SetCharField()
+
+GetShortField()SetShortField()
+
+GetIntField()SetIntField()
+
+GetLongField()SetLongField()(
+
+GetFloatField()SetFloatField()
+
+GetDoubleField()SetDoubleField()
+</code></pre><h3 id="jstring介绍"><a href="#jstring介绍" class="headerlink" title="jstring介绍"></a>jstring介绍</h3><p>Java中的String也是引用类型，不过由于它的使用频率较高，所以在JNI规范中单独创建了一个jstring类型来表示Java中的String类型。虽然jstring是一种独立的数据类型，但是它并没有提供成员函数以便操作。而C++中的string类是有自己的成员函数的。那么该怎么操作jstring呢？还是得依靠JNIEnv提供的帮助。这里看几个有关jstring的函数：</p>
+<p>调用JNIEnv的NewString（JNIEnv<em>env,const jchar</em>unicodeChars,jsize len），可以从Native的字符串得到一个jstring对象。其实，可以把一个jstring对象看成是Java中String对象在JNI层的代表，也就是说，jstring就是一个Java String。但由于Java String存储的是Unicode字符串，所以NewString函数的参数也必须是Unicode字符串。</p>
+<p>调用JNIEnv的NewStringUTF将根据Native的一个UTF-8字符串得到一个jstring对象。在实际工作中，这个函数用得最多。</p>
+<p>上面两个函数将本地字符串转换成了Java的String对象，JNIEnv还提供了GetStringChars函数和GetStringUTFChars函数，它们可以将Java String对象转换成本地字符串。其中GetStringChars得到一个Unicode字符串，而GetStringUTFChars得到一个UTF-8字符串。</p>
+<p>另外，如果在代码中调用了上面几个函数，在做完相关工作后，就都需要调用ReleaseStringChars函数或ReleaseStringUTFChars函数来对应地释放资源，否则会导致JVM内存泄露。这一点和jstring的内部实现有关，读者写代码时务必注意这个问题</p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p>JNI技术一共提供了三种类型的引用，它们分别是：</p>
+<p>Local Reference：本地引用。在JNI层函数中使用的非全局引用对象都是Local Reference，它包括函数调用时传入的jobject和在JNI层函数中创建的jobject。Local Reference最大的特点就是，一旦JNI层函数返回，这些jobject就可能被垃圾回收。</p>
+<p>Global Reference：全局引用，这种对象如不主动释放，它永远不会被垃圾回收。</p>
+<p>Weak Global Reference：弱全局引用，一种特殊的Global Reference，在运行过程中可能会被垃圾回收。所以在使用它之前，需要调用JNIEnv的IsSameObject判断它是否被回收了。</p>
+<pre><code>[--＞android_media_MediaScanner.cpp：MyMediaScannerClient构造函数]
+MyMediaScannerClient（JNIEnv*env,jobject client）：mEnv（env），
+//调用NewGlobalRef创建一个Global Reference，这样mClient就不用担心被回收了。
+mClient（env-＞NewGlobalRef（client）），
+mScanFileMethodID（0），
+mHandleStringTagMethodID（0），
+mSetMimeTypeMethodID（0）
+{
+……
+}
+//析构函数
+virtual～MyMediaScannerClient（）
+{
+    mEnv-＞DeleteGlobalRef（mClient）；//调用DeleteGlobalRef释放这个全局引用。
+}
+</code></pre><p>每当JNI层想要保存Java层中的某个对象时，就可以使用Global Reference，使用完后记住释放它就可以了。这一点很容易理解。下面要讲有关Local Reference的一个问题，还是先看实例，代码如下所示：</p>
+<pre><code>[--＞android_media_MediaScanner.cpp：MyMediaScannerClient的scanFile]
+virtual bool scanFile（const char*path,long long lastModified,long long fileSize）
+{
+jstring pathStr；
+//调用NewStringUTF创建一个jstring对象，它是Local Reference类型。
+if（（pathStr=mEnv-＞NewStringUTF（path））==NULL）return false；
+//调用Java的scanFile函数，把这个jstring传进去
+mEnv-＞CallVoidMethod（mClient,mScanFileMethodID,pathStr，
+lastModified,fileSize）；
+</code></pre><p>根据Local Reference的说明，这个函数返回后，pathStr对象就会被回收。所以下面这个DeleteLocalRef调用看起来是多余的，其实不然，这里解释一下原因：</p>
+<p>1）如果不调用DeleteLocalRef,pathStr将在函数返回后被回收。</p>
+<p>2）如果调用DeleteLocalRef,pathStr会立即被回收。这两者看起来没什么区别，不过代码如果像下面这样，虚拟机的内存就会很快被耗尽：</p>
+<pre><code>for（int i=0；i＜100；i++）
+{
+jstring pathStr=mEnv-＞NewStringUTF（path）；
+……//做一些操作
+//mEnv-＞DeleteLocalRef（pathStr）；//不立即释放Local Reference
+}
+// 如果上面代码的循环中未调用DeleteLocalRef，则会创建100个jstring，那么内存的耗费就非常可观了！
+mEnv-＞DeleteLocalRef（pathStr）；
+return（！mEnv-＞ExceptionCheck（））；
+}
+</code></pre><h2 id="JNI中的异常处理"><a href="#JNI中的异常处理" class="headerlink" title="JNI中的异常处理"></a>JNI中的异常处理</h2><p>JNI中也有异常，不过它和C++、Java的异常不太一样。如果调用JNIEnv的某些函数出错了，则会产生一个异常，但这个异常不会中断本地函数的执行，直到从JNI层返回到Java层后，虚拟机才会抛出这个异常。虽然在JNI层中产生的异常不会中断本地函数的运行，但一旦产生异常后，就只能做一些资源清理工作了（例如释放全局引用，或者ReleaseStringChars）。如果这时调用除上面所说函数之外的其他JNIEnv函数，则会导致程序死掉.</p>
+<p>JNI层函数可以在代码中截获和修改这些异常，JNIEnv提供了三个函数给予帮助：</p>
+<p>ExceptionOccured函数，用来判断是否发生异常。</p>
+<p>ExceptionClear函数，用来清理当前JNI层中发生的异常。</p>
+<p>ThrowNew函数，用来向Java层抛出异常。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-06-09T11:19:09.311Z" itemprop="dateUpdated">2019-06-09 19:19:09</time>
+</span><br>
+
+
+        
+        本文章遵循署名-非商业性使用 4.0 国际 (<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">CC BY-NC 4.0</a>) 共享协议, 如果觉得对你有帮助，可以打赏我一杯咖啡☕
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&title=《JNI学习笔记》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&title=《JNI学习笔记》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/06/13/JNI学习笔记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JNI学习笔记》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/08/29/Android应用冷启动时间优化探究/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Android应用冷启动时间优化探究</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/07/运营商三网sdk接入整理/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">游戏接入运营商三网Android SDK整理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="/gitment/style/default.css">
+    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: 'Wed Jun 13 2018 16:54:22 GMT+0800',
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&title=《JNI学习笔记》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&title=《JNI学习笔记》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/06/13/JNI学习笔记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JNI学习笔记》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/06/13/JNI学习笔记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3a3W7CMAwGUN7/pZm0q0ls4bOdITU9uUJAS06RrPjn8YjX83utP/35ndd3dl01WhgYGJdlPJfrlTF/vf6V5Pu/UDEwMG7AWAfZ9S3W7+Rhd/343uwZAwMDI976JIBiYGBg7Aq4yVVVNgYGBkbCmKSX84fy0VwcAwPjgoxqY+CTr/+xv4GBgXERxrO4qgE0CaYbdoWBgXE0Iy+lVRuTeRhNrorCMQYGxqGMXnMxCcR5qpm0H948aAwMjKMZ1aNbHmTzEDwP0BgYGHdg5M2AXaNjeWAtFOMwMDCOZswPbckmCse7vS0EDAyMizOq5bMcMEGWU1kMDIwbMHozGnkDstoGKN8HAwPjaEbv1vmwRS8NribMGBgYd2D0ymHVFkI1cPceHAYGxtmMyYBFcogszKktkdEeMDAwjmPkIw7VQn8yirHtMIqBgXEoo/cDvQPirnQ3+h8wMDAOYlQHI3oRvdqk3JAAY2Bg3ICRF7x66Wh11LWcAGNgYBzE2FXuzzfUe3xRoQ0DA+NoxqRxWD0Uzu/zSwjGwMA4mjFPMudtg0dxNQ+IGBgYl2U8i2tSepuEVwwMjDszemFufVzrtSTnB1MMDIyzGXmQzUty6/Q4CanNngYGBsbRjLzpuCuKRwNeeRqMgYGBEWy3GoirDYB1mMbAwMDIi2iT8J0PefzZwsTAwDiakZfPksNcNUHtlfmauTgGBsYFGZNJjfzotncIrInBwMC4HuMLYdj6CCs0ulQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '春起之苗, 不见其增, 日有所长';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '持志如心痛';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

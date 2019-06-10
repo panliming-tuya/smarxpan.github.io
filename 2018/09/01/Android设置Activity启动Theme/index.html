@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Android设置Activity启动Theme | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="应用启动之前会有一段时间的黑屏或者白屏，为了让这段时间用户体验更好，需要设置Activity的Theme。 这样在App启动之后，会先展示应用的logo 具体步骤如下： 声明drawabledrawable/launcher_drawable.xml &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt; &amp;lt;layer">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android设置Activity启动Theme">
+<meta property="og:url" content="http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="应用启动之前会有一段时间的黑屏或者白屏，为了让这段时间用户体验更好，需要设置Activity的Theme。 这样在App启动之后，会先展示应用的logo 具体步骤如下： 声明drawabledrawable/launcher_drawable.xml &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt; &amp;lt;layer">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-10T07:54:07.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android设置Activity启动Theme">
+<meta name="twitter:description" content="应用启动之前会有一段时间的黑屏或者白屏，为了让这段时间用户体验更好，需要设置Activity的Theme。 这样在App启动之后，会先展示应用的logo 具体步骤如下： 声明drawabledrawable/launcher_drawable.xml &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt; &amp;lt;layer">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android设置Activity启动Theme</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android设置Activity启动Theme</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-01T12:48:33.000Z" itemprop="datePublished" class="page-time">
+  2018-09-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明drawable"><span class="post-toc-number">1.</span> <span class="post-toc-text">声明drawable</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明style"><span class="post-toc-number">2.</span> <span class="post-toc-text">声明style</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Activity中使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">Activity中使用</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Android设置Activity启动Theme" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android设置Activity启动Theme</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-01 20:48:33" datetime="2018-09-01T12:48:33.000Z" itemprop="datePublished">2018-09-01</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>应用启动之前会有一段时间的黑屏或者白屏，为了让这段时间用户体验更好，需要设置Activity的Theme。</p>
+<p>这样在App启动之后，会先展示应用的logo</p>
+<p>具体步骤如下：</p>
+<h3 id="声明drawable"><a href="#声明drawable" class="headerlink" title="声明drawable"></a>声明drawable</h3><p>drawable/launcher_drawable.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;item android:drawable=&quot;@android:color/white&quot; /&gt;
+
+    &lt;!-- logo, 较低版本用bitmap包装，防止某些手机使用background时拉伸变形 --&gt;
+    &lt;item android:bottom=&quot;100dp&quot;&gt;
+        &lt;bitmap
+            android:gravity=&quot;center&quot;
+            android:src=&quot;@drawable/zhexin_logo&quot; /&gt;
+    &lt;/item&gt;
+
+&lt;/layer-list&gt;
+</code></pre><p>drawable-v23/launcher_drawable.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;item android:drawable=&quot;@android:color/white&quot; /&gt;
+
+    &lt;!-- API23 可控制logo大小 --&gt;
+    &lt;item
+        android:width=&quot;105dp&quot;
+        android:height=&quot;135dp&quot;
+        android:bottom=&quot;100dp&quot;
+        android:drawable=&quot;@drawable/zhexin_logo&quot;
+        android:gravity=&quot;center&quot; /&gt;
+
+&lt;/layer-list&gt;
+</code></pre><p>高版本中还可以配置矢量图，logo使用矢量图更加节约空间。不过实际使用中，部分国产机型，哪怕6.0版本仍旧不能很好支持矢量图格式。</p>
+<h3 id="声明style"><a href="#声明style" class="headerlink" title="声明style"></a>声明style</h3><p>values/style.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;style name=&quot;AppTheme&quot; parent=&quot;@android:style/Theme.Light.NoTitleBar.Fullscreen&quot;/&gt;
+    &lt;style name=&quot;ZxLaunchTheme&quot; parent=&quot;AppTheme&quot;&gt;
+        &lt;item name=&quot;android:windowBackground&quot;&gt;@drawable/launcher_drawable&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><p>values-v28/style.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+
+    &lt;style name=&quot;AppTheme&quot; parent=&quot;@android:style/Theme.Light.NoTitleBar.Fullscreen&quot;&gt;
+        &lt;!-- Android P 使用刘海区域 --&gt;
+        &lt;item name=&quot;android:windowLayoutInDisplayCutoutMode&quot;&gt;shortEdges&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;style name=&quot;ZxLaunchTheme&quot; parent=&quot;AppTheme&quot;&gt;
+        &lt;item name=&quot;android:windowBackground&quot;&gt;@drawable/launcher_drawable&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre><h3 id="Activity中使用"><a href="#Activity中使用" class="headerlink" title="Activity中使用"></a>Activity中使用</h3><pre><code>&lt;activity
+    android:name=&quot;com.web.game.GameActivity&quot;
+    android:configChanges=&quot;keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density&quot;
+    android:launchMode=&quot;singleTask&quot;
+    android:screenOrientation=&quot;${orientation}&quot;
+    android:theme=&quot;@style/ZxLaunchTheme&quot;&gt;
+      &lt;!--华为的 Android O 刘海屏属性--&gt;
+    &lt;meta-data
+        android:name=&quot;android.notch_support&quot;
+        android:value=&quot;true&quot; /&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-06-10T07:54:07.868Z" itemprop="dateUpdated">2019-06-10 15:54:07</time>
+</span><br>
+
+
+        
+        本文章遵循署名-非商业性使用 4.0 国际 (<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">CC BY-NC 4.0</a>) 共享协议, 如果觉得对你有帮助，可以打赏我一杯咖啡☕
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&title=《Android设置Activity启动Theme》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&title=《Android设置Activity启动Theme》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android设置Activity启动Theme》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/30/理解Python中的元类(metaclass)/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">理解Python中的元类(metaclass)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/08/29/Android应用冷启动时间优化探究/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Android应用冷启动时间优化探究</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="/gitment/style/default.css">
+    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: 'Sat Sep 01 2018 20:48:33 GMT+0800',
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&title=《Android设置Activity启动Theme》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&title=《Android设置Activity启动Theme》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android设置Activity启动Theme》 — 聪明叉的博客&url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2018/09/01/Android设置Activity启动Theme/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3a0U7DQAwEwP7/T5dXUNVkbZ+hSJMn1CZpxkg5a32PR3w8vx3vvr3+/PoOyX2urx0deHh4eINHfz3yH57gr4tyXaybZ8DDw8Nb41Vf669XvTvnumR5WfNy4+Hh4X0mLz8/geUFwsPDw/tfvCQmqD5QL/LAw8PD+wTe5FVeDgjGIfJK1oKHh4d39LeqAcH23yvzPTw8PLzxVD05qvfvNei9p8XDw8Pb4PVG9VVGdWPB9WgtD3/x8PDwtnlV2PXnSUM837CVlAYPDw9vj5dfnMPyDQe98kUhBR4eHt5RXrWdPRUl5IWePAkeHh7eBq9KymPZCaMXf5SXBzw8PLwWr7rRahI99BplPDw8vM/nTZrdvLHONxYkxX1bLDw8PLwFXnVUn8e7k+0CyeaAvEB4eHh4Z3n5Q+RLSL4YPIJjNAbDw8PD+0Ve3uDmD9pbBibtOB4eHt4e72zLW712ElhEMS4eHh7eUV71xT2PIfJRWXMfRHJPPDw8vDEviU3zQCHZjNUMF3r/Bjw8PLwF3iQ4SILXZPHIA4jkH3AsF8HDw8M7NADLQ4R8zJ8vIYVz8PDw8NZ4vfC0WqbJOc0NWHh4eHgLvEl7PR9Q5UO1XuOOh4eHt8GrBgS94VbeuFdb6puUBQ8PD2+Bl/xAMqBKmuxTG61GkQQeHh7emFeFVSOA6ienNijg4eHh7fEmAW4vJqgGH3lLXRiD4eHh4Q14z+KRw5IlpNeUF4qFh4eHt8CbvKarC0PelPc2eI3AeHh4eEVevhjkj54MySaMwsYvPDw8vDVeL8ztjfbz9roXRvy4Cg8PD+9PeQfGUcHrvhpD4OHh4X0yL2mLkxa5Wqyk0Ct7yvDw8PAO5ZzVTQbVJru6FN18i4eHh7fAywdgkzN7S0K1NR/N9/Dw8PDuz/8CH4pekxVygbYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '春起之苗, 不见其增, 日有所长';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '持志如心痛';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
