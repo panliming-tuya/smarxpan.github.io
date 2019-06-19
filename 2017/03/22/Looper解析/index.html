@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Looper解析 | 聪明叉的博客 | 成为更好的自己</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="Looper解析我们都知道无法在子线程更新UI或者弹出Toast，那么主线程到底和子线程有什么区别呢？ 这里就不得不说Looper这个类，通过Looper类的源码和使用过程，来深入理解主线程这个概念。 我们先来看Looper的典型使用方式： 如何正确的主线程运行代码网络请求不允许在主线程运行，必须在子线程发出请求。如果需要切换主线程，可以如下面的方式： 声明一个callback public in">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Looper解析">
+<meta property="og:url" content="http://smarxpan.github.io/2017/03/22/Looper解析/index.html">
+<meta property="og:site_name" content="聪明叉的博客">
+<meta property="og:description" content="Looper解析我们都知道无法在子线程更新UI或者弹出Toast，那么主线程到底和子线程有什么区别呢？ 这里就不得不说Looper这个类，通过Looper类的源码和使用过程，来深入理解主线程这个概念。 我们先来看Looper的典型使用方式： 如何正确的主线程运行代码网络请求不允许在主线程运行，必须在子线程发出请求。如果需要切换主线程，可以如下面的方式： 声明一个callback public in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T12:00:56.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Looper解析">
+<meta name="twitter:description" content="Looper解析我们都知道无法在子线程更新UI或者弹出Toast，那么主线程到底和子线程有什么区别呢？ 这里就不得不说Looper这个类，通过Looper类的源码和使用过程，来深入理解主线程这个概念。 我们先来看Looper的典型使用方式： 如何正确的主线程运行代码网络请求不允许在主线程运行，必须在子线程发出请求。如果需要切换主线程，可以如下面的方式： 声明一个callback public in">
+    
+        <link rel="alternate" type="application/atom+xml" title="聪明叉的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">聪明叉</h5>
+          <a href="mailto:smarxpan@gmail.com" title="smarxpan@gmail.com" class="mail">smarxpan@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/smarxpan" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.jianshu.com/u/dfa8a1482905" target="_blank">
+                <i class="icon icon-lg icon-jianshu"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Looper解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Looper解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-22T07:15:30.000Z" itemprop="datePublished" class="page-time">
+  2017-03-22
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Looper解析"><span class="post-toc-number">1.</span> <span class="post-toc-text">Looper解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何正确的主线程运行代码"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">如何正确的主线程运行代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码解析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">源码解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从子线程Toast无法弹出说起"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">从子线程Toast无法弹出说起</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ThreadLocal简要分析"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">ThreadLocal简要分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Looper分析"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">Looper分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#另一种在主线程运行的方式"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">另一种在主线程运行的方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Looper解析" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Looper解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-03-22 15:15:30" datetime="2017-03-22T07:15:30.000Z" itemprop="datePublished">2017-03-22</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Looper解析"><a href="#Looper解析" class="headerlink" title="Looper解析"></a>Looper解析</h1><p>我们都知道无法在子线程更新UI或者弹出Toast，那么主线程到底和子线程有什么区别呢？</p>
+<p>这里就不得不说Looper这个类，通过Looper类的源码和使用过程，来深入理解主线程这个概念。</p>
+<p>我们先来看Looper的典型使用方式：</p>
+<h2 id="如何正确的主线程运行代码"><a href="#如何正确的主线程运行代码" class="headerlink" title="如何正确的主线程运行代码"></a>如何正确的主线程运行代码</h2><p>网络请求不允许在主线程运行，必须在子线程发出请求。如果需要切换主线程，可以如下面的方式：</p>
+<p>声明一个callback</p>
+<pre><code>public interface MyCallback {
+    void onSuccess(String result);
+}
+</code></pre><p>创建主线程的Handler，然后将回调post到主线程执行</p>
+<pre><code>public class SubThreadTest {
+    static Handler handler  = new Handler(Looper.getMainLooper());
+    public static void mockRequest(final String url, final MyCallback callback){
+        handler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                callback.onSuccess(url);
+            }
+        });
+    }
+}
+</code></pre><p>调用示例</p>
+<pre><code>public class MainActivity extends ActionBarActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                SubThreadTest.mockRequest(&quot;heheda&quot;, new MyCallback() {
+
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println(Thread.currentThread().getName()+&quot; : &quot;+result);
+                        Toast.makeText(getApplicationContext(), result, 0).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+}
+</code></pre><p>代码是如何切换到主线程运行的呢？其中的关键在于这句：</p>
+<pre><code>Handler handler  = new Handler(Looper.getMainLooper());
+</code></pre><p>这里的<code>Looper.getMainLooper()</code>将会获取主线程的Looper，然后Handler就可以将代码post到主线程运行。</p>
+<h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><h3 id="从子线程Toast无法弹出说起"><a href="#从子线程Toast无法弹出说起" class="headerlink" title="从子线程Toast无法弹出说起"></a>从子线程Toast无法弹出说起</h3><p>当我们在子线程运行类似弹出Toast这样的UI操作时，会看到这个错误</p>
+<pre><code>java.lang.RuntimeException: Can&apos;t create handler inside thread that has not called Looper.prepare()
+</code></pre><p>我们可以从这个错误入手，看看Looper是怎么和线程相关联的。</p>
+<p>在Toast的makeText方法中，new了一个Toast对象，然后Toast的构造函数中实例化了一个TN对象：</p>
+<pre><code>public Toast(Context context) {
+    mContext = context;
+    mTN = new TN();
+    mTN.mY = context.getResources().getDimensionPixelSize(
+            com.android.internal.R.dimen.toast_y_offset);
+    mTN.mGravity = context.getResources().getInteger(
+            com.android.internal.R.integer.config_toastDefaultGravity);
+}
+</code></pre><p>而在这个TN类中，创建了一个Handler对象：</p>
+<pre><code>private static class TN extends ITransientNotification.Stub {
+       final Handler mHandler = new Handler();
+       ...
+}
+</code></pre><p>最终是在Handler的构造函数中抛出了这个异常：</p>
+<pre><code>public Handler(Callback callback, boolean async) {
+
+    if (FIND_POTENTIAL_LEAKS) {
+        final Class&lt;? extends Handler&gt; klass = getClass();
+        if ((klass.isAnonymousClass() || klass.isMemberClass() || klass
+                .isLocalClass())
+                &amp;&amp; (klass.getModifiers() &amp; Modifier.STATIC) == 0) {
+            Log.w(TAG,
+                    &quot;The following Handler class should be static or leaks might occur: &quot;
+                            + klass.getCanonicalName());
+        }
+    }
+
+    mLooper = Looper.myLooper();
+    if (mLooper == null) {
+        throw new RuntimeException(
+                &quot;Can&apos;t create handler inside thread that has not called Looper.prepare()&quot;);
+    }
+    mQueue = mLooper.mQueue;
+    mCallback = callback;
+    mAsynchronous = async;
+}
+</code></pre><p>其中的<code>Looper.myLooper()</code>：</p>
+<pre><code>public static @Nullable Looper myLooper() {
+    return sThreadLocal.get();
+}
+</code></pre><p>将会从ThreadLocal中获取当前线程的Looper示例。</p>
+<h3 id="ThreadLocal简要分析"><a href="#ThreadLocal简要分析" class="headerlink" title="ThreadLocal简要分析"></a>ThreadLocal简要分析</h3><p>ThreadLocal是一个可以在不同线程中保存不同值的类，其内部有一个ThreadLocalMap的内部类，以线程为键（实际上是线程的哈希值为键）保存不同的值。</p>
+<p>看下其get和set方法就明白了</p>
+<pre><code>// set方法
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);// 获取当前线程的Map
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+
+// get方法
+public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);// 获取当前线程的Map
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings(&quot;unchecked&quot;)
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+</code></pre><p>这样就可以在不同的线程中设置不同的looper，然后在各自的线程中取出来使用。</p>
+<h3 id="Looper分析"><a href="#Looper分析" class="headerlink" title="Looper分析"></a>Looper分析</h3><p>Looper的创建调用的是Looper的<code>prepare()</code>方法, 然后会调用有参数的<code>prepare(boolean quitAllowed)</code>方法:</p>
+<pre><code> public static void prepare() {
+    prepare(true);
+}
+
+private static void prepare(boolean quitAllowed) {
+    if (sThreadLocal.get() != null) {
+        throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);
+    }
+    sThreadLocal.set(new Looper(quitAllowed));
+}
+</code></pre><p>其中<code>quitAllowed</code>这个参数决定了当前的looper是否允许退出。</p>
+<p>这个方法是私有的，我们默认只能调用无参数的prepare方法，我们创建的looper都可以退出。</p>
+<p>那么什么Looper不允许退出呢？答案是主线程Looper。</p>
+<pre><code>public static void prepareMainLooper() {
+    prepare(false);
+    synchronized (Looper.class) {
+        if (sMainLooper != null) {
+            throw new IllegalStateException(&quot;The main Looper has already been prepared.&quot;);
+        }
+        sMainLooper = myLooper();
+    }
+}
+</code></pre><p>一旦创建就不会退出。</p>
+<p>然后是Looper的执行，loop方法：</p>
+<pre><code>public static void loop() {
+    final Looper me = myLooper();
+    ...
+    final MessageQueue queue = me.mQueue;
+    boolean slowDeliveryDetected = false;
+    // 一个死循环，looper不退出的情况下将持续运行
+    for (;;) {
+        Message msg = queue.next(); // 从queue中取出消息，queue中没有消息时将休息，不会阻塞线程
+        if (msg == null) {
+            // No message indicates that the message queue is quitting.
+            return;
+        }
+        ...
+    }
+}
+</code></pre><p><code>Looper.loop();</code>可以启动当前线程的looper，looper启动后将不断获取<code>MessageQueue</code>中的消息。</p>
+<p>这里之所以不会阻塞，可以查看gityuan大神的回答：<a href="https://www.zhihu.com/question/34652589/answer/90344494" target="_blank" rel="noopener">Android中为什么主线程不会因为Looper.loop()里的死循环卡死？</a></p>
+<h2 id="另一种在主线程运行的方式"><a href="#另一种在主线程运行的方式" class="headerlink" title="另一种在主线程运行的方式"></a>另一种在主线程运行的方式</h2><p>由上面的源码可以看出，当我们在子线程执行类似弹出Toast的操作时，还可以通过在子线程自己创建looper的方式执行。</p>
+<p>如下所示：</p>
+<pre><code>Looper.prepare();
+Toast.makeText(getApplicationContext(), &quot;test&quot;, Toast.LENGTH_SHORT).show();
+Looper.loop();
+</code></pre><p>这样这个线程中就存在了looper，也就不会报下面这个错误了：</p>
+<pre><code>java.lang.RuntimeException: Can&apos;t create handler inside thread that has not called Looper.prepare()
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里仅仅过了一遍Looper和ThreadLocal的源码，如果要详细分析Android消息机制，需要结合Android应用启动过程分析。将会设计ActivityThread、MessageQueue、Message、Handler等类，以后有时间再分析吧。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-06-19T12:00:56.361Z" itemprop="dateUpdated">2019-06-19 20:00:56</time>
+</span><br>
+
+
+        
+        本文章遵循署名-非商业性使用 4.0 国际 (<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">CC BY-NC 4.0</a>) 共享协议, 如果觉得对你有帮助，可以打赏我一杯咖啡☕
+        
+    </div>
+    
+    <footer>
+        <a href="http://smarxpan.github.io">
+            <img src="/img/avatar.jpg" alt="聪明叉">
+            聪明叉
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/03/22/Looper解析/&title=《Looper解析》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/03/22/Looper解析/&title=《Looper解析》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/03/22/Looper解析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Looper解析》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/03/22/Looper解析/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/03/22/Looper解析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/04/13/MIUI跳转至权限设置页面/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MIUI跳转至权限设置页面</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/04/Mac使用指南/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Mac使用指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="/gitment/style/default.css">
+    <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: 'Wed Mar 22 2017 15:15:30 GMT+0800',
+            owner: 'smarxpan',
+            repo: 'smarxpan.github.io',
+            oauth: {
+                client_id: '35ae1cfc4ef06f4bc223',
+                client_secret: 'cd0792c674f8e6ae0321d20b69a76086c477c1da',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>聪明叉 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://smarxpan.github.io/2017/03/22/Looper解析/&title=《Looper解析》 — 聪明叉的博客&pic=http://smarxpan.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://smarxpan.github.io/2017/03/22/Looper解析/&title=《Looper解析》 — 聪明叉的博客&source=持志如心痛" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://smarxpan.github.io/2017/03/22/Looper解析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Looper解析》 — 聪明叉的博客&url=http://smarxpan.github.io/2017/03/22/Looper解析/&via=http://smarxpan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://smarxpan.github.io/2017/03/22/Looper解析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNUlEQVR42u3aS27DMAxF0ex/0y5QdJbavo9Uipq6GgWoPzoesCTF1wuv43u9/36/5vrK42SdPWHxkiFDxmMZx+UiL7i+l3yIs7+SvcmQIWMfBgmyhEeC7PW9PLjLkCFDRhoir6/hz5QhQ4aMPqMTZK83nRbMMmTI2I1Biti04OSdMZ6SLqjFZciQ8UBG52Dg07//6HxDhgwZ/5hxhCstYnnTrbafn3tlyJAxmsFfsKr4jEtT/HYZMmTsw6jlXfyVfKQjbrrJkCFjKIO31XgIXjU6xj+EDBkyZjPShtraxK52FHrzFhkyZAxl1DJKEjr5k3kxLEOGjJ0ZnfGLTjNu2UiHDBkyhjI641n8ODP9TGmJK0OGjNkMftzIU8BaUkieH//fkCFDxghGZyQiaNbjjfJg/cv/DRkyZAxl8HIxHaeoNfpr7TwZMmTMZqCzTRw6eaO/doQZzIzIkCFjG0baDktbdSS4oz3IkCFjA0Y81lBqtHUOSm/adjJkyBjNSJtrJFHjQZkfQvBDTRkyZMxjdJryfIKUlKO1glmGDBl7MmoDFq8PrCD4ypAhYzSjs7l+44yH8uBKGTJkjGMc4QrSNZwOcvDpc2TIkDGakSZqa1/M71qWmMqQIeOxjDTI8jDaBwdJpAwZMjZgpGUqaeJ3thsX2zJkyJCBBylIqO1/PhkyZMhI21t8aKPTyLv5WDJkyNiAUStT03Gu9GAgSChlyJAxmlE7GOBpYn84bNk4mgwZMp7H+ALRIlvR8ITdSwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '春起之苗, 不见其增, 日有所长';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '持志如心痛';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

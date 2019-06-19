@@ -152,6 +152,177 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-一个可应用的动态加载dex实践" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-04-07 18:05:54" datetime="2016-04-07T10:05:54.000Z" itemprop="datePublished">2016-04-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/04/07/一个可应用的动态加载dex实践/">一个可应用的动态加载dex实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
+这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
+本文参考链接先行放出：
+
+Android dex分包方案
+HoxFix项目
+Android 热补丁动态修复框架小结
+
+    
+
+        <a href="/2016/04/07/一个可应用的动态加载dex实践/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-搭建Hexo最佳实践" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-04-07 17:07:34" datetime="2016-04-07T09:07:34.000Z" itemprop="datePublished">2016-04-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/04/07/搭建Hexo最佳实践/">搭建Hexo最佳实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
+安装
+安装npm
+curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+windows请自行下载安装包
+
+安装git
+window自行下载安装
+mac使用homebrew brew install git
+linux sudo apt-get install git-core
+
+
+安装hexomac使用命令
+sudo npm install hexo-cli -g
+windows使用
+npm install hexo-cli -g
+
+hexo初始化    
+hexo init blog
+cd blog
+npm install
+其中hexo init blog中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了
+
+安装插件
+npm install hexo-deployer-git --save
+npm install hexo-generator-sitemap --save
+npm install hexo-generator-feed --save
+上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件
+
+
+    
+
+        <a href="/2016/04/07/搭建Hexo最佳实践/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-算法系列-1-简单排序" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-04-03 00:01:56" datetime="2016-04-02T16:01:56.000Z" itemprop="datePublished">2016-04-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/04/03/算法系列-1-简单排序/">算法系列(1)--简单排序算法</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
+冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
+有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
+第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.
+    
+
+        <a href="/2016/04/03/算法系列-1-简单排序/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-多渠道打包总结" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -350,61 +521,12 @@ productFlavors {
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-Android源码学习笔记" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2010-06-10 20:48:33" datetime="2010-06-10T12:48:33.000Z" itemprop="datePublished">2010-06-10</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2010/06/10/Android源码学习笔记/">Android源码学习笔记</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Android源码学习笔记本文学习均基于Android P源码
-系统初始化init初始化服务所在的类为 system/core/init/main.cpp，不再是以前的system/core/init/init.cpp，Android P将初始化过程拆分了。
-// system/core/init/main.cpp
-
-int main(int argc, char** argv) {
-#if...
-    
-
-        <a href="/2010/06/10/Android源码学习笔记/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
     </div>
 </nav>
 

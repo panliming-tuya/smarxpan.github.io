@@ -152,6 +152,186 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-how_to_use_singleton" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-29 10:15:28" datetime="2016-06-29T02:15:28.000Z" itemprop="datePublished">2016-06-29</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/29/how_to_use_singleton/">老司机来教你单例的正确姿势</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        老司机来教你单例的正确姿势Java单例模式可能是最简单也是最常用的设计模式，一个完美的单例需要做到哪些事呢？
+
+单例（这不是废话吗）
+延迟加载
+线程安全
+没有性能问题
+防止序列化产生新对象
+防止反射攻击
+
+可以看到，真正要实现一个完美的单例是很复杂的，那么，让我这个司机带大家看一看正确姿势的单例。
+最佳实践单例之枚举没错，直接就上最佳实践，就是这么任性
+这货长这样： 
+public enum Singleton{
+    INSTANCE;
+}
+如果你不熟悉枚举，可能会说：这货是啥？！
+这种方式的好处是：
+
+利用的枚举的特性实现单例
+由JVM保证线程安全
+序列化和反射攻击已经被枚举解决
+
+调用方式为Singleton.INSTANCE, 出自《Effective Java》第二版第三条: 用私有构造器或枚举类型强化Singleton属性。
+
+关于单例最佳实践的讨论可以看Stackoverflow：what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java
+
+下面将会介绍更为常见的单例模式，但是均未处理反射攻击，如果想了解更多可以看这篇文章：如何防止单例模式被JAVA反射攻击
+    
+
+        <a href="/2016/06/29/how_to_use_singleton/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-how_to_use_annotation" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-20 15:15:30" datetime="2016-06-20T07:15:30.000Z" itemprop="datePublished">2016-06-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/20/how_to_use_annotation/">Android进阶之自定义注解</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Android进阶之自定义注解本篇文章内容包括: 
+
+注解的概念
+元注解
+自定义注解
+Android自定义编译时注解
+
+如果使用过ButterKnife, EventBus, Retrofit, Dagger等框架, 你对注解一定不会陌生. 但是注解背后究竟有什么魔法, 可以做这么不可思议的事情. 
+什么是注解先来看看Java文档中的定义
+
+An annotation is a form of metadata, that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated. Annotations have no direct effect on the operation of the code they annotate.
+
+注解是一种元数据, 可以添加到java代码中. 类、方法、变量、参数、包都可以被注解，注解对注解的代码没有直接影响. 
+首先, 明确一点: 注解并没有什么魔法, 之所以产生作用, 是对其解析后做了相应的处理. 注解仅仅只是个标记罢了.
+定义注解用的关键字是@interface
+    
+
+        <a href="/2016/06/20/how_to_use_annotation/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-android-navigator-best-practice" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2016-06-08 15:15:28" datetime="2016-06-08T07:15:28.000Z" itemprop="datePublished">2016-06-08</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/06/08/android-navigator-best-practice/">Activity跳转最佳实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Activity跳转最佳实践学习Android-CleanArchitecture时, 注意到它用了一个Navigator类统一管理Activity跳转, 统一管理的好处相信不用我多说, 让我们一起来学习一个.
+传统写法跳转不需要参数时:
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+跳转需要参数那就是
+Intent intent = new Intent(this, SecondActivity.class);
+intent.putExtra(&quot;key&quot;,&quot;someValue&quot;);
+startActivity(intent);
+这样写可能会发生一不小心写错了key, 或者传递的数据需要修改时, 改动的地方较多. 而统一使用一个类控制, 会干净舒服很多.
+    
+
+        <a href="/2016/06/08/android-navigator-best-practice/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-Lamada表达式" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -381,183 +561,12 @@ provided &apos;javax.annotation:jsr250-api:1.0&apos;
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-一个可应用的动态加载dex实践" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-07 18:05:54" datetime="2016-04-07T10:05:54.000Z" itemprop="datePublished">2016-04-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/07/一个可应用的动态加载dex实践/">一个可应用的动态加载dex实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        动态加载dex一般应用于触及到65535方法数天花板或者有特殊需求的Android应用中， 这里我参考HotFix项目和鸿洋的博客，搞了个可实际应用于项目中的实例。这里只是热修复的简化版，也就是仅仅动态注入dex，并未处理CLASS_ISPREVERIFIED标志。
-这里只是动态加载比较初级的形式, 接下来我后续还会实践动态加载的种种黑科技(^_^)
-本文参考链接先行放出：
-
-Android dex分包方案
-HoxFix项目
-Android 热补丁动态修复框架小结
-
-    
-
-        <a href="/2016/04/07/一个可应用的动态加载dex实践/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-搭建Hexo最佳实践" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-07 17:07:34" datetime="2016-04-07T09:07:34.000Z" itemprop="datePublished">2016-04-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/07/搭建Hexo最佳实践/">搭建Hexo最佳实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        网上确实有很多搭建gitpage+hexo博客的教程, 但都不能让我step by step一站式解决, 还是自己撸一篇搭建方式吧
-安装
-安装npm
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-windows请自行下载安装包
-
-安装git
-window自行下载安装
-mac使用homebrew brew install git
-linux sudo apt-get install git-core
-
-
-安装hexomac使用命令
-sudo npm install hexo-cli -g
-windows使用
-npm install hexo-cli -g
-
-hexo初始化    
-hexo init blog
-cd blog
-npm install
-其中hexo init blog中的blog是hexo安装的文件夹, 可以自行指定, 以后写博客都是在这个目录了
-
-安装插件
-npm install hexo-deployer-git --save
-npm install hexo-generator-sitemap --save
-npm install hexo-generator-feed --save
-上述三个插件分别是git部署, 生成搜索引擎网站地图, 生成RSS订阅插件
-
-
-    
-
-        <a href="/2016/04/07/搭建Hexo最佳实践/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-算法系列-1-简单排序" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-04-03 00:01:56" datetime="2016-04-02T16:01:56.000Z" itemprop="datePublished">2016-04-03</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/04/03/算法系列-1-简单排序/">算法系列(1)--简单排序算法</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        简单排序简单排序有三种, 冒泡排序,选择排序,插入排序
-冒泡排序冒泡排序是一种易于实现的排序算法, 以升序为例:
-有n个数, 需要比较n-1轮, 每轮比较数组中相邻的两个数, 前者大就交换两数. 
-第一轮时, 最大的数就会如冒泡般移向队尾, 下一轮比较就可以少比较一个数.
-    
-
-        <a href="/2016/04/03/算法系列-1-简单排序/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
     </div>
 </nav>
 

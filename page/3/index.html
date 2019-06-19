@@ -152,6 +152,156 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-06 21:05:21" datetime="2017-12-06T13:05:21.000Z" itemprop="datePublished">2017-12-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/12/06/Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信/">Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        网络请求框架使用的retrofit，客户端与服务端之间需要加密通信并且请求需要gzip压缩。为完成这一需求，需要拦截请求和响应。特此记录下修改请求的过程，希望可以帮助有需要的人。
+处理requestretrofit2使用okhttp3.x，请求上的处理只需要给okhttp添加拦截器即可
+这里与服务端通信相互之间对称加密，并且需要开启gzip压缩，因此这里定义了三个拦截器完成这一需求
+
+修改请...
+    
+
+        <a href="/2017/12/06/Retrofit2自定义拦截器和ConverterFactory实现客户端与服务端加密通信/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-布局优化之ViewStub、include、merge源码分析" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-06-10 15:15:30" datetime="2017-06-10T07:15:30.000Z" itemprop="datePublished">2017-06-10</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/06/10/布局优化之ViewStub、include、merge源码分析/">布局优化之ViewStub、include、merge源码分析</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        关于布局复用或减少布局层级，有三个标签可能会常常用到，下面分析其源码，探究原理。
+include按照官方的意思，include就是为了解决重复定义相同布局的问题。
+对于布局文件的解析，最终都会调用到LayoutInflater的inflate方法，该方法最终又会调用rInflate方法。
+下面是rInflate方法源码：
+/** 
+ * Recursive method used to de...
+    
+
+        <a href="/2017/06/10/布局优化之ViewStub、include、merge源码分析/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-CentOS6-7和Ubuntu安装shadowsocks-libv" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-05-03 15:15:30" datetime="2017-05-03T07:15:30.000Z" itemprop="datePublished">2017-05-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/05/03/CentOS6-7和Ubuntu安装shadowsocks-libv/">CentOS6/7和Ubuntu安装shadowsocks-libev及使用</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        CentOS6/7安装
+安装Fedora软件源
+cd /etc/yum.repos.d/
+wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
+
+update
+sudo yum update
+
+安装
+sudo yum inst...
+    
+
+        <a href="/2017/05/03/CentOS6-7和Ubuntu安装shadowsocks-libv/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-编程的智慧by王垠" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -293,7 +443,7 @@ localIntent.setClassName(&quot;com.miui.securitycenter&quot;, &quot;com.miui.per
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Looper的有趣问题" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-Looper解析" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-03-22 15:15:30" datetime="2017-03-22T07:15:30.000Z" itemprop="datePublished">2017-03-22</time>
@@ -308,7 +458,7 @@ localIntent.setClassName(&quot;com.miui.securitycenter&quot;, &quot;com.miui.per
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/03/22/Looper的有趣问题/">Looper解析</a>
+      <a class="post-title-link" href="/2017/03/22/Looper解析/">Looper解析</a>
     </h3>
   
 
@@ -318,16 +468,15 @@ localIntent.setClassName(&quot;com.miui.securitycenter&quot;, &quot;com.miui.per
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Looper解析正确的主线程运行代码一个回调
-public interface MyCallback {
-    void onSuccess(String result);
-}
-创建主线程的Handler，然后将回调post到主线程执行
-public class SubThreadTest {
-    static Handler handler  = new Handler(Looper...
+        Looper解析我们都知道无法在子线程更新UI或者弹出Toast，那么主线程到底和子线程有什么区别呢？
+这里就不得不说Looper这个类，通过Looper类的源码和使用过程，来深入理解主线程这个概念。
+我们先来看Looper的典型使用方式：
+如何正确的主线程运行代码网络请求不允许在主线程运行，必须在子线程发出请求。如果需要切换主线程，可以如下面的方式：
+声明一个callback
+public...
     
 
-        <a href="/2017/03/22/Looper的有趣问题/" class="post-more waves-effect waves-button">
+        <a href="/2017/03/22/Looper解析/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -342,156 +491,12 @@ public class SubThreadTest {
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-Mac使用指南" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-02-04 15:15:30" datetime="2017-02-04T07:15:30.000Z" itemprop="datePublished">2017-02-04</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/02/04/Mac使用指南/">Mac使用指南</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Mac使用指南之前购入mac时，整理了一篇Mac使用指南，部分内容来自强迫症的 Mac 设置指南。
-系统设置功能键默认情况下，F1-F12 都是特殊功能，比如调节屏幕亮度。而当你需要键入 F1-F12 时（比如在使用 IntelliJ IDEA 的快捷键时），需要同时按住 Fn。这对于开发人员来说是非常不方便的。
-在系统偏好设置-&gt;键盘-&gt;键盘中，选择将F1、F2等键用作基本功能...
-    
-
-        <a href="/2017/02/04/Mac使用指南/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Mac设置开机启动" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-01-28 15:15:30" datetime="2017-01-28T07:15:30.000Z" itemprop="datePublished">2017-01-28</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/01/28/Mac设置开机启动/">Mac设置开机启动</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Mac设置开机启动
-本文针对命令行使用的开发工具或自己编写的脚本设置开机启动，图形化界面的程序仅需要设置-&gt;用户与群组-&gt;登录项中即可配置。
-
-相比于Linux开机启动设置的简单方便–配置rc.local文件即可，mac设置开机启动略显麻烦。
-如果是使用homebrew安装软件自然不用考虑开机启动这回事，但有时候想执行自己的脚本或者有特殊需求，就不得不自己处理开机启动了。
-1. ...
-    
-
-        <a href="/2017/01/28/Mac设置开机启动/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Rails学习笔记" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-01-23 15:15:30" datetime="2017-01-23T07:15:30.000Z" itemprop="datePublished">2017-01-23</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/01/23/Rails学习笔记/">Rails学习笔记</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Rails学习笔记git操作使用 Git 之前，要做些一次性设置。这些设置对整个系统都有效，因此一台电脑只需设置一次：
-git config --global user.name &quot;Your Name&quot;
-git config --global user.email your.email@example.com
-初始化一个新仓库：
-git init
-把项目中的所有文件都放到...
-    
-
-        <a href="/2017/01/23/Rails学习笔记/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rails/">Rails</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
     </div>
 </nav>
 
