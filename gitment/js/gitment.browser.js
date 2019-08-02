@@ -133,7 +133,7 @@ if ((typeof __MOBX_DEVTOOLS_GLOBAL_HOOK__ === "undefined" ? "undefined" : _typeo
 }
 module.exports.default = module.exports;
 var actionFieldDecorator = createClassPropertyDecorator(function (target, key, value, args, originalDescriptor) {
-    var actionName = args && args.length === 1 ? args[0] : value.name || key || "<unnamed action="">";
+    var actionName = args && args.length === 1 ? args[0] : value.name || key || "<unnamed action>";
     var wrappedAction = action(actionName, value);
     addHiddenProp(target, key, wrappedAction);
 }, function (key) {
@@ -149,7 +149,7 @@ var boundActionDecorator = createClassPropertyDecorator(function (target, key, v
     invariant(false, getMessage("m001"));
 }, false, false);
 var action = function action(arg1, arg2, arg3, arg4) {
-    if (arguments.length === 1 && typeof arg1 === "function") return createAction(arg1.name || "<unnamed action="">", arg1);
+    if (arguments.length === 1 && typeof arg1 === "function") return createAction(arg1.name || "<unnamed action>", arg1);
     if (arguments.length === 2 && typeof arg2 === "function") return createAction(arg1, arg2);
     if (arguments.length === 1 && typeof arg1 === "string") return namedActionDecorator(arg1);
     return namedActionDecorator(arg2).apply(null, arguments);
@@ -157,7 +157,7 @@ var action = function action(arg1, arg2, arg3, arg4) {
 exports.action = action;
 action.bound = function boundAction(arg1, arg2, arg3) {
     if (typeof arg1 === "function") {
-        var action_1 = createAction("<not yet="" bound="" action="">", arg1);
+        var action_1 = createAction("<not yet bound action>", arg1);
         action_1.autoBind = true;
         return action_1;
     }
@@ -175,7 +175,7 @@ function namedActionDecorator(name) {
     };
 }
 function runInAction(arg1, arg2, arg3) {
-    var actionName = typeof arg1 === "string" ? arg1 : arg1.name || "<unnamed action="">";
+    var actionName = typeof arg1 === "string" ? arg1 : arg1.name || "<unnamed action>";
     var fn = typeof arg1 === "function" ? arg1 : arg2;
     var scope = typeof arg1 === "function" ? arg2 : arg3;
     invariant(typeof fn === "function", getMessage("m002"));
@@ -505,7 +505,7 @@ function createObservable(v) {
         v = undefined;
     }
     if (typeof arguments[1] === "string") return deepDecorator.apply(null, arguments);
-    invariant(arguments.length <= 1,="" getmessage("m021"));="" invariant(!ismodifierdescriptor(v),="" getmessage("m020"));="" if="" (isobservable(v))="" return="" v;="" var="" res="deepEnhancer(v," undefined,="" undefined);="" (res="" !="=" v)="" res;="" observable.box(v);="" }="" iobservablefactories="function" ()="" {="" function="" iobservablefactories()="" {}="" iobservablefactories.prototype.box="function" (value,="" name)="" (arguments.length=""> 2) incorrectlyUsedAsDecorator("box");
+    invariant(arguments.length <= 1, getmessage("m021")); invariant(!ismodifierdescriptor(v), getmessage("m020")); if (isobservable(v)) return v; var res="deepEnhancer(v," undefined, undefined); (res !="=" v) res; observable.box(v); } iobservablefactories="function" () { function iobservablefactories() {} iobservablefactories.prototype.box="function" (value, name) (arguments.length> 2) incorrectlyUsedAsDecorator("box");
         return new ObservableValue(value, deepEnhancer, name);
     };
     IObservableFactories.prototype.shallowBox = function (value, name) {
@@ -2998,7 +2998,7 @@ function renderComments(_ref2, instance) {
         pagination.appendChild(pageItem);
       };
 
-      for (var i = 1; i <= pagecount;="" i++)="" {="" _loop(i);="" }="" if="" (currentpage="" <="" pagecount)="" var="" nextbutton="document.createElement('li');" nextbutton.classname="gitment-comments-page-item" ;="" nextbutton.innertext="Next" nextbutton.onclick="function" ()="" return="" instance.goto(currentpage="" +="" 1);="" };="" pagination.appendchild(nextbutton);="" container.appendchild(pagination);="" container;="" function="" rendereditor(_ref3,="" instance)="" user="_ref3.user," error="_ref3.error;" container="document.createElement('div');" container.lang="en-US" container.classname="gitment-container gitment-editor-container" shoulddisable="user.login" &&="" !error="" ?="" ''="" :="" 'disabled';="" disabledtip="user.login" 'login="" to="" comment';="" container.innerhtml="\n      " (user.login="" '<a="" class="gitment-editor-avatar" href="' + user.html_url + '" target="_blank">\n            <img class="gitment-editor-avatar-img" src="' + user.avatar_url + '">\n          ' : user.isLoggingIn ? '<div class="gitment-editor-avatar">' + _icons.spinner + '</div>' : '<a class="gitment-editor-avatar" href="' + instance.loginLink + '" title="login with GitHub">\n              ' + _icons.github + '\n            </a>') + '\n    \n    <div class="gitment-editor-main">\n      <div class="gitment-editor-header">\n        <nav class="gitment-editor-tabs">\n          <button class="gitment-editor-tab gitment-selected">Write</button>\n          <button class="gitment-editor-tab">Preview</button>\n        </nav>\n        <div class="gitment-editor-login">\n          ' + (user.login ? '<a class="gitment-editor-logout-link">Logout</a>' : user.isLoggingIn ? 'Logging in...' : '<a class="gitment-editor-login-link" href="' + instance.loginLink + '">Login</a> with GitHub') + '\n        </div>\n      </div>\n      <div class="gitment-editor-body">\n        <div class="gitment-editor-write-field">\n          <textarea placeholder="Leave a comment" title="' + disabledTip + '" '="" +="" shoulddisable=""></textarea>\n        </div>\n        <div class="gitment-editor-preview-field gitment-hidden">\n          <div class="gitment-editor-preview gitment-markdown"></div>\n        </div>\n      </div>\n    </div>\n    <div class="gitment-editor-footer">\n      <a class="gitment-editor-footer-tip" href="https://guides.github.com/features/mastering-markdown/" target="_blank">\n        Styling with Markdown is supported\n      </a>\n      <button class="gitment-editor-submit" title="' + disabledTip + '" '="" +="" shoulddisable="">Comment</button>\n    </div>\n  ';
+      for (var i = 1; i <= pagecount; i++) { _loop(i); } if (currentpage < pagecount) var nextbutton="document.createElement('li');" nextbutton.classname="gitment-comments-page-item" ; nextbutton.innertext="Next" nextbutton.onclick="function" () return instance.goto(currentpage + 1); }; pagination.appendchild(nextbutton); container.appendchild(pagination); container; function rendereditor(_ref3, instance) user="_ref3.user," error="_ref3.error;" container="document.createElement('div');" container.lang="en-US" container.classname="gitment-container gitment-editor-container" shoulddisable="user.login" && !error ? '' : 'disabled'; disabledtip="user.login" 'login to comment'; container.innerhtml="\n      " (user.login '<a class="gitment-editor-avatar" href="' + user.html_url + '" target="_blank">\n            <img class="gitment-editor-avatar-img" src="' + user.avatar_url + '">\n          ' : user.isLoggingIn ? '<div class="gitment-editor-avatar">' + _icons.spinner + '</div>' : '<a class="gitment-editor-avatar" href="' + instance.loginLink + '" title="login with GitHub">\n              ' + _icons.github + '\n            </a>') + '\n    \n    <div class="gitment-editor-main">\n      <div class="gitment-editor-header">\n        <nav class="gitment-editor-tabs">\n          <button class="gitment-editor-tab gitment-selected">Write</button>\n          <button class="gitment-editor-tab">Preview</button>\n        </nav>\n        <div class="gitment-editor-login">\n          ' + (user.login ? '<a class="gitment-editor-logout-link">Logout</a>' : user.isLoggingIn ? 'Logging in...' : '<a class="gitment-editor-login-link" href="' + instance.loginLink + '">Login</a> with GitHub') + '\n        </div>\n      </div>\n      <div class="gitment-editor-body">\n        <div class="gitment-editor-write-field">\n          <textarea placeholder="Leave a comment" title="' + disabledTip + '" ' + shoulddisable></textarea>\n        </div>\n        <div class="gitment-editor-preview-field gitment-hidden">\n          <div class="gitment-editor-preview gitment-markdown"></div>\n        </div>\n      </div>\n    </div>\n    <div class="gitment-editor-footer">\n      <a class="gitment-editor-footer-tip" href="https://guides.github.com/features/mastering-markdown/" target="_blank">\n        Styling with Markdown is supported\n      </a>\n      <button class="gitment-editor-submit" title="' + disabledTip + '" ' + shoulddisable>Comment</button>\n    </div>\n  ';
   if (user.login) {
     container.querySelector('.gitment-editor-logout-link').onclick = function () {
       return instance.logout();
